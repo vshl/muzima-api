@@ -4,11 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.mclinic.android</groupId>
-    <artifactId>mclinic-api</artifactId>
+    <groupId>com.muzima</groupId>
+    <artifactId>muzima-api</artifactId>
     <version>1.0</version>
 
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.0.13</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
@@ -30,7 +41,7 @@
             <version>3.0</version>
         </dependency>
         <dependency>
-            <groupId>com.mclinic.search</groupId>
+            <groupId>com.muzima</groupId>
             <artifactId>search-api</artifactId>
             <version>1.0</version>
         </dependency>
