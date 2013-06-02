@@ -19,6 +19,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Observation;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.ISO8601Util;
+import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Calendar;
 
 public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
 
@@ -97,11 +99,32 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public String serialize(final Searchable object) throws IOException {
-        // TODO: Add all other fields into the serialized String.
-        // serialize the minimum needed to identify an object for deletion purposes.
         Observation observation = (Observation) object;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", observation.getUuid());
+        jsonObject.put("person.uuid", observation.getPatientUuid());
+        jsonObject.put("encounter.uuid", observation.getEncounterUuid());
+        jsonObject.put("concept.name.name", observation.getQuestionName());
+        jsonObject.put("concept.uuid", observation.getQuestionUuid());
+
+        String valueNumeric = StringUtil.EMPTY;
+        String valueDatetime = StringUtil.EMPTY;
+        String valueCoded = StringUtil.EMPTY;
+        if (observation.getDataType() == Constants.TYPE_NUMERIC)
+            valueNumeric = observation.getValue();
+        if (observation.getDataType() == Constants.TYPE_DATE)
+            valueDatetime = observation.getValue();
+        if (observation.getDataType() == Constants.TYPE_STRING)
+            valueCoded = observation.getValue();
+
+        jsonObject.put("valueNumeric", valueNumeric);
+        jsonObject.put("valueDatetime", valueDatetime);
+        jsonObject.put("valueCoded", valueCoded);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(observation.getObservationDate());
+        jsonObject.put("obsDatetime", ISO8601Util.fromCalendar(calendar));
+
         return jsonObject.toJSONString();
     }
 }

@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Calendar;
 
 public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
 
@@ -81,11 +82,17 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public String serialize(final Searchable object) throws IOException {
-        // TODO: Add all other fields into the serialized String.
-        // serialize the minimum needed to identify an object for deletion purposes.
         Patient patient = (Patient) object;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", patient.getUuid());
+        jsonObject.put("personName.givenName", patient.getGivenName());
+        jsonObject.put("personName.middleName", patient.getMiddleName());
+        jsonObject.put("personName.familyName", patient.getFamilyName());
+        jsonObject.put("patientIdentifier.identifier", patient.getIdentifier());
+        jsonObject.put("gender", patient.getGender());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(patient.getBirthdate());
+        jsonObject.put("birthdate", ISO8601Util.fromCalendar(calendar));
         return jsonObject.toJSONString();
     }
 }
