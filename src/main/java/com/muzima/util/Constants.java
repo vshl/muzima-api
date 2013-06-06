@@ -33,7 +33,7 @@ public class Constants {
 
     public static final String RESOURCE_CONFIGURATION_PATH = "configuration.resource.path";
 
-    public static final String RESOURCE_CONFIGURATION_DEFAULT = "configuration.resource.default";
+    public static final String RESOURCE_CONFIGURATION_STREAM = "configuration.resource.stream";
     /*
      * OpenMRS server configuration.
      */

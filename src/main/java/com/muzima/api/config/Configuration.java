@@ -15,19 +15,20 @@
  */
 package com.muzima.api.config;
 
-import com.muzima.search.api.registry.DefaultRegistry;
-import com.muzima.search.api.registry.Registry;
 import com.muzima.util.Constants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * TODO: move this to model because we need to persist it between use.
  */
 public class Configuration {
 
-    private Registry<String, String> registry;
+    private Map<String, String> registry;
 
     public Configuration() {
-        registry = new DefaultRegistry<String, String>();
+        registry = new HashMap<String, String>();
     }
 
     /**
@@ -49,7 +50,7 @@ public class Configuration {
      * @return the base url of the openmrs server.
      */
     public String getServer() {
-        return registry.getEntryValue(Constants.CONNECTION_SERVER);
+        return registry.get(Constants.CONNECTION_SERVER);
     }
 
     /**
@@ -58,7 +59,7 @@ public class Configuration {
      * @param server the base url of the openmrs server.
      */
     public void setServer(final String server) {
-        registry.putEntry(Constants.CONNECTION_SERVER, server);
+        registry.put(Constants.CONNECTION_SERVER, server);
     }
 
     /**
@@ -67,7 +68,7 @@ public class Configuration {
      * @return the username of the openmrs server.
      */
     public String getUsername() {
-        return registry.getEntryValue(Constants.CONNECTION_USERNAME);
+        return registry.get(Constants.CONNECTION_USERNAME);
     }
 
     /**
@@ -76,7 +77,7 @@ public class Configuration {
      * @param username the username of the openmrs server.
      */
     public void setUsername(final String username) {
-        registry.putEntry(Constants.CONNECTION_USERNAME, username);
+        registry.put(Constants.CONNECTION_USERNAME, username);
     }
 
     /**
@@ -85,7 +86,7 @@ public class Configuration {
      * @return the password of the openmrs server.
      */
     public String getPassword() {
-        return registry.getEntryValue(Constants.CONNECTION_PASSWORD);
+        return registry.get(Constants.CONNECTION_PASSWORD);
     }
 
     /**
@@ -94,6 +95,6 @@ public class Configuration {
      * @param password the password of the openmrs server.
      */
     public void setPassword(final String password) {
-        registry.putEntry(Constants.CONNECTION_PASSWORD, password);
+        registry.put(Constants.CONNECTION_PASSWORD, password);
     }
 }

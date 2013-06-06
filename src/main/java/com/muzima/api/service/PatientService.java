@@ -14,13 +14,13 @@ import java.util.List;
  * TODO: add ability to search based on lucene like query syntax (merging name and identifier).
  */
 @ImplementedBy(PatientServiceImpl.class)
-public interface PatientService {
+public interface PatientService extends MuzimaInterface {
 
     /**
      * Download a single patient record from the patient rest resource into the local lucene repository.
      *
      * @param uuid the uuid of the patient.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download patient with matching uuid.
      */
     Patient downloadPatientByUuid(final String uuid) throws IOException;
@@ -41,7 +41,7 @@ public interface PatientService {
      *
      * @param patient the patient to be saved.
      * @return the saved patient.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     Patient savePatient(final Patient patient) throws IOException;
 
@@ -50,7 +50,7 @@ public interface PatientService {
      *
      * @param patient the patient to be updated.
      * @return the updated patient.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     Patient updatePatient(final Patient patient) throws IOException;
 
@@ -59,7 +59,7 @@ public interface PatientService {
      *
      * @param uuid the patient uuid
      * @return patient with matching uuid or null when no patient match the uuid
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return patient with matching uuid
      * @should return null when no patient match the uuid
      */
@@ -117,7 +117,7 @@ public interface PatientService {
      * Delete a single patient object from the local repository.
      *
      * @param patient the patient object.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should delete the patient object from the local repository.
      */
     void deletePatient(final Patient patient) throws IOException;

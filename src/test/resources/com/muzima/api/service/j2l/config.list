@@ -1,18 +1,242 @@
-LocalCredential.j2l
-LocalFormData.j2l
-LocalFormTemplate.j2l
-MemberCohort.j2l
-SearchCohort.j2l
-SearchForm.j2l
-SearchObservation.j2l
-SearchPatient.j2l
-SearchPrivilege.j2l
-SearchRole.j2l
-SearchUser.j2l
-UuidCohort.j2l
-UuidForm.j2l
-UuidObservation.j2l
-UuidPatient.j2l
-UuidPrivilege.j2l
-UuidRole.j2l
-UuidUser.j2l
+{
+    "configurations": [
+        {
+            "resource.name": "Local Credential Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Credential",
+            "algorithm.class": "com.muzima.api.model.algorithm.CredentialAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.LocalResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "username": "$['username']",
+                "userUuid": "$['user.uuid']"
+            }
+        },
+        {
+            "resource.name": "Local Form Data Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.FormData",
+            "algorithm.class": "com.muzima.api.model.algorithm.FormDataAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.LocalResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "status": "$['status']",
+                "userUuid": "$['user.uuid']",
+                "patientUuid": "$['patient.uuid']",
+                "templateUuid": "$['template.uuid']"
+            }
+        },
+        {
+            "resource.name": "Local Form Template Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.FormTemplate",
+            "algorithm.class": "com.muzima.api.model.algorithm.FormTemplateAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.LocalResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "formUuid": "$['form.uuid']"
+            }
+        },
+        {
+            "resource.name": "Cohort Member Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Member",
+            "algorithm.class": "com.muzima.api.model.algorithm.MemberAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.MemberCohortResolver",
+            "field.unique": null,
+            "field.searchable": {
+                "cohortUuid": "$['cohort.uuid']",
+                "patientUuid": "$['patient.uuid']"
+            }
+        },
+        {
+            "resource.name": "Search Cohort Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Cohort",
+            "algorithm.class": "com.muzima.api.model.algorithm.CohortAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchCohortResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Search Form Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Form",
+            "algorithm.class": "com.muzima.api.model.algorithm.FormAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchFormResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Search Observation Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Observation",
+            "algorithm.class": "com.muzima.api.model.algorithm.ObservationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchObservationResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "patientUuid": "$['person.uuid']",
+                "conceptUuid": "$['concept.uuid']",
+                "conceptName": "$['concept.name.name']"
+            }
+        },
+        {
+            "resource.name": "Search Patient Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Patient",
+            "algorithm.class": "com.muzima.api.model.algorithm.PatientAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchPatientResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "givenName": "$['personName.givenName']",
+                "middleName": "$['personName.middleName']",
+                "familyName": "$['personName.familyName']",
+                "identifier": "$['patientIdentifier.identifier']"
+            }
+        },
+        {
+            "resource.name": "Search Privilege Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Privilege",
+            "algorithm.class": "com.muzima.api.model.algorithm.PrivilegeAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchPrivilegeResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Search Role Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Role",
+            "algorithm.class": "com.muzima.api.model.algorithm.RoleAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchRoleResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Search User Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.User",
+            "algorithm.class": "com.muzima.api.model.algorithm.UserAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchUserResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "givenName": "$['person.personName.givenName']",
+                "middleName": "$['person.personName.middleName']",
+                "familyName": "$['person.personName.familyName']",
+                "username": "$['username']",
+                "systemId": "$['systemId']"
+            }
+        },
+        {
+            "resource.name": "Uuid Cohort Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Cohort",
+            "algorithm.class": "com.muzima.api.model.algorithm.CohortAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidCohortResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Uuid Form Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Form",
+            "algorithm.class": "com.muzima.api.model.algorithm.FormAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidFormResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Uuid Observation Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Observation",
+            "algorithm.class": "com.muzima.api.model.algorithm.ObservationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidObservationResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "patientUuid": "$['person.uuid']",
+                "conceptUuid": "$['concept.uuid']",
+                "conceptName": "$['concept.name.name']"
+            }
+        },
+        {
+            "resource.name": "Uuid Patient Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Patient",
+            "algorithm.class": "com.muzima.api.model.algorithm.PatientAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidPatientResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "givenName": "$['personName.givenName']",
+                "middleName": "$['personName.middleName']",
+                "familyName": "$['personName.familyName']",
+                "identifier": "$['patientIdentifier.identifier']"
+            }
+        },
+        {
+            "resource.name": "Uuid Privilege Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Privilege",
+            "algorithm.class": "com.muzima.api.model.algorithm.PrivilegeAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidPrivilegeResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Uuid Role Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Role",
+            "algorithm.class": "com.muzima.api.model.algorithm.RoleAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidRoleResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Uuid User Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.User",
+            "algorithm.class": "com.muzima.api.model.algorithm.UserAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidUserResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "givenName": "$['person.personName.givenName']",
+                "middleName": "$['person.personName.middleName']",
+                "familyName": "$['person.personName.familyName']",
+                "username": "$['username']",
+                "systemId": "$['systemId']"
+            }
+        }
+    ]
+}

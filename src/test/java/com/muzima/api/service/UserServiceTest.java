@@ -31,7 +31,7 @@ import java.util.UUID;
 public class UserServiceTest {
 
     @Test
-    public void operationCredential() throws Exception {
+    public void savingCredential() throws Exception {
 
         Context context = ContextFactory.createContext();
         UserService userService = context.getUserService();
