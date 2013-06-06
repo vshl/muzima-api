@@ -17,7 +17,7 @@ import java.util.List;
  * TODO: add ability to search based on lucene like query syntax (merging name and identifier).
  */
 @ImplementedBy(UserServiceImpl.class)
-public interface UserService {
+public interface UserService extends MuzimaInterface {
 
     /**
      * Download a single user record from the user rest resource into the local lucene repository.

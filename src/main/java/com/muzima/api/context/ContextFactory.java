@@ -36,13 +36,14 @@ public class ContextFactory {
     private static Properties contextProperties = new Properties();
 
     static {
+        contextProperties.setProperty(Constants.RESOURCE_CONFIGURATION_PATH, "../service/j2l/config.list");
         contextProperties.setProperty(
                 Constants.LUCENE_DIRECTORY_NAME, System.getProperty("java.io.tmpdir") + "/lucene");
         contextProperties.setProperty(Constants.LUCENE_DOCUMENT_KEY, OPENMRS_UUID);
     }
 
     /**
-     * Set a property's value for the context property.
+     * Set a property's value for the </code>ContextFactory</code>'s properties.
      *
      * @param property      the property name.
      * @param propertyValue the property value.
@@ -52,7 +53,16 @@ public class ContextFactory {
     }
 
     /**
-     * Set the context's properties to the properties object.
+     * Get a property's value from the </code>ContextFactory</code>'s properties.
+     *
+     * @param property the property name.
+     */
+    public static String getProperty(final String property) {
+        return getProperties().getProperty(property);
+    }
+
+    /**
+     * Set the context's properties using the properties object.
      *
      * @param properties the properties to be set as the context's properties.
      */
@@ -71,15 +81,21 @@ public class ContextFactory {
         return new Properties(contextProperties);
     }
 
-    // TODO: create context with different signature
-    // potential signatures are:
-    // * createContext(String path) --> path to the lucene location
-    // * createContext(Module ... modules) --> if the consumer wants to create different modules.
-    public static Context createContext() throws IOException {
+    /**
+     * Create context object for the muzima api. Before requesting a new context object, please set the following
+     * properties to suit your need:
+     * * Constants.LUCENE_DIRECTORY_NAME
+     * * Constants.LUCENE_DOCUMENT_KEY
+     * * Constants.RESOURCE_CONFIGURATION_PATH
+     *
+     * @return a fresh context.
+     * @throws IOException when creating context failed.
+     */
+    public static Context createContext() throws Exception {
         Module searchModule = new SearchModule();
         Module muzimaModule = new MuzimaModule(
-                contextProperties.getProperty(Constants.LUCENE_DIRECTORY_NAME),
-                contextProperties.getProperty(Constants.LUCENE_DOCUMENT_KEY));
+                getProperties().getProperty(Constants.LUCENE_DIRECTORY_NAME),
+                getProperties().getProperty(Constants.LUCENE_DOCUMENT_KEY));
         Module module = Modules.combine(searchModule, muzimaModule);
         Injector injector = Guice.createInjector(module);
         return new Context(injector);

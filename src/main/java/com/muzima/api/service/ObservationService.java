@@ -27,13 +27,13 @@ import java.util.List;
  * Service handling all operation to the @Observation actor/model
  */
 @ImplementedBy(ObservationServiceImpl.class)
-public interface ObservationService {
+public interface ObservationService extends MuzimaInterface {
 
     /**
      * Download a single observation record from the observation rest resource into the local lucene repository.
      *
      * @param uuid the uuid of the observation.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download observation with matching uuid.
      */
     Observation downloadObservationByUuid(final String uuid) throws IOException;
@@ -42,7 +42,7 @@ public interface ObservationService {
      * Download all observations with name similar to the partial name passed in the parameter.
      *
      * @param patientUuid the partial name of the observation to be downloaded. When empty, will return all observations available.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download all observation with partially matched name.
      * @should download all observation when name is empty.
      */
@@ -53,7 +53,7 @@ public interface ObservationService {
      *
      * @param observation the observation to be saved.
      * @return the saved observation.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     Observation saveObservation(final Observation observation) throws IOException;
 
@@ -62,7 +62,7 @@ public interface ObservationService {
      *
      * @param observation the observation to be updated.
      * @return the updated observation data.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     Observation updateObservation(final Observation observation) throws IOException;
 
@@ -71,7 +71,7 @@ public interface ObservationService {
      *
      * @param uuid the observation uuid.
      * @return the observation with matching uuid or null when no observation match the uuid.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return observation with matching uuid.
      * @should return null when no observation match the uuid.
      */
@@ -82,7 +82,7 @@ public interface ObservationService {
      *
      * @param patientUuid the uuid of the patient.
      * @return list of all observations for the patient or empty list when no observation found for the patient.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return list of all observations for the patient.
      * @should return empty list when no observation found for the patient.
      */
@@ -94,7 +94,7 @@ public interface ObservationService {
      * @param patientUuid the uuid of the patient.
      * @param conceptUuid the uuid of the concept.
      * @return list of all observations for the patient or empty list when no observation found for the patient.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return list of all observations for the patient.
      * @should return empty list when no observation found for the patient.
      */

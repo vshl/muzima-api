@@ -29,7 +29,7 @@ import java.util.List;
  * Service handling all operation to the @{Form} actor/model
  */
 @ImplementedBy(FormServiceImpl.class)
-public interface FormService {
+public interface FormService extends MuzimaInterface {
 
     /**
      * Download a single form record from the form rest resource into the local lucene repository.

@@ -28,7 +28,7 @@ import java.util.List;
  * Service handling all operation to the @{Cohort} actor/model
  */
 @ImplementedBy(CohortServiceImpl.class)
-public interface CohortService {
+public interface CohortService extends MuzimaInterface {
 
     /**
      * Download a single cohort record from the cohort rest resource and convert them into Cohort object.

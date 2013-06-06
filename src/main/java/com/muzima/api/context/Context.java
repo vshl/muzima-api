@@ -16,24 +16,35 @@
 package com.muzima.api.context;
 
 import com.google.inject.Injector;
+import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.config.Configuration;
 import com.muzima.api.model.User;
 import com.muzima.api.service.CohortService;
 import com.muzima.api.service.FormService;
+import com.muzima.api.service.MuzimaInterface;
 import com.muzima.api.service.ObservationService;
 import com.muzima.api.service.PatientService;
 import com.muzima.api.service.UserService;
 import com.muzima.search.api.context.ServiceContext;
+import com.muzima.search.api.exception.ServiceException;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.model.resolver.Resolver;
 import com.muzima.search.api.model.serialization.Algorithm;
+import com.muzima.search.api.resource.ObjectResource;
+import com.muzima.search.api.resource.Resource;
 import com.muzima.search.api.resource.ResourceConstants;
+import com.muzima.search.api.util.StringUtil;
+import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
-import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: Write brief description about the class here.
@@ -44,72 +55,132 @@ public class Context {
 
     private static final ThreadLocal<UserContext> userContextHolder = new ThreadLocal<UserContext>();
 
-    public Context(final Injector injector) throws IOException {
-        setInjector(injector);
-        initService(injector);
-        initConfiguration(injector);
-    }
-
-    private void setInjector(final Injector injector) {
+    Context(final Injector injector) throws Exception {
         this.injector = injector;
+
+        initService();
+        initConfiguration();
     }
 
-    private void initService(final Injector injector) throws IOException {
-        // TODO: this should be replaced with a classpath scanner.
-        // Approach:
-        // * Create marker (annotation) for Object, Algorithm and Resolver.
-        // * Register it to the ServiceContext of the search api.
-        // Once we have classpath scanner we can probably kick off the scanner here.
-        // TODO: a better approach will be reading the config and the loading the class
-        // Approach:
-        // * Get the configuration file.
-        // * Read the object, algorithm, and resolver line to get the class name.
-        // * Do: Class c = Class.forName() using the class name from above.
-        // * Do: Object o = inject.getInstance(c).
-        // * Register object according to their type registerObject, registerAlgorithm, or registerResolver.
-        // TODO: Create a list of all available configuration file to load j2l automatically.
-        // Approach:
-        // * Create a list of all configuration file (list of j2l file names, just like they list hbm files).
-        // * TODO: need to add a new method in the search api to register resource using InputStream --done
-        // * Read each line and use Class.getResourceAsStream(path to j2l) and then register each of them.
+    /**
+     * Initialize the service layer based on the configuration string passed to the search api. The order system will
+     * look for the configuration document in the following location:
+     * * Stream object in the properties with key: Constants.RESOURCE_CONFIGURATION_STREAM
+     * * File object in the properties with key: Constants.RESOURCE_CONFIGURATION_STREAM
+     * * File object in classpath with path defined in the properties with key: Constants.RESOURCE_CONFIGURATION_PATH
+     * * File object in filesystem with path defined in the properties with key: Constants.RESOURCE_CONFIGURATION_PATH
+     *
+     * @throws Exception when the service can't find the input stream.
+     */
+    private void initService() throws Exception {
+        InputStream inputStream = null;
         ServiceContext serviceContext = injector.getInstance(ServiceContext.class);
-        for (String configuration : DefaultResource.getDefaultConfiguration()) {
-            try {
-                InputStream inputStream = new ByteArrayInputStream(configuration.getBytes());
-                Properties properties = new Properties();
-                properties.load(inputStream);
-                inputStream.close();
-
-                String searchableName = properties.getProperty(ResourceConstants.RESOURCE_SEARCHABLE);
-                Class searchableClass = Class.forName(searchableName);
-                Searchable searchable = (Searchable) injector.getInstance(searchableClass);
-                serviceContext.registerSearchable(searchable);
-
-                String algorithmName = properties.getProperty(ResourceConstants.RESOURCE_ALGORITHM_CLASS);
-                Class algorithmClass = Class.forName(algorithmName);
-                Algorithm algorithm = (Algorithm) injector.getInstance(algorithmClass);
-                serviceContext.registerAlgorithm(algorithm);
-
-                String resolverName = properties.getProperty(ResourceConstants.RESOURCE_URI_RESOLVER_CLASS);
-                Class resolverClass = Class.forName(resolverName);
-                Resolver resolver = (Resolver) injector.getInstance(resolverClass);
-                serviceContext.registerResolver(resolver);
-            } catch (ClassNotFoundException e) {
-                throw new IOException("Unable to register resource for: " + configuration, e);
+        Object object = ContextFactory.getProperties().get(Constants.RESOURCE_CONFIGURATION_STREAM);
+        if (object != null) {
+            if (object instanceof InputStream) {
+                inputStream = (InputStream) object;
+            } else if (object instanceof File) {
+                inputStream = new FileInputStream((File) object);
             }
         }
+        if (inputStream == null) {
+            String configurationPath = ContextFactory.getProperty(Constants.RESOURCE_CONFIGURATION_PATH);
+            if (!StringUtil.isEmpty(configurationPath)) {
+                inputStream = Context.class.getResourceAsStream(configurationPath);
+                if (inputStream == null) {
+                    inputStream = new FileInputStream(new File(configurationPath));
+                }
+            }
+        }
+        if (inputStream == null) {
+            throw new IOException(
+                    "Unable to find suitable configuration document to setup the service layer!" +
+                            "Please configure it using: Constants.RESOURCE_CONFIGURATION_STREAM or" +
+                            "Constants.RESOURCE_CONFIGURATION_PATH property in the ContextFactory.");
+        }
+        registerResources(inputStream, serviceContext);
+    }
 
-        for (String configuration : DefaultResource.getDefaultConfiguration()) {
-            InputStream inputStream = new ByteArrayInputStream(configuration.getBytes());
-            serviceContext.registerResource(inputStream);
-            inputStream.close();
+    /**
+     * Internal method to register resource configurations inside the input stream.
+     *
+     * @param inputStream the configuration's input stream.
+     * @throws IOException when the parser fail to read the configuration file
+     */
+    private void registerResources(final InputStream inputStream, final ServiceContext serviceContext) throws Exception {
+        List<Object> configurations = JsonPath.read(inputStream, "$['configurations']");
+        for (Object configuration : configurations) {
+            Resource resource = createResource(configuration.toString());
+            serviceContext.registerResource(resource.getName(), resource);
         }
     }
 
-    private void initConfiguration(final Injector injector) throws IOException {
+    /**
+     * Internal method to convert configuration string into the resource object.
+     *
+     * @param configuration the configuration.
+     * @return the resource object
+     * @throws IOException when the parser fail to read the configuration file
+     */
+    private Resource createResource(final String configuration) throws Exception {
+
+        String name = JsonPath.read(configuration, ResourceConstants.RESOURCE_NAME);
+        String root = JsonPath.read(configuration, ResourceConstants.ROOT_NODE);
+        if (StringUtil.isEmpty(root)) {
+            throw new ServiceException("Unable to create resource because of missing root node.");
+        }
+
+        String searchableName = JsonPath.read(configuration, ResourceConstants.SEARCHABLE_CLASS);
+        if (StringUtil.isEmpty(root)) {
+            throw new ServiceException("Unable to create resource because of missing searchable node.");
+        }
+        Class searchableClass = Class.forName(searchableName);
+        Searchable searchable = (Searchable) getInjector().getInstance(searchableClass);
+
+        String algorithmName = JsonPath.read(configuration, ResourceConstants.ALGORITHM_CLASS);
+        if (StringUtil.isEmpty(root)) {
+            throw new ServiceException("Unable to create resource because of missing algorithm node.");
+        }
+        Class algorithmClass = Class.forName(algorithmName);
+        Algorithm algorithm = (Algorithm) getInjector().getInstance(algorithmClass);
+
+        String resolverName = JsonPath.read(configuration, ResourceConstants.RESOLVER_CLASS);
+        if (StringUtil.isEmpty(root)) {
+            throw new ServiceException("Unable to create resource because of missing resolver node.");
+        }
+        Class resolverClass = Class.forName(resolverName);
+        Resolver resolver = (Resolver) getInjector().getInstance(resolverClass);
+
+        List<String> uniqueFields = new ArrayList<String>();
+        String uniqueField = JsonPath.read(configuration, ResourceConstants.UNIQUE_FIELD);
+        if (uniqueField != null) {
+            uniqueFields = Arrays.asList(StringUtil.split(uniqueField, ","));
+        }
+        Resource resource = new ObjectResource(name, root, searchable.getClass(), algorithm, resolver);
+        Object searchableFields = JsonPath.read(configuration, ResourceConstants.SEARCHABLE_FIELD);
+        if (searchableFields instanceof Map) {
+            Map map = (Map) searchableFields;
+            for (Object fieldName : map.keySet()) {
+                Boolean unique = Boolean.FALSE;
+                if (uniqueFields.contains(fieldName.toString())) {
+                    unique = Boolean.TRUE;
+                }
+                String expression = map.get(fieldName).toString();
+                resource.addFieldDefinition(fieldName.toString(), expression, unique);
+            }
+        }
+        return resource;
+    }
+
+    /**
+     * Initialize the OpenMRS configuration which will be used in the current thread.
+     *
+     * @throws IOException when the injector which will be used to hold the configuration is not ready.
+     */
+    private void initConfiguration() throws IOException {
         if (getUserContext() != null) {
             Configuration savedConfiguration = getUserContext().getConfiguration();
-            Configuration configuration = injector.getInstance(Configuration.class);
+            Configuration configuration = getInjector().getInstance(Configuration.class);
             configuration.configure(
                     savedConfiguration.getUsername(), savedConfiguration.getPassword(), savedConfiguration.getServer());
         }
@@ -127,15 +198,34 @@ public class Context {
         userContextHolder.remove();
     }
 
+    /**
+     * Open a new session to perform operation on the muzima api. This method will remove current active user (meaning
+     * you need to perform authentication again). If you want to re-use the active user, just perform:
+     * <pre>
+     *     Context context = ContextFactory.createContext();
+     * </pre>
+     */
     public void openSession() {
         setUserContext(new UserContext());
     }
 
+    /**
+     * Close the current active session (effectively removing the authenticated user).
+     */
     public void closeSession() {
         removeUserContext();
     }
 
-    //TODO: Need to throw AuthorizationException when userContext is null
+    /**
+     * Perform authentication of the username and password in to the server. When the user is offline, the
+     * authentication process will be performed against the local lucene repository.
+     *
+     * @param username the username to be authenticated.
+     * @param password the password of the username to be authenticated.
+     * @param server   the remote server where the authentication will be performed.
+     * @throws IOException    when the system fail to authenticate the user.
+     * @throws ParseException when the system unable to parse the lucene query.
+     */
     public void authenticate(final String username, final String password, final String server)
             throws IOException, ParseException {
         Configuration configuration = getInjector().getInstance(Configuration.class);
@@ -144,18 +234,35 @@ public class Context {
         getUserContext().authenticate(username, password, getUserService());
     }
 
+    /**
+     * Get currently active user.
+     *
+     * @return the active user.
+     * @throws IOException when the system unable to get the current active user.
+     */
     public User getAuthenticatedUser() throws IOException {
         if (getUserContext() == null)
             throw new IOException("UserContext is not ready. You probably missed the openSession() call?");
         return getUserContext().getAuthenticatedUser();
     }
 
+    /**
+     * Logging out the user from the muzima api.
+     *
+     * @throws IOException when the system unable to log out the current user.
+     */
     public void deauthenticate() throws IOException {
         if (getUserContext() == null)
             throw new IOException("UserContext is not ready. You probably missed the openSession() call?");
         getUserContext().deauthenticate();
     }
 
+    /**
+     * Check whether the current thread have active user or not.
+     *
+     * @return true when the current thread have active user.
+     * @throws IOException when the system unable to determine whether a user is active or not in the current thread.
+     */
     public boolean isAuthenticated() throws IOException {
         if (getUserContext() == null)
             throw new IOException("UserContext is not ready. You probably missed the openSession() call?");
@@ -164,35 +271,69 @@ public class Context {
 
     private Injector getInjector() throws IOException {
         if (injector == null)
-            throw new IOException("Injector that will wired up the API is not ready.");
+            throw new IOException("Guice is not properly started. We need Guice to wire up the API.");
         return injector;
     }
 
-    // TODO: need to bound the service class to prevent user from accessing the internal guice structure
-    // Only open user to service layer. To do this:
-    // * Make all *Service interface to extends Service
-    // * Change this method signature to <T extends Service>
-    public <T> T getService(final Class<T> serviceClass) throws IOException {
+    /**
+     * Get user defined service outside the default service provided by the muzima-api. User can add their own service,
+     * and muzima's interceptor should be able to register the service for future use.
+     *
+     * @param serviceClass the service class
+     * @param <T>          the generic type of the service class.
+     * @return the custom service class added by user.
+     * @throws IOException when the injector unable to find registered class.
+     */
+    public <T extends MuzimaInterface> T getService(final Class<T> serviceClass) throws IOException {
         return getInjector().getInstance(serviceClass);
     }
 
-    // TODO: Need to throw exception when the injector is still null
+    /**
+     * Get the cohort service to perform operation related to the cohort object.
+     *
+     * @return the cohort service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
     public CohortService getCohortService() throws IOException {
         return getService(CohortService.class);
     }
 
+    /**
+     * Get the form service to perform operation related to the form object.
+     *
+     * @return the form service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
     public FormService getFormService() throws IOException {
         return getService(FormService.class);
     }
 
+    /**
+     * Get the observation service to perform operation related to the observation object.
+     *
+     * @return the observation service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
     public ObservationService getObservationService() throws IOException {
         return getService(ObservationService.class);
     }
 
+    /**
+     * Get the patient service to perform operation related to the patient object.
+     *
+     * @return the patient service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
     public PatientService getPatientService() throws IOException {
         return getService(PatientService.class);
     }
 
+    /**
+     * Get the user service to perform operation related to the user object.
+     *
+     * @return the user service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
     public UserService getUserService() throws IOException {
         return getService(UserService.class);
     }

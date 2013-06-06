@@ -29,7 +29,7 @@ import java.util.List;
 public class CohortServiceTest {
 
     @Test
-    public void aspectTest() throws Exception {
+    public void donwloadCohort() throws Exception {
         Context context = ContextFactory.createContext();
 
         context.openSession();
