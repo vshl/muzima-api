@@ -75,11 +75,20 @@ public class RoleAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public String serialize(final Searchable object) throws IOException {
-        // TODO: Add all other fields into the serialized String.
-        // serialize the minimum needed to identify an object for deletion purposes.
         Role role = (Role) object;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", role.getUuid());
+        jsonObject.put("name", role.getName());
+
+        JSONArray privilegeObjectArray = new JSONArray();
+        for (Privilege privilege : role.getPrivileges()) {
+            JSONObject privilegeObject = new JSONObject();
+            privilegeObject.put("uuid", privilege.getUuid());
+            privilegeObject.put("name", privilege.getName());
+            privilegeObjectArray.add(privilegeObject);
+        }
+        jsonObject.put("privileges", privilegeObjectArray);
+
         return jsonObject.toJSONString();
     }
 }

@@ -6,8 +6,6 @@ import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.User;
 import org.aspectj.lang.Signature;
 
-import java.io.IOException;
-
 /**
  * TODO: Write brief description about the class here.
  */
@@ -33,7 +31,7 @@ public aspect AuthenticationAspect {
             } else {
                 System.out.println("Context is authenticated!");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

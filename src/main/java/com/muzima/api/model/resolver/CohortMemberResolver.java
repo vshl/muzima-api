@@ -17,7 +17,7 @@ package com.muzima.api.model.resolver;
 
 import java.io.IOException;
 
-public class MemberCohortResolver extends BaseOpenmrsResolver {
+public class CohortMemberResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION = "?v=custom:(cohort.uuid,patient.uuid)";
 

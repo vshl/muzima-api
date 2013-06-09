@@ -20,7 +20,6 @@ import com.muzima.api.model.Observation;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.StringUtil;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,11 +36,10 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
     /**
      * Search observations for patient with matching partial search term.
      *
-     *
      * @param patientUuid the uuid of the patient.
      * @param conceptName the search term for the question of the observations.
      * @return all observations for the patient with question matching the search term.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public List<Observation> search(final String patientUuid, final String conceptName) throws IOException {
@@ -54,17 +52,16 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
             Filter conceptFilter = FilterFactory.createFilter("conceptName", conceptName);
             filters.add(conceptFilter);
         }
-        return service.getObjects(filters, Observation.class);
+        return service.getObjects(filters, daoClass);
     }
 
     /**
      * Search observations for patient with matching uuid of the question.
      *
-     *
      * @param patientUuid the uuid of the patient.
      * @param conceptUuid the uuid of the question of the observations.
      * @return all observations for the patient with question matching the search term.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public List<Observation> get(final String patientUuid, final String conceptUuid) throws IOException {
@@ -77,6 +74,6 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
             Filter conceptFilter = FilterFactory.createFilter("conceptUuid", conceptUuid);
             filters.add(conceptFilter);
         }
-        return service.getObjects(filters, Observation.class);
+        return service.getObjects(filters, daoClass);
     }
 }

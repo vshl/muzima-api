@@ -17,16 +17,24 @@ package com.muzima.api.model.resolver;
 
 import com.google.inject.Inject;
 import com.muzima.api.config.Configuration;
+import com.muzima.search.api.internal.http.CustomKeyStore;
 import com.muzima.search.api.model.resolver.Resolver;
-import org.apache.commons.codec.binary.Base64;
 
-import java.io.IOException;
-import java.net.URLConnection;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import java.net.Authenticator;
+import java.net.HttpURLConnection;
+import java.net.PasswordAuthentication;
 
 public abstract class BaseOpenmrsResolver implements Resolver {
 
     @Inject
     private Configuration configuration;
+
+    @Inject
+    private CustomKeyStore customKeyStore;
 
     /**
      * Get the default openmrs configuration for this resolver.
@@ -38,16 +46,36 @@ public abstract class BaseOpenmrsResolver implements Resolver {
     }
 
     /**
-     * Add authentication information to the url connection.
+     * Add authentication information to the http url connection.
      *
      * @param connection the original connection without authentication information.
-     * @return the url connection with authentication information.
+     * @return the connection with authentication information when applicable.
      */
     @Override
-    public URLConnection authenticate(final URLConnection connection) throws IOException {
-        String authorization = getConfiguration().getUsername() + ":" + getConfiguration().getPassword();
-        String encodedAuthorization = new String(Base64.encodeBase64(authorization.getBytes()));
-        connection.setRequestProperty("Authorization", "Basic " + encodedAuthorization);
+    public HttpURLConnection authenticate(final HttpURLConnection connection) {
+        Authenticator.setDefault(new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(
+                        getConfiguration().getUsername(),
+                        getConfiguration().getPassword().toCharArray());
+            }
+        });
+        if (connection instanceof HttpsURLConnection) {
+            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) connection;
+            if (customKeyStore != null) {
+                SSLContext sslContext = customKeyStore.createContext();
+                if (sslContext != null) {
+                    httpsURLConnection.setSSLSocketFactory(sslContext.getSocketFactory());
+                    HostnameVerifier hostnameVerifier = new HostnameVerifier() {
+                        @Override
+                        public boolean verify(String hostname, SSLSession session) {
+                            return (hostname.equals("192.168.5.201"));
+                        }
+                    };
+                    httpsURLConnection.setHostnameVerifier(hostnameVerifier);
+                }
+            }
+        }
         return connection;
     }
 }

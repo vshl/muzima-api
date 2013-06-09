@@ -44,8 +44,8 @@ public interface CohortService extends MuzimaInterface {
      *
      * @param name the partial name of the cohort to be downloaded. When empty, will return all cohorts available.
      * @throws IOException when search api unable to process the resource.
-     * @should download all cohort with partially matched name.
-     * @should download all cohort when name is empty.
+     * @should download all cohorts with partially matched name.
+     * @should download all cohorts when name is empty.
      */
     List<Cohort> downloadCohortsByName(final String name) throws IOException;
 
@@ -109,8 +109,8 @@ public interface CohortService extends MuzimaInterface {
     void deleteCohort(final Cohort cohort) throws IOException;
 
     /**
-     * Download all patients' uuid under the current cohort identified by the cohort uuid and save them in to the local
-     * repository.
+     * Download all members under the current cohort identified by the cohort uuid and convert them into the correct
+     * <code>Member</code> object representation.
      *
      * @param cohortUuid the cohort's uuid.
      * @throws IOException when search api unable to process the resource.
@@ -137,23 +137,23 @@ public interface CohortService extends MuzimaInterface {
     Member updateMember(final Member member) throws IOException;
 
     /**
-     * Get all patients' uuid under the current cohort identified by the cohort's uuid which already saved in the local
+     * Get all members under the current cohort identified by the cohort's uuid which already saved in the local
      * repository.
      *
      * @param cohortUuid the cohort's uuid.
      * @return list of all patients' uuid under current cohort uuid or empty list when no patient are in the cohort.
      * @throws IOException when search api unable to process the resource.
-     * @should return list of all patients for the cohort.
-     * @should return empty list when no patient are in the cohort.
+     * @should return list of all members for the cohort.
+     * @should return empty list when no member are in the cohort.
      */
     List<Member> getMembers(final String cohortUuid) throws IOException;
 
     /**
-     * Delete all patients for the current cohort identified by the cohort's uuid.
+     * Delete all members for the current cohort identified by the cohort's uuid.
      *
      * @param cohortUuid the cohort's uuid.
      * @throws IOException when search api unable to process the resource.
-     * @should delete all patients for the cohort from the local repository.
+     * @should delete all members for the cohort from the local repository.
      */
     void deleteMembers(final String cohortUuid) throws IOException;
 }

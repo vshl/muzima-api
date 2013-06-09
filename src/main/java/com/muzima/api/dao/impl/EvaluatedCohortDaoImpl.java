@@ -16,48 +16,46 @@
 package com.muzima.api.dao.impl;
 
 import com.muzima.api.dao.CredentialDao;
-import com.muzima.api.model.Credential;
+import com.muzima.api.dao.EvaluatedCohortDao;
+import com.muzima.api.model.EvaluatedCohort;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.StringUtil;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CredentialDaoImpl extends SearchableDaoImpl<Credential> implements CredentialDao {
+public class EvaluatedCohortDaoImpl extends OpenmrsDaoImpl<EvaluatedCohort> implements EvaluatedCohortDao {
 
     private static final String TAG = CredentialDao.class.getSimpleName();
 
-    protected CredentialDaoImpl() {
-        super(Credential.class);
+    protected EvaluatedCohortDaoImpl() {
+        super(EvaluatedCohort.class);
     }
 
     /**
-     * Get a credential record by the username of the user.
+     * Get cohort by the name of the cohort. Passing empty string will returns all registered cohorts.
      *
-     * @param username the username of the user.
-     * @return credential with matching username.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @param cohortDefinitionUuid the partial name of the cohort or empty string.
+     * @return the list of all matching cohort on the cohort name.
+     * @throws java.io.IOException when search api unable to process the resource.
      */
-    @Override
-    public Credential getByUsername(final String username) throws ParseException, IOException {
-        Credential credential = null;
+    public EvaluatedCohort getByCohortDefinitionUuid(final String cohortDefinitionUuid) throws IOException {
+        EvaluatedCohort evaluatedCohort = null;
         List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(username)) {
-            Filter filter = FilterFactory.createFilter("username", username);
+        if (!StringUtil.isEmpty(cohortDefinitionUuid)) {
+            Filter filter = FilterFactory.createFilter("uuid", cohortDefinitionUuid);
             filters.add(filter);
         }
-        List<Credential> credentials = service.getObjects(filters, daoClass);
-        if (!CollectionUtil.isEmpty(credentials)) {
-            if (credentials.size() > 1)
+        List<EvaluatedCohort> evaluatedCohorts = service.getObjects(filters, daoClass);
+        if (!CollectionUtil.isEmpty(evaluatedCohorts)) {
+            if (evaluatedCohorts.size() > 1)
                 throw new IOException("Unable to uniquely identify a Patient using the identifier");
-            credential = credentials.get(0);
+            evaluatedCohort = evaluatedCohorts.get(0);
         }
-        return credential;
+        return evaluatedCohort;
     }
 
 }

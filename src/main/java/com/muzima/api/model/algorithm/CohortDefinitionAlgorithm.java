@@ -16,33 +16,33 @@
 package com.muzima.api.model.algorithm;
 
 import com.jayway.jsonpath.JsonPath;
-import com.muzima.api.model.Member;
+import com.muzima.api.model.CohortDefinition;
 import com.muzima.search.api.model.object.Searchable;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
 
-public class MemberAlgorithm extends BaseOpenmrsAlgorithm {
+public class CohortDefinitionAlgorithm extends BaseOpenmrsAlgorithm {
 
     /**
-     * Implementation of this method will define how the patient will be serialized from the JSON representation.
+     * Implementation of this method will define how the object will be serialized from the String representation.
      *
-     * @param serialized the json representation
-     * @return the concrete patient object
+     * @param json the string representation
+     * @return the concrete object
      */
     @Override
-    public Searchable deserialize(final String serialized) throws IOException {
-        Member member = new Member();
+    public Searchable deserialize(final String json) throws IOException {
+        CohortDefinition cohortDefinition = new CohortDefinition();
 
-        Object jsonObject = JsonPath.read(serialized, "$");
+        Object jsonObject = JsonPath.read(json, "$");
 
-        String userUuid = JsonPath.read(jsonObject, "$['cohort.uuid']");
-        member.setCohortUuid(userUuid);
+        String uuid = JsonPath.read(jsonObject, "$['uuid']");
+        cohortDefinition.setUuid(uuid);
 
-        String patientUuid = JsonPath.read(jsonObject, "$['patient.uuid']");
-        member.setPatientUuid(patientUuid);
+        String name = JsonPath.read(jsonObject, "$['name']");
+        cohortDefinition.setName(name);
 
-        return member;
+        return cohortDefinition;
     }
 
     /**
@@ -53,10 +53,11 @@ public class MemberAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public String serialize(final Searchable object) throws IOException {
-        Member member = (Member) object;
+        // serialize the minimum needed to identify an object for deletion purposes.
+        CohortDefinition cohortDefinition = (CohortDefinition) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("cohort.uuid", member.getCohortUuid());
-        jsonObject.put("patient.uuid", member.getPatientUuid());
+        jsonObject.put("uuid", cohortDefinition.getUuid());
+        jsonObject.put("name", cohortDefinition.getUuid());
         return jsonObject.toJSONString();
     }
 }

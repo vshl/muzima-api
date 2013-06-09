@@ -22,7 +22,6 @@ import com.muzima.api.dao.MemberDao;
 import com.muzima.api.model.Cohort;
 import com.muzima.api.model.Member;
 import com.muzima.api.service.CohortService;
-import com.muzima.api.service.PatientService;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
@@ -37,14 +36,11 @@ public class CohortServiceImpl implements CohortService {
     @Inject
     private MemberDao memberDao;
 
-    @Inject
-    private PatientService patientService;
-
     protected CohortServiceImpl() {
     }
 
     /**
-     * Download a single cohort record from the cohort rest resource into the local lucene repository.
+     * Download a single cohort record from the cohort rest resource and convert them into Cohort object.
      *
      * @param uuid the uuid of the cohort.
      * @throws IOException when search api unable to process the resource.
@@ -67,8 +63,8 @@ public class CohortServiceImpl implements CohortService {
      *
      * @param name the partial name of the cohort to be downloaded. When empty, will return all cohorts available.
      * @throws IOException when search api unable to process the resource.
-     * @should download all cohort with partially matched name.
-     * @should download all cohort when name is empty.
+     * @should download all cohorts with partially matched name.
+     * @should download all cohorts when name is empty.
      */
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})

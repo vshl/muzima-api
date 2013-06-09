@@ -45,7 +45,7 @@
             "node.root": "$['results']",
             "resource.object": "com.muzima.api.model.Member",
             "algorithm.class": "com.muzima.api.model.algorithm.MemberAlgorithm",
-            "resolver.class": "com.muzima.api.model.resolver.MemberCohortResolver",
+            "resolver.class": "com.muzima.api.model.resolver.CohortMemberResolver",
             "field.unique": null,
             "field.searchable": {
                 "cohortUuid": "$['cohort.uuid']",
@@ -237,6 +237,41 @@
                 "username": "$['username']",
                 "systemId": "$['systemId']"
             }
-        }
+        },
+        {
+            "resource.name": "Search Cohort Definition Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.CohortDefinition",
+            "algorithm.class": "com.muzima.api.model.algorithm.CohortDefinitionAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchCohortDefinitionResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Uuid Cohort Definition Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.CohortDefinition",
+            "algorithm.class": "com.muzima.api.model.algorithm.CohortDefinitionAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidCohortDefinitionResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Evaluated Cohort Member Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.EvaluatedCohort",
+            "algorithm.class": "com.muzima.api.model.algorithm.EvaluatedCohortAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.EvaluatedCohortMemberResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']"
+            }
+        },
     ]
 }

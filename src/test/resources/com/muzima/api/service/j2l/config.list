@@ -45,7 +45,7 @@
             "node.root": "$['results']",
             "resource.object": "com.muzima.api.model.Member",
             "algorithm.class": "com.muzima.api.model.algorithm.MemberAlgorithm",
-            "resolver.class": "com.muzima.api.model.resolver.MemberCohortResolver",
+            "resolver.class": "com.muzima.api.model.resolver.CohortMemberResolver",
             "field.unique": null,
             "field.searchable": {
                 "cohortUuid": "$['cohort.uuid']",

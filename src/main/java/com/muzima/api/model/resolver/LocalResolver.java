@@ -18,7 +18,7 @@ package com.muzima.api.model.resolver;
 import com.muzima.search.api.model.resolver.Resolver;
 
 import java.io.IOException;
-import java.net.URLConnection;
+import java.net.HttpURLConnection;
 
 /**
  * TODO: Write brief description about the class here.
@@ -36,13 +36,12 @@ public class LocalResolver implements Resolver {
     }
 
     /**
-     * Add authentication information to the url connection.
+     * Add authentication information to the http url connection.
      *
      * @param connection the original connection without authentication information.
-     * @return the url connection with authentication information.
+     * @return the connection with authentication information when applicable.
      */
-    @Override
-    public URLConnection authenticate(URLConnection connection) throws IOException {
+    public HttpURLConnection authenticate(final HttpURLConnection connection) throws IOException {
         return connection;
     }
 }
