@@ -56,21 +56,19 @@ public interface FormService extends MuzimaInterface {
      * Save form object to the local lucene repository.
      *
      * @param form the form object to be saved.
-     * @return the saved form.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      */
-    Form saveForm(final Form form) throws IOException;
+    void saveForm(final Form form) throws IOException;
 
     /**
      * Update form object to the local lucene repository.
      *
      * @param form the form object to be updated.
-     * @return the updated form.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      */
-    Form updateForm(final Form form) throws IOException;
+    void updateForm(final Form form) throws IOException;
 
     /**
      * Get form by the uuid of the form.

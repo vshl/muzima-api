@@ -20,7 +20,6 @@ import com.muzima.api.dao.OpenmrsDao;
 import com.muzima.api.model.OpenmrsSearchable;
 import com.muzima.search.api.context.ServiceContext;
 import com.muzima.search.api.model.object.Searchable;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public abstract class OpenmrsDaoImpl<T extends OpenmrsSearchable> extends Search
      *
      * @param term     the term to be passed to search object to filter the searchable object.
      * @param resource resource descriptor used to convert the resource to the correct object.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public List<T> download(final String term, final String resource) throws IOException {

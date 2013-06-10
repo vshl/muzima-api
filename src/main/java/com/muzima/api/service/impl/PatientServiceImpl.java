@@ -71,24 +71,45 @@ public class PatientServiceImpl implements PatientService {
      * Save patient to the local lucene repository.
      *
      * @param patient the patient to be saved.
-     * @return the saved patient.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public Patient savePatient(final Patient patient) throws IOException {
-        return patientDao.save(patient, Constants.UUID_PATIENT_RESOURCE);
+    public void savePatient(final Patient patient) throws IOException {
+        patientDao.save(patient, Constants.UUID_PATIENT_RESOURCE);
+    }
+
+    /**
+     * Save patients to the local lucene repository.
+     *
+     * @param patients the patients to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void savePatients(final List<Patient> patients) throws IOException {
+        patientDao.save(patients, Constants.UUID_PATIENT_RESOURCE);
     }
 
     /**
      * Update patient in the local lucene repository.
      *
      * @param patient the patient to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void updatePatient(final Patient patient) throws IOException {
+        patientDao.update(patient, Constants.UUID_PATIENT_RESOURCE);
+    }
+
+    /**
+     * Update patients in the local lucene repository.
+     *
+     * @param patients the patients to be updated.
      * @return the updated patient.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public Patient updatePatient(final Patient patient) throws IOException {
-        return patientDao.update(patient, Constants.UUID_PATIENT_RESOURCE);
+    public void updatePatients(final List<Patient> patients) throws IOException {
+        patientDao.update(patients, Constants.UUID_PATIENT_RESOURCE);
     }
 
     /**

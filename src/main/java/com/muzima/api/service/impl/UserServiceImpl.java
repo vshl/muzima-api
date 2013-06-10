@@ -101,24 +101,22 @@ public class UserServiceImpl implements UserService {
      * Save user to the local lucene repository.
      *
      * @param user the user to be saved.
-     * @return saved user.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public User saveUser(final User user) throws IOException {
-        return userDao.save(user, Constants.UUID_USER_RESOURCE);
+    public void saveUser(final User user) throws IOException {
+        userDao.save(user, Constants.UUID_USER_RESOURCE);
     }
 
     /**
      * Update user in the local lucene repository.
      *
      * @param user the user to be updated.
-     * @return the updated user.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public User updateUser(final User user) throws IOException {
-        return userDao.update(user, Constants.UUID_USER_RESOURCE);
+    public void updateUser(final User user) throws IOException {
+        userDao.update(user, Constants.UUID_USER_RESOURCE);
     }
 
     /**
@@ -301,24 +299,22 @@ public class UserServiceImpl implements UserService {
      * Save privilege object to the local lucene repository.
      *
      * @param privilege the privilege object to be saved.
-     * @return the saved privilege object.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public Privilege savePrivilege(final Privilege privilege) throws IOException {
-        return privilegeDao.save(privilege, Constants.UUID_PRIVILEGE_RESOURCE);
+    public void savePrivilege(final Privilege privilege) throws IOException {
+        privilegeDao.save(privilege, Constants.UUID_PRIVILEGE_RESOURCE);
     }
 
     /**
      * Update privilege object to the local lucene repository.
      *
      * @param privilege the privilege object to be updated.
-     * @return the updated privilege object.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public Privilege updatePrivilege(final Privilege privilege) throws IOException {
-        return privilegeDao.update(privilege, Constants.UUID_PRIVILEGE_RESOURCE);
+    public void updatePrivilege(final Privilege privilege) throws IOException {
+        privilegeDao.update(privilege, Constants.UUID_PRIVILEGE_RESOURCE);
     }
 
     /**
@@ -396,24 +392,22 @@ public class UserServiceImpl implements UserService {
      * Save the role object to the local lucene repository.
      *
      * @param role the role object to be saved.
-     * @return the saved role object.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public Role saveRole(final Role role) throws IOException {
-        return roleDao.save(role, Constants.UUID_ROLE_RESOURCE);
+    public void saveRole(final Role role) throws IOException {
+        roleDao.save(role, Constants.UUID_ROLE_RESOURCE);
     }
 
     /**
      * Update the role object in the local lucene repository.
      *
      * @param role the role to be updated.
-     * @return the updated role object.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public Role updateRole(final Role role) throws IOException {
-        return roleDao.update(role, Constants.UUID_ROLE_RESOURCE);
+    public void updateRole(final Role role) throws IOException {
+        roleDao.update(role, Constants.UUID_ROLE_RESOURCE);
     }
 
     /**

@@ -69,24 +69,44 @@ public class ObservationServiceImpl implements ObservationService {
      * Save the observation into the local lucene repository.
      *
      * @param observation the observation to be saved.
-     * @return the saved observation.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public Observation saveObservation(final Observation observation) throws IOException {
-        return observationDao.save(observation, Constants.UUID_OBSERVATION_RESOURCE);
+    public void saveObservation(final Observation observation) throws IOException {
+        observationDao.save(observation, Constants.UUID_OBSERVATION_RESOURCE);
+    }
+
+    /**
+     * Save the observations into the local lucene repository.
+     *
+     * @param observations the observations to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void saveObservations(final List<Observation> observations) throws IOException {
+        observationDao.save(observations, Constants.UUID_OBSERVATION_RESOURCE);
     }
 
     /**
      * Update the observation into the local lucene repository.
      *
      * @param observation the observation to be updated.
-     * @return the updated observation data.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public Observation updateObservation(final Observation observation) throws IOException {
-        return observationDao.update(observation, Constants.UUID_OBSERVATION_RESOURCE);
+    public void updateObservation(final Observation observation) throws IOException {
+        observationDao.update(observation, Constants.UUID_OBSERVATION_RESOURCE);
+    }
+
+    /**
+     * Update the observations into the local lucene repository.
+     *
+     * @param observations the observations to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void updateObservations(final List<Observation> observations) throws IOException {
+        observationDao.update(observations, Constants.UUID_OBSERVATION_RESOURCE);
     }
 
     /**

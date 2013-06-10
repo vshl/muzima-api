@@ -15,20 +15,38 @@ public interface SearchableDao<T extends Searchable> {
      *
      * @param object   the object to be saved.
      * @param resource the resource descriptor used for saving.
-     * @return saved object.
      * @throws IOException when search api unable to process the resource.
      */
-    T save(final T object, final String resource) throws IOException;
+    void save(final T object, final String resource) throws IOException;
+
+    /**
+     * Save list of objects to the local repository. Use this save method when you want to save multiple objects
+     * at the same time.
+     *
+     * @param objects  the objects to be saved.
+     * @param resource the resource descriptor used for saving.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void save(final List<T> objects, final String resource) throws IOException;
 
     /**
      * Update the saved object in the local repository.
      *
      * @param object   the object to be updated.
      * @param resource the resource descriptor used for saving.
-     * @return updated object.
      * @throws IOException when search api unable to process the resource.
      */
-    T update(final T object, final String resource) throws IOException;
+    void update(final T object, final String resource) throws IOException;
+
+    /**
+     * Update list of objects in the local repository. Use this save method when you want to update multiple objects
+     * at the same time.
+     *
+     * @param objects  the objects to be updated.
+     * @param resource the resource descriptor used for updating.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void update(final List<T> objects, final String resource) throws IOException;
 
     /**
      * Get the OpenMRS searchable object using the uuid.
@@ -65,5 +83,15 @@ public interface SearchableDao<T extends Searchable> {
      * @param resource   the resource descriptor used to retrieve the object from the repository.
      * @throws IOException when search api unable to process the resource.
      */
-    T delete(final T searchable, final String resource) throws IOException;
+    void delete(final T searchable, final String resource) throws IOException;
+
+    /**
+     * Delete list of objects from the local repository. Use this save method when you want to delete multiple
+     * objects at the same time.
+     *
+     * @param objects  the objects to be deleted.
+     * @param resource the resource descriptor used for deleting.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void delete(final List<T> objects, final String resource) throws IOException;
 }

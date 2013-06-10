@@ -53,10 +53,9 @@ public interface UserService extends MuzimaInterface {
      * Save user to the local lucene repository.
      *
      * @param user the user to be saved.
-     * @return saved user.
      * @throws IOException when search api unable to process the resource.
      */
-    User saveUser(final User user) throws IOException;
+    void saveUser(final User user) throws IOException;
 
     /**
      * Update user in the local lucene repository.
@@ -65,7 +64,7 @@ public interface UserService extends MuzimaInterface {
      * @return the updated user.
      * @throws IOException when search api unable to process the resource.
      */
-    User updateUser(final User user) throws IOException;
+    void updateUser(final User user) throws IOException;
 
     /**
      * Get a single user using the user's uuid.
@@ -203,10 +202,9 @@ public interface UserService extends MuzimaInterface {
      * Save privilege object to the local lucene repository.
      *
      * @param privilege the privilege object to be saved.
-     * @return the saved privilege object.
      * @throws IOException when search api unable to process the resource.
      */
-    Privilege savePrivilege(final Privilege privilege) throws IOException;
+    void savePrivilege(final Privilege privilege) throws IOException;
 
     /**
      * Update privilege object to the local lucene repository.
@@ -215,7 +213,7 @@ public interface UserService extends MuzimaInterface {
      * @return the updated privilege object.
      * @throws IOException when search api unable to process the resource.
      */
-    Privilege updatePrivilege(final Privilege privilege) throws IOException;
+    void updatePrivilege(final Privilege privilege) throws IOException;
 
     /**
      * Get privilege from local repository using the privilege uuid.
@@ -271,19 +269,17 @@ public interface UserService extends MuzimaInterface {
      * Save the role object to the local lucene repository.
      *
      * @param role the role object to be saved.
-     * @return the saved role object.
      * @throws IOException when search api unable to process the resource.
      */
-    Role saveRole(final Role role) throws IOException;
+    void saveRole(final Role role) throws IOException;
 
     /**
      * Update the role object in the local lucene repository.
      *
      * @param role the role to be updated.
-     * @return the updated role object.
      * @throws IOException when search api unable to process the resource.
      */
-    Role updateRole(final Role role) throws IOException;
+    void updateRole(final Role role) throws IOException;
 
     /**
      * Get role from local repository with matching uuid.

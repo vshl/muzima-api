@@ -29,7 +29,6 @@ public interface ObservationDao extends OpenmrsDao<Observation> {
     /**
      * Search observations for patient with matching partial search term.
      *
-     *
      * @param patientUuid the uuid of the patient.
      * @param term        the search term for the question of the observations.
      * @return all observations for the patient with question matching the search term.
@@ -40,7 +39,6 @@ public interface ObservationDao extends OpenmrsDao<Observation> {
 
     /**
      * Search observations for patient with matching uuid of the question.
-     *
      *
      * @param patientUuid the uuid of the patient.
      * @param conceptUuid the uuid of the question of the observations.

@@ -86,26 +86,47 @@ public class CohortServiceImpl implements CohortService {
      * Save the current cohort object to the local lucene repository.
      *
      * @param cohort the cohort to be saved.
-     * @return the saved cohort.
      * @throws IOException when search api unable to process the resource.
      */
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
-    public Cohort saveCohort(final Cohort cohort) throws IOException {
-        return cohortDao.save(cohort, Constants.UUID_COHORT_RESOURCE);
+    public void saveCohort(final Cohort cohort) throws IOException {
+        cohortDao.save(cohort, Constants.UUID_COHORT_RESOURCE);
+    }
+
+    /**
+     * Save the current cohort objects to the local lucene repository.
+     *
+     * @param cohorts the cohorts to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public void saveCohorts(final List<Cohort> cohorts) throws IOException {
+        cohortDao.save(cohorts, Constants.UUID_COHORT_RESOURCE);
     }
 
     /**
      * Update the current cohort object to the local lucene repository.
      *
      * @param cohort the cohort to be updated.
-     * @return the updated cohort.
      * @throws IOException when search api unable to process the resource.
      */
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
-    public Cohort updateCohort(final Cohort cohort) throws IOException {
-        return cohortDao.update(cohort, Constants.UUID_COHORT_RESOURCE);
+    public void updateCohort(final Cohort cohort) throws IOException {
+        cohortDao.update(cohort, Constants.UUID_COHORT_RESOURCE);
+    }
+
+    /**
+     * Update the current cohorts object to the local lucene repository.
+     *
+     * @param cohorts the cohorts to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void updateCohorts(final List<Cohort> cohorts) throws IOException {
+        cohortDao.update(cohorts, Constants.UUID_COHORT_RESOURCE);
     }
 
     /**
@@ -204,26 +225,46 @@ public class CohortServiceImpl implements CohortService {
      * Save the current cohort definition object to the local lucene repository.
      *
      * @param cohortDefinition the cohort definition to be saved.
-     * @return the saved cohort definition.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
-    public CohortDefinition saveCohortDefinition(final CohortDefinition cohortDefinition) throws IOException {
-        return cohortDefinitionDao.save(cohortDefinition, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+    public void saveCohortDefinition(final CohortDefinition cohortDefinition) throws IOException {
+        cohortDefinitionDao.save(cohortDefinition, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+    }
+
+    /**
+     * Save the current cohort definition objects to the local lucene repository.
+     *
+     * @param cohortDefinitions the cohort definitions to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void saveCohortDefinitions(final List<CohortDefinition> cohortDefinitions) throws IOException {
+        cohortDefinitionDao.save(cohortDefinitions, Constants.UUID_COHORT_DEFINITION_RESOURCE);
     }
 
     /**
      * Update the current cohort definition object to the local lucene repository.
      *
      * @param cohortDefinition the cohort definition to be updated.
-     * @return the updated cohort definition.
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
-    public CohortDefinition updateCohortDefinition(final CohortDefinition cohortDefinition) throws IOException {
-        return cohortDefinitionDao.update(cohortDefinition, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+    public void updateCohortDefinition(final CohortDefinition cohortDefinition) throws IOException {
+        cohortDefinitionDao.update(cohortDefinition, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+    }
+
+    /**
+     * Update the current cohort definition objects to the local lucene repository.
+     *
+     * @param cohortDefinitions the cohort definitions to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void updateCohortDefinitions(final List<CohortDefinition> cohortDefinitions) throws IOException {
+        cohortDefinitionDao.update(cohortDefinitions, Constants.UUID_COHORT_DEFINITION_RESOURCE);
     }
 
     /**
@@ -320,22 +361,42 @@ public class CohortServiceImpl implements CohortService {
      * Save the member object to the local lucene directory.
      *
      * @param cohortMember the member object to be saved.
-     * @return the saved member object.
      * @throws IOException when search api unable to process the resource.
      */
-    public CohortMember saveCohortMember(final CohortMember cohortMember) throws IOException {
-        return memberDao.save(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
+    public void saveCohortMember(final CohortMember cohortMember) throws IOException {
+        memberDao.save(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
+    }
+
+    /**
+     * Save the cohort member objects to the local lucene directory.
+     *
+     * @param cohortMembers the member objects to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void saveCohortMembers(final List<CohortMember> cohortMembers) throws IOException {
+        memberDao.save(cohortMembers, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
     }
 
     /**
      * Update the member object to the local lucene directory.
      *
      * @param cohortMember the member object to be updated.
-     * @return the updated member object.
      * @throws IOException when search api unable to process the resource.
      */
-    public CohortMember updateCohortMember(final CohortMember cohortMember) throws IOException {
-        return memberDao.update(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
+    public void updateCohortMember(final CohortMember cohortMember) throws IOException {
+        memberDao.update(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
+    }
+
+    /**
+     * Update the cohort member objects to the local lucene directory.
+     *
+     * @param cohortMembers the member objects to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void updateCohortMembers(final List<CohortMember> cohortMembers) throws IOException {
+        memberDao.update(cohortMembers, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
     }
 
     /**

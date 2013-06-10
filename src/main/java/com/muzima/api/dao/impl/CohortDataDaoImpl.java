@@ -39,7 +39,22 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public CohortData save(final CohortData object, final String resource) throws IOException {
+    public void save(final CohortData object, final String resource) throws IOException {
+        throw new IOException(
+                "Cohort data object is just place holder for download purpose! " +
+                        "No actual cohort data object will be saved in the lucene's document repository.");
+    }
+
+    /**
+     * Save list of objects to the local repository. Use this save method when you want to save multiple objects
+     * at the same time.
+     *
+     * @param objects  the objects to be saved.
+     * @param resource the resource descriptor used for saving.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void save(final List<CohortData> objects, final String resource) throws IOException {
         throw new IOException(
                 "Cohort data object is just place holder for download purpose! " +
                         "No actual cohort data object will be saved in the lucene's document repository.");
@@ -54,7 +69,22 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public CohortData update(final CohortData object, final String resource) throws IOException {
+    public void update(final CohortData object, final String resource) throws IOException {
+        throw new IOException(
+                "Cohort data object is just place holder for download purpose! " +
+                        "No actual cohort data object will be saved in the lucene's document repository.");
+    }
+
+    /**
+     * Update list of objects in the local repository. Use this save method when you want to update multiple objects
+     * at the same time.
+     *
+     * @param objects  the objects to be updated.
+     * @param resource the resource descriptor used for updating.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void update(final List<CohortData> objects, final String resource) throws IOException {
         throw new IOException(
                 "Cohort data object is just place holder for download purpose! " +
                         "No actual cohort data object will be saved in the lucene's document repository.");
@@ -113,7 +143,22 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public CohortData delete(final CohortData searchable, final String resource) throws IOException {
+    public void delete(final CohortData searchable, final String resource) throws IOException {
+        throw new IOException(
+                "Cohort data object is just place holder for download purpose! " +
+                        "No actual cohort data object will be saved in the lucene's document repository.");
+    }
+
+    /**
+     * Delete list of objects from the local repository. Use this save method when you want to delete multiple
+     * objects at the same time.
+     *
+     * @param objects  the objects to be deleted.
+     * @param resource the resource descriptor used for deleting.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void delete(final List<CohortData> objects, final String resource) throws IOException {
         throw new IOException(
                 "Cohort data object is just place holder for download purpose! " +
                         "No actual cohort data object will be saved in the lucene's document repository.");

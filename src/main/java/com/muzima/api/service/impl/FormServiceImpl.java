@@ -80,26 +80,24 @@ public class FormServiceImpl implements FormService {
      * Save form object to the local lucene repository.
      *
      * @param form the form object to be saved.
-     * @return the saved form.
-     * @throws ParseException  when query parser from lucene unable to parse the query string.
-     * @throws IOException when search api unable to process the resource.
+     * @throws ParseException when query parser from lucene unable to parse the query string.
+     * @throws IOException    when search api unable to process the resource.
      */
     @Override
-    public Form saveForm(final Form form) throws IOException {
-        return formDao.save(form, Constants.UUID_FORM_RESOURCE);
+    public void saveForm(final Form form) throws IOException {
+        formDao.save(form, Constants.UUID_FORM_RESOURCE);
     }
 
     /**
      * Update form object to the local lucene repository.
      *
      * @param form the form object to be updated.
-     * @return the updated form.
      * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException when search api unable to process the resource.
+     * @throws IOException    when search api unable to process the resource.
      */
     @Override
-    public Form updateForm(final Form form) throws IOException {
-        return formDao.update(form, Constants.UUID_FORM_RESOURCE);
+    public void updateForm(final Form form) throws IOException {
+        formDao.update(form, Constants.UUID_FORM_RESOURCE);
     }
 
     /**
@@ -161,7 +159,7 @@ public class FormServiceImpl implements FormService {
      * @param uuid the uuid of the form.
      * @return the form template with matching uuid downloaded from the server.
      * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException when search api unable to process the resource.
+     * @throws IOException    when search api unable to process the resource.
      */
     @Override
     public FormTemplate downloadFormTemplateByUuid(final String uuid) throws IOException {

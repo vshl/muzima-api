@@ -55,19 +55,33 @@ public interface CohortService extends MuzimaInterface {
      * Save the current cohort object to the local lucene repository.
      *
      * @param cohort the cohort to be saved.
-     * @return the saved cohort.
      * @throws IOException when search api unable to process the resource.
      */
-    Cohort saveCohort(final Cohort cohort) throws IOException;
+    void saveCohort(final Cohort cohort) throws IOException;
+
+    /**
+     * Save the current cohort objects to the local lucene repository.
+     *
+     * @param cohorts the cohorts to be saved.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void saveCohorts(final List<Cohort> cohorts) throws IOException;
 
     /**
      * Update the current cohort object to the local lucene repository.
      *
      * @param cohort the cohort to be updated.
-     * @return the updated cohort.
      * @throws IOException when search api unable to process the resource.
      */
-    Cohort updateCohort(final Cohort cohort) throws IOException;
+    void updateCohort(final Cohort cohort) throws IOException;
+
+    /**
+     * Update the current cohorts object to the local lucene repository.
+     *
+     * @param cohorts the cohorts to be updated.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void updateCohorts(final List<Cohort> cohorts) throws IOException;
 
     /**
      * Get a single cohort record from the repository using the uuid.
@@ -135,19 +149,33 @@ public interface CohortService extends MuzimaInterface {
      * Save the current cohort definition object to the local lucene repository.
      *
      * @param cohortDefinition the cohort definition to be saved.
-     * @return the saved cohort definition.
      * @throws java.io.IOException when search api unable to process the resource.
      */
-    CohortDefinition saveCohortDefinition(final CohortDefinition cohortDefinition) throws IOException;
+    void saveCohortDefinition(final CohortDefinition cohortDefinition) throws IOException;
+
+    /**
+     * Save the current cohort definition objects to the local lucene repository.
+     *
+     * @param cohortDefinitions the cohort definitions to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    void saveCohortDefinitions(final List<CohortDefinition> cohortDefinitions) throws IOException;
 
     /**
      * Update the current cohort definition object to the local lucene repository.
      *
      * @param cohortDefinition the cohort definition to be updated.
-     * @return the updated cohort definition.
      * @throws java.io.IOException when search api unable to process the resource.
      */
-    CohortDefinition updateCohortDefinition(final CohortDefinition cohortDefinition) throws IOException;
+    void updateCohortDefinition(final CohortDefinition cohortDefinition) throws IOException;
+
+    /**
+     * Update the current cohort definition objects to the local lucene repository.
+     *
+     * @param cohortDefinitions the cohort definitions to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    void updateCohortDefinitions(final List<CohortDefinition> cohortDefinitions) throws IOException;
 
     /**
      * Get a single cohort definition record from the repository using the uuid.
@@ -210,22 +238,36 @@ public interface CohortService extends MuzimaInterface {
     CohortData downloadCohortData(final String uuid, final boolean dynamic) throws IOException;
 
     /**
-     * Save the member object to the local lucene directory.
+     * Save the cohort member object to the local lucene directory.
      *
      * @param cohortMember the member object to be saved.
-     * @return the saved member object.
      * @throws IOException when search api unable to process the resource.
      */
-    CohortMember saveCohortMember(final CohortMember cohortMember) throws IOException;
+    void saveCohortMember(final CohortMember cohortMember) throws IOException;
 
     /**
-     * Update the member object to the local lucene directory.
+     * Save the cohort member objects to the local lucene directory.
      *
-     * @param cohortMember the member object to be updated.
-     * @return the updated member object.
+     * @param cohortMembers the member objects to be saved.
      * @throws IOException when search api unable to process the resource.
      */
-    CohortMember updateCohortMember(final CohortMember cohortMember) throws IOException;
+    void saveCohortMembers(final List<CohortMember> cohortMembers) throws IOException;
+
+    /**
+     * Update the cohort member object to the local lucene directory.
+     *
+     * @param cohortMember the member object to be updated.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void updateCohortMember(final CohortMember cohortMember) throws IOException;
+
+    /**
+     * Update the cohort member objects to the local lucene directory.
+     *
+     * @param cohortMembers the member objects to be updated.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void updateCohortMembers(final List<CohortMember> cohortMembers) throws IOException;
 
     /**
      * Get all members under the current cohort identified by the cohort's uuid which already saved in the local
