@@ -49,6 +49,10 @@ public class Constants {
 
     public static final String UUID_FORM_RESOURCE = "Uuid Form Resource";
 
+    public static final String SEARCH_FORM_TEMPLATE_RESOURCE = "Search Form Template Resource";
+
+    public static final String UUID_FORM_TEMPLATE_RESOURCE = "Uuid Form Template Resource";
+
     public static final String SEARCH_PATIENT_RESOURCE = "Search Patient Resource";
 
     public static final String UUID_PATIENT_RESOURCE = "Uuid Patient Resource";
@@ -56,8 +60,6 @@ public class Constants {
     public static final String SEARCH_COHORT_RESOURCE = "Search Cohort Resource";
 
     public static final String UUID_COHORT_RESOURCE = "Uuid Cohort Resource";
-
-    public static final String MEMBER_COHORT_RESOURCE = "Cohort Member Resource";
 
     public static final String SEARCH_OBSERVATION_RESOURCE = "Search Observation Resource";
 
@@ -75,11 +77,13 @@ public class Constants {
 
     public static final String UUID_USER_RESOURCE = "Uuid User Resource";
 
-    public static final String SEARCH_FORM_TEMPLATE_RESOURCE = "Search Form Template Resource";
-
-    public static final String UUID_FORM_TEMPLATE_RESOURCE = "Uuid Form Template Resource";
-
     public static final String LOCAL_CREDENTIAL_RESOURCE = "Local Credential Resource";
 
     public static final String LOCAL_FORM_DATA_RESOURCE = "Local Form Data Resource";
+
+    public static final String LOCAL_COHORT_MEMBER_RESOURCE = "Local Cohort Member Resource";
+
+    public static final String STATIC_COHORT_DATA_RESOURCE = "Static Cohort Data Resource";
+
+    public static final String DYNAMIC_COHORT_DATA_RESOURCE = "Dynamic Cohort Data Resource";
 }

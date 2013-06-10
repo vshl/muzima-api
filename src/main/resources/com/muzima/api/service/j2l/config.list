@@ -266,8 +266,8 @@
             "resource.name": "Evaluated Cohort Member Resource",
             "node.root": "$",
             "resource.object": "com.muzima.api.model.EvaluatedCohort",
-            "algorithm.class": "com.muzima.api.model.algorithm.EvaluatedCohortAlgorithm",
-            "resolver.class": "com.muzima.api.model.resolver.EvaluatedCohortMemberResolver",
+            "algorithm.class": "com.muzima.api.model.algorithm.CohortDataAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.StaticCohortDataResolver",
             "field.unique": "uuid",
             "field.searchable": {
                 "uuid": "$['uuid']"
