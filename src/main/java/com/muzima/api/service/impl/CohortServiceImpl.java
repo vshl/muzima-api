@@ -24,7 +24,7 @@ import com.muzima.api.dao.MemberDao;
 import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortDefinition;
-import com.muzima.api.model.Member;
+import com.muzima.api.model.CohortMember;
 import com.muzima.api.service.CohortService;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
@@ -175,7 +175,8 @@ public class CohortServiceImpl implements CohortService {
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
     public CohortDefinition downloadCohortDefinitionByUuid(final String cohortDefinitionUuid) throws IOException {
-        List<CohortDefinition> cohorts = cohortDefinitionDao.download(cohortDefinitionUuid, Constants.UUID_COHORT_RESOURCE);
+        List<CohortDefinition> cohorts = cohortDefinitionDao.download(
+                cohortDefinitionUuid, Constants.UUID_COHORT_DEFINITION_RESOURCE);
         if (cohorts.size() > 1) {
             throw new IOException("Unable to uniquely identify a cohort record.");
         } else if (cohorts.size() == 0) {
@@ -196,7 +197,7 @@ public class CohortServiceImpl implements CohortService {
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
     public List<CohortDefinition> downloadCohortDefinitionsByName(final String name) throws IOException {
-        return cohortDefinitionDao.download(name, Constants.SEARCH_COHORT_RESOURCE);
+        return cohortDefinitionDao.download(name, Constants.SEARCH_COHORT_DEFINITION_RESOURCE);
     }
 
     /**
@@ -209,7 +210,7 @@ public class CohortServiceImpl implements CohortService {
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
     public CohortDefinition saveCohortDefinition(final CohortDefinition cohortDefinition) throws IOException {
-        return cohortDefinitionDao.save(cohortDefinition, Constants.UUID_COHORT_RESOURCE);
+        return cohortDefinitionDao.save(cohortDefinition, Constants.UUID_COHORT_DEFINITION_RESOURCE);
     }
 
     /**
@@ -222,7 +223,7 @@ public class CohortServiceImpl implements CohortService {
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
     public CohortDefinition updateCohortDefinition(final CohortDefinition cohortDefinition) throws IOException {
-        return cohortDefinitionDao.update(cohortDefinition, Constants.UUID_COHORT_RESOURCE);
+        return cohortDefinitionDao.update(cohortDefinition, Constants.UUID_COHORT_DEFINITION_RESOURCE);
     }
 
     /**
@@ -283,7 +284,7 @@ public class CohortServiceImpl implements CohortService {
      */
     @Override
     public void deleteCohortDefinition(final CohortDefinition cohort) throws IOException {
-        cohortDefinitionDao.delete(cohort, Constants.UUID_COHORT_RESOURCE);
+        cohortDefinitionDao.delete(cohort, Constants.UUID_COHORT_DEFINITION_RESOURCE);
     }
 
     /**
@@ -318,23 +319,23 @@ public class CohortServiceImpl implements CohortService {
     /**
      * Save the member object to the local lucene directory.
      *
-     * @param member the member object to be saved.
+     * @param cohortMember the member object to be saved.
      * @return the saved member object.
      * @throws IOException when search api unable to process the resource.
      */
-    public Member saveMember(final Member member) throws IOException {
-        return memberDao.save(member, Constants.STATIC_COHORT_DATA_RESOURCE);
+    public CohortMember saveCohortMember(final CohortMember cohortMember) throws IOException {
+        return memberDao.save(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
     }
 
     /**
      * Update the member object to the local lucene directory.
      *
-     * @param member the member object to be updated.
+     * @param cohortMember the member object to be updated.
      * @return the updated member object.
      * @throws IOException when search api unable to process the resource.
      */
-    public Member updateMember(final Member member) throws IOException {
-        return memberDao.update(member, Constants.STATIC_COHORT_DATA_RESOURCE);
+    public CohortMember updateCohortMember(final CohortMember cohortMember) throws IOException {
+        return memberDao.update(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
     }
 
     /**
@@ -348,7 +349,7 @@ public class CohortServiceImpl implements CohortService {
      * @should return empty list when no patient are in the cohort.
      */
     @Override
-    public List<Member> getMembers(final String cohortUuid) throws IOException {
+    public List<CohortMember> getCohortMembers(final String cohortUuid) throws IOException {
         return memberDao.getByCohortUuid(cohortUuid);
     }
 
@@ -360,9 +361,9 @@ public class CohortServiceImpl implements CohortService {
      * @should delete all patients for the cohort from the local repository.
      */
     @Override
-    public void deleteMembers(final String cohortUuid) throws IOException {
-        for (Member member : getMembers(cohortUuid)) {
-            memberDao.delete(member, Constants.STATIC_COHORT_DATA_RESOURCE);
+    public void deleteCohortMembers(final String cohortUuid) throws IOException {
+        for (CohortMember cohortMember : getCohortMembers(cohortUuid)) {
+            memberDao.delete(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
         }
     }
 }

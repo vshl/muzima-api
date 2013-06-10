@@ -18,8 +18,12 @@ package com.muzima.api.service;
 import com.muzima.api.context.Context;
 import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Cohort;
+import com.muzima.api.model.CohortData;
+import com.muzima.api.model.CohortDefinition;
 import com.muzima.search.api.util.StringUtil;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -28,8 +32,10 @@ import java.util.List;
  */
 public class CohortServiceTest {
 
+    private final Logger logger = LoggerFactory.getLogger(CohortServiceTest.class.getSimpleName());
+
     @Test
-    public void donwloadCohort() throws Exception {
+    public void donwloadStaticCohort() throws Exception {
         Context context = ContextFactory.createContext();
 
         context.openSession();
@@ -37,24 +43,33 @@ public class CohortServiceTest {
             context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
 
         CohortService cohortService = context.getCohortService();
-        PatientService patientService = context.getPatientService();
-        ObservationService observationService = context.getObservationService();
 
         List<Cohort> cohorts = cohortService.downloadCohortsByName(StringUtil.EMPTY);
         for (Cohort cohort : cohorts) {
-            System.out.println("Cohort: " + cohort.getName() + " | " + cohort.getUuid());
-//            List<Member> members = cohortService.downloadMembers(cohort.getUuid());
-//            for (Member member : members) {
-//                System.out.println("Member: " + member.getPatientUuid());
-//                Patient patient = patientService.downloadPatientByUuid(member.getPatientUuid());
-//                System.out.println("Patient: " + patient.getUuid() + "| identifier: " + patient.getIdentifier());
-//                List<Observation> observations =
-//                        observationService.downloadObservationsByPatient(member.getPatientUuid());
-//                System.out.println("Observation: ");
-//                for (Observation observation : observations) {
-//                    System.out.println(observation.getQuestionName() + " = " + observation.getValue());
-//                }
-//            }
+            logger.info("Cohort: {} | {}", cohort.getName(), cohort.getUuid());
+            CohortData cohortData = cohortService.downloadCohortData(cohort.getUuid(), false);
+            logger.info("Cohort data: {}", cohortData);
+        }
+
+        context.deauthenticate();
+        context.closeSession();
+    }
+
+    @Test
+    public void donwloadDynamicCohort() throws Exception {
+        Context context = ContextFactory.createContext();
+
+        context.openSession();
+        if (!context.isAuthenticated())
+            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
+
+        CohortService cohortService = context.getCohortService();
+
+        List<CohortDefinition> cohortDefinitions = cohortService.downloadCohortDefinitionsByName(StringUtil.EMPTY);
+        for (CohortDefinition cohortDefinition : cohortDefinitions) {
+            logger.info("Cohort: {} | {}", cohortDefinition.getName(), cohortDefinition.getUuid());
+            CohortData cohortData = cohortService.downloadCohortData(cohortDefinition.getUuid(), true);
+            logger.info("Cohort data: {}", cohortData);
         }
 
         context.deauthenticate();

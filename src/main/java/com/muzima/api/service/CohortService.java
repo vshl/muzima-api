@@ -19,7 +19,7 @@ import com.google.inject.ImplementedBy;
 import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortDefinition;
-import com.muzima.api.model.Member;
+import com.muzima.api.model.CohortMember;
 import com.muzima.api.service.impl.CohortServiceImpl;
 import org.apache.lucene.queryParser.ParseException;
 
@@ -212,20 +212,20 @@ public interface CohortService extends MuzimaInterface {
     /**
      * Save the member object to the local lucene directory.
      *
-     * @param member the member object to be saved.
+     * @param cohortMember the member object to be saved.
      * @return the saved member object.
      * @throws IOException when search api unable to process the resource.
      */
-    Member saveMember(final Member member) throws IOException;
+    CohortMember saveCohortMember(final CohortMember cohortMember) throws IOException;
 
     /**
      * Update the member object to the local lucene directory.
      *
-     * @param member the member object to be updated.
+     * @param cohortMember the member object to be updated.
      * @return the updated member object.
      * @throws IOException when search api unable to process the resource.
      */
-    Member updateMember(final Member member) throws IOException;
+    CohortMember updateCohortMember(final CohortMember cohortMember) throws IOException;
 
     /**
      * Get all members under the current cohort identified by the cohort's uuid which already saved in the local
@@ -237,7 +237,7 @@ public interface CohortService extends MuzimaInterface {
      * @should return list of all members for the cohort.
      * @should return empty list when no member are in the cohort.
      */
-    List<Member> getMembers(final String cohortUuid) throws IOException;
+    List<CohortMember> getCohortMembers(final String cohortUuid) throws IOException;
 
     /**
      * Delete all members for the current cohort identified by the cohort's uuid.
@@ -246,5 +246,5 @@ public interface CohortService extends MuzimaInterface {
      * @throws IOException when search api unable to process the resource.
      * @should delete all members for the cohort from the local repository.
      */
-    void deleteMembers(final String cohortUuid) throws IOException;
+    void deleteCohortMembers(final String cohortUuid) throws IOException;
 }

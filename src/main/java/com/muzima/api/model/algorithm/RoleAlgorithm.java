@@ -44,25 +44,21 @@ public class RoleAlgorithm extends BaseOpenmrsAlgorithm {
         String name = JsonPath.read(jsonObject, "$['name']");
         role.setName(name);
 
-        Object privilegeArrayObject = JsonPath.read(jsonObject, "$['privileges']");
-        if (privilegeArrayObject instanceof JSONArray) {
-            List<Privilege> privileges = new ArrayList<Privilege>();
+        List<Object> privilegeObjectArray = JsonPath.read(jsonObject, "$['privileges']");
+        List<Privilege> privileges = new ArrayList<Privilege>();
+        for (Object privilegeObject : privilegeObjectArray) {
+            Privilege privilege = new Privilege();
 
-            JSONArray privilegeArray = (JSONArray) privilegeArrayObject;
-            for (Object privilegeObject : privilegeArray) {
-                Privilege privilege = new Privilege();
+            String privilegeUuid = JsonPath.read(privilegeObject, "$['uuid']");
+            privilege.setUuid(privilegeUuid);
 
-                String privilegeUuid = JsonPath.read(privilegeObject, "$['uuid']");
-                privilege.setUuid(privilegeUuid);
+            String privilegeName = JsonPath.read(privilegeObject, "$['name']");
+            privilege.setName(privilegeName);
 
-                String privilegeName = JsonPath.read(privilegeObject, "$['name']");
-                privilege.setName(privilegeName);
-
-                privileges.add(privilege);
-            }
-
-            role.setPrivileges(privileges);
+            privileges.add(privilege);
         }
+
+        role.setPrivileges(privileges);
 
         return role;
     }

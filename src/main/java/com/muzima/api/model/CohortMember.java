@@ -19,7 +19,7 @@ package com.muzima.api.model;
  * This class is an exception from all of the other model classes where it's a local object but have the name similar
  * with the same remote resource. This class must not be associated with the <code>CohortMemberResolver</code>.
  */
-public class Member extends OpenmrsSearchable {
+public class CohortMember extends OpenmrsSearchable {
 
     private String cohortUuid;
 

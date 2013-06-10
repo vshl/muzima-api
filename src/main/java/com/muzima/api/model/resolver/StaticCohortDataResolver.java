@@ -9,7 +9,7 @@ public class StaticCohortDataResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION = "?v=custom:(cohort:(uuid,name)," +
             "patient:(uuid,gender,birthdate,personName.givenName,personName.middleName,personName.familyName," +
-            "patientIdentifier.identifier,patientIdentifier.identifierType.name)";
+            "patientIdentifier.identifier,patientIdentifier.identifierType.name))";
 
     /**
      * Return the full REST resource based on the search string passed to the method.

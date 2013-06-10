@@ -40,7 +40,7 @@ public class ContextFactory {
     private static final List<Module> modules = new ArrayList<Module>();
 
     static {
-        contextProperties.setProperty(Constants.RESOURCE_CONFIGURATION_PATH, "../service/j2l/config.list");
+        contextProperties.setProperty(Constants.RESOURCE_CONFIGURATION_PATH, "../service/j2l/config.json");
         contextProperties.setProperty(
                 Constants.LUCENE_DIRECTORY_NAME, System.getProperty("java.io.tmpdir") + "/lucene");
         contextProperties.setProperty(Constants.LUCENE_DOCUMENT_KEY, OPENMRS_UUID);

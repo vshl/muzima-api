@@ -45,43 +45,47 @@ public class Constants {
     /*
      * Resource configuration.
      */
-    public static final String SEARCH_FORM_RESOURCE = "Search Form Resource";
-
-    public static final String UUID_FORM_RESOURCE = "Uuid Form Resource";
-
-    public static final String SEARCH_FORM_TEMPLATE_RESOURCE = "Search Form Template Resource";
-
-    public static final String UUID_FORM_TEMPLATE_RESOURCE = "Uuid Form Template Resource";
-
-    public static final String SEARCH_PATIENT_RESOURCE = "Search Patient Resource";
-
-    public static final String UUID_PATIENT_RESOURCE = "Uuid Patient Resource";
-
-    public static final String SEARCH_COHORT_RESOURCE = "Search Cohort Resource";
-
-    public static final String UUID_COHORT_RESOURCE = "Uuid Cohort Resource";
-
-    public static final String SEARCH_OBSERVATION_RESOURCE = "Search Observation Resource";
-
-    public static final String UUID_OBSERVATION_RESOURCE = "Uuid Observation Resource";
-
-    public static final String SEARCH_PRIVILEGE_RESOURCE = "Search Privilege Resource";
-
-    public static final String UUID_PRIVILEGE_RESOURCE = "Uuid Privilege Resource";
-
-    public static final String SEARCH_ROLE_RESOURCE = "Search Role Resource";
-
-    public static final String UUID_ROLE_RESOURCE = "Uuid Role Resource";
-
-    public static final String SEARCH_USER_RESOURCE = "Search User Resource";
-
-    public static final String UUID_USER_RESOURCE = "Uuid User Resource";
+    public static final String LOCAL_COHORT_MEMBER_RESOURCE = "Local Cohort Member Resource";
 
     public static final String LOCAL_CREDENTIAL_RESOURCE = "Local Credential Resource";
 
     public static final String LOCAL_FORM_DATA_RESOURCE = "Local Form Data Resource";
 
-    public static final String LOCAL_COHORT_MEMBER_RESOURCE = "Local Cohort Member Resource";
+    public static final String SEARCH_COHORT_RESOURCE = "Search Cohort Resource";
+
+    public static final String SEARCH_COHORT_DEFINITION_RESOURCE = "Search Cohort Definition Resource";
+
+    public static final String SEARCH_FORM_RESOURCE = "Search Form Resource";
+
+    public static final String SEARCH_FORM_TEMPLATE_RESOURCE = "Search Form Template Resource";
+
+    public static final String SEARCH_OBSERVATION_RESOURCE = "Search Observation Resource";
+
+    public static final String SEARCH_PATIENT_RESOURCE = "Search Patient Resource";
+
+    public static final String SEARCH_PRIVILEGE_RESOURCE = "Search Privilege Resource";
+
+    public static final String SEARCH_ROLE_RESOURCE = "Search Role Resource";
+
+    public static final String SEARCH_USER_RESOURCE = "Search User Resource";
+
+    public static final String UUID_COHORT_DEFINITION_RESOURCE = "Uuid Cohort Definition Resource";
+
+    public static final String UUID_COHORT_RESOURCE = "Uuid Cohort Resource";
+
+    public static final String UUID_FORM_RESOURCE = "Uuid Form Resource";
+
+    public static final String UUID_FORM_TEMPLATE_RESOURCE = "Uuid Form Template Resource";
+
+    public static final String UUID_OBSERVATION_RESOURCE = "Uuid Observation Resource";
+
+    public static final String UUID_PATIENT_RESOURCE = "Uuid Patient Resource";
+
+    public static final String UUID_PRIVILEGE_RESOURCE = "Uuid Privilege Resource";
+
+    public static final String UUID_ROLE_RESOURCE = "Uuid Role Resource";
+
+    public static final String UUID_USER_RESOURCE = "Uuid User Resource";
 
     public static final String STATIC_COHORT_DATA_RESOURCE = "Static Cohort Data Resource";
 
