@@ -19,7 +19,6 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Observation;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.ISO8601Util;
-import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
@@ -107,9 +106,9 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
         jsonObject.put("concept.name.name", observation.getQuestionName());
         jsonObject.put("concept.uuid", observation.getQuestionUuid());
 
-        String valueNumeric = StringUtil.EMPTY;
-        String valueDatetime = StringUtil.EMPTY;
-        String valueCoded = StringUtil.EMPTY;
+        String valueNumeric = null;
+        String valueDatetime = null;
+        String valueCoded = null;
         if (observation.getDataType() == Constants.TYPE_NUMERIC)
             valueNumeric = observation.getValue();
         if (observation.getDataType() == Constants.TYPE_DATE)
@@ -119,7 +118,13 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
 
         jsonObject.put("valueNumeric", valueNumeric);
         jsonObject.put("valueDatetime", valueDatetime);
-        jsonObject.put("valueCoded", valueCoded);
+
+        JSONObject valueCodedObject = null;
+        if (valueCoded != null) {
+            valueCodedObject = new JSONObject();
+            valueCodedObject.put("display", valueCoded);
+        }
+        jsonObject.put("valueCoded", valueCodedObject);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(observation.getObservationDate());

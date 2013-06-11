@@ -20,6 +20,8 @@ import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortDefinition;
+import com.muzima.api.model.Observation;
+import com.muzima.api.model.Patient;
 import com.muzima.search.api.util.StringUtil;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -43,12 +45,20 @@ public class CohortServiceTest {
             context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
 
         CohortService cohortService = context.getCohortService();
+        PatientService patientService = context.getPatientService();
+        ObservationService observationService = context.getObservationService();
 
         List<Cohort> cohorts = cohortService.downloadCohortsByName(StringUtil.EMPTY);
         for (Cohort cohort : cohorts) {
             logger.info("Cohort: {} | {}", cohort.getName(), cohort.getUuid());
             CohortData cohortData = cohortService.downloadCohortData(cohort.getUuid(), false);
             logger.info("Cohort data: {}", cohortData);
+            for (Patient patient : cohortData.getPatients()) {
+                List<Observation> observations = observationService.downloadObservationsByPatient(patient.getUuid());
+                observationService.saveObservations(observations);
+            }
+            patientService.savePatients(cohortData.getPatients());
+            cohortService.saveCohortMembers(cohortData.getCohortMembers());
         }
 
         context.deauthenticate();
@@ -64,12 +74,20 @@ public class CohortServiceTest {
             context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
 
         CohortService cohortService = context.getCohortService();
+        PatientService patientService = context.getPatientService();
+        ObservationService observationService = context.getObservationService();
 
         List<CohortDefinition> cohortDefinitions = cohortService.downloadCohortDefinitionsByName(StringUtil.EMPTY);
         for (CohortDefinition cohortDefinition : cohortDefinitions) {
             logger.info("Cohort: {} | {}", cohortDefinition.getName(), cohortDefinition.getUuid());
             CohortData cohortData = cohortService.downloadCohortData(cohortDefinition.getUuid(), true);
             logger.info("Cohort data: {}", cohortData);
+            for (Patient patient : cohortData.getPatients()) {
+                List<Observation> observations = observationService.downloadObservationsByPatient(patient.getUuid());
+                observationService.saveObservations(observations);
+            }
+            patientService.savePatients(cohortData.getPatients());
+            cohortService.saveCohortMembers(cohortData.getCohortMembers());
         }
 
         context.deauthenticate();
