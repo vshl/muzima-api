@@ -19,6 +19,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Observation;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.ISO8601Util;
+import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
@@ -52,8 +53,11 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
         String patientUuid = JsonPath.read(jsonObject, "$['person.uuid']");
         observation.setPatientUuid(patientUuid);
 
-        String encounterUuid = JsonPath.read(jsonObject, "$['encounter.uuid']");
-        observation.setEncounterUuid(encounterUuid);
+        Object encounterObject = JsonPath.read(jsonObject, "$['encounter']");
+        if (encounterObject != null) {
+            String encounterUuid = JsonPath.read(encounterObject, "$['uuid']");
+            observation.setEncounterUuid(encounterUuid);
+        }
 
         String conceptName = JsonPath.read(jsonObject, "$['concept.name.name']");
         observation.setQuestionName(conceptName);
@@ -102,6 +106,14 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", observation.getUuid());
         jsonObject.put("person.uuid", observation.getPatientUuid());
+
+        JSONObject encounterObject = null;
+        if (!StringUtil.isEmpty(observation.getEncounterUuid())) {
+            encounterObject = new JSONObject();
+            encounterObject.put("uuid", observation.getEncounterUuid());
+        }
+        jsonObject.put("encounter", encounterObject);
+
         jsonObject.put("encounter.uuid", observation.getEncounterUuid());
         jsonObject.put("concept.name.name", observation.getQuestionName());
         jsonObject.put("concept.uuid", observation.getQuestionUuid());
@@ -109,12 +121,17 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
         String valueNumeric = null;
         String valueDatetime = null;
         String valueCoded = null;
-        if (observation.getDataType() == Constants.TYPE_NUMERIC)
-            valueNumeric = observation.getValue();
-        if (observation.getDataType() == Constants.TYPE_DATE)
-            valueDatetime = observation.getValue();
-        if (observation.getDataType() == Constants.TYPE_STRING)
-            valueCoded = observation.getValue();
+        if (observation.getDataType() != null) {
+            if (observation.getDataType() == Constants.TYPE_NUMERIC) {
+                valueNumeric = observation.getValue();
+            }
+            if (observation.getDataType() == Constants.TYPE_DATE) {
+                valueDatetime = observation.getValue();
+            }
+            if (observation.getDataType() == Constants.TYPE_STRING) {
+                valueCoded = observation.getValue();
+            }
+        }
 
         jsonObject.put("valueNumeric", valueNumeric);
         jsonObject.put("valueDatetime", valueDatetime);

@@ -24,7 +24,7 @@ public class SearchObservationResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION =
             "?v=custom:(uuid,obsDatetime,concept.datatype.conceptDatatypeId,concept.name.name,concept.uuid," +
-                    "person.uuid,encounter.uuid,location.uuid,location.name,valueCoded:ref,valueNumeric,valueDatetime)";
+                    "person.uuid,encounter:ref,location.uuid,location.name,valueCoded:ref,valueNumeric,valueDatetime)";
 
     /**
      * Return the full REST resource based on the search string passed to the method.
