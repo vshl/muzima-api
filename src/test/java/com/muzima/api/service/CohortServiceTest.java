@@ -22,6 +22,7 @@ import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortDefinition;
 import com.muzima.api.model.Observation;
 import com.muzima.api.model.Patient;
+import com.muzima.search.api.module.ProxyModule;
 import com.muzima.search.api.util.StringUtil;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -38,40 +39,68 @@ public class CohortServiceTest {
 
     @Test
     public void donwloadStaticCohort() throws Exception {
+        ContextFactory.registerModule(new UnitTestModule());
+        ContextFactory.registerModule(new ProxyModule());
+
         Context context = ContextFactory.createContext();
 
         context.openSession();
         if (!context.isAuthenticated())
-            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
+            context.authenticate("nribeka", "Winyo1604?", "https://192.168.5.201:8443/amrs");
+
+        int patientCounter = 0;
+        int cohortMemberCounter = 0;
+        int observationCounter = 0;
+
+        long start = System.currentTimeMillis();
 
         CohortService cohortService = context.getCohortService();
         PatientService patientService = context.getPatientService();
         ObservationService observationService = context.getObservationService();
 
         List<Cohort> cohorts = cohortService.downloadCohortsByName(StringUtil.EMPTY);
-        for (Cohort cohort : cohorts) {
+        if (!cohorts.isEmpty()) {
+            Cohort cohort = cohorts.get(0);
             logger.info("Cohort: {} | {}", cohort.getName(), cohort.getUuid());
             CohortData cohortData = cohortService.downloadCohortData(cohort.getUuid(), false);
             logger.info("Cohort data: {}", cohortData);
             for (Patient patient : cohortData.getPatients()) {
                 List<Observation> observations = observationService.downloadObservationsByPatient(patient.getUuid());
                 observationService.saveObservations(observations);
+                observationCounter = observationCounter + observations.size();
             }
+            patientCounter = patientCounter + cohortData.getPatients().size();
             patientService.savePatients(cohortData.getPatients());
+            cohortMemberCounter = cohortMemberCounter + cohortData.getCohortMembers().size();
             cohortService.saveCohortMembers(cohortData.getCohortMembers());
         }
+
+        long end = System.currentTimeMillis();
+        double elapsed = (end - start) / 1000;
+        logger.info("Download Statistic:");
+        logger.info("Total time: " + elapsed + "s");
+        logger.info("Total patients: {}", patientCounter);
+        logger.info("Total cohort members: {}", cohortMemberCounter);
+        logger.info("Total observations: {}", observationCounter);
 
         context.deauthenticate();
         context.closeSession();
     }
 
-    @Test
     public void donwloadDynamicCohort() throws Exception {
+        ContextFactory.registerModule(new UnitTestModule());
+        ContextFactory.registerModule(new ProxyModule());
         Context context = ContextFactory.createContext();
 
         context.openSession();
         if (!context.isAuthenticated())
-            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
+            context.authenticate("nribeka", "Winyo1604?", "https://192.168.5.201:8443/amrs");
+
+        int patientCounter = 0;
+        int cohortMemberCounter = 0;
+        int observationCounter = 0;
+
+        long start = System.currentTimeMillis();
 
         CohortService cohortService = context.getCohortService();
         PatientService patientService = context.getPatientService();
@@ -86,9 +115,19 @@ public class CohortServiceTest {
                 List<Observation> observations = observationService.downloadObservationsByPatient(patient.getUuid());
                 observationService.saveObservations(observations);
             }
+            patientCounter = patientCounter + cohortData.getPatients().size();
             patientService.savePatients(cohortData.getPatients());
+            cohortMemberCounter = cohortMemberCounter + cohortData.getCohortMembers().size();
             cohortService.saveCohortMembers(cohortData.getCohortMembers());
         }
+
+        long end = System.currentTimeMillis();
+        double elapsed = (end - start) / 1000;
+        logger.info("Download Statistic:");
+        logger.info("Total time: " + elapsed + "s");
+        logger.info("Total patients: {}", patientCounter);
+        logger.info("Total cohort members: {}", cohortMemberCounter);
+        logger.info("Total observations: {}", observationCounter);
 
         context.deauthenticate();
         context.closeSession();
