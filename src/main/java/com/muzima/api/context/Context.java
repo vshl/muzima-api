@@ -37,6 +37,7 @@ import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -65,8 +66,8 @@ public class Context {
     /**
      * Initialize the service layer based on the configuration string passed to the search api. The order system will
      * look for the configuration document in the following location:
-     * * Stream object in the properties with key: Constants.RESOURCE_CONFIGURATION_STREAM
-     * * File object in the properties with key: Constants.RESOURCE_CONFIGURATION_STREAM
+     * * Stream object in the properties with key: Constants.RESOURCE_CONFIGURATION_STRING
+     * * File object in the properties with key: Constants.RESOURCE_CONFIGURATION_STRING
      * * File object in classpath with path defined in the properties with key: Constants.RESOURCE_CONFIGURATION_PATH
      * * File object in filesystem with path defined in the properties with key: Constants.RESOURCE_CONFIGURATION_PATH
      *
@@ -75,14 +76,11 @@ public class Context {
     private void initService() throws Exception {
         InputStream inputStream = null;
         ServiceContext serviceContext = injector.getInstance(ServiceContext.class);
-        Object object = ContextFactory.getProperties().get(Constants.RESOURCE_CONFIGURATION_STREAM);
-        if (object != null) {
-            if (object instanceof InputStream) {
-                inputStream = (InputStream) object;
-            } else if (object instanceof File) {
-                inputStream = new FileInputStream((File) object);
-            }
+        String configurationString = ContextFactory.getProperties().getProperty(Constants.RESOURCE_CONFIGURATION_STRING);
+        if (!StringUtil.isEmpty(configurationString)) {
+            inputStream = new ByteArrayInputStream(configurationString.getBytes());
         }
+
         if (inputStream == null) {
             String configurationPath = ContextFactory.getProperty(Constants.RESOURCE_CONFIGURATION_PATH);
             if (!StringUtil.isEmpty(configurationPath)) {
@@ -92,10 +90,11 @@ public class Context {
                 }
             }
         }
+
         if (inputStream == null) {
             throw new IOException(
                     "Unable to find suitable configuration document to setup the service layer!" +
-                            "Please configure it using: Constants.RESOURCE_CONFIGURATION_STREAM or" +
+                            "Please configure it using: Constants.RESOURCE_CONFIGURATION_STRING or" +
                             "Constants.RESOURCE_CONFIGURATION_PATH property in the ContextFactory.");
         }
         registerResources(inputStream, serviceContext);

@@ -58,45 +58,35 @@ public class UserAlgorithm extends BaseOpenmrsAlgorithm {
             username = JsonPath.read(jsonObject, "$['systemId']");
         user.setUsername(username);
 
-        Object privilegeArrayObject = JsonPath.read(jsonObject, "$['privileges']");
-        if (privilegeArrayObject instanceof JSONArray) {
-            List<Privilege> privileges = new ArrayList<Privilege>();
+        List<Object> privilegeObjectArray = JsonPath.read(jsonObject, "$['privileges']");
+        List<Privilege> privileges = new ArrayList<Privilege>();
+        for (Object privilegeObject : privilegeObjectArray) {
+            Privilege privilege = new Privilege();
 
-            JSONArray privilegeArray = (JSONArray) privilegeArrayObject;
-            for (Object privilegeObject : privilegeArray) {
-                Privilege privilege = new Privilege();
+            String privilegeUuid = JsonPath.read(privilegeObject, "$['uuid']");
+            privilege.setUuid(privilegeUuid);
 
-                String privilegeUuid = JsonPath.read(privilegeObject, "$['uuid']");
-                privilege.setUuid(privilegeUuid);
+            String privilegeName = JsonPath.read(privilegeObject, "$['name']");
+            privilege.setName(privilegeName);
 
-                String privilegeName = JsonPath.read(privilegeObject, "$['name']");
-                privilege.setName(privilegeName);
-
-                privileges.add(privilege);
-            }
-
-            user.setPrivileges(privileges);
+            privileges.add(privilege);
         }
+        user.setPrivileges(privileges);
 
-        Object roleArrayObject = JsonPath.read(jsonObject, "$['roles']");
-        if (roleArrayObject instanceof JSONArray) {
-            List<Role> roles = new ArrayList<Role>();
+        List<Object> roleObjectArray = JsonPath.read(jsonObject, "$['roles']");
+        List<Role> roles = new ArrayList<Role>();
+        for (Object roleObject : roleObjectArray) {
+            Role role = new Role();
 
-            JSONArray roleArray = (JSONArray) roleArrayObject;
-            for (Object roleObject : roleArray) {
-                Role role = new Role();
+            String privilegeUuid = JsonPath.read(roleObject, "$['uuid']");
+            role.setUuid(privilegeUuid);
 
-                String privilegeUuid = JsonPath.read(roleObject, "$['uuid']");
-                role.setUuid(privilegeUuid);
+            String privilegeName = JsonPath.read(roleObject, "$['name']");
+            role.setName(privilegeName);
 
-                String privilegeName = JsonPath.read(roleObject, "$['name']");
-                role.setName(privilegeName);
-
-                roles.add(role);
-            }
-
-            user.setRoles(roles);
+            roles.add(role);
         }
+        user.setRoles(roles);
 
         return user;
     }

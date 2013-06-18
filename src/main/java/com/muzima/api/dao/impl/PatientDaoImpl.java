@@ -52,7 +52,7 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
             Filter filter = FilterFactory.createFilter("identifier", identifier);
             filters.add(filter);
         }
-        List<Patient> patients = service.getObjects(filters, Patient.class);
+        List<Patient> patients = service.getObjects(filters, daoClass);
         if (!CollectionUtil.isEmpty(patients)) {
             if (patients.size() > 1)
                 throw new IOException("Unable to uniquely identify a Patient using the identifier");
@@ -77,7 +77,7 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
             query.append("middleName:").append(name).append("*").append(" OR ");
             query.append("familyName:").append(name).append("*");
         }
-        return service.getObjects(query.toString(), Patient.class);
+        return service.getObjects(query.toString(), daoClass);
     }
 
     /**
@@ -102,7 +102,7 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
                 return service.getObjects(query.toString(), Patient.class);
             }
         }
-        return service.getObjects(StringUtil.EMPTY, Patient.class);
+        return service.getObjects(StringUtil.EMPTY, daoClass);
     }
 
     private boolean containsDigit(final String term) {

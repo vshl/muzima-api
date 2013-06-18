@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -57,11 +58,24 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
      * @param object   the object to be saved.
      * @param resource the resource descriptor used for saving.
      * @return saved object.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
-    public T save(final T object, final String resource) throws IOException {
-        return (T) service.createObject(object, context.getResource(resource));
+    public void save(final T object, final String resource) throws IOException {
+        service.createObjects(Arrays.<Searchable>asList(object), context.getResource(resource));
+    }
+
+    /**
+     * Save list of objects to the local repository. Use this save method when you want to save multiple objects
+     * at the same time.
+     *
+     * @param objects  the objects to be saved.
+     * @param resource the resource descriptor used for saving.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void save(final List<T> objects, final String resource) throws IOException {
+        service.createObjects((List<Searchable>) objects, context.getResource(resource));
     }
 
     /**
@@ -70,11 +84,24 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
      * @param object   the object to be updated.
      * @param resource the resource descriptor used for saving.
      * @return updated object.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
-    public T update(final T object, final String resource) throws IOException {
-        return (T) service.updateObject(object, context.getResource(resource));
+    public void update(final T object, final String resource) throws IOException {
+        service.updateObjects(Arrays.<Searchable>asList(object), context.getResource(resource));
+    }
+
+    /**
+     * Update list of objects in the local repository. Use this save method when you want to update multiple objects
+     * at the same time.
+     *
+     * @param objects  the objects to be updated.
+     * @param resource the resource descriptor used for updating.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void update(final List<T> objects, final String resource) throws IOException {
+        service.updateObjects((List<Searchable>) objects, context.getResource(resource));
     }
 
     /**
@@ -82,7 +109,7 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
      *
      * @param uuid the uuid of the searchable object.
      * @return the searchable object.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     public T getByUuid(final String uuid) throws IOException {
         return service.getObject(uuid, daoClass);
@@ -122,10 +149,23 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
      *
      * @param searchable the object to be deleted.
      * @param resource   the resource descriptor used to retrieve the object from the repository.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
-    public T delete(final T searchable, final String resource) throws IOException {
-        return (T) service.invalidate(searchable, context.getResource(resource));
+    public void delete(final T searchable, final String resource) throws IOException {
+        service.deleteObjects(Arrays.<Searchable>asList(searchable), context.getResource(resource));
+    }
+
+    /**
+     * Delete list of objects from the local repository. Use this save method when you want to delete multiple
+     * objects at the same time.
+     *
+     * @param objects  the objects to be deleted.
+     * @param resource the resource descriptor used for deleting.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void delete(final List<T> objects, final String resource) throws IOException {
+        service.deleteObjects((List<Searchable>) objects, context.getResource(resource));
     }
 }

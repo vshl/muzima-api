@@ -53,8 +53,11 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
         String patientUuid = JsonPath.read(jsonObject, "$['person.uuid']");
         observation.setPatientUuid(patientUuid);
 
-        String encounterUuid = JsonPath.read(jsonObject, "$['encounter.uuid']");
-        observation.setEncounterUuid(encounterUuid);
+        Object encounterObject = JsonPath.read(jsonObject, "$['encounter']");
+        if (encounterObject != null) {
+            String encounterUuid = JsonPath.read(encounterObject, "$['uuid']");
+            observation.setEncounterUuid(encounterUuid);
+        }
 
         String conceptName = JsonPath.read(jsonObject, "$['concept.name.name']");
         observation.setQuestionName(conceptName);
@@ -103,23 +106,42 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", observation.getUuid());
         jsonObject.put("person.uuid", observation.getPatientUuid());
+
+        JSONObject encounterObject = null;
+        if (!StringUtil.isEmpty(observation.getEncounterUuid())) {
+            encounterObject = new JSONObject();
+            encounterObject.put("uuid", observation.getEncounterUuid());
+        }
+        jsonObject.put("encounter", encounterObject);
+
         jsonObject.put("encounter.uuid", observation.getEncounterUuid());
         jsonObject.put("concept.name.name", observation.getQuestionName());
         jsonObject.put("concept.uuid", observation.getQuestionUuid());
 
-        String valueNumeric = StringUtil.EMPTY;
-        String valueDatetime = StringUtil.EMPTY;
-        String valueCoded = StringUtil.EMPTY;
-        if (observation.getDataType() == Constants.TYPE_NUMERIC)
-            valueNumeric = observation.getValue();
-        if (observation.getDataType() == Constants.TYPE_DATE)
-            valueDatetime = observation.getValue();
-        if (observation.getDataType() == Constants.TYPE_STRING)
-            valueCoded = observation.getValue();
+        String valueNumeric = null;
+        String valueDatetime = null;
+        String valueCoded = null;
+        if (observation.getDataType() != null) {
+            if (observation.getDataType() == Constants.TYPE_NUMERIC) {
+                valueNumeric = observation.getValue();
+            }
+            if (observation.getDataType() == Constants.TYPE_DATE) {
+                valueDatetime = observation.getValue();
+            }
+            if (observation.getDataType() == Constants.TYPE_STRING) {
+                valueCoded = observation.getValue();
+            }
+        }
 
         jsonObject.put("valueNumeric", valueNumeric);
         jsonObject.put("valueDatetime", valueDatetime);
-        jsonObject.put("valueCoded", valueCoded);
+
+        JSONObject valueCodedObject = null;
+        if (valueCoded != null) {
+            valueCodedObject = new JSONObject();
+            valueCodedObject.put("display", valueCoded);
+        }
+        jsonObject.put("valueCoded", valueCodedObject);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(observation.getObservationDate());

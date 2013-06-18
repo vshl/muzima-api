@@ -24,6 +24,8 @@ import com.muzima.search.api.module.SearchModule;
 import com.muzima.util.Constants;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -33,13 +35,20 @@ public class ContextFactory {
 
     private static final String OPENMRS_UUID = "uuid";
 
-    private static Properties contextProperties = new Properties();
+    private static final Properties contextProperties = new Properties();
+
+    private static final List<Module> modules = new ArrayList<Module>();
 
     static {
-        contextProperties.setProperty(Constants.RESOURCE_CONFIGURATION_PATH, "../service/j2l/config.list");
+        contextProperties.setProperty(Constants.RESOURCE_CONFIGURATION_PATH, "../service/j2l/config.json");
         contextProperties.setProperty(
                 Constants.LUCENE_DIRECTORY_NAME, System.getProperty("java.io.tmpdir") + "/lucene");
         contextProperties.setProperty(Constants.LUCENE_DOCUMENT_KEY, OPENMRS_UUID);
+
+        modules.add(new SearchModule());
+        modules.add(new MuzimaModule(
+                getProperties().getProperty(Constants.LUCENE_DIRECTORY_NAME),
+                getProperties().getProperty(Constants.LUCENE_DOCUMENT_KEY)));
     }
 
     /**
@@ -62,15 +71,6 @@ public class ContextFactory {
     }
 
     /**
-     * Set the context's properties using the properties object.
-     *
-     * @param properties the properties to be set as the context's properties.
-     */
-    public static void setProperties(final Properties properties) {
-        contextProperties = properties;
-    }
-
-    /**
      * Get copy of the properties with the current properties as the default value. Changing values in the returned
      * properties will not change the actual values stored inside the context properties. Use the
      * <code>setProperty</code> or <code>setProperties</code> instead.
@@ -79,6 +79,16 @@ public class ContextFactory {
      */
     public static Properties getProperties() {
         return new Properties(contextProperties);
+    }
+
+    /**
+     * Register a custom module to the context factory. The custom module can be used to override the default
+     * behavior of the muzima and search API.
+     *
+     * @param module the module to be registered.
+     */
+    public static void registerModule(final Module module) {
+        modules.add(module);
     }
 
     /**
@@ -92,11 +102,7 @@ public class ContextFactory {
      * @throws IOException when creating context failed.
      */
     public static Context createContext() throws Exception {
-        Module searchModule = new SearchModule();
-        Module muzimaModule = new MuzimaModule(
-                getProperties().getProperty(Constants.LUCENE_DIRECTORY_NAME),
-                getProperties().getProperty(Constants.LUCENE_DOCUMENT_KEY));
-        Module module = Modules.combine(searchModule, muzimaModule);
+        Module module = Modules.combine(modules);
         Injector injector = Guice.createInjector(module);
         return new Context(injector);
     }

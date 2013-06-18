@@ -5,36 +5,38 @@ import com.muzima.api.context.Context;
 import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.User;
 import org.aspectj.lang.Signature;
-
-import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TODO: Write brief description about the class here.
  */
 public aspect AuthenticationAspect {
 
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationAspect.class.getSimpleName());
+
     pointcut serviceMethod(Authorization authorization): execution(@Authorization * *(..))
             && @annotation(authorization);
 
     before(Authorization authorization): serviceMethod(authorization) {
         Signature signature = thisJoinPoint.getSignature();
-        System.out.printf("Entering method: %s. \n", signature);
-        System.out.printf("Annotation class: %s. \n", authorization);
+        logger.info("Entering method: {}", signature);
+        logger.info("Annotation class: {}", authorization);
         for (String privilege : authorization.privileges()) {
-            System.out.printf("Privilege: %s.\n", privilege);
+            logger.info("Privilege: {}", privilege);
         }
 
         try {
             Context context = ContextFactory.createContext();
             if (!context.isAuthenticated()) {
                 User user = context.getAuthenticatedUser();
-                System.out.println("Context is not authenticated!");
-                System.out.println("Authenticated user is: " + user.getUsername());
+                logger.info("Context is not authenticated!");
+                logger.info("Authenticated user is: {}", user.getUsername());
             } else {
-                System.out.println("Context is authenticated!");
+                logger.info("Context is authenticated!");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Unable to create and authenticate context!", e);
         }
 
     }

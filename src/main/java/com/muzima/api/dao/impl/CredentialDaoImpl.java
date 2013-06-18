@@ -51,7 +51,7 @@ public class CredentialDaoImpl extends SearchableDaoImpl<Credential> implements 
             Filter filter = FilterFactory.createFilter("username", username);
             filters.add(filter);
         }
-        List<Credential> credentials = service.getObjects(filters, Credential.class);
+        List<Credential> credentials = service.getObjects(filters, daoClass);
         if (!CollectionUtil.isEmpty(credentials)) {
             if (credentials.size() > 1)
                 throw new IOException("Unable to uniquely identify a Patient using the identifier");

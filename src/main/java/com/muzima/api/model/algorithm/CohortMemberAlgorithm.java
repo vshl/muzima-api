@@ -16,13 +16,13 @@
 package com.muzima.api.model.algorithm;
 
 import com.jayway.jsonpath.JsonPath;
-import com.muzima.api.model.Member;
+import com.muzima.api.model.CohortMember;
 import com.muzima.search.api.model.object.Searchable;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
 
-public class MemberAlgorithm extends BaseOpenmrsAlgorithm {
+public class CohortMemberAlgorithm extends BaseOpenmrsAlgorithm {
 
     /**
      * Implementation of this method will define how the patient will be serialized from the JSON representation.
@@ -32,17 +32,17 @@ public class MemberAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
-        Member member = new Member();
+        CohortMember cohortMember = new CohortMember();
 
         Object jsonObject = JsonPath.read(serialized, "$");
 
         String userUuid = JsonPath.read(jsonObject, "$['cohort.uuid']");
-        member.setCohortUuid(userUuid);
+        cohortMember.setCohortUuid(userUuid);
 
         String patientUuid = JsonPath.read(jsonObject, "$['patient.uuid']");
-        member.setPatientUuid(patientUuid);
+        cohortMember.setPatientUuid(patientUuid);
 
-        return member;
+        return cohortMember;
     }
 
     /**
@@ -53,11 +53,10 @@ public class MemberAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public String serialize(final Searchable object) throws IOException {
-        // serialize the minimum needed to identify an object for deletion purposes.
-        Member member = (Member) object;
+        CohortMember cohortMember = (CohortMember) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("cohort.uuid", member.getCohortUuid());
-        jsonObject.put("patient.uuid", member.getPatientUuid());
+        jsonObject.put("cohort.uuid", cohortMember.getCohortUuid());
+        jsonObject.put("patient.uuid", cohortMember.getPatientUuid());
         return jsonObject.toJSONString();
     }
 }

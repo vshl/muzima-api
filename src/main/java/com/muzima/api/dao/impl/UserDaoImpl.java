@@ -48,7 +48,7 @@ public class UserDaoImpl extends OpenmrsDaoImpl<User> implements UserDao {
             query.append("username:").append(username).append(" OR ");
             query.append("systemId:").append(username);
         }
-        List<User> users = service.getObjects(query.toString(), User.class);
+        List<User> users = service.getObjects(query.toString(), daoClass);
         if (!CollectionUtil.isEmpty(users)) {
             if (users.size() > 1) {
                 throw new IOException("Unable to uniquely identify a Patient using the identifier");
@@ -74,6 +74,6 @@ public class UserDaoImpl extends OpenmrsDaoImpl<User> implements UserDao {
             query.append("middleName:").append(name).append("*").append(" OR ");
             query.append("familyName:").append(name).append("*");
         }
-        return service.getObjects(query.toString(), User.class);
+        return service.getObjects(query.toString(), daoClass);
     }
 }

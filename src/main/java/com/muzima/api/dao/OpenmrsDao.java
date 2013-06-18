@@ -16,7 +16,6 @@
 package com.muzima.api.dao;
 
 import com.muzima.api.model.OpenmrsSearchable;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +31,7 @@ public interface OpenmrsDao<T extends OpenmrsSearchable> extends SearchableDao<T
      *
      * @param term     the term to be passed to search object to filter the searchable object.
      * @param resource resource descriptor used to convert the resource to the correct object.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     List<T> download(final String term, final String resource) throws IOException;
 }

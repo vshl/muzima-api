@@ -40,10 +40,17 @@ public interface PatientService extends MuzimaInterface {
      * Save patient to the local lucene repository.
      *
      * @param patient the patient to be saved.
-     * @return the saved patient.
      * @throws IOException when search api unable to process the resource.
      */
-    Patient savePatient(final Patient patient) throws IOException;
+    void savePatient(final Patient patient) throws IOException;
+
+    /**
+     * Save patients to the local lucene repository.
+     *
+     * @param patients the patients to be saved.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void savePatients(final List<Patient> patients) throws IOException;
 
     /**
      * Update patient in the local lucene repository.
@@ -52,7 +59,16 @@ public interface PatientService extends MuzimaInterface {
      * @return the updated patient.
      * @throws IOException when search api unable to process the resource.
      */
-    Patient updatePatient(final Patient patient) throws IOException;
+    void updatePatient(final Patient patient) throws IOException;
+
+    /**
+     * Update patients in the local lucene repository.
+     *
+     * @param patients the patients to be updated.
+     * @return the updated patient.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void updatePatients(final List<Patient> patients) throws IOException;
 
     /**
      * Get a single patient record from the local repository with matching uuid.

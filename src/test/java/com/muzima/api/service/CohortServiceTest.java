@@ -18,8 +18,15 @@ package com.muzima.api.service;
 import com.muzima.api.context.Context;
 import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Cohort;
+import com.muzima.api.model.CohortData;
+import com.muzima.api.model.CohortDefinition;
+import com.muzima.api.model.Observation;
+import com.muzima.api.model.Patient;
+import com.muzima.search.api.module.ProxyModule;
 import com.muzima.search.api.util.StringUtil;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -28,34 +35,99 @@ import java.util.List;
  */
 public class CohortServiceTest {
 
+    private final Logger logger = LoggerFactory.getLogger(CohortServiceTest.class.getSimpleName());
+
     @Test
-    public void donwloadCohort() throws Exception {
+    public void donwloadStaticCohort() throws Exception {
+        ContextFactory.registerModule(new UnitTestModule());
+        ContextFactory.registerModule(new ProxyModule());
+
         Context context = ContextFactory.createContext();
 
         context.openSession();
         if (!context.isAuthenticated())
-            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
+            context.authenticate("nribeka", "Winyo1604?", "https://192.168.5.201:8443/amrs");
+
+        int patientCounter = 0;
+        int cohortMemberCounter = 0;
+        int observationCounter = 0;
+
+        long start = System.currentTimeMillis();
 
         CohortService cohortService = context.getCohortService();
         PatientService patientService = context.getPatientService();
         ObservationService observationService = context.getObservationService();
 
         List<Cohort> cohorts = cohortService.downloadCohortsByName(StringUtil.EMPTY);
-        for (Cohort cohort : cohorts) {
-            System.out.println("Cohort: " + cohort.getName() + " | " + cohort.getUuid());
-//            List<Member> members = cohortService.downloadMembers(cohort.getUuid());
-//            for (Member member : members) {
-//                System.out.println("Member: " + member.getPatientUuid());
-//                Patient patient = patientService.downloadPatientByUuid(member.getPatientUuid());
-//                System.out.println("Patient: " + patient.getUuid() + "| identifier: " + patient.getIdentifier());
-//                List<Observation> observations =
-//                        observationService.downloadObservationsByPatient(member.getPatientUuid());
-//                System.out.println("Observation: ");
-//                for (Observation observation : observations) {
-//                    System.out.println(observation.getQuestionName() + " = " + observation.getValue());
-//                }
-//            }
+        if (!cohorts.isEmpty()) {
+            Cohort cohort = cohorts.get(0);
+            logger.info("Cohort: {} | {}", cohort.getName(), cohort.getUuid());
+            CohortData cohortData = cohortService.downloadCohortData(cohort.getUuid(), false);
+            logger.info("Cohort data: {}", cohortData);
+            for (Patient patient : cohortData.getPatients()) {
+                List<Observation> observations = observationService.downloadObservationsByPatient(patient.getUuid());
+                observationService.saveObservations(observations);
+                observationCounter = observationCounter + observations.size();
+            }
+            patientCounter = patientCounter + cohortData.getPatients().size();
+            patientService.savePatients(cohortData.getPatients());
+            cohortMemberCounter = cohortMemberCounter + cohortData.getCohortMembers().size();
+            cohortService.saveCohortMembers(cohortData.getCohortMembers());
         }
+
+        long end = System.currentTimeMillis();
+        double elapsed = (end - start) / 1000;
+        logger.info("Download Statistic:");
+        logger.info("Total time: " + elapsed + "s");
+        logger.info("Total patients: {}", patientCounter);
+        logger.info("Total cohort members: {}", cohortMemberCounter);
+        logger.info("Total observations: {}", observationCounter);
+
+        context.deauthenticate();
+        context.closeSession();
+    }
+
+    public void donwloadDynamicCohort() throws Exception {
+        ContextFactory.registerModule(new UnitTestModule());
+        ContextFactory.registerModule(new ProxyModule());
+        Context context = ContextFactory.createContext();
+
+        context.openSession();
+        if (!context.isAuthenticated())
+            context.authenticate("nribeka", "Winyo1604?", "https://192.168.5.201:8443/amrs");
+
+        int patientCounter = 0;
+        int cohortMemberCounter = 0;
+        int observationCounter = 0;
+
+        long start = System.currentTimeMillis();
+
+        CohortService cohortService = context.getCohortService();
+        PatientService patientService = context.getPatientService();
+        ObservationService observationService = context.getObservationService();
+
+        List<CohortDefinition> cohortDefinitions = cohortService.downloadCohortDefinitionsByName(StringUtil.EMPTY);
+        for (CohortDefinition cohortDefinition : cohortDefinitions) {
+            logger.info("Cohort: {} | {}", cohortDefinition.getName(), cohortDefinition.getUuid());
+            CohortData cohortData = cohortService.downloadCohortData(cohortDefinition.getUuid(), true);
+            logger.info("Cohort data: {}", cohortData);
+            for (Patient patient : cohortData.getPatients()) {
+                List<Observation> observations = observationService.downloadObservationsByPatient(patient.getUuid());
+                observationService.saveObservations(observations);
+            }
+            patientCounter = patientCounter + cohortData.getPatients().size();
+            patientService.savePatients(cohortData.getPatients());
+            cohortMemberCounter = cohortMemberCounter + cohortData.getCohortMembers().size();
+            cohortService.saveCohortMembers(cohortData.getCohortMembers());
+        }
+
+        long end = System.currentTimeMillis();
+        double elapsed = (end - start) / 1000;
+        logger.info("Download Statistic:");
+        logger.info("Total time: " + elapsed + "s");
+        logger.info("Total patients: {}", patientCounter);
+        logger.info("Total cohort members: {}", cohortMemberCounter);
+        logger.info("Total observations: {}", observationCounter);
 
         context.deauthenticate();
         context.closeSession();

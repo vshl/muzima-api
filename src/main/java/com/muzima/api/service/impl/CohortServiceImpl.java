@@ -18,11 +18,14 @@ package com.muzima.api.service.impl;
 import com.google.inject.Inject;
 import com.muzima.api.annotation.Authorization;
 import com.muzima.api.dao.CohortDao;
+import com.muzima.api.dao.CohortDataDao;
+import com.muzima.api.dao.CohortDefinitionDao;
 import com.muzima.api.dao.MemberDao;
 import com.muzima.api.model.Cohort;
-import com.muzima.api.model.Member;
+import com.muzima.api.model.CohortData;
+import com.muzima.api.model.CohortDefinition;
+import com.muzima.api.model.CohortMember;
 import com.muzima.api.service.CohortService;
-import com.muzima.api.service.PatientService;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
@@ -38,13 +41,16 @@ public class CohortServiceImpl implements CohortService {
     private MemberDao memberDao;
 
     @Inject
-    private PatientService patientService;
+    private CohortDataDao cohortDataDao;
+
+    @Inject
+    private CohortDefinitionDao cohortDefinitionDao;
 
     protected CohortServiceImpl() {
     }
 
     /**
-     * Download a single cohort record from the cohort rest resource into the local lucene repository.
+     * Download a single cohort record from the cohort rest resource and convert them into Cohort object.
      *
      * @param uuid the uuid of the cohort.
      * @throws IOException when search api unable to process the resource.
@@ -67,8 +73,8 @@ public class CohortServiceImpl implements CohortService {
      *
      * @param name the partial name of the cohort to be downloaded. When empty, will return all cohorts available.
      * @throws IOException when search api unable to process the resource.
-     * @should download all cohort with partially matched name.
-     * @should download all cohort when name is empty.
+     * @should download all cohorts with partially matched name.
+     * @should download all cohorts when name is empty.
      */
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
@@ -80,26 +86,47 @@ public class CohortServiceImpl implements CohortService {
      * Save the current cohort object to the local lucene repository.
      *
      * @param cohort the cohort to be saved.
-     * @return the saved cohort.
      * @throws IOException when search api unable to process the resource.
      */
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
-    public Cohort saveCohort(final Cohort cohort) throws IOException {
-        return cohortDao.save(cohort, Constants.UUID_COHORT_RESOURCE);
+    public void saveCohort(final Cohort cohort) throws IOException {
+        cohortDao.save(cohort, Constants.UUID_COHORT_RESOURCE);
+    }
+
+    /**
+     * Save the current cohort objects to the local lucene repository.
+     *
+     * @param cohorts the cohorts to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public void saveCohorts(final List<Cohort> cohorts) throws IOException {
+        cohortDao.save(cohorts, Constants.UUID_COHORT_RESOURCE);
     }
 
     /**
      * Update the current cohort object to the local lucene repository.
      *
      * @param cohort the cohort to be updated.
-     * @return the updated cohort.
      * @throws IOException when search api unable to process the resource.
      */
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
-    public Cohort updateCohort(final Cohort cohort) throws IOException {
-        return cohortDao.update(cohort, Constants.UUID_COHORT_RESOURCE);
+    public void updateCohort(final Cohort cohort) throws IOException {
+        cohortDao.update(cohort, Constants.UUID_COHORT_RESOURCE);
+    }
+
+    /**
+     * Update the current cohorts object to the local lucene repository.
+     *
+     * @param cohorts the cohorts to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void updateCohorts(final List<Cohort> cohorts) throws IOException {
+        cohortDao.update(cohorts, Constants.UUID_COHORT_RESOURCE);
     }
 
     /**
@@ -159,38 +186,217 @@ public class CohortServiceImpl implements CohortService {
     }
 
     /**
-     * Download all patients' uuid under the current cohort identified by the cohort uuid and save them in to the local
-     * repository.
+     * Download a single cohort definition record from the cohort definition rest resource and convert them into
+     * <code>CohortDefinition</code> object.
      *
-     * @param cohortUuid the cohort's uuid.
-     * @throws IOException when search api unable to process the resource.
-     * @should download all patients from the current cohort identified by the cohort's uuid.
+     * @param cohortDefinitionUuid the uuid of the cohort definition.
+     * @throws java.io.IOException when search api unable to process the resource.
+     * @should download cohort definition with matching uuid.
      */
     @Override
-    public List<Member> downloadMembers(final String cohortUuid) throws IOException {
-        return memberDao.download(cohortUuid, Constants.MEMBER_COHORT_RESOURCE);
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public CohortDefinition downloadCohortDefinitionByUuid(final String cohortDefinitionUuid) throws IOException {
+        List<CohortDefinition> cohorts = cohortDefinitionDao.download(
+                cohortDefinitionUuid, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+        if (cohorts.size() > 1) {
+            throw new IOException("Unable to uniquely identify a cohort record.");
+        } else if (cohorts.size() == 0) {
+            return null;
+        }
+        return cohorts.get(0);
+    }
+
+    /**
+     * Download all cohort definitions with name similar to the partial name passed in the parameter.
+     *
+     * @param name the partial name of the cohort definition to be downloaded. When empty, will return all cohort
+     *             definitions available.
+     * @throws java.io.IOException when search api unable to process the resource.
+     * @should download all cohort definitions with partially matched name.
+     * @should download all cohort definitions when name is empty.
+     */
+    @Override
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public List<CohortDefinition> downloadCohortDefinitionsByName(final String name) throws IOException {
+        return cohortDefinitionDao.download(name, Constants.SEARCH_COHORT_DEFINITION_RESOURCE);
+    }
+
+    /**
+     * Save the current cohort definition object to the local lucene repository.
+     *
+     * @param cohortDefinition the cohort definition to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public void saveCohortDefinition(final CohortDefinition cohortDefinition) throws IOException {
+        cohortDefinitionDao.save(cohortDefinition, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+    }
+
+    /**
+     * Save the current cohort definition objects to the local lucene repository.
+     *
+     * @param cohortDefinitions the cohort definitions to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void saveCohortDefinitions(final List<CohortDefinition> cohortDefinitions) throws IOException {
+        cohortDefinitionDao.save(cohortDefinitions, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+    }
+
+    /**
+     * Update the current cohort definition object to the local lucene repository.
+     *
+     * @param cohortDefinition the cohort definition to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public void updateCohortDefinition(final CohortDefinition cohortDefinition) throws IOException {
+        cohortDefinitionDao.update(cohortDefinition, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+    }
+
+    /**
+     * Update the current cohort definition objects to the local lucene repository.
+     *
+     * @param cohortDefinitions the cohort definitions to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void updateCohortDefinitions(final List<CohortDefinition> cohortDefinitions) throws IOException {
+        cohortDefinitionDao.update(cohortDefinitions, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+    }
+
+    /**
+     * Get a single cohort definition record from the repository using the uuid.
+     *
+     * @param cohortDefinitionUuid the cohort definition uuid.
+     * @return cohort definition with matching uuid or null when no cohort definition match the uuid.
+     * @throws java.io.IOException when search api unable to process the resource.
+     * @should return cohort definition with matching uuid.
+     * @should return null when no cohort definition match the uuid.
+     */
+    @Override
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public CohortDefinition getCohortDefinitionByUuid(final String cohortDefinitionUuid) throws IOException {
+        return cohortDefinitionDao.getByUuid(cohortDefinitionUuid);
+    }
+
+    /**
+     * Get list of cohort definitions based on the name of the cohort definition. If empty string is passed, it will
+     * search for all cohort definitions.
+     *
+     * @param name the partial name of the cohort definition.
+     * @return list of all cohort definitions with matching uuid or empty list when no cohort definition match the name.
+     * @throws org.apache.lucene.queryParser.ParseException
+     *                             when query parser from lucene unable to parse the query string.
+     * @throws java.io.IOException when search api unable to process the resource.
+     * @should return list of all cohort definitions with matching name.
+     * @should return empty list when no cohort definition match the name.
+     */
+    @Override
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public List<CohortDefinition> getCohortDefinitionsByName(final String name) throws IOException, ParseException {
+        return cohortDefinitionDao.getByName(name);
+    }
+
+    /**
+     * Get all cohort definitions saved in the local lucene repository.
+     *
+     * @return all registered cohort definition or empty list when no cohort definition is registered.
+     * @throws org.apache.lucene.queryParser.ParseException
+     *                             when query parser from lucene unable to parse the query string.
+     * @throws java.io.IOException when search api unable to process the resource.
+     * @should return all registered cohort definitions.
+     * @should return empty list when no cohort definition is registered.
+     */
+    @Override
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public List<CohortDefinition> getAllCohortDefinitions() throws IOException, ParseException {
+        return cohortDefinitionDao.getAll();
+    }
+
+    /**
+     * Delete a single cohort definition record from the repository.
+     *
+     * @param cohort the cohort definition to be deleted.
+     * @throws java.io.IOException when search api unable to process the resource.
+     * @should delete the cohort definition from lucene repository.
+     */
+    @Override
+    public void deleteCohortDefinition(final CohortDefinition cohort) throws IOException {
+        cohortDefinitionDao.delete(cohort, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+    }
+
+    /**
+     * Download data for the cohort or cohort definition identified by the uuid. The flag for dynamic will determine
+     * whether the API should download the data from the reporting resource or the static cohort resource.
+     * <p/>
+     * This method call will return a cohort data object which will hold the cohort information, the member information,
+     * and the patients information. The member will create a mapping between the patient and the cohort.
+     * <p/>
+     * Client code should save elements of the cohort data as saving the cohort data object itself is not allowed.
+     *
+     * @param uuid    the uuid of the cohort or the cohort definition.
+     * @param dynamic flag whether to use reporting module or static cohort resource.
+     * @return the cohort data based on the uuid.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public CohortData downloadCohortData(final String uuid, final boolean dynamic) throws IOException {
+        String resourceName = Constants.STATIC_COHORT_DATA_RESOURCE;
+        if (dynamic) {
+            resourceName = Constants.DYNAMIC_COHORT_DATA_RESOURCE;
+        }
+        List<CohortData> cohortDataList = cohortDataDao.download(uuid, resourceName);
+        if (cohortDataList.size() > 1) {
+            throw new IOException("Unable to uniquely identify a cohort record.");
+        } else if (cohortDataList.size() == 0) {
+            return null;
+        }
+        return cohortDataList.get(0);
     }
 
     /**
      * Save the member object to the local lucene directory.
      *
-     * @param member the member object to be saved.
-     * @return the saved member object.
+     * @param cohortMember the member object to be saved.
      * @throws IOException when search api unable to process the resource.
      */
-    public Member saveMember(final Member member) throws IOException {
-        return memberDao.save(member, Constants.MEMBER_COHORT_RESOURCE);
+    public void saveCohortMember(final CohortMember cohortMember) throws IOException {
+        memberDao.save(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
+    }
+
+    /**
+     * Save the cohort member objects to the local lucene directory.
+     *
+     * @param cohortMembers the member objects to be saved.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void saveCohortMembers(final List<CohortMember> cohortMembers) throws IOException {
+        memberDao.save(cohortMembers, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
     }
 
     /**
      * Update the member object to the local lucene directory.
      *
-     * @param member the member object to be updated.
-     * @return the updated member object.
+     * @param cohortMember the member object to be updated.
      * @throws IOException when search api unable to process the resource.
      */
-    public Member updateMember(final Member member) throws IOException {
-        return memberDao.update(member, Constants.MEMBER_COHORT_RESOURCE);
+    public void updateCohortMember(final CohortMember cohortMember) throws IOException {
+        memberDao.update(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
+    }
+
+    /**
+     * Update the cohort member objects to the local lucene directory.
+     *
+     * @param cohortMembers the member objects to be updated.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public void updateCohortMembers(final List<CohortMember> cohortMembers) throws IOException {
+        memberDao.update(cohortMembers, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
     }
 
     /**
@@ -204,7 +410,7 @@ public class CohortServiceImpl implements CohortService {
      * @should return empty list when no patient are in the cohort.
      */
     @Override
-    public List<Member> getMembers(final String cohortUuid) throws IOException {
+    public List<CohortMember> getCohortMembers(final String cohortUuid) throws IOException {
         return memberDao.getByCohortUuid(cohortUuid);
     }
 
@@ -216,9 +422,9 @@ public class CohortServiceImpl implements CohortService {
      * @should delete all patients for the cohort from the local repository.
      */
     @Override
-    public void deleteMembers(final String cohortUuid) throws IOException {
-        for (Member member : getMembers(cohortUuid)) {
-            memberDao.delete(member, Constants.MEMBER_COHORT_RESOURCE);
+    public void deleteCohortMembers(final String cohortUuid) throws IOException {
+        for (CohortMember cohortMember : getCohortMembers(cohortUuid)) {
+            memberDao.delete(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
         }
     }
 }

@@ -52,19 +52,33 @@ public interface ObservationService extends MuzimaInterface {
      * Save the observation into the local lucene repository.
      *
      * @param observation the observation to be saved.
-     * @return the saved observation.
      * @throws IOException when search api unable to process the resource.
      */
-    Observation saveObservation(final Observation observation) throws IOException;
+    void saveObservation(final Observation observation) throws IOException;
+
+    /**
+     * Save the observations into the local lucene repository.
+     *
+     * @param observations the observations to be saved.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void saveObservations(final List<Observation> observations) throws IOException;
 
     /**
      * Update the observation into the local lucene repository.
      *
      * @param observation the observation to be updated.
-     * @return the updated observation data.
      * @throws IOException when search api unable to process the resource.
      */
-    Observation updateObservation(final Observation observation) throws IOException;
+    void updateObservation(final Observation observation) throws IOException;
+
+    /**
+     * Update the observations into the local lucene repository.
+     *
+     * @param observations the observations to be updated.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void updateObservations(final List<Observation> observations) throws IOException;
 
     /**
      * Get a single observation record from the repository using the uuid of the observation.

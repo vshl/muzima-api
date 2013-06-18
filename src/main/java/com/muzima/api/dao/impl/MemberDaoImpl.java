@@ -17,22 +17,21 @@ package com.muzima.api.dao.impl;
 
 import com.muzima.api.dao.CredentialDao;
 import com.muzima.api.dao.MemberDao;
-import com.muzima.api.model.Member;
+import com.muzima.api.model.CohortMember;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.StringUtil;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberDaoImpl extends OpenmrsDaoImpl<Member> implements MemberDao {
+public class MemberDaoImpl extends SearchableDaoImpl<CohortMember> implements MemberDao {
 
     private static final String TAG = CredentialDao.class.getSimpleName();
 
     protected MemberDaoImpl() {
-        super(Member.class);
+        super(CohortMember.class);
     }
 
     /**
@@ -40,9 +39,9 @@ public class MemberDaoImpl extends OpenmrsDaoImpl<Member> implements MemberDao {
      *
      * @param cohortUuid the partial name of the cohort or empty string.
      * @return the list of all matching cohort on the cohort name.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
-    public List<Member> getByCohortUuid(final String cohortUuid) throws IOException {
+    public List<CohortMember> getByCohortUuid(final String cohortUuid) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(cohortUuid)) {
             Filter filter = FilterFactory.createFilter("cohortUuid", cohortUuid);
