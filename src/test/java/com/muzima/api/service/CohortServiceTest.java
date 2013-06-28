@@ -39,14 +39,11 @@ public class CohortServiceTest {
 
     @Test
     public void donwloadStaticCohort() throws Exception {
-        ContextFactory.registerModule(new UnitTestModule());
-        ContextFactory.registerModule(new ProxyModule());
-
         Context context = ContextFactory.createContext();
 
         context.openSession();
         if (!context.isAuthenticated())
-            context.authenticate("nribeka", "Winyo1604?", "https://192.168.5.201:8443/amrs");
+            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
 
         int patientCounter = 0;
         int cohortMemberCounter = 0;
@@ -88,13 +85,11 @@ public class CohortServiceTest {
     }
 
     public void donwloadDynamicCohort() throws Exception {
-        ContextFactory.registerModule(new UnitTestModule());
-        ContextFactory.registerModule(new ProxyModule());
         Context context = ContextFactory.createContext();
 
         context.openSession();
         if (!context.isAuthenticated())
-            context.authenticate("nribeka", "Winyo1604?", "https://192.168.5.201:8443/amrs");
+            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
 
         int patientCounter = 0;
         int cohortMemberCounter = 0;
