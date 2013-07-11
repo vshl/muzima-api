@@ -19,6 +19,7 @@ import com.muzima.search.api.model.object.Searchable;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class FormAlgorithm extends BaseOpenmrsAlgorithm {
 
@@ -35,14 +36,15 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
 
         Object jsonObject = JsonPath.read(json, "$");
 
-        String uuid = JsonPath.read(jsonObject, "$['uuid']");
-        form.setUuid(uuid);
+        form.setUuid(UUID.randomUUID().toString());
 
         String name = JsonPath.read(jsonObject, "$['name']");
         form.setName(name);
 
-        String version = JsonPath.read(jsonObject, "$['version']");
-        form.setVersion(version);
+        String description = JsonPath.read(jsonObject, "$['description']");
+        form.setDescription(description);
+
+        form.setVersion("1");
 
         return form;
     }
@@ -59,7 +61,8 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
         Form form = (Form) object;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", form.getUuid());
-        jsonObject.put("name", form.getUuid());
+        jsonObject.put("name", form.getName());
+        jsonObject.put("description", form.getDescription());
         jsonObject.put("version", form.getVersion());
         return jsonObject.toJSONString();
     }

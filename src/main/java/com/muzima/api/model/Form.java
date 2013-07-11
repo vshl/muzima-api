@@ -25,6 +25,8 @@ public class Form extends OpenmrsSearchable {
 
     private String name;
 
+    private String description;
+
     private String version;
 
     /**
@@ -61,6 +63,24 @@ public class Form extends OpenmrsSearchable {
      */
     public void setName(final String name) {
         this.name = name;
+    }
+
+    /**
+     * Get the description of the form.
+     *
+     * @return the description of the form.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Set the description of the form.
+     *
+     * @param description the description of the form.
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**

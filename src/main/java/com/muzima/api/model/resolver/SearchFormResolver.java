@@ -32,6 +32,10 @@ public class SearchFormResolver extends BaseOpenmrsResolver {
         String param = StringUtil.EMPTY;
         if (!StringUtil.isEmpty(searchString))
             param = "?q=" + searchString;
-        return getConfiguration().getServer() + "/ws/rest/v1/form" + REPRESENTATION + param;
+
+//        return getConfiguration().getServer() + "/ws/rest/v1/form" + REPRESENTATION + param;
+
+        //Todo: change this after exposing REST URL for searching forms
+        return getConfiguration().getServer() + "/module/html5forms/forms.form";
     }
 }
