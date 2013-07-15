@@ -27,6 +27,8 @@ public class Form extends OpenmrsSearchable {
 
     private String description;
 
+    private Tag[] tags;
+
     private String version;
 
     /**
@@ -81,6 +83,24 @@ public class Form extends OpenmrsSearchable {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Get the tags of the form.
+     *
+     * @return the tags of the form.
+     */
+    public Tag[] getTags() {
+        return tags;
+    }
+
+    /**
+     * Set the tags of the form.
+     *
+     * @param tags the tags of the form.
+     */
+    public void setTags(Tag[] tags) {
+        this.tags = tags;
     }
 
     /**

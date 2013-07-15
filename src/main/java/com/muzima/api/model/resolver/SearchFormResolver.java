@@ -36,6 +36,6 @@ public class SearchFormResolver extends BaseOpenmrsResolver {
 //        return getConfiguration().getServer() + "/ws/rest/v1/form" + REPRESENTATION + param;
 
         //Todo: change this after exposing REST URL for searching forms
-        return getConfiguration().getServer() + "/module/html5forms/forms.form";
+        return getConfiguration().getServer() + "/module/muzimaforms/forms.form";
     }
 }
