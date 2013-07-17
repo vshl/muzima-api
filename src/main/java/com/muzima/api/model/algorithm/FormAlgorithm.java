@@ -21,7 +21,6 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class FormAlgorithm extends BaseOpenmrsAlgorithm {
 
@@ -38,8 +37,8 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
 
         Object jsonObject = JsonPath.read(json, "$");
 
-        //TODO fetch this from server
-        form.setUuid(UUID.randomUUID().toString());
+        String uuid = JsonPath.read(jsonObject, "$['uuid']");
+        form.setUuid(uuid);
 
         String name = JsonPath.read(jsonObject, "$['name']");
         form.setName(name);
