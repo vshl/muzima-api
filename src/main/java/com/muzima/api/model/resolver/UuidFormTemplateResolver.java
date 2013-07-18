@@ -20,13 +20,14 @@ public class UuidFormTemplateResolver extends BaseOpenmrsResolver {
     private static final String REPRESENTATION = "?v=custom:(uuid,name)";
 
     /**
-     * Return the full REST resource based on the search string passed to the method.
+     * Return the full REST resource based on the uuid passed to the method.
      *
-     * @param searchString the search string
+     * @param uuid the uuid
      * @return full URI to the REST resource
      */
     @Override
-    public String resolve(final String searchString) throws IOException {
-        return getConfiguration().getServer() + "/ws/rest/v1/form/" + searchString + REPRESENTATION;
+    public String resolve(final String uuid) throws IOException {
+//        return getConfiguration().getServer() + "/ws/rest/v1/form/" + searchString + REPRESENTATION;
+        return getConfiguration().getServer() + "/module/muzimaforms/form.form" + "?id=" + uuid;
     }
 }

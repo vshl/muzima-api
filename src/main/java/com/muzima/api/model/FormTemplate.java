@@ -23,9 +23,11 @@ public class FormTemplate extends OpenmrsSearchable {
 
     private String uuid;
 
-    private String payload;
+    private String model;
 
-    private String formUuid;
+    private String modelJson;
+
+    private String html;
 
     /**
      * Get the form uuid.
@@ -46,38 +48,56 @@ public class FormTemplate extends OpenmrsSearchable {
     }
 
     /**
-     * Get the form payload.
+     * Get the form model.
      *
-     * @return the form payload.
+     * @return the form model.
      */
-    public String getPayload() {
-        return payload;
+    public String getModel() {
+        return model;
     }
 
     /**
-     * Set the form payload.
+     * Set the form model.
      *
-     * @param payload the form payload.
+     * @param model the form model.
      */
-    public void setPayload(String payload) {
-        this.payload = payload;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     /**
-     * Get the form uuid for this form template.
+     * Get the form model json.
      *
-     * @return the form uuid for this form template.
+     * @return the form model json.
      */
-    public String getFormUuid() {
-        return formUuid;
+    public String getModelJson() {
+        return modelJson;
     }
 
     /**
-     * Set the form uuid for this form template.
+     * Set the form model json.
      *
-     * @param formUuid the form uuid for this form template.ß
+     * @param modelJson the form model json.
      */
-    public void setFormUuid(String formUuid) {
-        this.formUuid = formUuid;
+    public void setModelJson(String modelJson) {
+        this.modelJson = modelJson;
+    }
+
+    /**
+     * Get the form html.
+     *
+     * @return the form html.
+     */
+    public String getHtml() {
+        return html;
+    }
+
+    /**
+     * Set the form html.
+     *
+     * @param html the form html.
+     */
+    public void setHtml(String html) {
+        this.html = html;
     }
 }
