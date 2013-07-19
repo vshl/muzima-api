@@ -13,13 +13,11 @@
  */
 package com.muzima.api.model.resolver;
 
-import com.muzima.search.api.util.StringUtil;
-
 import java.io.IOException;
 
 public class SearchFormResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION = "?v=custom:(uuid,name,version)";
+    private static final String REPRESENTATION = "?v=custom:(uuid,name,tags,description)";
 
     /**
      * Return the full REST resource based on the search string passed to the method.
@@ -29,13 +27,8 @@ public class SearchFormResolver extends BaseOpenmrsResolver {
      */
     @Override
     public String resolve(final String searchString) throws IOException {
-        String param = StringUtil.EMPTY;
-        if (!StringUtil.isEmpty(searchString))
-            param = "?q=" + searchString;
+        //This resolver currently ignore search string and fetch all forms
+        return getConfiguration().getServer() + "/ws/rest/v1/muzimaforms/form" + REPRESENTATION;
 
-//        return getConfiguration().getServer() + "/ws/rest/v1/form" + REPRESENTATION + param;
-
-        //Todo: change this after exposing REST URL for searching forms
-        return getConfiguration().getServer() + "/module/muzimaforms/forms.form";
     }
 }

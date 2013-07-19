@@ -27,6 +27,6 @@ public class UuidFormResolver extends BaseOpenmrsResolver {
      */
     @Override
     public String resolve(final String searchString) throws IOException {
-        return getConfiguration().getServer() + "/ws/rest/v1/form/" + searchString + REPRESENTATION;
+        return getConfiguration().getServer() + "/ws/rest/v1/muzimaforms/form/" + searchString + REPRESENTATION;
     }
 }

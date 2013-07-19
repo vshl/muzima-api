@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class UuidFormTemplateResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION = "?v=custom:(uuid,name)";
+    private static final String REPRESENTATION = "?v=custom:(uuid,model,modelJson,html)";
 
     /**
      * Return the full REST resource based on the uuid passed to the method.
@@ -28,6 +28,6 @@ public class UuidFormTemplateResolver extends BaseOpenmrsResolver {
     @Override
     public String resolve(final String uuid) throws IOException {
 //        return getConfiguration().getServer() + "/ws/rest/v1/form/" + searchString + REPRESENTATION;
-        return getConfiguration().getServer() + "/module/muzimaforms/form.form" + "?id=" + uuid;
+        return getConfiguration().getServer() + "/ws/rest/v1/muzimaforms/form/" + uuid + REPRESENTATION;
     }
 }
