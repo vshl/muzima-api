@@ -59,6 +59,8 @@ public class Constants {
 
     public static final String SEARCH_FORM_TEMPLATE_RESOURCE = "Search Form Template Resource";
 
+    public static final String SEARCH_NOTIFICATION_RESOURCE = "Search Notification Resource";
+
     public static final String SEARCH_OBSERVATION_RESOURCE = "Search Observation Resource";
 
     public static final String SEARCH_PATIENT_RESOURCE = "Search Patient Resource";
@@ -76,6 +78,8 @@ public class Constants {
     public static final String UUID_FORM_RESOURCE = "Uuid Form Resource";
 
     public static final String UUID_FORM_TEMPLATE_RESOURCE = "Uuid Form Template Resource";
+
+    public static final String UUID_NOTIFICATION_RESOURCE = "Uuid Notification  Resource";
 
     public static final String UUID_OBSERVATION_RESOURCE = "Uuid Observation Resource";
 

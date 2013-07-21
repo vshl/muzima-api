@@ -206,6 +206,23 @@
             }
         },
         {
+            "resource.name": "Uuid Notification Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Notification",
+            "algorithm.class": "com.muzima.api.model.algorithm.NotificationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidNotificationResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "subject": "$['subject']",
+                "receiver": "$['receiver']",
+                "sender": "$['sender']"
+
+
+
+            }
+        },
+        {
             "resource.name": "Uuid Observation Resource",
             "node.root": "$",
             "resource.object": "com.muzima.api.model.Observation",
