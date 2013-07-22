@@ -17,7 +17,7 @@ import java.util.List;
 public interface NotificationService extends MuzimaInterface {
 
     /**
-     * Download a single notification record from the patient rest resource into the local lucene repository.
+     * Download a single notification record from the notification rest resource into the local lucene repository.
      *
      * @param notificationUuid the uuid of the notification.
      * @throws java.io.IOException when search api unable to process the resource.
@@ -39,7 +39,7 @@ public interface NotificationService extends MuzimaInterface {
     /**
      * Download all notification with receiverUuid.
      *
-     * @param receiverUuid the partial name of the patient to be downloaded. When empty, will return all patients available.
+     * @param receiverUuid the notification matching receiverUuid to be downloaded. When empty, will return all notifications available.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws java.io.IOException    when search api unable to process the resource.
      * @should download all notification with partially matched name.
@@ -69,7 +69,7 @@ public interface NotificationService extends MuzimaInterface {
      * Get list of notification with senderUuid.
      *
      * @param senderUuid the sender uuid.
-     * @return list of all patients with matching name or empty list when no patient match the name.
+     * @return list of all notification with matching senderUuid or empty list .
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws java.io.IOException    when search api unable to process the resource.
      * @should return list of all notifications  with matching senderUuid.
@@ -81,7 +81,7 @@ public interface NotificationService extends MuzimaInterface {
      * Get list of notification with receiverUuid.
      *
      * @param receiverUuid the receiver uuid.
-     * @return list of all patients with matching name or empty list when no patient match the name.
+     * @return list of all notification with matching receiverUuid or empty list.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws java.io.IOException    when search api unable to process the resource.
      * @should return list of all notifications with matching receiverUuid.
@@ -93,11 +93,11 @@ public interface NotificationService extends MuzimaInterface {
 
 
     /**
-     * Delete a single patient object from the local repository.
+     * Delete a single notification object from the local repository.
      *
-     * @param notificatoin the notification object.
+     * @param notification the notification object.
      * @throws java.io.IOException when search api unable to process the resource.
      * @should delete the notification object from the local repository.
      */
-    void deleteNotification(final Notification notificatoin) throws IOException;
+    void deleteNotification(final Notification notification) throws IOException;
 }

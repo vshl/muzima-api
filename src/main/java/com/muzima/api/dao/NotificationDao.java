@@ -27,7 +27,7 @@ import java.util.List;
 public interface NotificationDao extends OpenmrsDao<Notification> {
 
     /**
-     * Download a single notification record from the patient rest resource into the local lucene repository.
+     * Download a single notification record from the notification rest resource into the local lucene repository.
      *
      * @param notificationUuid the uuid of the notification.
      * @throws java.io.IOException when search api unable to process the resource.
@@ -50,7 +50,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
 
 
     /**
-     * Search observations for patient with matching partial search term.
+     * Search notifications matching partial search term.
      *
      * @param notificationUuid the uuid of the notification.
      * @param term        the search term for the question of the observations.
@@ -63,7 +63,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
     /**
      * Search notifications for errors with matching uuid of the question.
      *
-     * @param receiverUuid the uuid of the patient.
+     * @param receiverUuid the uuid of the receiver.
      * @param senderUuid the uuid of the question of the observations.
      * @return all observations for the patient with question matching the search term.
      * @throws ParseException when query parser from lucene unable to parse the query string.
@@ -75,7 +75,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
     /**
      * Download all notification with receiverUuid.
      *
-     * @param receiverUuid the partial name of the patient to be downloaded. When empty, will return all patients available.
+     * @param receiverUuid the notification with receiverUuid to be downloaded. When empty, will return all notifications available.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws java.io.IOException    when search api unable to process the resource.
      * @should download all notification with partially matched name.
@@ -105,7 +105,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
      * Get list of notification with senderUuid.
      *
      * @param senderUuid the sender uuid.
-     * @return list of all patients with matching name or empty list when no patient match the name.
+     * @return list of all notification with matching senderUuid or empty list when no patient match the name.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws java.io.IOException    when search api unable to process the resource.
      * @should return list of all notifications  with matching senderUuid.
@@ -117,7 +117,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
      * Get list of notification with receiverUuid.
      *
      * @param receiverUuid the receiver uuid.
-     * @return list of all patients with matching name or empty list when no patient match the name.
+     * @return list of all notification with matching receiverUuid or empty list when no matching receiverUuid.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws java.io.IOException    when search api unable to process the resource.
      * @should return list of all notifications with matching receiverUuid.
@@ -129,7 +129,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
 
 
     /**
-     * Delete a single patient object from the local repository.
+     * Delete a single notification object from the local repository.
      *
      * @param notification the notification object.
      * @throws java.io.IOException when search api unable to process the resource.

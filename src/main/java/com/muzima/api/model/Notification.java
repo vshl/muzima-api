@@ -16,9 +16,10 @@
 package com.muzima.api.model;
 
 /**
- * Cohort is a structure to hold collection of patients. Cohort will have a one to one connection with a Member object
- * where we can find the uuid of patients in the cohort.
+ * A Notification class is a class to hold notification  properties in the server. A notification
+ * will have a uuid, subject, sender, receiver, subject and payload.
  */
+
 public class Notification extends OpenmrsSearchable {
 
     private String uuid;
@@ -32,7 +33,7 @@ public class Notification extends OpenmrsSearchable {
     private String payload;
 
     /**
-     * Get the uuid for the notification.
+     * Get the uuid for the notification..
      *
      * @return the uuid.
      */
