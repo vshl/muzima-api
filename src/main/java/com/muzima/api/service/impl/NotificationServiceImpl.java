@@ -16,6 +16,7 @@
 package com.muzima.api.service.impl;
 
 import com.google.inject.Inject;
+import com.muzima.api.dao.NotificationDao;
 import com.muzima.api.model.Notification;
 import com.muzima.api.service.NotificationService;
 import com.muzima.util.Constants;
@@ -27,62 +28,56 @@ import java.util.List;
 public class NotificationServiceImpl implements NotificationService {
 
     @Inject
-    private com.muzima.api.dao.NotificationDao notificationDao;
+    private NotificationDao notificationDao;
 
     protected NotificationServiceImpl() {
     }
 
     /**
-     * Download a single Notification record from the notification rest resource into the local lucene repository.
+     * Download a single notification record from the notification rest resource into the local lucene repository.
      *
-     * @param senderUuid the uuid of the sender.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException    when search api unable to process the resource.
+     * @param notificationUuid the uuid of the notification.
+     * @throws IOException when search api unable to process the resource.
      * @should download notification with matching uuid.
      */
-    @Override
-    public Notification downloadNotificationBySender(final String senderUuid) throws IOException {
-        List<Notification> notifications = notificationDao.download(senderUuid, Constants.UUID_NOTIFICATION_RESOURCE);
-        if (notification.size() > 1) {
-            throw new IOException("Unable to uniquely identify a form record.");
-        } else if (notification.size() == 0) {
+    public Notification downloadNotificationByUuid(final String notificationUuid) throws IOException {
+        List<Notification> notifications = notificationDao.download(notificationUuid, Constants.UUID_NOTIFICATION_RESOURCE);
+        if (notifications.size() > 1) {
+            throw new IOException("Unable to uniquely identify a notification record.");
+        } else if (notifications.size() == 0) {
             return null;
         }
-        return notification.get(0);
+        return notifications.get(0);
     }
 
     /**
-     * Download a single Notification record from the notification rest resource into the local lucene repository.
+     * Download all notifications from a particular sender.
      *
-     * @param receiverUuid the uuid of the receiver.
+     * @param senderUuid the sender's uuid of the notification to be downloaded. When empty, will return all
+     *                   notifications available.
      * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException    when search api unable to process the resource.
-     * @should download notification with matching receiverUuid.
+     * @throws IOException    when search api unable to process the resource.
+     * @should download all notifications with matching sender's uuid.
+     * @should download all notification when sender's uuid is empty.
      */
     @Override
-    public Notification downloadNotificationByReceiver(final String receiverUuid) throws IOException {
-        List<Notification> notifications = notificationDao.download(receiverUuid, Constants.UUID_NOTIFICATION_RESOURCE);
-        if (notification.size() > 1) {
-            throw new IOException("Unable to uniquely identify a Notification record.");
-        } else if (notification.size() == 0) {
-            return null;
-        }
-        return notification.get(0);
+    public List<Notification> downloadNotificationBySender(final String senderUuid) throws IOException {
+        return notificationDao.download(senderUuid, Constants.SENDER_NOTIFICATION_RESOURCE);
     }
 
     /**
-     * Download all notifications matching notificationUuid.
+     * Download all notifications for a particular receiver.
      *
-     * @param notificationUuid the partial name of the cohort to be downloaded. When empty, will return all cohorts available.
-     * @throws java.io.IOException when search api unable to process the resource.
-     * @should download all notifications matching notificationuuid.
-     * @should download all notification when name is empty.
+     * @param receiverUuid the notification matching receiverUuid to be downloaded. When empty, will return all notifications available.
+     * @throws ParseException when query parser from lucene unable to parse the query string.
+     * @throws IOException    when search api unable to process the resource.
+     * @should download all notification with matching receiver's uuid.
+     * @should download all notifications when receiver's uuid is empty.
      */
-
-    public Notification downloadNotification(final String notificationUuid) throws IOException {
-        return notifcationDao.download(notificationUuid, Constants.SEARCH_NOTIFICATION_RESOURCE);
+    @Override
+    public List<Notification> downloadNotificationByReceiver(final String receiverUuid) throws IOException {
+        return notificationDao.download(receiverUuid, Constants.RECEIVER_NOTIFICATION_RESOURCE);
     }
-
 
     /**
      * Save notification to the local lucene repository.
@@ -98,15 +93,15 @@ public class NotificationServiceImpl implements NotificationService {
     /**
      * Save notifications to the local lucene repository.
      *
-     * @param notification the notifications to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @param notifications the notifications to be saved.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
-    public void saveNotification(final List<Notification> notification) throws IOException {
-        notificationDao.save(notification, Constants.UUID_NOTIFICATION_RESOURCE);
+    public void saveNotification(final List<Notification> notifications) throws IOException {
+        notificationDao.save(notifications, Constants.UUID_NOTIFICATION_RESOURCE);
     }
 
-   /**
+    /**
      * Get a single notification record from the local repository with matching uuid.
      *
      * @param notificationUuid the notification uuid
@@ -120,45 +115,41 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationDao.getByUuid(notificationUuid);
     }
 
-
-
     /**
-     * Get list of notification with sender similar to the search term.
+     * Get list of notification from a particular sender from the local lucene repository.
      *
      * @param senderUuid the sender uuid.
-     * @return list of all notification with matching name or empty list when no notification match the senderuuid.
+     * @return list of all notification with matching sender's uuid or empty list .
      * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException    when search api unable to process the resource.
-     * @should return list of all notification with matching name partially.
-     * @should return empty list when no notification match the name.
+     * @throws IOException    when search api unable to process the resource.
+     * @should return list of all notifications  with matching sender's uuid.
+     * @should return empty list when no notification match the sender's uuid.
      */
     @Override
     public List<Notification> getNotificationBySender(final String senderUuid) throws IOException, ParseException {
-        return notificationDao.getBySender(senderUuid);
+        return notificationDao.getNotificationBySender(senderUuid);
     }
 
     /**
-     * Get list of patients with name similar to the search term.
+     * Get list of notification for a particular receiver from the local lucene repository.
      *
-     * @param receiverUuid the sender uuid.
-     * @return list of all patients with matching name or empty list when no notification match the uuid.
+     * @param receiverUuid the receiver uuid.
+     * @return list of all notification with matching receiverUuid or empty list.
      * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException    when search api unable to process the resource.
-     * @should return list of all notifications with matching receiverUuid.
-     * @should return empty list when no notification match the name.
+     * @throws IOException    when search api unable to process the resource.
+     * @should return list of all notifications with matching receiver's uuid.
+     * @should return empty list when no notification match the receiver's uuid.
      */
     @Override
     public List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException, ParseException {
-        return notificationDao.getByReceiver(receiverUuid);
+        return notificationDao.getNotificationByReceiver(receiverUuid);
     }
-
 
     /**
      * Delete a single notification object from the local repository.
      *
      * @param notification the notification object.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should delete the notification object from the local repository.
      */
     @Override

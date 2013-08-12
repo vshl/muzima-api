@@ -33,7 +33,7 @@ public class Notification extends OpenmrsSearchable {
     private String payload;
 
     /**
-     * Get the uuid for the notification..
+     * Get the uuid for the notification.
      *
      * @return the uuid.
      */

@@ -20,6 +20,7 @@ import com.muzima.api.model.Notification;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.StringUtil;
+import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,35 +35,47 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
     }
 
     /**
-     * Search notifications for errors with matching partial search term.
+     * Get all notifications for a particular sender from the Lucene repository identified by the sender uuid.
      *
-     * @param senderUuid the uuid of the sender.
-     * @param receiverUuid the uuid of the receiver.
-     * @return all notification matching the sender and receiver
+     * @param senderUuid the sender's uuid.
+     * @return list of all notification with matching sender uuid or empty list when no notification match the
+     *         sender's uuid.
+     * @throws org.apache.lucene.queryParser.ParseException
+     *                             when query parser from lucene unable to parse the query string.
      * @throws java.io.IOException when search api unable to process the resource.
+     * @should return list of all notifications  with matching sender's uuid..
+     * @should return empty list when no notification match the sender's uuid..
      */
     @Override
-    public List<Notification> search(final String senderUuid, final receiverUuid) throws IOException {
+    public List<Notification> getNotificationBySender(final String senderUuid) throws IOException, ParseException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(senderUuid)) {
-            Filter patientFilter = FilterFactory.createFilter("senderUuid", senderUuid);
-            filters.add(patientFilter);
-        }
-        if (!StringUtil.isEmpty(receiverUuid)) {
-            Filter conceptFilter = FilterFactory.createFilter("receiverUuid", receiverUuid);
-            filters.add(conceptFilter);
+            Filter filter = FilterFactory.createFilter("sender", senderUuid);
+            filters.add(filter);
         }
         return service.getObjects(filters, daoClass);
     }
 
+    /**
+     * Get all notifications for a particular receiver from the Lucene repository identified by the receiver uuid.
+     *
+     * @param receiverUuid the receiver's uuid.
+     * @return list of all notification with matching receiver uuid or empty list when no notification match the
+     *         receiver's uuid.
+     * @throws org.apache.lucene.queryParser.ParseException
+     *                             when query parser from lucene unable to parse the query string.
+     * @throws java.io.IOException when search api unable to process the resource.
+     * @should return list of all notifications with matching receiver's uuid..
+     * @should return empty list when no notification match the receiver's uuid..
+     */
     @Override
-    public List<Notification> search(String notificationUuid, String term) throws IOException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public List<Notification> get(String receiverUuid, String senderUuid) throws IOException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException, ParseException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(receiverUuid)) {
+            Filter filter = FilterFactory.createFilter("receiver", receiverUuid);
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass);
     }
 }
 

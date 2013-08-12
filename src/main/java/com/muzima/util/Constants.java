@@ -81,6 +81,10 @@ public class Constants {
 
     public static final String UUID_NOTIFICATION_RESOURCE = "Uuid Notification  Resource";
 
+    public static final String SENDER_NOTIFICATION_RESOURCE = "Sender Notification  Resource";
+
+    public static final String RECEIVER_NOTIFICATION_RESOURCE = "Receiver Notification  Resource";
+
     public static final String UUID_OBSERVATION_RESOURCE = "Uuid Observation Resource";
 
     public static final String UUID_PATIENT_RESOURCE = "Uuid Patient Resource";

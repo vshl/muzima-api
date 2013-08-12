@@ -16,9 +16,11 @@
 package com.muzima.api.model.resolver;
 
 
+import com.muzima.search.api.util.StringUtil;
+
 import java.io.IOException;
 
-public class UuidNotificationResolver extends BaseOpenmrsResolver {
+public class SenderNotificationResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION =
             "?v=custom:(uuid,subject,receiver.uuid,sender.uuid,payload)";
@@ -31,6 +33,9 @@ public class UuidNotificationResolver extends BaseOpenmrsResolver {
      */
     @Override
     public String resolve(final String searchString) throws IOException {
-        return getConfiguration().getServer() + "/ws/rest/v1/muzima/notificationData" + searchString + REPRESENTATION;
+        String param = StringUtil.EMPTY;
+        if (!StringUtil.isEmpty(searchString))
+            param = "&sender=" + searchString;
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/notificationData" + REPRESENTATION + param;
     }
 }

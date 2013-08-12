@@ -103,6 +103,36 @@
             }
         },
         {
+            "resource.name": "Sender Notification Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Cohort",
+            "algorithm.class": "com.muzima.api.model.algorithm.NotificationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SenderNotificationResource",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "subject": "$['subject']",
+                "payload": "$['payload']",
+                "receiver": "$['receiver.uuid']",
+                "sender": "$['sender.uuid']"
+            }
+        },
+        {
+            "resource.name": "Receiver Notification Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Cohort",
+            "algorithm.class": "com.muzima.api.model.algorithm.NotificationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SenderNotificationResource",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "subject": "$['subject']",
+                "payload": "$['payload']",
+                "receiver": "$['receiver.uuid']",
+                "sender": "$['sender.uuid']"
+            }
+        },
+        {
             "resource.name": "Search Patient Resource",
             "node.root": "$['results']",
             "resource.object": "com.muzima.api.model.Patient",
@@ -203,6 +233,20 @@
             "field.searchable": {
                 "uuid": "$['uuid']",
                 "formUuid": "$['form.uuid']"
+            }
+        },
+        {
+            "resource.name": "Uuid Notification Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Notification",
+            "algorithm.class": "com.muzima.api.model.algorithm.NotificationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidNotificationResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "subject": "$['subject']",
+                "receiver": "$['receiver.uuid']",
+                "sender": "$['sender.uuid']"
             }
         },
         {

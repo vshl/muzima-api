@@ -25,12 +25,11 @@ import java.io.IOException;
 
 public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
 
-     /**
+    /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
      *
-     *
-      * @param json the json representation
-      * @return the concrete observation object
+     * @param json the json representation
+     * @return the concrete observation object
      */
     @Override
     public Notification deserialize(final String json) throws IOException {
@@ -56,8 +55,6 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
         String payload = JsonPath.read(jsonObject, "$['payload']");
         notification.setPayload(payload);
 
-
-
         return notification;
     }
 
@@ -76,7 +73,6 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
         jsonObject.put("receiver", notification.getReceiver());
         jsonObject.put("sender", notification.getSender());
         jsonObject.put("payload", notification.getPayload());
-
         return jsonObject.toJSONString();
     }
 }
