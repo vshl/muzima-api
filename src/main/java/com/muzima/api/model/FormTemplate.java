@@ -21,31 +21,11 @@ package com.muzima.api.model;
  */
 public class FormTemplate extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String model;
 
     private String modelJson;
 
     private String html;
-
-    /**
-     * Get the form uuid.
-     *
-     * @return the form uuid.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the form uuid.
-     *
-     * @param uuid the form uuid.
-     */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
 
     /**
      * Get the form model.

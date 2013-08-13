@@ -21,27 +21,7 @@ package com.muzima.api.model;
  */
 public class CohortDefinition extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String name;
-
-    /**
-     * Get the uuid for the cohort.
-     *
-     * @return the uuid.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the uuid for the cohort.
-     *
-     * @param uuid the uuid to set.
-     */
-    public void setUuid(final String uuid) {
-        this.uuid = uuid;
-    }
 
     /**
      * Get the name for the cohort.

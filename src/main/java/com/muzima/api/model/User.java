@@ -19,8 +19,6 @@ import java.util.List;
 
 public class User extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String givenName;
 
     private String middleName;
@@ -32,24 +30,6 @@ public class User extends OpenmrsSearchable {
     private List<Privilege> privileges;
 
     private List<Role> roles;
-
-    /**
-     * Get the uuid of the user.
-     *
-     * @return the uuid of the user.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the uuid of the user.
-     *
-     * @param uuid the uuid of the user.
-     */
-    public void setUuid(final String uuid) {
-        this.uuid = uuid;
-    }
 
     /**
      * Get the given name for the patient.

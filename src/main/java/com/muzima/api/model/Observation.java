@@ -21,8 +21,6 @@ import java.util.Date;
 
 public class Observation extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String patientUuid;
 
     private String encounterUuid;
@@ -36,24 +34,6 @@ public class Observation extends OpenmrsSearchable {
     private String questionName;
 
     private String questionUuid;
-
-    /**
-     * Get the uuid for the observation.
-     *
-     * @return the uuid for the observation.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the uuid for the observation.
-     *
-     * @param uuid the uuid for the observation.
-     */
-    public void setUuid(final String uuid) {
-        this.uuid = uuid;
-    }
 
     /**
      * Get the uuid for the patient.

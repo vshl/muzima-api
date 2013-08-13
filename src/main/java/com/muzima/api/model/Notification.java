@@ -22,8 +22,6 @@ package com.muzima.api.model;
 
 public class Notification extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String subject;
 
     private String sender;
@@ -31,24 +29,6 @@ public class Notification extends OpenmrsSearchable {
     private String receiver;
 
     private String payload;
-
-    /**
-     * Get the uuid for the notification.
-     *
-     * @return the uuid.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the uuid for the notification.
-     *
-     * @param uuid the uuid to set.
-     */
-    public void setUuid(final String uuid) {
-        this.uuid = uuid;
-    }
 
     /**
      * Get the subject for the notification.

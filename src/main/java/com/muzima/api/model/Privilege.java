@@ -20,8 +20,6 @@ package com.muzima.api.model;
  */
 public class Privilege extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String name;
 
     /**
@@ -40,23 +38,5 @@ public class Privilege extends OpenmrsSearchable {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Get the uuid of this privilege.
-     *
-     * @return the uuid of this privilege.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the uuid of this privilege.
-     *
-     * @param uuid the uuid of this privilege.
-     */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 }

@@ -19,8 +19,6 @@ import java.util.Date;
 
 public class Patient extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String givenName;
 
     private String middleName;
@@ -32,24 +30,6 @@ public class Patient extends OpenmrsSearchable {
     private String gender;
 
     private Date birthdate;
-
-    /**
-     * Get the patient internal uuid
-     *
-     * @return the uuid
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the patient internal uuid
-     *
-     * @param uuid the uuid
-     */
-    public void setUuid(final String uuid) {
-        this.uuid = uuid;
-    }
 
     /**
      * Get the given name for the patient.

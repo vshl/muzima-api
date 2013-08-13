@@ -22,29 +22,9 @@ import java.util.List;
  */
 public class Role extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String name;
 
     private List<Privilege> privileges;
-
-    /**
-     * Get the uuid of the role.
-     *
-     * @return the uuid of the role.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the uuid of the role.
-     *
-     * @param uuid the uuid of the role.
-     */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
 
     /**
      * Get the name of the role.

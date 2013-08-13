@@ -5,27 +5,7 @@ package com.muzima.api.model;
  */
 public class Tag extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String name;
-
-    /**
-     * Get the uuid for the tag.
-     *
-     * @return the uuid.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the uuid for the tag.
-     *
-     * @param uuid the uuid to set.
-     */
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
 
     /**
      * Get the name for the tag.
@@ -53,14 +33,14 @@ public class Tag extends OpenmrsSearchable {
         Tag tag = (Tag) o;
 
         if (name != null ? !name.equals(tag.name) : tag.name != null) return false;
-        if (uuid != null ? !uuid.equals(tag.uuid) : tag.uuid != null) return false;
+        if (getUuid() != null ? !getUuid().equals(tag.getUuid()) : tag.getUuid() != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = uuid != null ? uuid.hashCode() : 0;
+        int result = getUuid() != null ? getUuid().hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }

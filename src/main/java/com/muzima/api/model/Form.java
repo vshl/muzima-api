@@ -21,8 +21,6 @@ package com.muzima.api.model;
  */
 public class Form extends OpenmrsSearchable {
 
-    private String uuid;
-
     private String name;
 
     private String description;
@@ -30,24 +28,6 @@ public class Form extends OpenmrsSearchable {
     private Tag[] tags;
 
     private String version;
-
-    /**
-     * Get the uuid for the cohort.
-     *
-     * @return the uuid.
-     */
-    public String getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Set the uuid for the cohort.
-     *
-     * @param uuid the uuid to set.
-     */
-    public void setUuid(final String uuid) {
-        this.uuid = uuid;
-    }
 
     /**
      * Get the name for the cohort.

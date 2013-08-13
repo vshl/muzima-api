@@ -16,10 +16,13 @@ package com.muzima.api.model;
 import com.muzima.search.api.model.object.Searchable;
 
 /**
+ * Every OpenMRS object will have uri associated with it. This is not being used right now.
  */
 public abstract class OpenmrsSearchable implements Searchable {
 
     private String uri;
+
+    private String uuid;
 
     /**
      * Get the openmrs object's uri.
@@ -37,5 +40,23 @@ public abstract class OpenmrsSearchable implements Searchable {
      */
     public void setUri(final String uri) {
         this.uri = uri;
+    }
+
+    /**
+     * Get the uuid for the object.
+     *
+     * @return the uuid.
+     */
+    public String getUuid() {
+        return uuid;
+    }
+
+    /**
+     * Set the uuid for the object.
+     *
+     * @param uuid the uuid to set.
+     */
+    public void setUuid(final String uuid) {
+        this.uuid = uuid;
     }
 }
