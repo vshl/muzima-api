@@ -154,6 +154,18 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
+     * Check whether the form template for a particular form object is already downloaded or not.
+     *
+     * @param formUuid the uuid of the form.
+     * @return true when the form template for the form is already downloaded.
+     * @throws java.io.IOException when the search api unable to process the resource.
+     */
+    @Override
+    public Boolean isFormTemplateDownloaded(final String formUuid) throws IOException {
+        return formTemplateDao.exists(formUuid);
+    }
+
+    /**
      * Download form template by the uuid of the form associated with the form template.
      *
      * @param uuid the uuid of the form.

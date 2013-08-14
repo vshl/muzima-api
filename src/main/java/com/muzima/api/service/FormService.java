@@ -113,6 +113,15 @@ public interface FormService extends MuzimaInterface {
     void deleteForm(final Form form) throws IOException;
 
     /**
+     * Check whether the form template for a particular form object is already downloaded or not.
+     *
+     * @param formUuid the uuid of the form.
+     * @return true when the form template for the form is already downloaded.
+     * @throws IOException when the search api unable to process the resource.
+     */
+    Boolean isFormTemplateDownloaded(final String formUuid) throws IOException;
+
+    /**
      * Download form template by the uuid of the form associated with the form template.
      *
      * @param uuid the uuid of the form.
