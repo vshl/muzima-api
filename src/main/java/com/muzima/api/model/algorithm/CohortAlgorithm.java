@@ -57,7 +57,7 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
         Cohort cohort = (Cohort) object;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", cohort.getUuid());
-        jsonObject.put("name", cohort.getUuid());
+        jsonObject.put("name", cohort.getName());
         return jsonObject.toJSONString();
     }
 }
