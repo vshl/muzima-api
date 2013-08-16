@@ -107,7 +107,7 @@
             "node.root": "$['results']",
             "resource.object": "com.muzima.api.model.Cohort",
             "algorithm.class": "com.muzima.api.model.algorithm.NotificationAlgorithm",
-            "resolver.class": "com.muzima.api.model.resolver.SenderNotificationResource",
+            "resolver.class": "com.muzima.api.model.resolver.SenderNotificationResolver",
             "field.unique": "uuid",
             "field.searchable": {
                 "uuid": "$['uuid']",
@@ -122,7 +122,7 @@
             "node.root": "$['results']",
             "resource.object": "com.muzima.api.model.Cohort",
             "algorithm.class": "com.muzima.api.model.algorithm.NotificationAlgorithm",
-            "resolver.class": "com.muzima.api.model.resolver.SenderNotificationResource",
+            "resolver.class": "com.muzima.api.model.resolver.SenderNotificationResolver",
             "field.unique": "uuid",
             "field.searchable": {
                 "uuid": "$['uuid']",
