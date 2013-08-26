@@ -28,7 +28,9 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FormServiceImpl implements FormService {
 
@@ -53,7 +55,10 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public Form downloadFormByUuid(final String uuid) throws IOException {
-        List<Form> forms = formDao.download(uuid, Constants.UUID_FORM_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", uuid);
+        }};
+        List<Form> forms = formDao.download(parameter, Constants.UUID_FORM_RESOURCE);
         if (forms.size() > 1) {
             throw new IOException("Unable to uniquely identify a form record.");
         } else if (forms.size() == 0) {
@@ -73,7 +78,10 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public List<Form> downloadFormsByName(final String name) throws IOException, ParseException {
-        return formDao.download(name, Constants.SEARCH_FORM_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("q", name);
+        }};
+        return formDao.download(parameter, Constants.SEARCH_FORM_RESOURCE);
     }
 
     /**
@@ -175,7 +183,10 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public FormTemplate downloadFormTemplateByUuid(final String uuid) throws IOException {
-        List<FormTemplate> formTemplates = formTemplateDao.download(uuid, Constants.UUID_FORM_TEMPLATE_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", uuid);
+        }};
+        List<FormTemplate> formTemplates = formTemplateDao.download(parameter, Constants.UUID_FORM_TEMPLATE_RESOURCE);
         if (formTemplates.size() > 1) {
             throw new IOException("Unable to uniquely identify a form template record.");
         } else if (formTemplates.size() == 0) {
@@ -195,21 +206,10 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException {
-        return formTemplateDao.download(name, Constants.SEARCH_FORM_TEMPLATE_RESOURCE);
-    }
-
-    /**
-     * Download form templates by the tag associated with the form templates.
-     *
-     * @param tag the tag of the form templates.
-     * @return the form templates with matching tag.
-     * @throws org.apache.lucene.queryParser.ParseException
-     *                             when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException when search api unable to process the resource.
-     */
-    @Override
-    public List<FormTemplate> downloadFormTemplatesByTag(final String tag) throws IOException, ParseException {
-        return formTemplateDao.download(tag, Constants.SEARCH_FORM_TEMPLATE_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("q", name);
+        }};
+        return formTemplateDao.download(parameter, Constants.SEARCH_FORM_TEMPLATE_RESOURCE);
     }
 
     /**

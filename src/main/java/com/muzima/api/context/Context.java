@@ -58,7 +58,6 @@ public class Context {
 
     Context(final Injector injector) throws Exception {
         this.injector = injector;
-
         initService();
         initConfiguration();
     }
@@ -76,7 +75,7 @@ public class Context {
     private void initService() throws Exception {
         InputStream inputStream = null;
         ServiceContext serviceContext = injector.getInstance(ServiceContext.class);
-        String configurationString = ContextFactory.getProperties().getProperty(Constants.RESOURCE_CONFIGURATION_STRING);
+        String configurationString = ContextFactory.getProperty(Constants.RESOURCE_CONFIGURATION_STRING);
         if (!StringUtil.isEmpty(configurationString)) {
             inputStream = new ByteArrayInputStream(configurationString.getBytes());
         }

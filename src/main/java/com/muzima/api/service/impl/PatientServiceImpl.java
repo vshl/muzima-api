@@ -23,7 +23,9 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PatientServiceImpl implements PatientService {
 
@@ -43,7 +45,10 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public Patient downloadPatientByUuid(final String uuid) throws IOException {
-        List<Patient> patients = patientDao.download(uuid, Constants.UUID_PATIENT_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", uuid);
+        }};
+        List<Patient> patients = patientDao.download(parameter, Constants.UUID_PATIENT_RESOURCE);
         if (patients.size() > 1) {
             throw new IOException("Unable to uniquely identify a form record.");
         } else if (patients.size() == 0) {
@@ -63,7 +68,10 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> downloadPatientsByName(final String name) throws IOException, ParseException {
-        patientDao.download(name, Constants.SEARCH_PATIENT_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("q", name);
+        }};
+        patientDao.download(parameter, Constants.SEARCH_PATIENT_RESOURCE);
         return getPatientsByName(name);
     }
 

@@ -19,19 +19,20 @@ import com.muzima.search.api.model.resolver.Resolver;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.Map;
 
 /**
  * TODO: Write brief description about the class here.
  */
 public class LocalResolver implements Resolver {
+
     /**
-     * Return the full REST resource based on the search string passed to the method.
+     * Return the full REST resource based on the parameters passed to the method.
      *
-     * @param searchString the search string.
+     * @param resourceParams the parameters of the resource to resolved.
      * @return full uri to the REST resource.
      */
-    @Override
-    public String resolve(String searchString) throws IOException {
+    public String resolve(final Map<String, String> resourceParams) throws IOException {
         throw new IOException("Remote resource is not available for this object.");
     }
 

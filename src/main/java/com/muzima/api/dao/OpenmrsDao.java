@@ -19,6 +19,7 @@ import com.muzima.api.model.OpenmrsSearchable;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO: Write brief description about the class here.
@@ -29,9 +30,9 @@ public interface OpenmrsDao<T extends OpenmrsSearchable> extends SearchableDao<T
      * Download the searchable object matching the uuid. This process involve executing the REST call, pulling the
      * resource and then saving it to local lucene repository.
      *
-     * @param term     the term to be passed to search object to filter the searchable object.
-     * @param resource resource descriptor used to convert the resource to the correct object.
+     * @param resourceParams the parameters to be passed to search object to filter the searchable object.
+     * @param resource       resource descriptor used to convert the resource to the correct object.
      * @throws IOException when search api unable to process the resource.
      */
-    List<T> download(final String term, final String resource) throws IOException;
+    List<T> download(final Map<String, String> resourceParams, final String resource) throws IOException;
 }

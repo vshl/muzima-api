@@ -24,7 +24,9 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ObservationServiceImpl implements ObservationService {
 
@@ -43,7 +45,10 @@ public class ObservationServiceImpl implements ObservationService {
      */
     @Override
     public Observation downloadObservationByUuid(final String uuid) throws IOException {
-        List<Observation> observations = observationDao.download(uuid, Constants.UUID_OBSERVATION_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", uuid);
+        }};
+        List<Observation> observations = observationDao.download(parameter, Constants.UUID_OBSERVATION_RESOURCE);
         if (observations.size() > 1) {
             throw new IOException("Unable to uniquely identify a form record.");
         } else if (observations.size() == 0) {
@@ -62,7 +67,10 @@ public class ObservationServiceImpl implements ObservationService {
      */
     @Override
     public List<Observation> downloadObservationsByPatient(final String patientUuid) throws IOException {
-        return observationDao.download(patientUuid, Constants.SEARCH_OBSERVATION_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("patient", patientUuid);
+        }};
+        return observationDao.download(parameter, Constants.SEARCH_OBSERVATION_RESOURCE);
     }
 
     /**

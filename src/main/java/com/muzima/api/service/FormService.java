@@ -142,16 +142,6 @@ public interface FormService extends MuzimaInterface {
     List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException;
 
     /**
-     * Download form templates by the tag associated with the form templates.
-     *
-     * @param tag the tag of the form templates.
-     * @return the form templates with matching tag.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     */
-    List<FormTemplate> downloadFormTemplatesByTag(final String tag) throws IOException, ParseException;
-
-    /**
      * Save a new form template to the repository.
      *
      * @param formTemplate the form template to be saved.

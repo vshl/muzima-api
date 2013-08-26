@@ -22,12 +22,14 @@ import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortDefinition;
 import com.muzima.api.model.Observation;
 import com.muzima.api.model.Patient;
-import com.muzima.search.api.module.ProxyModule;
 import com.muzima.search.api.util.StringUtil;
+import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -36,6 +38,18 @@ import java.util.List;
 public class CohortServiceTest {
 
     private final Logger logger = LoggerFactory.getLogger(CohortServiceTest.class.getSimpleName());
+
+    @After
+    public void cleanUp() {
+        String tmpDirectory = System.getProperty("java.io.tmpdir");
+        String lucenePath = tmpDirectory + "/muzima";
+
+        File luceneDirectory = new File(lucenePath);
+        for (String filename : luceneDirectory.list()) {
+            File file = new File(luceneDirectory, filename);
+            Assert.assertTrue(file.delete());
+        }
+    }
 
     @Test
     public void donwloadStaticCohort() throws Exception {
@@ -53,7 +67,6 @@ public class CohortServiceTest {
 
         CohortService cohortService = context.getCohortService();
         PatientService patientService = context.getPatientService();
-        ObservationService observationService = context.getObservationService();
 
         List<Cohort> cohorts = cohortService.downloadCohortsByName(StringUtil.EMPTY);
         if (!cohorts.isEmpty()) {
@@ -61,11 +74,6 @@ public class CohortServiceTest {
             logger.info("Cohort: {} | {}", cohort.getName(), cohort.getUuid());
             CohortData cohortData = cohortService.downloadCohortData(cohort.getUuid(), false);
             logger.info("Cohort data: {}", cohortData);
-            for (Patient patient : cohortData.getPatients()) {
-                List<Observation> observations = observationService.downloadObservationsByPatient(patient.getUuid());
-                observationService.saveObservations(observations);
-                observationCounter = observationCounter + observations.size();
-            }
             patientCounter = patientCounter + cohortData.getPatients().size();
             patientService.savePatients(cohortData.getPatients());
             cohortMemberCounter = cohortMemberCounter + cohortData.getCohortMembers().size();

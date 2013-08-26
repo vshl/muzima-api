@@ -21,11 +21,14 @@ import com.google.inject.Module;
 import com.google.inject.util.Modules;
 import com.muzima.api.module.MuzimaModule;
 import com.muzima.search.api.module.SearchModule;
+import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -33,22 +36,21 @@ import java.util.Properties;
  */
 public class ContextFactory {
 
-    private static final String OPENMRS_UUID = "uuid";
-
-    private static final Properties contextProperties = new Properties();
+    private static final Map<String, Object> parameters = new HashMap<String, Object>();
 
     private static final List<Module> modules = new ArrayList<Module>();
 
     static {
-        contextProperties.setProperty(Constants.RESOURCE_CONFIGURATION_PATH, "../service/j2l/config.json");
-        contextProperties.setProperty(
-                Constants.LUCENE_DIRECTORY_NAME, System.getProperty("java.io.tmpdir") + "/lucene");
-        contextProperties.setProperty(Constants.LUCENE_DOCUMENT_KEY, OPENMRS_UUID);
-
-        modules.add(new SearchModule());
-        modules.add(new MuzimaModule(
-                getProperties().getProperty(Constants.LUCENE_DIRECTORY_NAME),
-                getProperties().getProperty(Constants.LUCENE_DOCUMENT_KEY)));
+        // override this property to match the location of your resource configurations.
+        String resourcePath = "../service/j2l/config.json";
+        parameters.put(Constants.RESOURCE_CONFIGURATION_PATH, resourcePath);
+        // override this property if using custom folder.
+        StringBuilder lucenePath = new StringBuilder();
+        lucenePath.append(System.getProperty("java.io.tmpdir"));
+        lucenePath.append("/muzima");
+        parameters.put(Constants.LUCENE_DIRECTORY_PATH, lucenePath.toString());
+        parameters.put(Constants.LUCENE_DEFAULT_FIELD, "uuid");
+        parameters.put(Constants.LUCENE_USE_ENCRYPTION, true);
     }
 
     /**
@@ -58,7 +60,7 @@ public class ContextFactory {
      * @param propertyValue the property value.
      */
     public static void setProperty(final String property, final String propertyValue) {
-        contextProperties.setProperty(property, propertyValue);
+        parameters.put(property, propertyValue);
     }
 
     /**
@@ -67,7 +69,12 @@ public class ContextFactory {
      * @param property the property name.
      */
     public static String getProperty(final String property) {
-        return getProperties().getProperty(property);
+        String propertyValue = StringUtil.EMPTY;
+        Object object = getProperties().get(property);
+        if (object != null) {
+            propertyValue = object.toString();
+        }
+        return propertyValue;
     }
 
     /**
@@ -77,8 +84,8 @@ public class ContextFactory {
      *
      * @return copy of the properties with the values from the context's properties as the default.
      */
-    public static Properties getProperties() {
-        return new Properties(contextProperties);
+    public static Map<String, Object> getProperties() {
+        return new HashMap<String, Object>(parameters);
     }
 
     /**
@@ -94,16 +101,17 @@ public class ContextFactory {
     /**
      * Create context object for the muzima api. Before requesting a new context object, please set the following
      * properties to suit your need:
-     * * Constants.LUCENE_DIRECTORY_NAME
-     * * Constants.LUCENE_DOCUMENT_KEY
+     * * Constants.LUCENE_DIRECTORY_PATH
+     * * Constants.LUCENE_DEFAULT_FIELD
      * * Constants.RESOURCE_CONFIGURATION_PATH
      *
      * @return a fresh context.
      * @throws IOException when creating context failed.
      */
     public static Context createContext() throws Exception {
-        Module module = Modules.combine(modules);
-        Injector injector = Guice.createInjector(module);
+        MuzimaModule muzimaModule = new MuzimaModule();
+        SearchModule searchModule = new SearchModule();
+        Injector injector = Guice.createInjector(muzimaModule, searchModule);
         return new Context(injector);
     }
 }

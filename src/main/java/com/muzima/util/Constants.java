@@ -27,9 +27,15 @@ public class Constants {
     /*
      * Context configuration.
      */
-    public static final String LUCENE_DIRECTORY_NAME = "configuration.lucene.directory";
+    public static final String LUCENE_DIRECTORY_PATH = "configuration.lucene.directory";
 
-    public static final String LUCENE_DOCUMENT_KEY = "configuration.lucene.document.key";
+    public static final String LUCENE_DEFAULT_FIELD = "configuration.lucene.field.key";
+
+    public static final String LUCENE_USE_ENCRYPTION = "configuration.lucene.encryption";
+
+    public static final String LUCENE_USE_COMPRESSION = "configuration.lucene.compression";
+
+    public static final String LUCENE_ENCRYPTION_KEY = "configuration.lucene.encryption.key";
 
     public static final String RESOURCE_CONFIGURATION_PATH = "configuration.resource.path";
 
@@ -58,8 +64,6 @@ public class Constants {
     public static final String SEARCH_FORM_RESOURCE = "Search Form Resource";
 
     public static final String SEARCH_FORM_TEMPLATE_RESOURCE = "Search Form Template Resource";
-
-    public static final String SEARCH_NOTIFICATION_RESOURCE = "Search Notification Resource";
 
     public static final String SEARCH_OBSERVATION_RESOURCE = "Search Observation Resource";
 

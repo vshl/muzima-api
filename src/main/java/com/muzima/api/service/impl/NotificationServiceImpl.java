@@ -23,7 +23,9 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NotificationServiceImpl implements NotificationService {
 
@@ -41,7 +43,10 @@ public class NotificationServiceImpl implements NotificationService {
      * @should download notification with matching uuid.
      */
     public Notification downloadNotificationByUuid(final String notificationUuid) throws IOException {
-        List<Notification> notifications = notificationDao.download(notificationUuid, Constants.UUID_NOTIFICATION_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", notificationUuid);
+        }};
+        List<Notification> notifications = notificationDao.download(parameter, Constants.UUID_NOTIFICATION_RESOURCE);
         if (notifications.size() > 1) {
             throw new IOException("Unable to uniquely identify a notification record.");
         } else if (notifications.size() == 0) {
@@ -62,7 +67,10 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public List<Notification> downloadNotificationBySender(final String senderUuid) throws IOException {
-        return notificationDao.download(senderUuid, Constants.SENDER_NOTIFICATION_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("sender", senderUuid);
+        }};
+        return notificationDao.download(parameter, Constants.SENDER_NOTIFICATION_RESOURCE);
     }
 
     /**
@@ -76,7 +84,10 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public List<Notification> downloadNotificationByReceiver(final String receiverUuid) throws IOException {
-        return notificationDao.download(receiverUuid, Constants.RECEIVER_NOTIFICATION_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("receiver", receiverUuid);
+        }};
+        return notificationDao.download(parameter, Constants.RECEIVER_NOTIFICATION_RESOURCE);
     }
 
     /**

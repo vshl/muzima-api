@@ -56,6 +56,7 @@ public interface CohortService extends MuzimaInterface {
      *
      * @param cohort the cohort to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save cohort object into local lucene data repository.
      */
     void saveCohort(final Cohort cohort) throws IOException;
 
@@ -64,6 +65,7 @@ public interface CohortService extends MuzimaInterface {
      *
      * @param cohorts the cohorts to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save list of all cohort objects into local lucene data repository.
      */
     void saveCohorts(final List<Cohort> cohorts) throws IOException;
 
@@ -72,6 +74,7 @@ public interface CohortService extends MuzimaInterface {
      *
      * @param cohort the cohort to be updated.
      * @throws IOException when search api unable to process the resource.
+     * @should replace old cohort with the matching uuid with the new cohort object.
      */
     void updateCohort(final Cohort cohort) throws IOException;
 
@@ -80,6 +83,7 @@ public interface CohortService extends MuzimaInterface {
      *
      * @param cohorts the cohorts to be updated.
      * @throws IOException when search api unable to process the resource.
+     * @should replace all old cohorts with  matching uuid with the new cohort object.
      */
     void updateCohorts(final List<Cohort> cohorts) throws IOException;
 

@@ -15,19 +15,53 @@
  */
 package com.muzima.api.dao.impl;
 
+import com.google.inject.Inject;
 import com.muzima.api.dao.CohortDataDao;
 import com.muzima.api.model.CohortData;
+import com.muzima.api.model.CohortMember;
+import com.muzima.search.api.context.ServiceContext;
+import com.muzima.search.api.model.object.Searchable;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements CohortDataDao {
+
+    @Inject
+    private ServiceContext serviceContext;
 
     private static final String TAG = CohortDataDaoImpl.class.getSimpleName();
 
     protected CohortDataDaoImpl() {
         super(CohortData.class);
+    }
+
+    /**
+     * Download the searchable object matching the uuid. This process involve executing the REST call, pulling the
+     * resource and then saving it to local lucene repository.
+     *
+     * @param resourceParams the parameters to be passed to search object to filter the searchable object.
+     * @param resource       resource descriptor used to convert the resource to the correct object.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public List<CohortData> download(final Map<String, String> resourceParams, final String resource) throws IOException {
+        CohortData returnedCohortData = new CohortData();
+        List<Searchable> searchableList = service.loadObjects(resourceParams, serviceContext.getResource(resource));
+        for (Searchable searchable : searchableList) {
+            CohortData cohortData = (CohortData) searchable;
+            returnedCohortData.setUuid(cohortData.getUuid());
+            returnedCohortData.setCohort(cohortData.getCohort());
+            returnedCohortData.setDynamic(cohortData.isDynamic());
+            returnedCohortData.getPatients().addAll(cohortData.getPatients());
+            returnedCohortData.getCohortMembers().addAll(cohortData.getCohortMembers());
+        }
+        return Arrays.asList(returnedCohortData);
     }
 
     /**

@@ -30,7 +30,9 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CohortServiceImpl implements CohortService {
 
@@ -59,7 +61,10 @@ public class CohortServiceImpl implements CohortService {
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
     public Cohort downloadCohortByUuid(final String uuid) throws IOException {
-        List<Cohort> cohorts = cohortDao.download(uuid, Constants.UUID_COHORT_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", uuid);
+        }};
+        List<Cohort> cohorts = cohortDao.download(parameter, Constants.UUID_COHORT_RESOURCE);
         if (cohorts.size() > 1) {
             throw new IOException("Unable to uniquely identify a cohort record.");
         } else if (cohorts.size() == 0) {
@@ -79,7 +84,10 @@ public class CohortServiceImpl implements CohortService {
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
     public List<Cohort> downloadCohortsByName(final String name) throws IOException {
-        return cohortDao.download(name, Constants.SEARCH_COHORT_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("q", name);
+        }};
+        return cohortDao.download(parameter, Constants.SEARCH_COHORT_RESOURCE);
     }
 
     /**
@@ -196,8 +204,10 @@ public class CohortServiceImpl implements CohortService {
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
     public CohortDefinition downloadCohortDefinitionByUuid(final String cohortDefinitionUuid) throws IOException {
-        List<CohortDefinition> cohorts = cohortDefinitionDao.download(
-                cohortDefinitionUuid, Constants.UUID_COHORT_DEFINITION_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", cohortDefinitionUuid);
+        }};
+        List<CohortDefinition> cohorts = cohortDefinitionDao.download(parameter, Constants.UUID_COHORT_DEFINITION_RESOURCE);
         if (cohorts.size() > 1) {
             throw new IOException("Unable to uniquely identify a cohort record.");
         } else if (cohorts.size() == 0) {
@@ -218,7 +228,10 @@ public class CohortServiceImpl implements CohortService {
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
     public List<CohortDefinition> downloadCohortDefinitionsByName(final String name) throws IOException {
-        return cohortDefinitionDao.download(name, Constants.SEARCH_COHORT_DEFINITION_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("q", name);
+        }};
+        return cohortDefinitionDao.download(parameter, Constants.SEARCH_COHORT_DEFINITION_RESOURCE);
     }
 
     /**
@@ -348,7 +361,10 @@ public class CohortServiceImpl implements CohortService {
         if (dynamic) {
             resourceName = Constants.DYNAMIC_COHORT_DATA_RESOURCE;
         }
-        List<CohortData> cohortDataList = cohortDataDao.download(uuid, resourceName);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", uuid);
+        }};
+        List<CohortData> cohortDataList = cohortDataDao.download(parameter, resourceName);
         if (cohortDataList.size() > 1) {
             throw new IOException("Unable to uniquely identify a cohort record.");
         } else if (cohortDataList.size() == 0) {

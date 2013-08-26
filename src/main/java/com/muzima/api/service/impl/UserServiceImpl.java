@@ -29,7 +29,9 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserServiceImpl implements UserService {
 
@@ -57,7 +59,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User downloadUserByUuid(final String uuid) throws IOException {
-        List<User> users = userDao.download(uuid, Constants.UUID_USER_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", uuid);
+        }};
+        List<User> users = userDao.download(parameter, Constants.UUID_USER_RESOURCE);
         if (users.size() > 1) {
             throw new IOException("Unable to uniquely identify a form record.");
         } else if (users.size() == 0) {
@@ -75,7 +80,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User downloadUserByUsername(final String username) throws IOException {
-        List<User> users = userDao.download(username, Constants.SEARCH_USER_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("q", username);
+        }};
+        List<User> users = userDao.download(parameter, Constants.SEARCH_USER_RESOURCE);
         if (users.size() > 1) {
             throw new IOException("Unable to uniquely identify a form record.");
         } else if (users.size() == 0) {
@@ -94,7 +102,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> downloadUsersByName(final String name) throws IOException {
-        return userDao.download(name, Constants.SEARCH_USER_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("q", name);
+        }};
+        return userDao.download(parameter, Constants.SEARCH_USER_RESOURCE);
     }
 
     /**
@@ -274,7 +285,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Privilege downloadPrivilege(final String uuid) throws IOException {
-        List<Privilege> privileges = privilegeDao.download(uuid, Constants.UUID_PRIVILEGE_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", uuid);
+        }};
+        List<Privilege> privileges = privilegeDao.download(parameter, Constants.UUID_PRIVILEGE_RESOURCE);
         if (privileges.size() > 1) {
             throw new IOException("Unable to uniquely identify a form record.");
         } else if (privileges.size() == 0) {
@@ -292,7 +306,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<Privilege> downloadPrivileges(final String name) throws IOException {
-        return privilegeDao.download(name, Constants.SEARCH_PRIVILEGE_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("q", name);
+        }};
+        return privilegeDao.download(parameter, Constants.SEARCH_PRIVILEGE_RESOURCE);
     }
 
     /**
@@ -366,7 +383,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Role downloadRole(final String uuid) throws IOException {
-        List<Role> roles = roleDao.download(uuid, Constants.UUID_ROLE_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("uuid", uuid);
+        }};
+        List<Role> roles = roleDao.download(parameter, Constants.UUID_ROLE_RESOURCE);
         if (roles.size() > 1) {
             throw new IOException("Unable to uniquely identify a form record.");
         } else if (roles.size() == 0) {
@@ -385,7 +405,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<Role> downloadRoles(final String name) throws IOException, ParseException {
-        return roleDao.download(name, Constants.SEARCH_ROLE_RESOURCE);
+        Map<String, String> parameter = new HashMap<String, String>(){{
+            put("q", name);
+        }};
+        return roleDao.download(parameter, Constants.SEARCH_ROLE_RESOURCE);
     }
 
     /**
