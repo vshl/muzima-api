@@ -52,12 +52,12 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     public List<CohortData> download(final Map<String, String> resourceParams, final String resource) throws IOException {
         CohortData consolidatedCohortData = new CohortData();
         List<Patient> patients = consolidatedCohortData.getPatients();
-        List<CohortMember> cohortMembers = consolidatedCohortData.getCohortMembers();
+        List<CohortMember> members = consolidatedCohortData.getCohortMembers();
         List<Searchable> searchableList = service.loadObjects(resourceParams, serviceContext.getResource(resource));
         for (Searchable searchable : searchableList) {
             CohortData cohortData = (CohortData) searchable;
             patients.addAll(cohortData.getPatients());
-            cohortMembers.addAll(cohortData.getCohortMembers());
+            members.addAll(cohortData.getCohortMembers());
         }
         return Arrays.asList(consolidatedCohortData);
     }

@@ -18,21 +18,7 @@ package com.muzima.api.dao;
 import com.google.inject.ImplementedBy;
 import com.muzima.api.dao.impl.PrivilegeDaoImpl;
 import com.muzima.api.model.Privilege;
-import org.apache.lucene.queryParser.ParseException;
-
-import java.io.IOException;
-import java.util.List;
 
 @ImplementedBy(PrivilegeDaoImpl.class)
 public interface PrivilegeDao extends OpenmrsDao<Privilege> {
-
-    /**
-     * Get privilege by the name of the privilege. Passing empty string will returns all registered privileges.
-     *
-     * @param name the partial name of the privilege or empty string.
-     * @return the list of all matching privilege on the privilege name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     */
-    List<Privilege> getByName(final String name) throws IOException;
 }

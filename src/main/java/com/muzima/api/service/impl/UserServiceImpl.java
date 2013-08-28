@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#downloadUserByUuid(String)
      */
     @Override
@@ -73,6 +74,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#downloadUserByUsername(String)
      */
     @Override
@@ -93,6 +95,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#downloadUsersByName(String)
      */
     @Override
@@ -105,6 +108,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#saveUser(com.muzima.api.model.User)
      */
     @Override
@@ -114,6 +118,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#updateUser(com.muzima.api.model.User)
      */
     @Override
@@ -123,6 +128,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#getUserByUuid(String)
      */
     @Override
@@ -132,6 +138,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#getUserByName(String)
      */
     @Override
@@ -141,6 +148,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#getUserByUsername(String)
      */
     @Override
@@ -150,6 +158,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see com.muzima.api.service.UserService#getAllUsers()
      */
     @Override
@@ -159,6 +168,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#deleteUser(com.muzima.api.model.User)
      */
     @Override
@@ -168,6 +178,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#saveCredential(com.muzima.api.model.Credential)
      */
     @Override
@@ -177,6 +188,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#updateCredential(com.muzima.api.model.Credential)
      */
     @Override
@@ -186,6 +198,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#getCredentialByUuid(String)
      */
     @Override
@@ -195,6 +208,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#getCredentialByUsername(String)
      */
     @Override
@@ -204,6 +218,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see com.muzima.api.service.UserService#getAllCredentials()
      */
     @Override
@@ -213,6 +228,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#deleteCredential(com.muzima.api.model.Credential)
      */
     @Override
@@ -222,6 +238,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#downloadPrivilege(String)
      */
     @Override
@@ -242,6 +259,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#downloadPrivileges(String)
      */
     @Override
@@ -254,6 +272,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#savePrivilege(com.muzima.api.model.Privilege)
      */
     @Override
@@ -263,6 +282,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#updatePrivilege(com.muzima.api.model.Privilege)
      */
     @Override
@@ -272,6 +292,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#getPrivilegeByUuid(String)
      */
     @Override
@@ -281,6 +302,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#getPrivilegesByName(String)
      */
     @Override
@@ -290,6 +312,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#deletePrivilege(com.muzima.api.model.Privilege)
      */
     @Override
@@ -299,6 +322,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#downloadRole(String)
      */
     @Override
@@ -319,6 +343,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#downloadRoles(String)
      */
     @Override
@@ -331,6 +356,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#saveRole(com.muzima.api.model.Role)
      */
     @Override
@@ -340,6 +366,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#updateRole(com.muzima.api.model.Role)
      */
     @Override
@@ -349,6 +376,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#getRoleByUuid(String)
      */
     @Override
@@ -358,6 +386,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#getRolesByName(String)
      */
     @Override
@@ -367,6 +396,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * {@inheritDoc}
+     *
      * @see UserService#deleteRole(com.muzima.api.model.Role)
      */
     @Override
