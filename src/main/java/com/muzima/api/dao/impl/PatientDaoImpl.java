@@ -80,6 +80,18 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
         return service.getObjects(query.toString(), daoClass);
     }
 
+    @Override
+    public List<Patient> getPatientByName(final String name, final Integer page, final Integer pageSize)
+            throws IOException, ParseException {
+        StringBuilder query = new StringBuilder();
+        if (!StringUtil.isEmpty(name)) {
+            query.append("givenName:").append(name).append("*").append(" OR ");
+            query.append("middleName:").append(name).append("*").append(" OR ");
+            query.append("familyName:").append(name).append("*");
+        }
+        return service.getObjects(query.toString(), daoClass, page, pageSize);
+    }
+
     /**
      * Search for patients matching the term on name and identifier.
      *
@@ -103,6 +115,24 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
             }
         }
         return service.getObjects(StringUtil.EMPTY, daoClass);
+    }
+
+    @Override
+    public List<Patient> search(final String term, final Integer page, final Integer pageSize)
+            throws ParseException, IOException {
+        if (!StringUtil.isEmpty(term)) {
+            if (containsDigit(term)) {
+                Filter filter = FilterFactory.createFilter("identifier", term + "*");
+                return service.getObjects(Arrays.asList(filter), Patient.class, page, pageSize);
+            } else {
+                StringBuilder query = new StringBuilder();
+                query.append("givenName:").append(term).append("*").append(" OR ");
+                query.append("middleName:").append(term).append("*").append(" OR ");
+                query.append("familyName:").append(term).append("*");
+                return service.getObjects(query.toString(), Patient.class, page, pageSize);
+            }
+        }
+        return service.getObjects(StringUtil.EMPTY, daoClass, page, pageSize);
     }
 
     private boolean containsDigit(final String term) {

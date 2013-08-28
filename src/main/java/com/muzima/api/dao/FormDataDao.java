@@ -26,4 +26,7 @@ public interface FormDataDao extends SearchableDao<FormData> {
      */
     List<FormData> getAll(final String patientUuid, final String userUuid, final String status)
             throws ParseException, IOException;
+
+    List<FormData> getAll(final String patientUuid, final String userUuid, final String status,
+                          final Integer page, final Integer pageSize) throws ParseException, IOException;
 }

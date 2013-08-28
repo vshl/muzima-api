@@ -137,15 +137,47 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
+     * Get searchable by the name of the searchable. Passing empty string will returns all
+     * registered searchable objects.
+     *
+     * @param name     the partial name of the searchable or empty string.
+     * @param page     the page number.
+     * @param pageSize the number of elements in the page.
+     * @return list of objects less or equals than the page size parameter.
+     * @throws java.io.IOException
+     */
+    @Override
+    public List<T> getByName(final String name, final Integer page, final Integer pageSize) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(name)) {
+            Filter filter = FilterFactory.createFilter("name", name + "*");
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass, page, pageSize);
+    }
+
+    /**
      * Get all searchable object for the particular type.
      *
      * @return list of all searchable object or empty list.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
-    public List<T> getAll() throws ParseException, IOException {
+    public List<T> getAll() throws IOException {
         return service.getObjects(new ArrayList<Filter>(), daoClass);
+    }
+
+    /**
+     * Get all searchable object for a particular type with paging.
+     *
+     * @param page the page number.
+     * @param pageSize the number of elements in the page.
+     * @return list of objects less or equals than the page size parameter.
+     *
+     */
+     @Override
+    public List<T> getAll(final Integer page, final Integer pageSize) throws IOException {
+        return service.getObjects(new ArrayList<Filter>(), daoClass, page, pageSize);
     }
 
     /**

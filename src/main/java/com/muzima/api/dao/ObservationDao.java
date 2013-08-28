@@ -37,6 +37,9 @@ public interface ObservationDao extends OpenmrsDao<Observation> {
      */
     List<Observation> search(final String patientUuid, final String term) throws IOException;
 
+    List<Observation> search(final String patientUuid, final String term,
+                             final Integer page, final Integer pageSize) throws IOException;
+
     /**
      * Search observations for patient with matching uuid of the question.
      *
@@ -47,4 +50,7 @@ public interface ObservationDao extends OpenmrsDao<Observation> {
      * @throws IOException    when search api unable to process the resource.
      */
     List<Observation> get(final String patientUuid, final String conceptUuid) throws IOException;
+
+    List<Observation> get(final String patientUuid, final String conceptUuid,
+                          final Integer page, final Integer pageSize) throws IOException;
 }

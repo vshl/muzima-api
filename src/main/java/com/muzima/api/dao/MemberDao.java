@@ -12,6 +12,7 @@ import java.util.List;
  */
 @ImplementedBy(MemberDaoImpl.class)
 public interface MemberDao extends SearchableDao<CohortMember> {
+
     /**
      * Get member objects by their cohort's uuid.
      *
@@ -20,4 +21,7 @@ public interface MemberDao extends SearchableDao<CohortMember> {
      * @throws IOException when search api unable to process the resource.
      */
     List<CohortMember> getByCohortUuid(final String cohortUuid) throws IOException;
+
+    List<CohortMember> getByCohortUuid(final String cohortUuid, final Integer page,
+                                       final Integer pageSize) throws IOException;
 }

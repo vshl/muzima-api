@@ -29,26 +29,32 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
     /**
      * Get all notifications for a particular sender from the Lucene repository identified by the sender uuid.
      *
+     *
      * @param senderUuid the sender's uuid.
      * @return list of all notification with matching sender uuid or empty list when no notification match the
      *         sender's uuid.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      * @should return list of all notifications  with matching sender's uuid..
      * @should return empty list when no notification match the sender's uuid..
      */
-    List<Notification> getNotificationBySender(final String senderUuid) throws IOException, ParseException;
+    List<Notification> getNotificationBySender(final String senderUuid) throws IOException;
+
+    List<Notification> getNotificationBySender(final String senderUuid, final Integer page,
+                                               final Integer pageSize) throws IOException, ParseException;
 
     /**
      * Get all notifications for a particular receiver from the Lucene repository identified by the receiver uuid.
      *
+     *
      * @param receiverUuid the receiver's uuid.
      * @return list of all notification with matching receiver uuid or empty list when no notification match the
      *         receiver's uuid.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      * @should return list of all notifications with matching receiver's uuid..
      * @should return empty list when no notification match the receiver's uuid..
      */
-    List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException, ParseException;
+    List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException;
+
+    List<Notification> getNotificationByReceiver(final String receiverUuid, final Integer page,
+                                                 final Integer pageSize) throws IOException, ParseException;
 }

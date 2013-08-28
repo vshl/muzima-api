@@ -37,17 +37,16 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
     /**
      * Get all notifications for a particular sender from the Lucene repository identified by the sender uuid.
      *
+     *
      * @param senderUuid the sender's uuid.
      * @return list of all notification with matching sender uuid or empty list when no notification match the
      *         sender's uuid.
-     * @throws org.apache.lucene.queryParser.ParseException
-     *                             when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return list of all notifications  with matching sender's uuid..
      * @should return empty list when no notification match the sender's uuid..
      */
     @Override
-    public List<Notification> getNotificationBySender(final String senderUuid) throws IOException, ParseException {
+    public List<Notification> getNotificationBySender(final String senderUuid) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(senderUuid)) {
             Filter filter = FilterFactory.createFilter("sender", senderUuid);
@@ -56,26 +55,46 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
         return service.getObjects(filters, daoClass);
     }
 
+    @Override
+    public List<Notification> getNotificationBySender(final String senderUuid, final Integer page,
+                                                      final Integer pageSize) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(senderUuid)) {
+            Filter filter = FilterFactory.createFilter("sender", senderUuid);
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass, page, pageSize);
+    }
+
     /**
      * Get all notifications for a particular receiver from the Lucene repository identified by the receiver uuid.
      *
      * @param receiverUuid the receiver's uuid.
      * @return list of all notification with matching receiver uuid or empty list when no notification match the
      *         receiver's uuid.
-     * @throws org.apache.lucene.queryParser.ParseException
-     *                             when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return list of all notifications with matching receiver's uuid..
      * @should return empty list when no notification match the receiver's uuid..
      */
     @Override
-    public List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException, ParseException {
+    public List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(receiverUuid)) {
             Filter filter = FilterFactory.createFilter("receiver", receiverUuid);
             filters.add(filter);
         }
         return service.getObjects(filters, daoClass);
+    }
+
+    @Override
+    public List<Notification> getNotificationByReceiver(final String receiverUuid, final Integer page,
+                                                        final Integer pageSize) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(receiverUuid)) {
+            Filter filter = FilterFactory.createFilter("receiver", receiverUuid);
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass, page, pageSize);
     }
 }
 

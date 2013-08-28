@@ -50,4 +50,14 @@ public class MemberDaoImpl extends SearchableDaoImpl<CohortMember> implements Me
         return service.getObjects(filters, daoClass);
     }
 
+    @Override
+    public List<CohortMember> getByCohortUuid(final String cohortUuid, final Integer page,
+                                              final Integer pageSize) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(cohortUuid)) {
+            Filter filter = FilterFactory.createFilter("cohortUuid", cohortUuid);
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass, page, pageSize);
+    }
 }

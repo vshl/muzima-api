@@ -49,7 +49,7 @@ public interface SearchableDao<T extends Searchable> {
     void update(final List<T> objects, final String resource) throws IOException;
 
     /**
-     * Get the OpenMRS searchable object using the uuid.
+     * Get the searchable object using the uuid.
      *
      * @param uuid the uuid of the searchable object.
      * @return the searchable object.
@@ -58,23 +58,43 @@ public interface SearchableDao<T extends Searchable> {
     T getByUuid(final String uuid) throws IOException;
 
     /**
-     * Get cohort by the name of the cohort. Passing empty string will returns all registered cohorts.
+     * Get searchable by the name of the searchable. Passing empty string will returns all
+     * registered searchable objects.
      *
-     * @param name the partial name of the cohort or empty string.
-     * @return the list of all matching cohort on the cohort name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
+     * @param name the partial name of the searchable or empty string.
+     * @return the list of all matching searchable on the searchable name.
      * @throws IOException    when search api unable to process the resource.
      */
     List<T> getByName(final String name) throws IOException;
 
     /**
+     * Get searchable by the name of the searchable. Passing empty string will returns all
+     * registered searchable objects.
+     *
+     * @param name the partial name of the searchable or empty string.
+     * @param page the page number.
+     * @param pageSize the number of elements in the page.
+     * @return list of objects less or equals than the page size parameter.
+     * @throws IOException
+     */
+    List<T> getByName(final String name, final Integer page, final Integer pageSize) throws IOException;
+
+    /**
      * Get all searchable object for the particular type.
      *
      * @return list of all searchable object or empty list.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      */
-    List<T> getAll() throws ParseException, IOException;
+    List<T> getAll() throws IOException;
+
+    /**
+     * Get all searchable object for a particular type with paging.
+     *
+     * @param page the page number.
+     * @param pageSize the number of elements in the page.
+     * @return list of objects less or equals than the page size parameter.
+     */
+    List<T> getAll(final Integer page, final Integer pageSize) throws IOException;
 
     /**
      * Delete the searchable object from the lucene repository.

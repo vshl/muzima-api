@@ -62,4 +62,23 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
         }
         return service.getObjects(filters, daoClass);
     }
+
+    @Override
+    public List<FormData> getAll(final String patientUuid, final String userUuid, final String status,
+                                 final Integer page, final Integer pageSize) throws ParseException, IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter patientFilter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(patientFilter);
+        }
+        if (!StringUtil.isEmpty(userUuid)) {
+            Filter userFilter = FilterFactory.createFilter("userUuid", userUuid);
+            filters.add(userFilter);
+        }
+        if (!StringUtil.isEmpty(status)) {
+            Filter statusFilter = FilterFactory.createFilter("status", status);
+            filters.add(statusFilter);
+        }
+        return service.getObjects(filters, daoClass, page, pageSize);
+    }
 }

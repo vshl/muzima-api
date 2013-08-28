@@ -55,6 +55,21 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
         return service.getObjects(filters, daoClass);
     }
 
+    @Override
+    public List<Observation> search(final String patientUuid, final String conceptName,
+                                    final Integer page, final Integer pageSize) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter patientFilter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(patientFilter);
+        }
+        if (!StringUtil.isEmpty(conceptName)) {
+            Filter conceptFilter = FilterFactory.createFilter("conceptName", conceptName);
+            filters.add(conceptFilter);
+        }
+        return service.getObjects(filters, daoClass, page, pageSize);
+    }
+
     /**
      * Search observations for patient with matching uuid of the question.
      *
@@ -75,5 +90,20 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
             filters.add(conceptFilter);
         }
         return service.getObjects(filters, daoClass);
+    }
+
+    @Override
+    public List<Observation> get(final String patientUuid, final String conceptUuid,
+                                 final Integer page, final Integer pageSize) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter patientFilter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(patientFilter);
+        }
+        if (!StringUtil.isEmpty(conceptUuid)) {
+            Filter conceptFilter = FilterFactory.createFilter("conceptUuid", conceptUuid);
+            filters.add(conceptFilter);
+        }
+        return service.getObjects(filters, daoClass, page, pageSize);
     }
 }

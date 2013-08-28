@@ -46,6 +46,9 @@ public interface PatientDao extends OpenmrsDao<Patient> {
      */
     List<Patient> getPatientByName(final String name) throws IOException, ParseException;
 
+    List<Patient> getPatientByName(final String name, final Integer page,
+                                   final Integer pageSize) throws IOException, ParseException;
+
     /**
      * Search for patients matching the term on name and identifier.
      *
@@ -55,4 +58,7 @@ public interface PatientDao extends OpenmrsDao<Patient> {
      * @throws IOException    when search api unable to process the resource.
      */
     List<Patient> search(final String term) throws ParseException, IOException;
+
+    List<Patient> search(final String term, final Integer page,
+                         final Integer pageSize) throws ParseException, IOException;
 }

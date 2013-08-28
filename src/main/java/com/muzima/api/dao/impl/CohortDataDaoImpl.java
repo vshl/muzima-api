@@ -22,7 +22,6 @@ import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
 import com.muzima.search.api.context.ServiceContext;
 import com.muzima.search.api.model.object.Searchable;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -46,7 +45,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      *
      * @param resourceParams the parameters to be passed to search object to filter the searchable object.
      * @param resource       resource descriptor used to convert the resource to the correct object.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public List<CohortData> download(final Map<String, String> resourceParams, final String resource) throws IOException {
@@ -68,7 +67,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      * @param object   the object to be saved.
      * @param resource the resource descriptor used for saving.
      * @return saved object.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public void save(final CohortData object, final String resource) throws IOException {
@@ -83,7 +82,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      *
      * @param objects  the objects to be saved.
      * @param resource the resource descriptor used for saving.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public void save(final List<CohortData> objects, final String resource) throws IOException {
@@ -98,7 +97,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      * @param object   the object to be updated.
      * @param resource the resource descriptor used for saving.
      * @return updated object.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public void update(final CohortData object, final String resource) throws IOException {
@@ -113,7 +112,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      *
      * @param objects  the objects to be updated.
      * @param resource the resource descriptor used for updating.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public void update(final List<CohortData> objects, final String resource) throws IOException {
@@ -127,7 +126,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      *
      * @param uuid the uuid of the searchable object.
      * @return the searchable object.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public CohortData getByUuid(final String uuid) throws IOException {
@@ -143,7 +142,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      * @return the list of all matching cohort on the cohort name.
      * @throws org.apache.lucene.queryParser.ParseException
      *                             when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public List<CohortData> getByName(final String name) throws IOException {
@@ -156,12 +155,10 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      * Get all searchable object for the particular type.
      *
      * @return list of all searchable object or empty list.
-     * @throws org.apache.lucene.queryParser.ParseException
-     *                             when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
-    public List<CohortData> getAll() throws ParseException, IOException {
+    public List<CohortData> getAll() throws IOException {
         throw new IOException(
                 "Cohort data object is just place holder for download purpose! " +
                         "No actual cohort data object will be saved in the lucene's document repository.");
@@ -172,7 +169,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      *
      * @param searchable the object to be deleted.
      * @param resource   the resource descriptor used to retrieve the object from the repository.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public void delete(final CohortData searchable, final String resource) throws IOException {
@@ -187,7 +184,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      *
      * @param objects  the objects to be deleted.
      * @param resource the resource descriptor used for deleting.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public void delete(final List<CohortData> objects, final String resource) throws IOException {
