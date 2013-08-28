@@ -1,0 +1,90 @@
+{
+    "results": [
+        {
+            "cohort": {
+                "uuid": "0ca78602-737f-408d-8ced-386ad12367db",
+                "name": "Male 19 - 23"
+            },
+            "patient": {
+                "uuid": "dd656b24-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": "1991-07-26T00:00:00.000-0500",
+                "personName.givenName": "Colllins",
+                "personName.middleName": "Kavaya",
+                "personName.familyName": "Mutind",
+                "patientIdentifier.identifier": "513MO-5",
+                "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            }
+        },
+        {
+            "cohort": {
+                "uuid": "0ca78602-737f-408d-8ced-386ad12367db",
+                "name": "Male 19 - 23"
+            },
+            "patient": {
+                "uuid": "dd661a72-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": "1991-06-16T00:00:00.000-0500",
+                "personName.givenName": "Elizava",
+                "personName.middleName": "Zavai",
+                "personName.familyName": "Nyanyur",
+                "patientIdentifier.identifier": "668MP-5",
+                "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            }
+        },
+        {
+            "cohort": {
+                "uuid": "0ca78602-737f-408d-8ced-386ad12367db",
+                "name": "Male 19 - 23"
+            },
+            "patient": {
+                "uuid": "dd66e436-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": "1990-06-02T00:00:00.000-0500",
+                "personName.givenName": "Joseck",
+                "personName.middleName": "Obuya",
+                "personName.familyName": "Akeza",
+                "patientIdentifier.identifier": "1027TU-5",
+                "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            }
+        },
+        {
+            "cohort": {
+                "uuid": "0ca78602-737f-408d-8ced-386ad12367db",
+                "name": "Male 19 - 23"
+            },
+            "patient": {
+                "uuid": "dd6f6ce8-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": "1992-08-14T00:00:00.000-0500",
+                "personName.givenName": "Cornelious",
+                "personName.middleName": "Echomo",
+                "personName.familyName": "Talaiyo",
+                "patientIdentifier.identifier": "1184NT-2",
+                "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            }
+        },
+        {
+            "cohort": {
+                "uuid": "0ca78602-737f-408d-8ced-386ad12367db",
+                "name": "Male 19 - 23"
+            },
+            "patient": {
+                "uuid": "dd6f9821-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": "1989-12-17T00:00:00.000-0500",
+                "personName.givenName": "Ardson",
+                "personName.middleName": "Kiptum",
+                "personName.familyName": "Ledama",
+                "patientIdentifier.identifier": "1240MP-2",
+                "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            }
+        }
+    ],
+    "links": [
+        {
+            "uri": "http://localhost:8081/openmrs-standalone/ws/rest/v1/cohort/0ca78602-737f-408d-8ced-386ad12367db/member?v=custom%3A%28cohort%3A%28uuid%2Cname%29%2Cpatient%3A%28uuid%2Cgender%2Cbirthdate%2CpersonName.givenName%2CpersonName.middleName%2CpersonName.familyName%2CpatientIdentifier.identifier%2CpatientIdentifier.identifierType.name%29%29&startIndex=5",
+            "rel": "next"
+        }
+    ]
+}
