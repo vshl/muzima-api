@@ -67,7 +67,7 @@ public class UserDaoImpl extends OpenmrsDaoImpl<User> implements UserDao {
      * @throws IOException    when search api unable to process the resource.
      */
     @Override
-    public List<User> getByName(final String name) throws ParseException, IOException {
+    public List<User> getUserByName(final String name) throws ParseException, IOException {
         StringBuilder query = new StringBuilder();
         if (!StringUtil.isEmpty(name)) {
             query.append("givenName:").append(name).append("*").append(" OR ");

@@ -57,9 +57,9 @@ public class Constants {
 
     public static final String LOCAL_FORM_DATA_RESOURCE = "Local Form Data Resource";
 
-    public static final String SEARCH_COHORT_RESOURCE = "Search Cohort Resource";
+    public static final String SEARCH_STATIC_COHORT_RESOURCE = "Search Static Cohort Resource";
 
-    public static final String SEARCH_COHORT_DEFINITION_RESOURCE = "Search Cohort Definition Resource";
+    public static final String SEARCH_DYNAMIC_COHORT_RESOURCE = "Search Dynamic Cohort Resource";
 
     public static final String SEARCH_FORM_RESOURCE = "Search Form Resource";
 
@@ -75,9 +75,9 @@ public class Constants {
 
     public static final String SEARCH_USER_RESOURCE = "Search User Resource";
 
-    public static final String UUID_COHORT_DEFINITION_RESOURCE = "Uuid Cohort Definition Resource";
+    public static final String UUID_DYNAMIC_COHORT_RESOURCE = "Uuid Dynamic Cohort Resource";
 
-    public static final String UUID_COHORT_RESOURCE = "Uuid Cohort Resource";
+    public static final String UUID_STATIC_COHORT_RESOURCE = "Uuid Static Cohort Resource";
 
     public static final String UUID_FORM_RESOURCE = "Uuid Form Resource";
 

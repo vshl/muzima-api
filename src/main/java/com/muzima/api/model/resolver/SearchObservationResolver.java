@@ -16,8 +16,6 @@
 package com.muzima.api.model.resolver;
 
 
-import com.muzima.search.api.util.StringUtil;
-
 import java.io.IOException;
 import java.util.Map;
 

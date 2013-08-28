@@ -34,5 +34,5 @@ public interface RoleDao extends OpenmrsDao<Role> {
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      */
-    List<Role> getByName(final String name) throws ParseException, IOException;
+    List<Role> getByName(final String name) throws IOException;
 }

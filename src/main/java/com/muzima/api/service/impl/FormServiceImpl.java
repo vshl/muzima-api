@@ -23,6 +23,7 @@ import com.muzima.api.model.Form;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.api.service.FormService;
+import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
@@ -47,49 +48,43 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Download a single form record from the form rest resource into the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param uuid the uuid of the form.
-     * @throws IOException when search api unable to process the resource.
-     * @should download form with matching uuid.
+     * @see FormService#downloadFormByUuid(String)
      */
     @Override
     public Form downloadFormByUuid(final String uuid) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Form form = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
         List<Form> forms = formDao.download(parameter, Constants.UUID_FORM_RESOURCE);
-        if (forms.size() > 1) {
-            throw new IOException("Unable to uniquely identify a form record.");
-        } else if (forms.size() == 0) {
-            return null;
+        if (!CollectionUtil.isEmpty(forms)) {
+            if (forms.size() > 1) {
+                throw new IOException("Unable to uniquely identify a form record.");
+            }
+            form = forms.get(0);
         }
-        return forms.get(0);
+        return form;
     }
 
     /**
-     * Download all forms with name similar to the partial name passed in the parameter.
+     * {@inheritDoc}
      *
-     * @param name the partial name of the form to be downloaded. When empty, will return all forms available.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should download all form with partially matched name.
-     * @should download all form when name is empty.
+     * @see FormService#downloadFormsByName(String)
      */
     @Override
     public List<Form> downloadFormsByName(final String name) throws IOException, ParseException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
         return formDao.download(parameter, Constants.SEARCH_FORM_RESOURCE);
     }
 
     /**
-     * Save form object to the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param form the form object to be saved.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @see FormService#saveForm(com.muzima.api.model.Form)
      */
     @Override
     public void saveForm(final Form form) throws IOException {
@@ -97,11 +92,19 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Update form object to the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param form the form object to be updated.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @see FormService#saveForms(java.util.List)
+     */
+    @Override
+    public void saveForms(final List<Form> forms) throws IOException {
+        formDao.save(forms, Constants.UUID_FORM_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#updateForm(com.muzima.api.model.Form)
      */
     @Override
     public void updateForm(final Form form) throws IOException {
@@ -109,13 +112,19 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Get form by the uuid of the form.
+     * {@inheritDoc}
      *
-     * @param uuid the form uuid.
-     * @return form with matching uuid or null when no form match the uuid.
-     * @throws IOException when search api unable to process the resource.
-     * @should return form with matching uuid.
-     * @should return null when no form match the uuid.
+     * @see FormService#updateForms(java.util.List)
+     */
+    @Override
+    public void updateForms(final List<Form> forms) throws IOException {
+        formDao.update(forms, Constants.UUID_FORM_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#getFormByUuid(String)
      */
     @Override
     public Form getFormByUuid(final String uuid) throws IOException {
@@ -123,14 +132,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Get all form with matching name (or partial name).
+     * {@inheritDoc}
      *
-     * @param name the form name.
-     * @return form with matching uuid or null when no form match the uuid.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return form with matching uuid.
-     * @should return null when no form match the uuid.
+     * @see FormService#getFormByName(String)
      */
     @Override
     public List<Form> getFormByName(final String name) throws IOException, ParseException {
@@ -138,11 +142,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * @return all registered forms or empty list when no form is registered.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return all registered forms.
-     * @should return empty list when no form is registered.
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.FormService#getAllForms()
      */
     @Override
     public List<Form> getAllForms() throws IOException, ParseException {
@@ -150,11 +152,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Delete form from the repository.
+     * {@inheritDoc}
      *
-     * @param form the form to be deleted.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @see FormService#deleteForm(com.muzima.api.model.Form)
      */
     @Override
     public void deleteForm(final Form form) throws IOException {
@@ -162,11 +162,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Check whether the form template for a particular form object is already downloaded or not.
+     * {@inheritDoc}
      *
-     * @param formUuid the uuid of the form.
-     * @return true when the form template for the form is already downloaded.
-     * @throws java.io.IOException when the search api unable to process the resource.
+     * @see FormService#isFormTemplateDownloaded(String)
      */
     @Override
     public Boolean isFormTemplateDownloaded(final String formUuid) throws IOException {
@@ -174,49 +172,44 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Download form template by the uuid of the form associated with the form template.
+     * {@inheritDoc}
      *
-     * @param uuid the uuid of the form.
-     * @return the form template with matching uuid downloaded from the server.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @see FormService#downloadFormTemplateByUuid(String)
      */
     @Override
     public FormTemplate downloadFormTemplateByUuid(final String uuid) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        FormTemplate formTemplate = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
         List<FormTemplate> formTemplates = formTemplateDao.download(parameter, Constants.UUID_FORM_TEMPLATE_RESOURCE);
-        if (formTemplates.size() > 1) {
-            throw new IOException("Unable to uniquely identify a form template record.");
-        } else if (formTemplates.size() == 0) {
-            return null;
+        if (!CollectionUtil.isEmpty(formTemplates)) {
+
+            if (formTemplates.size() > 1) {
+                throw new IOException("Unable to uniquely identify a form template record.");
+            }
+            formTemplate = formTemplates.get(0);
         }
-        return formTemplates.get(0);
+        return formTemplate;
     }
 
     /**
-     * Download form templates by the name of the form associated with the form template.
+     * {@inheritDoc}
      *
-     * @param name the name of the form.
-     * @return list of all matching form templates based on the name of the form.
-     * @throws org.apache.lucene.queryParser.ParseException
-     *                             when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see FormService#downloadFormTemplatesByName(String)
      */
     @Override
     public List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
         return formTemplateDao.download(parameter, Constants.SEARCH_FORM_TEMPLATE_RESOURCE);
     }
 
     /**
-     * Save a new form template to the repository.
+     * {@inheritDoc}
      *
-     * @param formTemplate the form template to be saved.
-     * @throws IOException when search api unable to process the resource.
+     * @see FormService#saveFormTemplate(com.muzima.api.model.FormTemplate)
      */
     @Override
     public void saveFormTemplate(final FormTemplate formTemplate) throws IOException {
@@ -224,11 +217,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Get a form template by the uuid.
+     * {@inheritDoc}
      *
-     * @param uuid the form template uuid.
-     * @return the form template.
-     * @throws IOException when search api unable to process the resource.
+     * @see FormService#getFormTemplateByUuid(String)
      */
     @Override
     public FormTemplate getFormTemplateByUuid(final String uuid) throws IOException {
@@ -236,11 +227,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Get all saved form templates from the local repository.
+     * {@inheritDoc}
      *
-     * @return all saved form templates or empty list when there's no form template saved.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @see com.muzima.api.service.FormService#getAllFormTemplates()
      */
     @Override
     public List<FormTemplate> getAllFormTemplates() throws IOException, ParseException {
@@ -248,10 +237,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Delete a form template from the repository.
+     * {@inheritDoc}
      *
-     * @param formTemplate the form template to be deleted.
-     * @throws IOException when search api unable to process the resource.
+     * @see FormService#deleteFormTemplate(com.muzima.api.model.FormTemplate)
      */
     @Override
     public void deleteFormTemplate(final FormTemplate formTemplate) throws IOException {
@@ -259,10 +247,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Save a new form data object to the database.
+     * {@inheritDoc}
      *
-     * @param formData the form data to be saved.
-     * @throws IOException when search api unable to process the resource.
+     * @see FormService#saveFormData(com.muzima.api.model.FormData)
      */
     @Override
     public void saveFormData(final FormData formData) throws IOException {
@@ -270,11 +257,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Get a single form data object from the local data repository.
+     * {@inheritDoc}
      *
-     * @param uuid the uuid for the form data.
-     * @return the form data object.
-     * @throws IOException when search api unable to process the resource.
+     * @see FormService#getFormDataByUuid(String)
      */
     @Override
     public FormData getFormDataByUuid(final String uuid) throws IOException {
@@ -282,12 +267,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Get all form data filtering on the status of the form data.
+     * {@inheritDoc}
      *
-     * @param status the status of the form data (optional).
-     * @return all form data with matching status.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @see FormService#getAllFormData(String)
      */
     @Override
     public List<FormData> getAllFormData(final String status) throws IOException, ParseException {
@@ -295,13 +277,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Get form data associated with certain user with filtering on the status of the form data.
+     * {@inheritDoc}
      *
-     * @param userUuid the uuid of the user.
-     * @param status   the status of the form data (optional).
-     * @return all form data for the user with matching status.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @see FormService#getFormDataByUser(String, String)
      */
     @Override
     public List<FormData> getFormDataByUser(final String userUuid, final String status) throws IOException, ParseException {
@@ -309,13 +287,9 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Get form data associated with certain user with filtering on the status of the form data.
+     * {@inheritDoc}
      *
-     * @param patientUuid the uuid of the patient
-     * @param status      the status of the form data (optional).
-     * @return all form data for the patient with matching status.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @see FormService#getFormDataByPatient(String, String)
      */
     @Override
     public List<FormData> getFormDataByPatient(final String patientUuid, final String status) throws IOException, ParseException {
@@ -323,13 +297,12 @@ public class FormServiceImpl implements FormService {
     }
 
     /**
-     * Delete an instance of form data.
+     * {@inheritDoc}
      *
-     * @param formData the form data
-     * @throws IOException when search api unable to process the resource.
+     * @see FormService#deleteFormData(com.muzima.api.model.FormData)
      */
     @Override
-    public void deleteFormDate(final FormData formData) throws IOException {
+    public void deleteFormData(final FormData formData) throws IOException {
         formDataDao.delete(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
     }
 }

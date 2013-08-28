@@ -15,14 +15,19 @@
  */
 package com.muzima.api.model.algorithm;
 
+import com.jayway.jsonpath.InvalidPathException;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Cohort;
 import com.muzima.search.api.model.object.Searchable;
 import net.minidev.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
+
+    private final Logger logger = LoggerFactory.getLogger(CohortAlgorithm.class.getSimpleName());
 
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
@@ -35,6 +40,14 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
         Cohort cohort = new Cohort();
 
         Object jsonObject = JsonPath.read(json, "$");
+
+        boolean dynamic = false;
+        try {
+            dynamic = JsonPath.read(jsonObject, "$['dynamic']");
+        } catch (InvalidPathException e) {
+            logger.error("REST resource doesn't contains dynamic information. Exiting!");
+        }
+        cohort.setDynamic(dynamic);
 
         String uuid = JsonPath.read(jsonObject, "$['uuid']");
         cohort.setUuid(uuid);
@@ -58,6 +71,7 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", cohort.getUuid());
         jsonObject.put("name", cohort.getName());
+        jsonObject.put("dynamic", cohort.isDynamic());
         return jsonObject.toJSONString();
     }
 }

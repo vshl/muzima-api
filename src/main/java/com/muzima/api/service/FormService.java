@@ -56,27 +56,40 @@ public interface FormService extends MuzimaInterface {
      * Save form object to the local lucene repository.
      *
      * @param form the form object to be saved.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     void saveForm(final Form form) throws IOException;
+
+    /**
+     * Save form objects to the local lucene repository.
+     *
+     * @param forms the form objects to be saved.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void saveForms(final List<Form> forms) throws IOException;
 
     /**
      * Update form object to the local lucene repository.
      *
      * @param form the form object to be updated.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     void updateForm(final Form form) throws IOException;
+
+    /**
+     * Update form objects to the local lucene repository.
+     *
+     * @param forms the form objects to be updated.
+     * @throws IOException when search api unable to process the resource.
+     */
+    void updateForms(final List<Form> forms) throws IOException;
 
     /**
      * Get form by the uuid of the form.
      *
      * @param uuid the form uuid.
      * @return form with matching uuid or null when no form match the uuid.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return form with matching uuid.
      * @should return null when no form match the uuid.
      */
@@ -107,8 +120,7 @@ public interface FormService extends MuzimaInterface {
      * Delete form from the repository.
      *
      * @param form the form to be deleted.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     void deleteForm(final Form form) throws IOException;
 
@@ -126,8 +138,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param uuid the uuid of the form.
      * @return the form template with matching uuid downloaded from the server.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     FormTemplate downloadFormTemplateByUuid(final String uuid) throws IOException;
 
@@ -145,8 +156,7 @@ public interface FormService extends MuzimaInterface {
      * Save a new form template to the repository.
      *
      * @param formTemplate the form template to be saved.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     void saveFormTemplate(final FormTemplate formTemplate) throws IOException;
 
@@ -155,8 +165,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param uuid the form template uuid.
      * @return the form template.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     FormTemplate getFormTemplateByUuid(final String uuid) throws IOException;
 
@@ -173,8 +182,7 @@ public interface FormService extends MuzimaInterface {
      * Delete a form template from the repository.
      *
      * @param formTemplate the form template to be deleted.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     void deleteFormTemplate(final FormTemplate formTemplate) throws IOException;
 
@@ -182,8 +190,7 @@ public interface FormService extends MuzimaInterface {
      * Save a new form data object to the database.
      *
      * @param formData the form data to be saved.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     void saveFormData(final FormData formData) throws IOException;
 
@@ -192,8 +199,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param uuid the uuid for the form data.
      * @return the form data object.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     FormData getFormDataByUuid(final String uuid) throws IOException;
 
@@ -233,8 +239,7 @@ public interface FormService extends MuzimaInterface {
      * Delete an instance of form data.
      *
      * @param formData the form data
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
-    void deleteFormDate(final FormData formData) throws IOException;
+    void deleteFormData(final FormData formData) throws IOException;
 }

@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import com.muzima.api.dao.ObservationDao;
 import com.muzima.api.model.Observation;
 import com.muzima.api.service.ObservationService;
+import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
@@ -37,47 +38,43 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Download a single observation record from the observation rest resource into the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param uuid the uuid of the observation.
-     * @throws IOException when search api unable to process the resource.
-     * @should download observation with matching uuid.
+     * @see ObservationService#downloadObservationByUuid(String)
      */
     @Override
     public Observation downloadObservationByUuid(final String uuid) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Observation observation = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
         List<Observation> observations = observationDao.download(parameter, Constants.UUID_OBSERVATION_RESOURCE);
-        if (observations.size() > 1) {
-            throw new IOException("Unable to uniquely identify a form record.");
-        } else if (observations.size() == 0) {
-            return null;
+        if (!CollectionUtil.isEmpty(observations)) {
+            if (observations.size() > 1) {
+                throw new IOException("Unable to uniquely identify a form record.");
+            }
+            observation = observations.get(0);
         }
-        return observations.get(0);
+        return observation;
     }
 
     /**
-     * Download all observations with name similar to the partial name passed in the parameter.
+     * {@inheritDoc}
      *
-     * @param patientUuid the partial name of the observation to be downloaded. When empty, will return all observations available.
-     * @throws IOException when search api unable to process the resource.
-     * @should download all observation with partially matched name.
-     * @should download all observation when name is empty.
+     * @see ObservationService#downloadObservationsByPatient(String)
      */
     @Override
     public List<Observation> downloadObservationsByPatient(final String patientUuid) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("patient", patientUuid);
         }};
         return observationDao.download(parameter, Constants.SEARCH_OBSERVATION_RESOURCE);
     }
 
     /**
-     * Save the observation into the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param observation the observation to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see ObservationService#saveObservation(com.muzima.api.model.Observation)
      */
     @Override
     public void saveObservation(final Observation observation) throws IOException {
@@ -85,10 +82,9 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Save the observations into the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param observations the observations to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see ObservationService#saveObservations(java.util.List)
      */
     @Override
     public void saveObservations(final List<Observation> observations) throws IOException {
@@ -96,10 +92,9 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Update the observation into the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param observation the observation to be updated.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see ObservationService#updateObservation(com.muzima.api.model.Observation)
      */
     @Override
     public void updateObservation(final Observation observation) throws IOException {
@@ -107,10 +102,9 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Update the observations into the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param observations the observations to be updated.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see ObservationService#updateObservations(java.util.List)
      */
     @Override
     public void updateObservations(final List<Observation> observations) throws IOException {
@@ -118,13 +112,9 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Get a single observation record from the repository using the uuid of the observation.
+     * {@inheritDoc}
      *
-     * @param uuid the observation uuid.
-     * @return the observation with matching uuid or null when no observation match the uuid.
-     * @throws IOException when search api unable to process the resource.
-     * @should return observation with matching uuid.
-     * @should return null when no observation match the uuid.
+     * @see ObservationService#getObservationByUuid(String)
      */
     @Override
     public Observation getObservationByUuid(final String uuid) throws IOException {
@@ -132,14 +122,9 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Get all observations for the particular patient.
+     * {@inheritDoc}
      *
-     * @param patientUuid the uuid of the patient.
-     * @return list of all observations for the patient or empty list when no observation found for the patient.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return list of all observations for the patient.
-     * @should return empty list when no observation found for the patient.
+     * @see ObservationService#getObservationsByPatient(String)
      */
     @Override
     public List<Observation> getObservationsByPatient(final String patientUuid) throws IOException {
@@ -147,14 +132,9 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Get all observations for the particular patient.
+     * {@inheritDoc}
      *
-     * @param patientUuid the uuid of the patient.
-     * @param conceptUuid the uuid of the concept.
-     * @return list of all observations for the patient or empty list when no observation found for the patient.
-     * @throws IOException when search api unable to process the resource.
-     * @should return list of all observations for the patient.
-     * @should return empty list when no observation found for the patient.
+     * @see ObservationService#getObservationsByPatientAndConcept(String, String)
      */
     @Override
     public List<Observation> getObservationsByPatientAndConcept(final String patientUuid, final String conceptUuid) throws IOException {
@@ -162,15 +142,9 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Search for all observations for the particular patient with matching search term.
+     * {@inheritDoc}
      *
-     * @param patientUuid the patient.
-     * @param term        the search term.
-     * @return list of all observations with matching search term on the searchable fields or empty list.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return list of all observations with matching search term on the searchable fields.
-     * @should return empty list when no observation match the search term.
+     * @see ObservationService#searchObservations(String, String)
      */
     @Override
     public List<Observation> searchObservations(final String patientUuid, final String term) throws IOException, ParseException {
@@ -178,11 +152,9 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Delete a single observation from the local repository.
+     * {@inheritDoc}
      *
-     * @param observation the observation.
-     * @throws IOException when search api unable to process the resource.
-     * @should delete the observation from the local repository.
+     * @see ObservationService#deleteObservation(com.muzima.api.model.Observation)
      */
     @Override
     public void deleteObservation(final Observation observation) throws IOException {

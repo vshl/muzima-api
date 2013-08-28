@@ -48,7 +48,7 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
 
         JSONArray tagsJson = JsonPath.read(jsonObject, "$['tags']");
         Tag[] tags = new Tag[tagsJson.size()];
-        for(int i=0; i< tagsJson.size(); i++){
+        for (int i = 0; i < tagsJson.size(); i++) {
             Tag tag = new Tag();
             JSONObject tagJson = (JSONObject) tagsJson.get(i);
             tag.setName((String) tagJson.get("name"));

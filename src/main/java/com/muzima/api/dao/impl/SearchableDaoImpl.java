@@ -66,8 +66,8 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Save list of objects to the local repository. Use this save method when you want to save multiple objects
-     * at the same time.
+     * Save list of objects to the local repository. Use this save method when you want
+     * to save multiple objects at the same time.
      *
      * @param objects  the objects to be saved.
      * @param resource the resource descriptor used for saving.
@@ -75,7 +75,9 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
      */
     @Override
     public void save(final List<T> objects, final String resource) throws IOException {
-        service.createObjects((List<Searchable>) objects, context.getResource(resource));
+        service.createObjects(
+                Arrays.asList(objects.toArray(new Searchable[objects.size()])),
+                context.getResource(resource));
     }
 
     /**
@@ -92,8 +94,8 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Update list of objects in the local repository. Use this save method when you want to update multiple objects
-     * at the same time.
+     * Update list of objects in the local repository. Use this save method when you want
+     * to update multiple objects at the same time.
      *
      * @param objects  the objects to be updated.
      * @param resource the resource descriptor used for updating.
@@ -101,7 +103,9 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
      */
     @Override
     public void update(final List<T> objects, final String resource) throws IOException {
-        service.updateObjects((List<Searchable>) objects, context.getResource(resource));
+        service.updateObjects(
+                Arrays.asList(objects.toArray(new Searchable[objects.size()])),
+                context.getResource(resource));
     }
 
     /**
@@ -116,14 +120,14 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Get cohort by the name of the cohort. Passing empty string will returns all registered cohorts.
+     * Get cohort by the name of the cohort. Passing empty string will returns all
+     * registered cohorts.
      *
      * @param name the partial name of the cohort or empty string.
      * @return the list of all matching cohort on the cohort name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
-    public List<T> getByName(final String name) throws ParseException, IOException {
+    public List<T> getByName(final String name) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(name)) {
             Filter filter = FilterFactory.createFilter("name", name + "*");
@@ -141,7 +145,7 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
      */
     @Override
     public List<T> getAll() throws ParseException, IOException {
-        return service.getObjects(StringUtil.EMPTY, daoClass);
+        return service.getObjects(new ArrayList<Filter>(), daoClass);
     }
 
     /**
@@ -157,8 +161,8 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Delete list of objects from the local repository. Use this save method when you want to delete multiple
-     * objects at the same time.
+     * Delete list of objects from the local repository. Use this save method when you want
+     * to delete multiple objects at the same time.
      *
      * @param objects  the objects to be deleted.
      * @param resource the resource descriptor used for deleting.
@@ -166,6 +170,8 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
      */
     @Override
     public void delete(final List<T> objects, final String resource) throws IOException {
-        service.deleteObjects((List<Searchable>) objects, context.getResource(resource));
+        service.deleteObjects(
+                Arrays.asList(objects.toArray(new Searchable[objects.size()])),
+                context.getResource(resource));
     }
 }

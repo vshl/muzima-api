@@ -44,7 +44,7 @@ public class PrivilegeDaoImpl extends OpenmrsDaoImpl<Privilege> implements Privi
      * @throws IOException    when reading resource descriptor happen.
      */
     @Override
-    public List<Privilege> getByName(final String name) throws ParseException, IOException {
+    public List<Privilege> getByName(final String name) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(name)) {
             Filter filter = FilterFactory.createFilter("name", name + "*");

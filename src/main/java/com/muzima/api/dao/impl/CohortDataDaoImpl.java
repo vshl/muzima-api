@@ -19,14 +19,13 @@ import com.google.inject.Inject;
 import com.muzima.api.dao.CohortDataDao;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
+import com.muzima.api.model.Patient;
 import com.muzima.search.api.context.ServiceContext;
 import com.muzima.search.api.model.object.Searchable;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -51,17 +50,16 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      */
     @Override
     public List<CohortData> download(final Map<String, String> resourceParams, final String resource) throws IOException {
-        CohortData returnedCohortData = new CohortData();
+        CohortData consolidatedCohortData = new CohortData();
+        List<Patient> patients = consolidatedCohortData.getPatients();
+        List<CohortMember> cohortMembers = consolidatedCohortData.getCohortMembers();
         List<Searchable> searchableList = service.loadObjects(resourceParams, serviceContext.getResource(resource));
         for (Searchable searchable : searchableList) {
             CohortData cohortData = (CohortData) searchable;
-            returnedCohortData.setUuid(cohortData.getUuid());
-            returnedCohortData.setCohort(cohortData.getCohort());
-            returnedCohortData.setDynamic(cohortData.isDynamic());
-            returnedCohortData.getPatients().addAll(cohortData.getPatients());
-            returnedCohortData.getCohortMembers().addAll(cohortData.getCohortMembers());
+            patients.addAll(cohortData.getPatients());
+            cohortMembers.addAll(cohortData.getCohortMembers());
         }
-        return Arrays.asList(returnedCohortData);
+        return Arrays.asList(consolidatedCohortData);
     }
 
     /**
@@ -148,7 +146,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
      * @throws java.io.IOException when search api unable to process the resource.
      */
     @Override
-    public List<CohortData> getByName(final String name) throws ParseException, IOException {
+    public List<CohortData> getByName(final String name) throws IOException {
         throw new IOException(
                 "Cohort data object is just place holder for download purpose! " +
                         "No actual cohort data object will be saved in the lucene's document repository.");

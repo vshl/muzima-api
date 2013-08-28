@@ -43,7 +43,7 @@ public class FormDaoImpl extends OpenmrsDaoImpl<Form> implements FormDao {
      * @throws IOException    when reading resource descriptor happen.
      */
     @Override
-    public List<Form> getByName(final String name) throws ParseException, IOException {
+    public List<Form> getByName(final String name) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(name)) {
             Filter filter = FilterFactory.createFilter("name", name + "*");

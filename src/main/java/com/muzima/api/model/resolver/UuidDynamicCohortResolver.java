@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * TODO: Write brief description about the class here.
  */
-public class SearchCohortDefinitionResolver extends BaseOpenmrsResolver {
+public class UuidDynamicCohortResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION = "?v=custom:(uuid,name)";
 
@@ -19,10 +19,10 @@ public class SearchCohortDefinitionResolver extends BaseOpenmrsResolver {
      * @return full uri to the REST resource.
      */
     public String resolve(final Map<String, String> resourceParams) throws IOException {
-        StringBuilder paramBuilder = new StringBuilder();
-        for (String key : resourceParams.keySet()) {
-            paramBuilder.append("&").append(key).append("=").append(resourceParams.get(key));
+        String uuid = resourceParams.get("uuid");
+        if (StringUtil.isEmpty(uuid)) {
+            throw new IOException("Resolver unable to find required parameter uuid!");
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/reportingrest/cohortDefinition" + REPRESENTATION + paramBuilder.toString();
+        return getConfiguration().getServer() + "/ws/rest/v1/reportingrest/cohortDefinition/" + uuid + REPRESENTATION;
     }
 }

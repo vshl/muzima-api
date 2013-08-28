@@ -27,6 +27,4 @@ public class StaticCohortDataResolver extends BaseOpenmrsResolver {
         }
         return getConfiguration().getServer() + "/ws/rest/v1/cohort/" + uuid + "/member" + REPRESENTATION;
     }
-
-
 }

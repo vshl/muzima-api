@@ -17,7 +17,7 @@ public interface FormTemplateDao extends OpenmrsDao<FormTemplate> {
      *
      * @param formUuid the uuid of the form object.
      * @return true when the form template associated with the form object is already downloaded.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     Boolean exists(final String formUuid) throws IOException;
 }

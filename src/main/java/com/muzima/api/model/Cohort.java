@@ -21,7 +21,27 @@ package com.muzima.api.model;
  */
 public class Cohort extends OpenmrsSearchable {
 
+    private boolean dynamic;
+
     private String name;
+
+    /**
+     * Flag whether the cohort is coming from dynamic or static data.
+     *
+     * @return true if the cohort is dynamic.
+     */
+    public boolean isDynamic() {
+        return dynamic;
+    }
+
+    /**
+     * Set whether the cohort is dynamic or static.
+     *
+     * @param dynamic the flag for the cohort.
+     */
+    public void setDynamic(final boolean dynamic) {
+        this.dynamic = dynamic;
+    }
 
     /**
      * Get the name for the cohort.

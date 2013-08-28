@@ -65,7 +65,7 @@ public interface SearchableDao<T extends Searchable> {
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      */
-    List<T> getByName(final String name) throws ParseException, IOException;
+    List<T> getByName(final String name) throws IOException;
 
     /**
      * Get all searchable object for the particular type.

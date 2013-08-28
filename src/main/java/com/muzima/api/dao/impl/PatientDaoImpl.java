@@ -70,7 +70,7 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
      * @throws IOException    when search api unable to process the resource.
      */
     @Override
-    public List<Patient> getByName(final String name) throws ParseException, IOException {
+    public List<Patient> getPatientByName(final String name) throws IOException, ParseException {
         StringBuilder query = new StringBuilder();
         if (!StringUtil.isEmpty(name)) {
             query.append("givenName:").append(name).append("*").append(" OR ");

@@ -44,7 +44,7 @@ public class RoleDaoImpl extends OpenmrsDaoImpl<Role> implements RoleDao {
      * @throws IOException    when reading resource descriptor happen.
      */
     @Override
-    public List<Role> getByName(final String name) throws ParseException, IOException {
+    public List<Role> getByName(final String name) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(name)) {
             Filter filter = FilterFactory.createFilter("name", name + "*");

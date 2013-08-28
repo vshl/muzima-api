@@ -34,5 +34,5 @@ public interface FormDao extends OpenmrsDao<Form> {
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      */
-    List<Form> getByName(final String name) throws ParseException, IOException;
+    List<Form> getByName(final String name) throws IOException;
 }

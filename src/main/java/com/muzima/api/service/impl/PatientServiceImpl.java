@@ -45,7 +45,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public Patient downloadPatientByUuid(final String uuid) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
         List<Patient> patients = patientDao.download(parameter, Constants.UUID_PATIENT_RESOURCE);
@@ -68,7 +68,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> downloadPatientsByName(final String name) throws IOException, ParseException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
         patientDao.download(parameter, Constants.SEARCH_PATIENT_RESOURCE);

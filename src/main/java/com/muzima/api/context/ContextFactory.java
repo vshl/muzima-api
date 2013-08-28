@@ -18,7 +18,6 @@ package com.muzima.api.context;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
-import com.google.inject.util.Modules;
 import com.muzima.api.module.MuzimaModule;
 import com.muzima.search.api.module.SearchModule;
 import com.muzima.search.api.util.StringUtil;
@@ -29,7 +28,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * TODO: Write brief description about the class here.

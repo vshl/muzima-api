@@ -25,6 +25,7 @@ import com.muzima.api.model.Privilege;
 import com.muzima.api.model.Role;
 import com.muzima.api.model.User;
 import com.muzima.api.service.UserService;
+import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
@@ -51,68 +52,60 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Download a single user record from the user rest resource into the local lucene repository.
-     *
-     * @param uuid the uuid of the user.
-     * @throws IOException when search api unable to process the resource.
-     * @should download user with matching uuid.
+     * {@inheritDoc}
+     * @see UserService#downloadUserByUuid(String)
      */
     @Override
     public User downloadUserByUuid(final String uuid) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        User user = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
         List<User> users = userDao.download(parameter, Constants.UUID_USER_RESOURCE);
-        if (users.size() > 1) {
-            throw new IOException("Unable to uniquely identify a form record.");
-        } else if (users.size() == 0) {
-            return null;
+        if (!CollectionUtil.isEmpty(users)) {
+            if (users.size() > 1) {
+                throw new IOException("Unable to uniquely identify a form record.");
+            }
+            user = users.get(0);
         }
-        return users.get(0);
+        return user;
     }
 
     /**
-     * Download a single user record from the user rest resource into the local lucene repository.
-     *
-     * @param username the username of the user.
-     * @throws IOException when search api unable to process the resource.
-     * @should download user with matching uuid.
+     * {@inheritDoc}
+     * @see UserService#downloadUserByUsername(String)
      */
     @Override
     public User downloadUserByUsername(final String username) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        User user = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", username);
         }};
         List<User> users = userDao.download(parameter, Constants.SEARCH_USER_RESOURCE);
-        if (users.size() > 1) {
-            throw new IOException("Unable to uniquely identify a form record.");
-        } else if (users.size() == 0) {
-            return null;
+        if (!CollectionUtil.isEmpty(users)) {
+            if (users.size() > 1) {
+                throw new IOException("Unable to uniquely identify a form record.");
+            }
+            user = users.get(0);
         }
-        return users.get(0);
+        return user;
     }
 
     /**
-     * Download all users with name similar to the partial name passed in the parameter.
-     *
-     * @param name the partial name of the user to be downloaded. When empty, will return all users available.
-     * @throws IOException when search api unable to process the resource.
-     * @should download all user with partially matched name.
-     * @should download all user when name is empty.
+     * {@inheritDoc}
+     * @see UserService#downloadUsersByName(String)
      */
     @Override
     public List<User> downloadUsersByName(final String name) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
         return userDao.download(parameter, Constants.SEARCH_USER_RESOURCE);
     }
 
     /**
-     * Save user to the local lucene repository.
-     *
-     * @param user the user to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * {@inheritDoc}
+     * @see UserService#saveUser(com.muzima.api.model.User)
      */
     @Override
     public void saveUser(final User user) throws IOException {
@@ -120,10 +113,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Update user in the local lucene repository.
-     *
-     * @param user the user to be updated.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * {@inheritDoc}
+     * @see UserService#updateUser(com.muzima.api.model.User)
      */
     @Override
     public void updateUser(final User user) throws IOException {
@@ -131,13 +122,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get a single user using the user's uuid.
-     *
-     * @param uuid the user uuid.
-     * @return user with matching uuid or null when no user match the uuid.
-     * @throws IOException when search api unable to process the resource.
-     * @should return user with matching uuid.
-     * @should return null when no user match the uuid.
+     * {@inheritDoc}
+     * @see UserService#getUserByUuid(String)
      */
     @Override
     public User getUserByUuid(final String uuid) throws IOException {
@@ -145,14 +131,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get user using the user's name.
-     *
-     * @param name the name of the user.
-     * @return user with matching name or null when no user match the name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return user with matching username.
-     * @should return null when no user match the username.
+     * {@inheritDoc}
+     * @see UserService#getUserByName(String)
      */
     @Override
     public List<User> getUserByName(final String name) throws IOException, ParseException {
@@ -160,14 +140,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get a single user using the user name.
-     *
-     * @param username the user username.
-     * @return user with matching username or null when no user match the username.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return user with matching username.
-     * @should return null when no user match the username.
+     * {@inheritDoc}
+     * @see UserService#getUserByUsername(String)
      */
     @Override
     public User getUserByUsername(final String username) throws IOException, ParseException {
@@ -175,13 +149,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get all saved users in the local repository.
-     *
-     * @return all registered users or empty list when no user is registered.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return all registered users.
-     * @should return empty list when no user is registered.
+     * {@inheritDoc}
+     * @see com.muzima.api.service.UserService#getAllUsers()
      */
     @Override
     public List<User> getAllUsers() throws IOException, ParseException {
@@ -189,11 +158,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Delete a user record from the local repository.
-     *
-     * @param user the user to be deleted.
-     * @throws IOException when search api unable to process the resource.
-     * @should delete the user record from the local repository.
+     * {@inheritDoc}
+     * @see UserService#deleteUser(com.muzima.api.model.User)
      */
     @Override
     public void deleteUser(final User user) throws IOException {
@@ -201,11 +167,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Save a new credential record in the local repository.
-     *
-     * @param credential the new credential to be saved.
-     * @throws IOException when search api unable to process the resource.
-     * @should save the new credential record.
+     * {@inheritDoc}
+     * @see UserService#saveCredential(com.muzima.api.model.Credential)
      */
     @Override
     public void saveCredential(final Credential credential) throws IOException {
@@ -213,11 +176,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Update a credential record in the local repository.
-     *
-     * @param credential the credential record to be updated.
-     * @throws IOException when search api unable to process the resource.
-     * @should update the credential record.
+     * {@inheritDoc}
+     * @see UserService#updateCredential(com.muzima.api.model.Credential)
      */
     @Override
     public void updateCredential(final Credential credential) throws IOException {
@@ -225,12 +185,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get a credential record using the uuid of the record.
-     *
-     * @param uuid the uuid of the record.
-     * @return the credential with matching uuid.
-     * @throws IOException when search api unable to process the resource.
-     * @should return credential with matching uuid.
+     * {@inheritDoc}
+     * @see UserService#getCredentialByUuid(String)
      */
     @Override
     public Credential getCredentialByUuid(final String uuid) throws IOException {
@@ -238,13 +194,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get a credential record for a username.
-     *
-     * @param username the username.
-     * @return the credential record for the username.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return credential for the username.
+     * {@inheritDoc}
+     * @see UserService#getCredentialByUsername(String)
      */
     @Override
     public Credential getCredentialByUsername(final String username) throws IOException, ParseException {
@@ -252,12 +203,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get all credential records.
-     *
-     * @return all credential records from the local repository.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return all saved credential records from local repository.
+     * {@inheritDoc}
+     * @see com.muzima.api.service.UserService#getAllCredentials()
      */
     @Override
     public List<Credential> getAllCredentials() throws IOException, ParseException {
@@ -265,11 +212,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Delete a credential record from the local repository.
-     *
-     * @param credential the credential record to be deleted.
-     * @throws IOException when search api unable to process the resource.
-     * @should delete credential from local repository.
+     * {@inheritDoc}
+     * @see UserService#deleteCredential(com.muzima.api.model.Credential)
      */
     @Override
     public void deleteCredential(final Credential credential) throws IOException {
@@ -277,46 +221,40 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Download privilege record using the privilege uuid.
-     *
-     * @param uuid the uuid for the privilege.
-     * @throws IOException when search api unable to process the resource.
-     * @should download privilege with matching uuid.
+     * {@inheritDoc}
+     * @see UserService#downloadPrivilege(String)
      */
     @Override
     public Privilege downloadPrivilege(final String uuid) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Privilege privilege = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
         List<Privilege> privileges = privilegeDao.download(parameter, Constants.UUID_PRIVILEGE_RESOURCE);
-        if (privileges.size() > 1) {
-            throw new IOException("Unable to uniquely identify a form record.");
-        } else if (privileges.size() == 0) {
-            return null;
+        if (!CollectionUtil.isEmpty(privileges)) {
+            if (privileges.size() > 1) {
+                throw new IOException("Unable to uniquely identify a form record.");
+            }
+            privilege = privileges.get(0);
         }
-        return privileges.get(0);
+        return privilege;
     }
 
     /**
-     * Download all privilege records matching the privilege name.
-     *
-     * @param name the partial name of the privileges.
-     * @throws IOException when search api unable to process the resource.
-     * @should download all privileges with matching name.
+     * {@inheritDoc}
+     * @see UserService#downloadPrivileges(String)
      */
     @Override
     public List<Privilege> downloadPrivileges(final String name) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
         return privilegeDao.download(parameter, Constants.SEARCH_PRIVILEGE_RESOURCE);
     }
 
     /**
-     * Save privilege object to the local lucene repository.
-     *
-     * @param privilege the privilege object to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * {@inheritDoc}
+     * @see UserService#savePrivilege(com.muzima.api.model.Privilege)
      */
     @Override
     public void savePrivilege(final Privilege privilege) throws IOException {
@@ -324,10 +262,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Update privilege object to the local lucene repository.
-     *
-     * @param privilege the privilege object to be updated.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * {@inheritDoc}
+     * @see UserService#updatePrivilege(com.muzima.api.model.Privilege)
      */
     @Override
     public void updatePrivilege(final Privilege privilege) throws IOException {
@@ -335,12 +271,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get privilege from local repository using the privilege uuid.
-     *
-     * @param uuid the uuid of the privilege.
-     * @return the privilege with matching uuid.
-     * @throws IOException when search api unable to process the resource.
-     * @should return privilege with matching uuid.
+     * {@inheritDoc}
+     * @see UserService#getPrivilegeByUuid(String)
      */
     @Override
     public Privilege getPrivilegeByUuid(final String uuid) throws IOException {
@@ -348,14 +280,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get privilege records from local repository using the privilege name.
-     *
-     * @param name the partial name of the privileges.
-     * @return all privileges with matching name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return all privileges with matching name.
-     * @should return empty list when no privilege record match the name.
+     * {@inheritDoc}
+     * @see UserService#getPrivilegesByName(String)
      */
     @Override
     public List<Privilege> getPrivilegesByName(final String name) throws IOException, ParseException {
@@ -363,11 +289,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Delete privilege from the local repository.
-     *
-     * @param privilege the privilege to be deleted.
-     * @throws IOException when search api unable to process the resource.
-     * @should delete privilege from the local repository.
+     * {@inheritDoc}
+     * @see UserService#deletePrivilege(com.muzima.api.model.Privilege)
      */
     @Override
     public void deletePrivilege(final Privilege privilege) throws IOException {
@@ -375,47 +298,40 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Download role with matching uuid.
-     *
-     * @param uuid the uuid of the role.
-     * @throws IOException when search api unable to process the resource.
-     * @should download role with matching uuid.
+     * {@inheritDoc}
+     * @see UserService#downloadRole(String)
      */
     @Override
     public Role downloadRole(final String uuid) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Role role = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
         List<Role> roles = roleDao.download(parameter, Constants.UUID_ROLE_RESOURCE);
-        if (roles.size() > 1) {
-            throw new IOException("Unable to uniquely identify a form record.");
-        } else if (roles.size() == 0) {
-            return null;
+        if (CollectionUtil.isEmpty(roles)) {
+            if (roles.size() > 1) {
+                throw new IOException("Unable to uniquely identify a form record.");
+            }
+            role = roles.get(0);
         }
-        return roles.get(0);
+        return role;
     }
 
     /**
-     * Download role with matching name.
-     *
-     * @param name the name of the role.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should download roles with matching name.
+     * {@inheritDoc}
+     * @see UserService#downloadRoles(String)
      */
     @Override
     public List<Role> downloadRoles(final String name) throws IOException, ParseException {
-        Map<String, String> parameter = new HashMap<String, String>(){{
+        Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
         return roleDao.download(parameter, Constants.SEARCH_ROLE_RESOURCE);
     }
 
     /**
-     * Save the role object to the local lucene repository.
-     *
-     * @param role the role object to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * {@inheritDoc}
+     * @see UserService#saveRole(com.muzima.api.model.Role)
      */
     @Override
     public void saveRole(final Role role) throws IOException {
@@ -423,10 +339,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Update the role object in the local lucene repository.
-     *
-     * @param role the role to be updated.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * {@inheritDoc}
+     * @see UserService#updateRole(com.muzima.api.model.Role)
      */
     @Override
     public void updateRole(final Role role) throws IOException {
@@ -434,12 +348,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get role from local repository with matching uuid.
-     *
-     * @param uuid the uuid of the role.
-     * @return the role with matching uuid.
-     * @throws IOException when search api unable to process the resource.
-     * @should return role with matching uuid.
+     * {@inheritDoc}
+     * @see UserService#getRoleByUuid(String)
      */
     @Override
     public Role getRoleByUuid(final String uuid) throws IOException {
@@ -447,14 +357,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Get role records from local repository with matching name.
-     *
-     * @param name the partial name of the role.
-     * @return all roles with matching name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return role records with matching name.
-     * @should return empty list when no record matching the name.
+     * {@inheritDoc}
+     * @see UserService#getRolesByName(String)
      */
     @Override
     public List<Role> getRolesByName(final String name) throws IOException, ParseException {
@@ -462,11 +366,8 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Delete role record from the local repository.
-     *
-     * @param role the role record to be deleted.
-     * @throws IOException when search api unable to process the resource.
-     * @should delete role record from local repository.
+     * {@inheritDoc}
+     * @see UserService#deleteRole(com.muzima.api.model.Role)
      */
     @Override
     public void deleteRole(final Role role) throws IOException {

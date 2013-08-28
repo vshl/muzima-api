@@ -2,7 +2,6 @@ package com.muzima.api.model.algorithm;
 
 import com.jayway.jsonpath.InvalidPathException;
 import com.jayway.jsonpath.JsonPath;
-import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
@@ -33,11 +32,9 @@ public class CohortDataAlgorithm extends BaseOpenmrsAlgorithm {
         CohortData cohortData = new CohortData();
         Object cohortDataObject = JsonPath.read(serialized, "$");
         try {
-            cohortData.setDynamic(false);
             processStaticCohortDataObject(cohortData, cohortDataObject);
         } catch (InvalidPathException invalidStaticCohortException) {
             try {
-                cohortData.setDynamic(true);
                 processDynamicCohortDataObject(cohortData, cohortDataObject);
             } catch (InvalidPathException invalidDynamicCohortException) {
                 logger.error("Unable to tell if the data is dynamic or static cohort!", invalidDynamicCohortException);
@@ -47,20 +44,9 @@ public class CohortDataAlgorithm extends BaseOpenmrsAlgorithm {
     }
 
     private void processStaticCohortDataObject(final CohortData cohortData, final Object serialized) {
-
-        Cohort cohort = new Cohort();
-        Object cohortObject = JsonPath.read(serialized, "$['results'][0]['cohort']");
-
-        String cohortUuid = JsonPath.read(cohortObject, "$['uuid']");
-        cohort.setUuid(cohortUuid);
-
-        String cohortName = JsonPath.read(cohortObject, "$['name']");
-        cohort.setName(cohortName);
-
-        cohortData.setCohort(cohort);
-
-        List<Object> patientObjectArray = JsonPath.read(serialized, "$['results'][*]['patient']");
-        for (Object patientObject : patientObjectArray) {
+        String cohortUuid = JsonPath.read(serialized, "$['results'][0]['cohort']['uuid']");
+        List<Object> patientObjects = JsonPath.read(serialized, "$['results'][*]['patient']");
+        for (Object patientObject : patientObjects) {
             Patient patient = new Patient();
 
             String patientUuid = JsonPath.read(patientObject, "$['uuid']");
@@ -97,18 +83,9 @@ public class CohortDataAlgorithm extends BaseOpenmrsAlgorithm {
     }
 
     private void processDynamicCohortDataObject(final CohortData cohortData, final Object serialized) {
-        Cohort cohort = new Cohort();
-
         String cohortUuid = JsonPath.read(serialized, "$['definition.uuid']");
-        cohort.setUuid(cohortUuid);
-
-        String cohortName = JsonPath.read(serialized, "$['definition.name']");
-        cohort.setName(cohortName);
-
-        cohortData.setCohort(cohort);
-
-        List<Object> patientObjectArray = JsonPath.read(serialized, "$['members']");
-        for (Object patientObject : patientObjectArray) {
+        List<Object> patientObjects = JsonPath.read(serialized, "$['members']");
+        for (Object patientObject : patientObjects) {
             Patient patient = new Patient();
 
             String patientUuid = JsonPath.read(patientObject, "$['uuid']");

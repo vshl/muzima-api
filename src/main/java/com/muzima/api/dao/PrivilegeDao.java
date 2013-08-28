@@ -34,5 +34,5 @@ public interface PrivilegeDao extends OpenmrsDao<Privilege> {
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      */
-    List<Privilege> getByName(final String name) throws ParseException, IOException;
+    List<Privilege> getByName(final String name) throws IOException;
 }

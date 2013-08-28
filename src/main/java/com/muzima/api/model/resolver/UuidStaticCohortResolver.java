@@ -20,7 +20,7 @@ import com.muzima.search.api.util.StringUtil;
 import java.io.IOException;
 import java.util.Map;
 
-public class UuidCohortResolver extends BaseOpenmrsResolver {
+public class UuidStaticCohortResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION = "?v=custom:(uuid,name)";
 

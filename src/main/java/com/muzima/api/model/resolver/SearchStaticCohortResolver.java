@@ -15,12 +15,10 @@
  */
 package com.muzima.api.model.resolver;
 
-import com.muzima.search.api.util.StringUtil;
-
 import java.io.IOException;
 import java.util.Map;
 
-public class SearchCohortResolver extends BaseOpenmrsResolver {
+public class SearchStaticCohortResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION = "?v=custom:(uuid,name)";
 

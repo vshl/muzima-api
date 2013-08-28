@@ -18,7 +18,6 @@ package com.muzima.api.service;
 import com.google.inject.ImplementedBy;
 import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
-import com.muzima.api.model.CohortDefinition;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.service.impl.CohortServiceImpl;
 import org.apache.lucene.queryParser.ParseException;
@@ -50,6 +49,27 @@ public interface CohortService extends MuzimaInterface {
      * @should download all cohorts when name is empty.
      */
     List<Cohort> downloadCohortsByName(final String name) throws IOException;
+
+    /**
+     * Download a single cohort definition record from the cohort definition rest resource and convert them into
+     * <code>CohortDefinition</code> object.
+     *
+     * @param uuid the uuid of the cohort definition.
+     * @throws IOException when search api unable to process the resource.
+     * @should download cohort definition with matching uuid.
+     */
+    Cohort downloadDynamicCohortByUuid(final String uuid) throws IOException;
+
+    /**
+     * Download all cohort definitions with name similar to the partial name passed in the parameter.
+     *
+     * @param name the partial name of the cohort definition to be downloaded. When empty, will return all cohort
+     *             definitions available.
+     * @throws IOException when search api unable to process the resource.
+     * @should download all cohort definitions with partially matched name.
+     * @should download all cohort definitions when name is empty.
+     */
+    List<Cohort> downloadDynamicCohortsByName(final String name) throws IOException;
 
     /**
      * Save the current cohort object to the local lucene repository.
@@ -103,12 +123,11 @@ public interface CohortService extends MuzimaInterface {
      *
      * @param name the partial name of the cohort.
      * @return list of all cohorts with matching uuid or empty list when no cohort match the name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return list of all cohorts with matching name.
      * @should return empty list when no cohort match the name.
      */
-    List<Cohort> getCohortsByName(final String name) throws IOException, ParseException;
+    List<Cohort> getCohortsByName(final String name) throws IOException;
 
     /**
      * @return all registered cohort or empty list when no cohort is registered.
@@ -129,123 +148,53 @@ public interface CohortService extends MuzimaInterface {
     void deleteCohort(final Cohort cohort) throws IOException;
 
     /**
-     * Download a single cohort definition record from the cohort definition rest resource and convert them into
-     * <code>CohortDefinition</code> object.
+     * Delete multiple cohorts from the repository.
      *
-     * @param cohortDefinitionUuid the uuid of the cohort definition.
-     * @throws java.io.IOException when search api unable to process the resource.
-     * @should download cohort definition with matching uuid.
+     * @param cohorts the cohorts to be deleted.
+     * @throws IOException when search api unable to process the resource.
+     * @should delete all cohorts from lucene repository.
      */
-    CohortDefinition downloadCohortDefinitionByUuid(final String cohortDefinitionUuid) throws IOException;
+    void deleteCohorts(final List<Cohort> cohorts) throws IOException;
 
     /**
-     * Download all cohort definitions with name similar to the partial name passed in the parameter.
-     *
-     * @param name the partial name of the cohort definition to be downloaded. When empty, will return all cohort
-     *             definitions available.
-     * @throws java.io.IOException when search api unable to process the resource.
-     * @should download all cohort definitions with partially matched name.
-     * @should download all cohort definitions when name is empty.
-     */
-    List<CohortDefinition> downloadCohortDefinitionsByName(final String name) throws IOException;
-
-    /**
-     * Save the current cohort definition object to the local lucene repository.
-     *
-     * @param cohortDefinition the cohort definition to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
-     */
-    void saveCohortDefinition(final CohortDefinition cohortDefinition) throws IOException;
-
-    /**
-     * Save the current cohort definition objects to the local lucene repository.
-     *
-     * @param cohortDefinitions the cohort definitions to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
-     */
-    void saveCohortDefinitions(final List<CohortDefinition> cohortDefinitions) throws IOException;
-
-    /**
-     * Update the current cohort definition object to the local lucene repository.
-     *
-     * @param cohortDefinition the cohort definition to be updated.
-     * @throws java.io.IOException when search api unable to process the resource.
-     */
-    void updateCohortDefinition(final CohortDefinition cohortDefinition) throws IOException;
-
-    /**
-     * Update the current cohort definition objects to the local lucene repository.
-     *
-     * @param cohortDefinitions the cohort definitions to be updated.
-     * @throws java.io.IOException when search api unable to process the resource.
-     */
-    void updateCohortDefinitions(final List<CohortDefinition> cohortDefinitions) throws IOException;
-
-    /**
-     * Get a single cohort definition record from the repository using the uuid.
-     *
-     * @param cohortDefinitionUuid the cohort definition uuid.
-     * @return cohort definition with matching uuid or null when no cohort definition match the uuid.
-     * @throws java.io.IOException when search api unable to process the resource.
-     * @should return cohort definition with matching uuid.
-     * @should return null when no cohort definition match the uuid.
-     */
-    CohortDefinition getCohortDefinitionByUuid(final String cohortDefinitionUuid) throws IOException;
-
-    /**
-     * Get list of cohort definitions based on the name of the cohort definition. If empty string is passed, it will
-     * search for all cohort definitions.
-     *
-     * @param name the partial name of the cohort definition.
-     * @return list of all cohort definitions with matching uuid or empty list when no cohort definition match the name.
-     * @throws org.apache.lucene.queryParser.ParseException
-     *                             when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException when search api unable to process the resource.
-     * @should return list of all cohort definitions with matching name.
-     * @should return empty list when no cohort definition match the name.
-     */
-    List<CohortDefinition> getCohortDefinitionsByName(final String name) throws IOException, ParseException;
-
-    /**
-     * Get all cohort definitions saved in the local lucene repository.
-     *
-     * @return all registered cohort definition or empty list when no cohort definition is registered.
-     * @throws org.apache.lucene.queryParser.ParseException
-     *                             when query parser from lucene unable to parse the query string.
-     * @throws java.io.IOException when search api unable to process the resource.
-     * @should return all registered cohort definitions.
-     * @should return empty list when no cohort definition is registered.
-     */
-    List<CohortDefinition> getAllCohortDefinitions() throws IOException, ParseException;
-
-    /**
-     * Delete a single cohort definition record from the repository.
-     *
-     * @param cohort the cohort definition to be deleted.
-     * @throws java.io.IOException when search api unable to process the resource.
-     * @should delete the cohort definition from lucene repository.
-     */
-    void deleteCohortDefinition(final CohortDefinition cohort) throws IOException;
-
-    /**
-     * Download data for the cohort or cohort definition identified by the uuid. The flag for dynamic will determine
-     * whether the API should download the data from the reporting resource or the static cohort resource.
+     * Download data for the cohort identified by the uuid of the cohort. The dynamic
+     * field will be used to determine whether the API should download the data from
+     * the reporting resource (dynamic cohort) or the static cohort resource.
      * <p/>
-     * This method call will return a cohort data object which will hold the cohort information, the member information,
-     * and the patients information. The member will create a mapping between the patient and the cohort.
+     * This method call will return a cohort data object which will hold the cohort
+     * information, the member information, and the patients information. The member
+     * will create a mapping between the patient and the cohort.
      *
      * @param uuid    the uuid of the cohort or the cohort definition.
      * @param dynamic flag whether to use reporting module or static cohort resource.
      * @return the cohort data based on the uuid.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
+     * @should download cohort data identified by the uuid and dynamic field.
      */
     CohortData downloadCohortData(final String uuid, final boolean dynamic) throws IOException;
+
+    /**
+     * Download data for the cohort. The API will check the dynamic field of the
+     * cohort to determine whether the API should download the data from the reporting
+     * resource (dynamic cohort) or the static cohort resource.
+     * <p/>
+     * This method call will return a cohort data object which will hold the cohort
+     * information, the member information, and the patients information. The member
+     * will create a mapping between the patient and the cohort.
+     *
+     * @param cohort the cohort object to be downloaded
+     * @return the cohort data based on the uuid.
+     * @throws IOException when search api unable to process the resource.
+     * @should download cohort data for the cohort object
+     */
+    CohortData downloadCohortData(final Cohort cohort) throws IOException;
 
     /**
      * Save the cohort member object to the local lucene directory.
      *
      * @param cohortMember the member object to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save the cohort member object to local lucene repository.
      */
     void saveCohortMember(final CohortMember cohortMember) throws IOException;
 
@@ -254,6 +203,7 @@ public interface CohortService extends MuzimaInterface {
      *
      * @param cohortMembers the member objects to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save list of cohort members to local lucene repository.
      */
     void saveCohortMembers(final List<CohortMember> cohortMembers) throws IOException;
 
@@ -262,6 +212,7 @@ public interface CohortService extends MuzimaInterface {
      *
      * @param cohortMember the member object to be updated.
      * @throws IOException when search api unable to process the resource.
+     * @should replace the cohort member in local lucene repository.
      */
     void updateCohortMember(final CohortMember cohortMember) throws IOException;
 
@@ -270,6 +221,7 @@ public interface CohortService extends MuzimaInterface {
      *
      * @param cohortMembers the member objects to be updated.
      * @throws IOException when search api unable to process the resource.
+     * @should replace the cohort members in local lucene repository.
      */
     void updateCohortMembers(final List<CohortMember> cohortMembers) throws IOException;
 

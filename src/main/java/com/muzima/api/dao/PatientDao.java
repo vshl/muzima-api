@@ -44,7 +44,7 @@ public interface PatientDao extends OpenmrsDao<Patient> {
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      */
-    List<Patient> getByName(final String name) throws ParseException, IOException;
+    List<Patient> getPatientByName(final String name) throws IOException, ParseException;
 
     /**
      * Search for patients matching the term on name and identifier.

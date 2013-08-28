@@ -99,6 +99,6 @@ public class Notification extends OpenmrsSearchable {
      * @param payload the name to set
      */
     public void setPayload(final String payload) {
-        this.payload= payload;
+        this.payload = payload;
     }
 }
