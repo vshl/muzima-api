@@ -74,7 +74,7 @@ public class FormServiceImpl implements FormService {
      * @see FormService#downloadFormsByName(String)
      */
     @Override
-    public List<Form> downloadFormsByName(final String name) throws IOException, ParseException {
+    public List<Form> downloadFormsByName(final String name) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};

@@ -45,12 +45,11 @@ public interface FormService extends MuzimaInterface {
      * Download all forms with name similar to the partial name passed in the parameter.
      *
      * @param name the partial name of the form to be downloaded. When empty, will return all forms available.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      * @should download all form with partially matched name.
      * @should download all form when name is empty.
      */
-    List<Form> downloadFormsByName(final String name) throws IOException, ParseException;
+    List<Form> downloadFormsByName(final String name) throws IOException;
 
     /**
      * Save form object to the local lucene repository.

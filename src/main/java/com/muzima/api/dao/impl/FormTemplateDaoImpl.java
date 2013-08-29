@@ -44,7 +44,7 @@ public class FormTemplateDaoImpl extends OpenmrsDaoImpl<FormTemplate> implements
     public Boolean exists(final String formUuid) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(formUuid)) {
-            Filter filter = FilterFactory.createFilter("formUuid", formUuid);
+            Filter filter = FilterFactory.createFilter("uuid", formUuid);
             filters.add(filter);
         }
         Integer count = service.countObjects(filters, daoClass);
