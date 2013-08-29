@@ -203,7 +203,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Credential getCredentialByUuid(final String uuid) throws IOException {
-        return credentialDao.getByUuid(uuid);
+        return credentialDao.getCredentialByUuid(uuid);
     }
 
     /**

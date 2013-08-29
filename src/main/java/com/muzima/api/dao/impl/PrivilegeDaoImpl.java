@@ -34,22 +34,4 @@ public class PrivilegeDaoImpl extends OpenmrsDaoImpl<Privilege> implements Privi
     protected PrivilegeDaoImpl() {
         super(Privilege.class);
     }
-
-    /**
-     * Get privilege by the name of the privilege. Passing empty string will returns all registered privileges.
-     *
-     * @param name the partial name of the privilege or empty string.
-     * @return the list of all matching privilege on the privilege name.
-     * @throws ParseException when parsing lucene query in the internal saving process happen.
-     * @throws IOException    when reading resource descriptor happen.
-     */
-    @Override
-    public List<Privilege> getByName(final String name) throws IOException {
-        List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(name)) {
-            Filter filter = FilterFactory.createFilter("name", name + "*");
-            filters.add(filter);
-        }
-        return service.getObjects(filters, daoClass);
-    }
 }

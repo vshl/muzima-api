@@ -134,11 +134,31 @@ public class FormServiceImpl implements FormService {
     /**
      * {@inheritDoc}
      *
+     * @see FormService#countFormByName(String)
+     */
+    @Override
+    public Integer countFormByName(final String name) throws IOException {
+        return formDao.countByName(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see FormService#getFormByName(String)
      */
     @Override
-    public List<Form> getFormByName(final String name) throws IOException, ParseException {
+    public List<Form> getFormByName(final String name) throws IOException {
         return formDao.getByName(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.FormService#countAllForms()
+     */
+    @Override
+    public Integer countAllForms() throws IOException {
+        return formDao.countAll();
     }
 
     /**
@@ -147,7 +167,7 @@ public class FormServiceImpl implements FormService {
      * @see com.muzima.api.service.FormService#getAllForms()
      */
     @Override
-    public List<Form> getAllForms() throws IOException, ParseException {
+    public List<Form> getAllForms() throws IOException {
         return formDao.getAll();
     }
 
@@ -159,6 +179,16 @@ public class FormServiceImpl implements FormService {
     @Override
     public void deleteForm(final Form form) throws IOException {
         formDao.delete(form, Constants.UUID_FORM_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#deleteForms(java.util.List)
+     */
+    @Override
+    public void deleteForms(final List<Form> forms) throws IOException {
+        formDao.delete(forms, Constants.UUID_FORM_RESOURCE);
     }
 
     /**
@@ -219,6 +249,16 @@ public class FormServiceImpl implements FormService {
     /**
      * {@inheritDoc}
      *
+     * @see FormService#saveFormTemplates(java.util.List)
+     */
+    @Override
+    public void saveFormTemplates(final List<FormTemplate> formTemplates) throws IOException {
+        formTemplateDao.save(formTemplates, Constants.UUID_FORM_TEMPLATE_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see FormService#getFormTemplateByUuid(String)
      */
     @Override
@@ -229,10 +269,20 @@ public class FormServiceImpl implements FormService {
     /**
      * {@inheritDoc}
      *
+     * @see com.muzima.api.service.FormService#countAllFormTemplates()
+     */
+    @Override
+    public Integer countAllFormTemplates() throws IOException {
+        return formTemplateDao.countAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see com.muzima.api.service.FormService#getAllFormTemplates()
      */
     @Override
-    public List<FormTemplate> getAllFormTemplates() throws IOException, ParseException {
+    public List<FormTemplate> getAllFormTemplates() throws IOException {
         return formTemplateDao.getAll();
     }
 
@@ -244,6 +294,16 @@ public class FormServiceImpl implements FormService {
     @Override
     public void deleteFormTemplate(final FormTemplate formTemplate) throws IOException {
         formTemplateDao.delete(formTemplate, Constants.UUID_FORM_TEMPLATE_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#deleteFormTemplates(java.util.List)
+     */
+    @Override
+    public void deleteFormTemplates(final List<FormTemplate> formTemplates) throws IOException {
+        formTemplateDao.delete(formTemplates, Constants.UUID_FORM_TEMPLATE_RESOURCE);
     }
 
     /**
@@ -263,7 +323,17 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public FormData getFormDataByUuid(final String uuid) throws IOException {
-        return formDataDao.getByUuid(uuid);
+        return formDataDao.getFormDataByUuid(uuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.FormService#countAllFormData()
+     */
+    @Override
+    public Integer countAllFormData() throws IOException {
+        return formDataDao.countAll();
     }
 
     /**
@@ -272,8 +342,8 @@ public class FormServiceImpl implements FormService {
      * @see FormService#getAllFormData(String)
      */
     @Override
-    public List<FormData> getAllFormData(final String status) throws IOException, ParseException {
-        return formDataDao.getAll(StringUtil.EMPTY, StringUtil.EMPTY, status);
+    public List<FormData> getAllFormData(final String status) throws IOException {
+        return formDataDao.getAllFormData(StringUtil.EMPTY, StringUtil.EMPTY, status);
     }
 
     /**
@@ -282,8 +352,8 @@ public class FormServiceImpl implements FormService {
      * @see FormService#getFormDataByUser(String, String)
      */
     @Override
-    public List<FormData> getFormDataByUser(final String userUuid, final String status) throws IOException, ParseException {
-        return formDataDao.getAll(StringUtil.EMPTY, userUuid, status);
+    public List<FormData> getFormDataByUser(final String userUuid, final String status) throws IOException {
+        return formDataDao.getAllFormData(StringUtil.EMPTY, userUuid, status);
     }
 
     /**
@@ -292,8 +362,8 @@ public class FormServiceImpl implements FormService {
      * @see FormService#getFormDataByPatient(String, String)
      */
     @Override
-    public List<FormData> getFormDataByPatient(final String patientUuid, final String status) throws IOException, ParseException {
-        return formDataDao.getAll(patientUuid, StringUtil.EMPTY, status);
+    public List<FormData> getFormDataByPatient(final String patientUuid, final String status) throws IOException {
+        return formDataDao.getAllFormData(patientUuid, StringUtil.EMPTY, status);
     }
 
     /**
@@ -303,6 +373,16 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public void deleteFormData(final FormData formData) throws IOException {
+        formDataDao.delete(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#deleteFormData(java.util.List)
+     */
+    @Override
+    public void deleteFormData(final List<FormData> formData) throws IOException {
         formDataDao.delete(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
     }
 }

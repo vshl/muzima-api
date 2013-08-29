@@ -119,6 +119,15 @@ public interface CohortService extends MuzimaInterface {
     Cohort getCohortByUuid(final String uuid) throws IOException;
 
     /**
+     * Count the total number of cohorts in the local lucene repository.
+     *
+     * @param name the partial name of the cohorts.
+     * @return number of cohorts with matching the partial name.
+     * @throws IOException when search api unable to process the resource.
+     */
+    Integer countCohorts(final String name) throws IOException;
+
+    /**
      * Get list of cohorts based on the name of the cohort. If empty string is passed, it will search for all cohorts.
      *
      * @param name the partial name of the cohort.
@@ -130,13 +139,33 @@ public interface CohortService extends MuzimaInterface {
     List<Cohort> getCohortsByName(final String name) throws IOException;
 
     /**
+     * Get list of cohorts based on the name of the cohort. If empty string is passed, it will search for all cohorts.
+     *
+     * @param name     the partial name of the cohort.
+     * @param page     the current page.
+     * @param pageSize the maximum number of objects in the page.
+     * @return list of all cohorts with matching uuid or empty list when no cohort match the name.
+     * @throws IOException when search api unable to process the resource.
+     * @should return list of all cohorts with matching name.
+     * @should return empty list when no cohort match the name.
+     */
+    List<Cohort> getCohortsByName(final String name, final Integer page, final Integer pageSize) throws IOException;
+
+    /**
+     * Count the total number of cohorts in the local lucene repository.
+     *
+     * @return number of cohorts.
+     * @throws IOException when search api unable to process the resource.
+     */
+    Integer countAllCohorts() throws IOException;
+
+    /**
      * @return all registered cohort or empty list when no cohort is registered.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return all registered cohorts.
      * @should return empty list when no cohort is registered.
      */
-    List<Cohort> getAllCohorts() throws IOException, ParseException;
+    List<Cohort> getAllCohorts() throws IOException;
 
     /**
      * Delete a single cohort record from the repository.
@@ -226,6 +255,15 @@ public interface CohortService extends MuzimaInterface {
     void updateCohortMembers(final List<CohortMember> cohortMembers) throws IOException;
 
     /**
+     * Count the total number of cohort members of a cohort in the lucene repository.
+     *
+     * @param cohortUuid the cohort uuid.
+     * @return total number of cohort members for the cohort.
+     * @throws IOException when search api unable to process the resource.
+     */
+    Integer countCohortMembers(final String cohortUuid) throws IOException;
+
+    /**
      * Get all members under the current cohort identified by the cohort's uuid which already saved in the local
      * repository.
      *
@@ -236,6 +274,21 @@ public interface CohortService extends MuzimaInterface {
      * @should return empty list when no member are in the cohort.
      */
     List<CohortMember> getCohortMembers(final String cohortUuid) throws IOException;
+
+    /**
+     * Get all members under the current cohort identified by the cohort's uuid which already saved in the local
+     * repository.
+     *
+     * @param cohortUuid the cohort's uuid.
+     * @param page       the current page.
+     * @param pageSize   the maximum number of objects in the page.
+     * @return list of all patients' uuid under current cohort uuid or empty list when no patient are in the cohort.
+     * @throws IOException when search api unable to process the resource.
+     * @should return list of all members for the cohort.
+     * @should return empty list when no member are in the cohort.
+     */
+    List<CohortMember> getCohortMembers(final String cohortUuid, final Integer page,
+                                        final Integer pageSize) throws IOException;
 
     /**
      * Delete all members for the current cohort identified by the cohort's uuid.

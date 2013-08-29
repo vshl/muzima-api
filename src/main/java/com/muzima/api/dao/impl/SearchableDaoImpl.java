@@ -19,11 +19,8 @@ import com.google.inject.Inject;
 import com.muzima.api.dao.SearchableDao;
 import com.muzima.search.api.context.ServiceContext;
 import com.muzima.search.api.filter.Filter;
-import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.service.RestAssuredService;
-import com.muzima.search.api.util.StringUtil;
-import org.apache.lucene.queryParser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,12 +50,9 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Save the object to the local repository.
+     * {@inheritDoc}
      *
-     * @param object   the object to be saved.
-     * @param resource the resource descriptor used for saving.
-     * @return saved object.
-     * @throws IOException when search api unable to process the resource.
+     * @see SearchableDao#save(com.muzima.search.api.model.object.Searchable, String)
      */
     @Override
     public void save(final T object, final String resource) throws IOException {
@@ -66,12 +60,9 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Save list of objects to the local repository. Use this save method when you want
-     * to save multiple objects at the same time.
+     * {@inheritDoc}
      *
-     * @param objects  the objects to be saved.
-     * @param resource the resource descriptor used for saving.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see SearchableDao#save(java.util.List, String)
      */
     @Override
     public void save(final List<T> objects, final String resource) throws IOException {
@@ -81,12 +72,9 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Update the saved object in the local repository.
+     * {@inheritDoc}
      *
-     * @param object   the object to be updated.
-     * @param resource the resource descriptor used for saving.
-     * @return updated object.
-     * @throws IOException when search api unable to process the resource.
+     * @see SearchableDao#update(com.muzima.search.api.model.object.Searchable, String)
      */
     @Override
     public void update(final T object, final String resource) throws IOException {
@@ -94,12 +82,9 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Update list of objects in the local repository. Use this save method when you want
-     * to update multiple objects at the same time.
+     * {@inheritDoc}
      *
-     * @param objects  the objects to be updated.
-     * @param resource the resource descriptor used for updating.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see SearchableDao#update(java.util.List, String)
      */
     @Override
     public void update(final List<T> objects, final String resource) throws IOException {
@@ -109,58 +94,19 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Get the OpenMRS searchable object using the uuid.
+     * {@inheritDoc}
      *
-     * @param uuid the uuid of the searchable object.
-     * @return the searchable object.
-     * @throws IOException when search api unable to process the resource.
-     */
-    public T getByUuid(final String uuid) throws IOException {
-        return service.getObject(uuid, daoClass);
-    }
-
-    /**
-     * Get cohort by the name of the cohort. Passing empty string will returns all
-     * registered cohorts.
-     *
-     * @param name the partial name of the cohort or empty string.
-     * @return the list of all matching cohort on the cohort name.
-     * @throws IOException when search api unable to process the resource.
-     */
-    public List<T> getByName(final String name) throws IOException {
-        List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(name)) {
-            Filter filter = FilterFactory.createFilter("name", name + "*");
-            filters.add(filter);
-        }
-        return service.getObjects(filters, daoClass);
-    }
-
-    /**
-     * Get searchable by the name of the searchable. Passing empty string will returns all
-     * registered searchable objects.
-     *
-     * @param name     the partial name of the searchable or empty string.
-     * @param page     the page number.
-     * @param pageSize the number of elements in the page.
-     * @return list of objects less or equals than the page size parameter.
-     * @throws java.io.IOException
+     * @see com.muzima.api.dao.SearchableDao#countAll()
      */
     @Override
-    public List<T> getByName(final String name, final Integer page, final Integer pageSize) throws IOException {
-        List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(name)) {
-            Filter filter = FilterFactory.createFilter("name", name + "*");
-            filters.add(filter);
-        }
-        return service.getObjects(filters, daoClass, page, pageSize);
+    public Integer countAll() throws IOException {
+        return service.countObjects(new ArrayList<Filter>(), daoClass);
     }
 
     /**
-     * Get all searchable object for the particular type.
+     * {@inheritDoc}
      *
-     * @return list of all searchable object or empty list.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.SearchableDao#getAll()
      */
     @Override
     public List<T> getAll() throws IOException {
@@ -168,24 +114,19 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Get all searchable object for a particular type with paging.
+     * {@inheritDoc}
      *
-     * @param page the page number.
-     * @param pageSize the number of elements in the page.
-     * @return list of objects less or equals than the page size parameter.
-     *
+     * @see SearchableDao#getAll(Integer, Integer)
      */
-     @Override
+    @Override
     public List<T> getAll(final Integer page, final Integer pageSize) throws IOException {
         return service.getObjects(new ArrayList<Filter>(), daoClass, page, pageSize);
     }
 
     /**
-     * Delete the searchable object from the lucene repository.
+     * {@inheritDoc}
      *
-     * @param searchable the object to be deleted.
-     * @param resource   the resource descriptor used to retrieve the object from the repository.
-     * @throws IOException when search api unable to process the resource.
+     * @see SearchableDao#delete(com.muzima.search.api.model.object.Searchable, String)
      */
     @Override
     public void delete(final T searchable, final String resource) throws IOException {
@@ -193,12 +134,9 @@ public abstract class SearchableDaoImpl<T extends Searchable> implements Searcha
     }
 
     /**
-     * Delete list of objects from the local repository. Use this save method when you want
-     * to delete multiple objects at the same time.
+     * {@inheritDoc}
      *
-     * @param objects  the objects to be deleted.
-     * @param resource the resource descriptor used for deleting.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see SearchableDao#delete(java.util.List, String)
      */
     @Override
     public void delete(final List<T> objects, final String resource) throws IOException {

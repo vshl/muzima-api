@@ -18,6 +18,7 @@ package com.muzima.api.dao.impl;
 import com.google.inject.Inject;
 import com.muzima.api.dao.CohortDao;
 import com.muzima.api.model.Cohort;
+import com.muzima.api.model.CohortMember;
 import com.muzima.search.api.context.ServiceContext;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
@@ -65,23 +66,5 @@ public class CohortDaoImpl extends OpenmrsDaoImpl<Cohort> implements CohortDao {
             list.add(cohort);
         }
         return list;
-    }
-
-    /**
-     * Get cohort by the name of the cohort. Passing empty string will returns all registered cohorts.
-     *
-     * @param name the partial name of the cohort or empty string.
-     * @return the list of all matching cohort on the cohort name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     */
-    @Override
-    public List<Cohort> getByName(final String name) throws IOException {
-        List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(name)) {
-            Filter filter = FilterFactory.createFilter("name", name + "*");
-            filters.add(filter);
-        }
-        return service.getObjects(filters, daoClass);
     }
 }

@@ -40,12 +40,9 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Download the searchable object matching the uuid. This process involve executing the REST call, pulling the
-     * resource and then saving it to local lucene repository.
+     * {@inheritDoc}
      *
-     * @param resourceParams the parameters to be passed to search object to filter the searchable object.
-     * @param resource       resource descriptor used to convert the resource to the correct object.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.OpenmrsDao#download(java.util.Map, String)
      */
     @Override
     public List<CohortData> download(final Map<String, String> resourceParams, final String resource) throws IOException {
@@ -62,12 +59,9 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Save the object to the local repository.
+     * {@inheritDoc}
      *
-     * @param object   the object to be saved.
-     * @param resource the resource descriptor used for saving.
-     * @return saved object.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.SearchableDao#save(com.muzima.search.api.model.object.Searchable, String)
      */
     @Override
     public void save(final CohortData object, final String resource) throws IOException {
@@ -77,12 +71,9 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Save list of objects to the local repository. Use this save method when you want to save multiple objects
-     * at the same time.
+     * {@inheritDoc}
      *
-     * @param objects  the objects to be saved.
-     * @param resource the resource descriptor used for saving.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.SearchableDao#save(java.util.List, String)
      */
     @Override
     public void save(final List<CohortData> objects, final String resource) throws IOException {
@@ -92,12 +83,9 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Update the saved object in the local repository.
+     * {@inheritDoc}
      *
-     * @param object   the object to be updated.
-     * @param resource the resource descriptor used for saving.
-     * @return updated object.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.SearchableDao#update(com.muzima.search.api.model.object.Searchable, String)
      */
     @Override
     public void update(final CohortData object, final String resource) throws IOException {
@@ -107,12 +95,9 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Update list of objects in the local repository. Use this save method when you want to update multiple objects
-     * at the same time.
+     * {@inheritDoc}
      *
-     * @param objects  the objects to be updated.
-     * @param resource the resource descriptor used for updating.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.SearchableDao#update(java.util.List, String)
      */
     @Override
     public void update(final List<CohortData> objects, final String resource) throws IOException {
@@ -122,11 +107,9 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Get the OpenMRS searchable object using the uuid.
+     * {@inheritDoc}
      *
-     * @param uuid the uuid of the searchable object.
-     * @return the searchable object.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.OpenmrsDao#getByUuid(String)
      */
     @Override
     public CohortData getByUuid(final String uuid) throws IOException {
@@ -136,13 +119,21 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Get cohort by the name of the cohort. Passing empty string will returns all registered cohorts.
+     * {@inheritDoc}
      *
-     * @param name the partial name of the cohort or empty string.
-     * @return the list of all matching cohort on the cohort name.
-     * @throws org.apache.lucene.queryParser.ParseException
-     *                             when query parser from lucene unable to parse the query string.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.OpenmrsDao#countByName(String)
+     */
+    @Override
+    public Integer countByName(final String name) throws IOException {
+        throw new IOException(
+                "Cohort data object is just place holder for download purpose! " +
+                        "No actual cohort data object will be saved in the lucene's document repository.");
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.dao.OpenmrsDao#getByName(String)
      */
     @Override
     public List<CohortData> getByName(final String name) throws IOException {
@@ -152,10 +143,21 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Get all searchable object for the particular type.
+     * {@inheritDoc}
      *
-     * @return list of all searchable object or empty list.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.OpenmrsDao#getByName(String, Integer, Integer)
+     */
+    @Override
+    public List<CohortData> getByName(final String name, final Integer page, final Integer pageSize) throws IOException {
+        throw new IOException(
+                "Cohort data object is just place holder for download purpose! " +
+                        "No actual cohort data object will be saved in the lucene's document repository.");
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.dao.SearchableDao#getAll()
      */
     @Override
     public List<CohortData> getAll() throws IOException {
@@ -165,11 +167,21 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Delete the searchable object from the lucene repository.
+     * {@inheritDoc}
      *
-     * @param searchable the object to be deleted.
-     * @param resource   the resource descriptor used to retrieve the object from the repository.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.OpenmrsDao#getAll(Integer, Integer)
+     */
+    @Override
+    public List<CohortData> getAll(final Integer page, final Integer pageSize) throws IOException {
+        throw new IOException(
+                "Cohort data object is just place holder for download purpose! " +
+                        "No actual cohort data object will be saved in the lucene's document repository.");
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.dao.SearchableDao#delete(com.muzima.search.api.model.object.Searchable, String)
      */
     @Override
     public void delete(final CohortData searchable, final String resource) throws IOException {
@@ -179,12 +191,9 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
     }
 
     /**
-     * Delete list of objects from the local repository. Use this save method when you want to delete multiple
-     * objects at the same time.
+     * {@inheritDoc}
      *
-     * @param objects  the objects to be deleted.
-     * @param resource the resource descriptor used for deleting.
-     * @throws IOException when search api unable to process the resource.
+     * @see com.muzima.api.dao.SearchableDao#delete(java.util.List, String)
      */
     @Override
     public void delete(final List<CohortData> objects, final String resource) throws IOException {

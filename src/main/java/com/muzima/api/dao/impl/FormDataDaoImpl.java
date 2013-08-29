@@ -20,7 +20,6 @@ import com.muzima.api.model.FormData;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.StringUtil;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,18 +34,23 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
     }
 
     /**
-     * Get all searchable form data with a particular status.
+     * {@inheritDoc}
      *
-     * @param patientUuid the patient's uuid associated to this form data.
-     * @param userUuid    user's uuid associated to this form data.
-     * @param status      the status of this form data.
-     * @return list of all searchable object or empty list.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @see com.muzima.api.dao.FormDataDao#getFormDataByUuid(String)
      */
     @Override
-    public List<FormData> getAll(final String patientUuid, final String userUuid, final String status)
-            throws ParseException, IOException {
+    public FormData getFormDataByUuid(final String uuid) throws IOException {
+        return service.getObject(uuid, daoClass);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormDataDao#getAllFormData(String, String, String)
+     */
+    @Override
+    public List<FormData> getAllFormData(final String patientUuid, final String userUuid,
+                                         final String status) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(patientUuid)) {
             Filter patientFilter = FilterFactory.createFilter("patientUuid", patientUuid);
@@ -64,8 +68,8 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
     }
 
     @Override
-    public List<FormData> getAll(final String patientUuid, final String userUuid, final String status,
-                                 final Integer page, final Integer pageSize) throws ParseException, IOException {
+    public List<FormData> getAllFormData(final String patientUuid, final String userUuid, final String status,
+                                         final Integer page, final Integer pageSize) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(patientUuid)) {
             Filter patientFilter = FilterFactory.createFilter("patientUuid", patientUuid);

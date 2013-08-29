@@ -34,22 +34,4 @@ public class RoleDaoImpl extends OpenmrsDaoImpl<Role> implements RoleDao {
     protected RoleDaoImpl() {
         super(Role.class);
     }
-
-    /**
-     * Get role by the name of the role. Passing empty string will returns all registered roles.
-     *
-     * @param name the partial name of the role or empty string.
-     * @return the list of all matching role on the role name.
-     * @throws ParseException when parsing lucene query in the internal saving process happen.
-     * @throws IOException    when reading resource descriptor happen.
-     */
-    @Override
-    public List<Role> getByName(final String name) throws IOException {
-        List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(name)) {
-            Filter filter = FilterFactory.createFilter("name", name + "*");
-            filters.add(filter);
-        }
-        return service.getObjects(filters, daoClass);
-    }
 }

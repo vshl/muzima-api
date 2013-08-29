@@ -33,22 +33,4 @@ public class FormDaoImpl extends OpenmrsDaoImpl<Form> implements FormDao {
     protected FormDaoImpl() {
         super(Form.class);
     }
-
-    /**
-     * Get form by the name of the form. Passing empty string will returns all registered forms.
-     *
-     * @param name the partial name of the form or empty string.
-     * @return the list of all matching form on the form name.
-     * @throws ParseException when parsing lucene query in the internal saving process happen.
-     * @throws IOException    when reading resource descriptor happen.
-     */
-    @Override
-    public List<Form> getByName(final String name) throws IOException {
-        List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(name)) {
-            Filter filter = FilterFactory.createFilter("name", name + "*");
-            filters.add(filter);
-        }
-        return service.getObjects(filters, daoClass);
-    }
 }

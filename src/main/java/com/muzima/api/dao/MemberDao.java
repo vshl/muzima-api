@@ -14,6 +14,15 @@ import java.util.List;
 public interface MemberDao extends SearchableDao<CohortMember> {
 
     /**
+     * Count the number of cohort member records for a cohort in the local
+     * lucene repository.
+     *
+     * @param uuid the uuid of the cohort.
+     * @return number of cohort members in the lucene repository.
+     */
+    Integer countMembers(final String uuid) throws IOException;
+
+    /**
      * Get member objects by their cohort's uuid.
      *
      * @param cohortUuid the cohort uuid.

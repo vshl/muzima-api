@@ -26,7 +26,6 @@ import com.muzima.api.model.CohortMember;
 import com.muzima.api.service.CohortService;
 import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.util.Constants;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -205,6 +204,16 @@ public class CohortServiceImpl implements CohortService {
     /**
      * {@inheritDoc}
      *
+     * @see CohortService#countCohorts(String)
+     */
+    @Override
+    public Integer countCohorts(final String name) throws IOException {
+        return cohortDao.countByName(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see CohortService#getCohortsByName(String)
      */
     @Override
@@ -216,11 +225,31 @@ public class CohortServiceImpl implements CohortService {
     /**
      * {@inheritDoc}
      *
+     * @see CohortService#getCohortsByName(String, Integer, Integer)
+     */
+    @Override
+    public List<Cohort> getCohortsByName(final String name, final Integer page, final Integer pageSize) throws IOException {
+        return cohortDao.getByName(name, page, pageSize);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.CohortService#countAllCohorts()
+     */
+    @Override
+    public Integer countAllCohorts() throws IOException {
+        return cohortDao.countAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see com.muzima.api.service.CohortService#getAllCohorts()
      */
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
-    public List<Cohort> getAllCohorts() throws IOException, ParseException {
+    public List<Cohort> getAllCohorts() throws IOException {
         return cohortDao.getAll();
     }
 
@@ -265,6 +294,7 @@ public class CohortServiceImpl implements CohortService {
      */
     @Override
     public CohortData downloadCohortData(final String uuid, final boolean dynamic) throws IOException {
+        CohortData cohortData = null;
         String resourceName = Constants.STATIC_COHORT_DATA_RESOURCE;
         if (dynamic) {
             resourceName = Constants.DYNAMIC_COHORT_DATA_RESOURCE;
@@ -273,12 +303,13 @@ public class CohortServiceImpl implements CohortService {
             put("uuid", uuid);
         }};
         List<CohortData> cohortDataList = cohortDataDao.download(parameter, resourceName);
-        if (cohortDataList.size() > 1) {
-            throw new IOException("Unable to uniquely identify a cohort record.");
-        } else if (cohortDataList.size() == 0) {
-            return null;
+        if (!CollectionUtil.isEmpty(cohortDataList)) {
+            if (cohortDataList.size() > 1) {
+                throw new IOException("Unable to uniquely identify a cohort data record.");
+            }
+            cohortData = cohortDataList.get(0);
         }
-        return cohortDataList.get(0);
+        return cohortData;
     }
 
     /**
@@ -288,6 +319,7 @@ public class CohortServiceImpl implements CohortService {
      */
     @Override
     public CohortData downloadCohortData(final Cohort cohort) throws IOException {
+        CohortData cohortData = null;
         String resourceName = Constants.STATIC_COHORT_DATA_RESOURCE;
         if (cohort.isDynamic()) {
             resourceName = Constants.DYNAMIC_COHORT_DATA_RESOURCE;
@@ -296,12 +328,13 @@ public class CohortServiceImpl implements CohortService {
             put("uuid", cohort.getUuid());
         }};
         List<CohortData> cohortDataList = cohortDataDao.download(parameter, resourceName);
-        if (cohortDataList.size() > 1) {
-            throw new IOException("Unable to uniquely identify a cohort record.");
-        } else if (cohortDataList.size() == 0) {
-            return null;
+        if (!CollectionUtil.isEmpty(cohortDataList)) {
+            if (cohortDataList.size() > 1) {
+                throw new IOException("Unable to uniquely identify a cohort data record.");
+            }
+            cohortData = cohortDataList.get(0);
         }
-        return cohortDataList.get(0);
+        return cohortData;
     }
 
     /**
@@ -345,6 +378,16 @@ public class CohortServiceImpl implements CohortService {
     /**
      * {@inheritDoc}
      *
+     * @see CohortService#countCohortMembers(String)
+     */
+    @Override
+    public Integer countCohortMembers(final String cohortUuid) throws IOException {
+        return memberDao.countMembers(cohortUuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see CohortService#getCohortMembers(String)
      */
     @Override
@@ -355,12 +398,21 @@ public class CohortServiceImpl implements CohortService {
     /**
      * {@inheritDoc}
      *
+     * @see CohortService#getCohortMembers(String, Integer, Integer)
+     */
+    @Override
+    public List<CohortMember> getCohortMembers(final String cohortUuid, final Integer page,
+                                               final Integer pageSize) throws IOException {
+        return memberDao.getByCohortUuid(cohortUuid, page, pageSize);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see CohortService#deleteCohortMembers(String)
      */
     @Override
     public void deleteCohortMembers(final String cohortUuid) throws IOException {
-        for (CohortMember cohortMember : getCohortMembers(cohortUuid)) {
-            memberDao.delete(cohortMember, Constants.LOCAL_COHORT_MEMBER_RESOURCE);
-        }
+        memberDao.delete(getCohortMembers(cohortUuid), Constants.LOCAL_COHORT_MEMBER_RESOURCE);
     }
 }

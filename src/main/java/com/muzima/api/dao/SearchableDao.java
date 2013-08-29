@@ -49,48 +49,25 @@ public interface SearchableDao<T extends Searchable> {
     void update(final List<T> objects, final String resource) throws IOException;
 
     /**
-     * Get the searchable object using the uuid.
+     * Count total of searchable objects for a type.
      *
-     * @param uuid the uuid of the searchable object.
-     * @return the searchable object.
+     * @return total number of searchable objects.
      * @throws IOException when search api unable to process the resource.
      */
-    T getByUuid(final String uuid) throws IOException;
-
-    /**
-     * Get searchable by the name of the searchable. Passing empty string will returns all
-     * registered searchable objects.
-     *
-     * @param name the partial name of the searchable or empty string.
-     * @return the list of all matching searchable on the searchable name.
-     * @throws IOException    when search api unable to process the resource.
-     */
-    List<T> getByName(final String name) throws IOException;
-
-    /**
-     * Get searchable by the name of the searchable. Passing empty string will returns all
-     * registered searchable objects.
-     *
-     * @param name the partial name of the searchable or empty string.
-     * @param page the page number.
-     * @param pageSize the number of elements in the page.
-     * @return list of objects less or equals than the page size parameter.
-     * @throws IOException
-     */
-    List<T> getByName(final String name, final Integer page, final Integer pageSize) throws IOException;
+    Integer countAll() throws IOException;
 
     /**
      * Get all searchable object for the particular type.
      *
      * @return list of all searchable object or empty list.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     List<T> getAll() throws IOException;
 
     /**
      * Get all searchable object for a particular type with paging.
      *
-     * @param page the page number.
+     * @param page     the page number.
      * @param pageSize the number of elements in the page.
      * @return list of objects less or equals than the page size parameter.
      */

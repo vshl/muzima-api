@@ -17,6 +17,7 @@ package com.muzima.api.dao.impl;
 
 import com.muzima.api.dao.CredentialDao;
 import com.muzima.api.model.Credential;
+import com.muzima.api.model.FormData;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.CollectionUtil;
@@ -33,6 +34,16 @@ public class CredentialDaoImpl extends SearchableDaoImpl<Credential> implements 
 
     protected CredentialDaoImpl() {
         super(Credential.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.dao.CredentialDao#getCredentialByUuid(String)
+     */
+    @Override
+    public Credential getCredentialByUuid(final String uuid) throws IOException {
+        return service.getObject(uuid, daoClass);
     }
 
     /**

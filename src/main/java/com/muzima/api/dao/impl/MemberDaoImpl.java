@@ -35,6 +35,24 @@ public class MemberDaoImpl extends SearchableDaoImpl<CohortMember> implements Me
     }
 
     /**
+     * Count the number of cohort member records for a cohort in the local
+     * lucene repository.
+     *
+     * @param uuid the uuid of the cohort.
+     * @return number of cohort members in the lucene repository.
+     * @throws java.io.IOException when search api unable to process the resource.
+     */
+    @Override
+    public Integer countMembers(final String uuid) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(uuid)) {
+            Filter filter = FilterFactory.createFilter("cohortUuid", uuid);
+            filters.add(filter);
+        }
+        return service.countObjects(filters, CohortMember.class);
+    }
+
+    /**
      * Get cohort by the name of the cohort. Passing empty string will returns all registered cohorts.
      *
      * @param cohortUuid the partial name of the cohort or empty string.

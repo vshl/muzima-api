@@ -36,6 +36,6 @@ public class SearchObservationResolver extends BaseOpenmrsResolver {
         for (String key : resourceParams.keySet()) {
             paramBuilder.append("&").append(key).append("=").append(resourceParams.get(key));
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/obs" + REPRESENTATION + paramBuilder.toString();
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/obs" + REPRESENTATION + paramBuilder.toString();
     }
 }

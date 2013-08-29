@@ -31,10 +31,9 @@ public interface PatientDao extends OpenmrsDao<Patient> {
      *
      * @param identifier the identifier of the patient.
      * @return the patient with matching identifier.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      */
-    Patient getByIdentifier(final String identifier) throws ParseException, IOException;
+    Patient getByIdentifier(final String identifier) throws IOException;
 
     /**
      * Get cohort by the name of the cohort. Passing empty string will returns all registered cohorts.

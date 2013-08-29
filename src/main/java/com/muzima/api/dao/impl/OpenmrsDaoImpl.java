@@ -19,7 +19,10 @@ import com.google.inject.Inject;
 import com.muzima.api.dao.OpenmrsDao;
 import com.muzima.api.model.OpenmrsSearchable;
 import com.muzima.search.api.context.ServiceContext;
+import com.muzima.search.api.filter.Filter;
+import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.model.object.Searchable;
+import com.muzima.search.api.util.StringUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,5 +53,58 @@ public abstract class OpenmrsDaoImpl<T extends OpenmrsSearchable> extends Search
             list.add((T) searchable);
         }
         return list;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.dao.OpenmrsDao#getByUuid(String)
+     */
+    public T getByUuid(final String uuid) throws IOException {
+        return service.getObject(uuid, daoClass);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.dao.OpenmrsDao#countByName(String)
+     */
+    @Override
+    public Integer countByName(final String name) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(name)) {
+            Filter filter = FilterFactory.createFilter("name", name + "*");
+            filters.add(filter);
+        }
+        return service.countObjects(filters, daoClass);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.dao.OpenmrsDao#getByName(String)
+     */
+    public List<T> getByName(final String name) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(name)) {
+            Filter filter = FilterFactory.createFilter("name", name + "*");
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.dao.OpenmrsDao#getByName(String, Integer, Integer)
+     */
+    @Override
+    public List<T> getByName(final String name, final Integer page, final Integer pageSize) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(name)) {
+            Filter filter = FilterFactory.createFilter("name", name + "*");
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass, page, pageSize);
     }
 }

@@ -29,12 +29,11 @@ public interface PatientService extends MuzimaInterface {
      * Download all patients with name similar to the partial name passed in the parameter.
      *
      * @param name the partial name of the patient to be downloaded. When empty, will return all patients available.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download all patient with partially matched name.
      * @should download all patient when name is empty.
      */
-    List<Patient> downloadPatientsByName(final String name) throws IOException, ParseException;
+    List<Patient> downloadPatientsByName(final String name) throws IOException;
 
     /**
      * Save patient to the local lucene repository.
@@ -87,12 +86,19 @@ public interface PatientService extends MuzimaInterface {
      *
      * @param identifier the patient identifier.
      * @return patient with matching identifier or null when no patient match the identifier.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return patient with matching identifier.
      * @should return null when no patient match the identifier.
      */
-    Patient getPatientByIdentifier(final String identifier) throws IOException, ParseException;
+    Patient getPatientByIdentifier(final String identifier) throws IOException;
+
+    /**
+     * Count all patient objects.
+     *
+     * @return the total number of patient objects.
+     * @throws IOException when search api unable to process the resource.
+     */
+    Integer countAllPatients() throws IOException;
 
     /**
      * Get all saved patients in the local repository.
@@ -103,7 +109,7 @@ public interface PatientService extends MuzimaInterface {
      * @should return all registered patients.
      * @should return empty list when no patient is registered.
      */
-    List<Patient> getAllPatients() throws IOException, ParseException;
+    List<Patient> getAllPatients() throws IOException;
 
     /**
      * Get list of patients with name similar to the search term.
@@ -137,4 +143,13 @@ public interface PatientService extends MuzimaInterface {
      * @should delete the patient object from the local repository.
      */
     void deletePatient(final Patient patient) throws IOException;
+
+    /**
+     * Delete patient objects from the local repository.
+     *
+     * @param patients the patient objects.
+     * @throws IOException when search api unable to process the resource.
+     * @should delete the patient object from the local repository.
+     */
+    void deletePatients(final List<Patient> patients) throws IOException;
 }

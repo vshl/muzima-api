@@ -61,12 +61,14 @@ public class ObservationServiceImpl implements ObservationService {
     /**
      * {@inheritDoc}
      *
-     * @see ObservationService#downloadObservationsByPatient(String)
+     * @see ObservationService#downloadObservationsByPatientAndConcept(String, String)
      */
     @Override
-    public List<Observation> downloadObservationsByPatient(final String patientUuid) throws IOException {
+    public List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
+                                                                     final String conceptUuid) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
-            put("patient", patientUuid);
+            put("person", patientUuid);
+            put("concept", conceptUuid);
         }};
         return observationDao.download(parameter, Constants.SEARCH_OBSERVATION_RESOURCE);
     }
@@ -159,5 +161,15 @@ public class ObservationServiceImpl implements ObservationService {
     @Override
     public void deleteObservation(final Observation observation) throws IOException {
         observationDao.delete(observation, Constants.UUID_OBSERVATION_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#deleteObservations(java.util.List)
+     */
+    @Override
+    public void deleteObservations(final List<Observation> observations) throws IOException {
+        observationDao.delete(observations, Constants.UUID_OBSERVATION_RESOURCE);
     }
 }

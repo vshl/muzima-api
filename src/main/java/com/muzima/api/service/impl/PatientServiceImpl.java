@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import com.muzima.api.dao.PatientDao;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.PatientService;
+import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
@@ -36,50 +37,43 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * Download a single patient record from the patient rest resource into the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param uuid the uuid of the patient.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should download patient with matching uuid.
+     * @see PatientService#downloadPatientByUuid(String)
      */
     @Override
     public Patient downloadPatientByUuid(final String uuid) throws IOException {
+        Patient patient = null;
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
         List<Patient> patients = patientDao.download(parameter, Constants.UUID_PATIENT_RESOURCE);
-        if (patients.size() > 1) {
-            throw new IOException("Unable to uniquely identify a form record.");
-        } else if (patients.size() == 0) {
-            return null;
+        if (!CollectionUtil.isEmpty(patients)) {
+            if (patients.size() > 1) {
+                throw new IOException("Unable to uniquely identify a patient record.");
+            }
+            patient = patients.get(0);
         }
-        return patients.get(0);
+        return patient;
     }
 
     /**
-     * Download all patients with name similar to the partial name passed in the parameter.
+     * {@inheritDoc}
      *
-     * @param name the partial name of the patient to be downloaded. When empty, will return all patients available.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should download all patient with partially matched name.
-     * @should download all patient when name is empty.
+     * @see PatientService#downloadPatientsByName(String)
      */
     @Override
-    public List<Patient> downloadPatientsByName(final String name) throws IOException, ParseException {
+    public List<Patient> downloadPatientsByName(final String name) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
-        patientDao.download(parameter, Constants.SEARCH_PATIENT_RESOURCE);
-        return getPatientsByName(name);
+        return patientDao.download(parameter, Constants.SEARCH_PATIENT_RESOURCE);
     }
 
     /**
-     * Save patient to the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param patient the patient to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see PatientService#savePatient(com.muzima.api.model.Patient)
      */
     @Override
     public void savePatient(final Patient patient) throws IOException {
@@ -87,10 +81,9 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * Save patients to the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param patients the patients to be saved.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see PatientService#savePatients(java.util.List)
      */
     @Override
     public void savePatients(final List<Patient> patients) throws IOException {
@@ -98,10 +91,9 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * Update patient in the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param patient the patient to be updated.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see PatientService#updatePatient(com.muzima.api.model.Patient)
      */
     @Override
     public void updatePatient(final Patient patient) throws IOException {
@@ -109,11 +101,9 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * Update patients in the local lucene repository.
+     * {@inheritDoc}
      *
-     * @param patients the patients to be updated.
-     * @return the updated patient.
-     * @throws java.io.IOException when search api unable to process the resource.
+     * @see PatientService#updatePatients(java.util.List)
      */
     @Override
     public void updatePatients(final List<Patient> patients) throws IOException {
@@ -121,13 +111,9 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * Get a single patient record from the local repository with matching uuid.
+     * {@inheritDoc}
      *
-     * @param uuid the patient uuid
-     * @return patient with matching uuid or null when no patient match the uuid
-     * @throws IOException when search api unable to process the resource.
-     * @should return patient with matching uuid
-     * @should return null when no patient match the uuid
+     * @see PatientService#getPatientByUuid(String)
      */
     @Override
     public Patient getPatientByUuid(final String uuid) throws IOException {
@@ -135,43 +121,39 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * Get patient by the identifier of the patient.
+     * {@inheritDoc}
      *
-     * @param identifier the patient identifier.
-     * @return patient with matching identifier or null when no patient match the identifier.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return patient with matching identifier.
-     * @should return null when no patient match the identifier.
+     * @see PatientService#getPatientByIdentifier(String)
      */
     @Override
-    public Patient getPatientByIdentifier(final String identifier) throws IOException, ParseException {
+    public Patient getPatientByIdentifier(final String identifier) throws IOException {
         return patientDao.getByIdentifier(identifier);
     }
 
     /**
-     * Get all saved patients in the local repository.
+     * {@inheritDoc}
      *
-     * @return all registered patients or empty list when no patient is registered.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return all registered patients.
-     * @should return empty list when no patient is registered.
+     * @see com.muzima.api.service.PatientService#countAllPatients()
      */
     @Override
-    public List<Patient> getAllPatients() throws IOException, ParseException {
+    public Integer countAllPatients() throws IOException {
+        return patientDao.countAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.PatientService#getAllPatients()
+     */
+    @Override
+    public List<Patient> getAllPatients() throws IOException {
         return patientDao.getAll();
     }
 
     /**
-     * Get list of patients with name similar to the search term.
+     * {@inheritDoc}
      *
-     * @param name the patient name.
-     * @return list of all patients with matching name or empty list when no patient match the name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return list of all patients with matching name partially.
-     * @should return empty list when no patient match the name.
+     * @see PatientService#getPatientsByName(String)
      */
     @Override
     public List<Patient> getPatientsByName(final String name) throws IOException, ParseException {
@@ -179,14 +161,9 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * Search for patients with matching characteristic on the name or identifier with the search term.
+     * {@inheritDoc}
      *
-     * @param term the search term.
-     * @return list of all patients with matching search term on the searchable fields or empty list.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should return list of all patients with matching search term on the searchable fields.
-     * @should return empty list when no patient match the search term.
+     * @see PatientService#searchPatients(String)
      */
     @Override
     public List<Patient> searchPatients(final String term) throws IOException, ParseException {
@@ -194,15 +171,22 @@ public class PatientServiceImpl implements PatientService {
     }
 
     /**
-     * Delete a single patient object from the local repository.
+     * {@inheritDoc}
      *
-     * @param patient the patient object.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     * @should delete the patient object from the local repository.
+     * @see PatientService#deletePatient(com.muzima.api.model.Patient)
      */
     @Override
     public void deletePatient(final Patient patient) throws IOException {
         patientDao.delete(patient, Constants.UUID_PATIENT_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see PatientService#deletePatients(java.util.List)
+     */
+    @Override
+    public void deletePatients(final List<Patient> patients) throws IOException {
+        patientDao.delete(patients, Constants.UUID_PATIENT_RESOURCE);
     }
 }

@@ -22,4 +22,6 @@ public interface CredentialDao extends SearchableDao<Credential> {
      * @throws IOException    when search api unable to process the resource.
      */
     Credential getByUsername(final String username) throws ParseException, IOException;
+
+    Credential getCredentialByUuid(String uuid) throws IOException;
 }

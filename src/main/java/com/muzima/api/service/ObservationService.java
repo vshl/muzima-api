@@ -30,7 +30,7 @@ import java.util.List;
 public interface ObservationService extends MuzimaInterface {
 
     /**
-     * Download a single observation record from the observation rest resource into the local lucene repository.
+     * Download a single observation record from the observation rest resource.
      *
      * @param uuid the uuid of the observation.
      * @throws IOException when search api unable to process the resource.
@@ -39,14 +39,16 @@ public interface ObservationService extends MuzimaInterface {
     Observation downloadObservationByUuid(final String uuid) throws IOException;
 
     /**
-     * Download all observations with name similar to the partial name passed in the parameter.
+     * Download all observations for patient with the concept as the question.
      *
-     * @param patientUuid the partial name of the observation to be downloaded. When empty, will return all observations available.
+     * @param patientUuid the patient uuid.
+     * @param conceptUuid the concept uuid.
      * @throws IOException when search api unable to process the resource.
-     * @should download all observation with partially matched name.
+     * @should download all observation with matching patient and concept.
      * @should download all observation when name is empty.
      */
-    List<Observation> downloadObservationsByPatient(final String patientUuid) throws IOException;
+    List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
+                                                              final String conceptUuid) throws IOException;
 
     /**
      * Save the observation into the local lucene repository.
@@ -112,7 +114,8 @@ public interface ObservationService extends MuzimaInterface {
      * @should return list of all observations for the patient.
      * @should return empty list when no observation found for the patient.
      */
-    List<Observation> getObservationsByPatientAndConcept(final String patientUuid, final String conceptUuid) throws IOException;
+    List<Observation> getObservationsByPatientAndConcept(final String patientUuid,
+                                                         final String conceptUuid) throws IOException;
 
     /**
      * Search for all observations for the particular patient with matching search term.
@@ -125,15 +128,24 @@ public interface ObservationService extends MuzimaInterface {
      * @should return list of all observations with matching search term on the searchable fields.
      * @should return empty list when no observation match the search term.
      */
-    List<Observation> searchObservations(final String patientUuid, final String term) throws IOException, ParseException;
+    List<Observation> searchObservations(final String patientUuid,
+                                         final String term) throws IOException, ParseException;
 
     /**
      * Delete a single observation from the local repository.
      *
      * @param observation the observation.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should delete the observation from the local repository.
      */
     void deleteObservation(final Observation observation) throws IOException;
+
+    /**
+     * Delete observations from the local repository.
+     *
+     * @param observations the observations.
+     * @throws IOException when search api unable to process the resource.
+     * @should delete observations from the local repository.
+     */
+    void deleteObservations(final List<Observation> observations) throws IOException;
 }
