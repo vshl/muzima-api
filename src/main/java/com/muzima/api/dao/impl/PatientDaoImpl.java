@@ -105,8 +105,9 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
     public List<Patient> search(final String term) throws ParseException, IOException {
         if (!StringUtil.isEmpty(term)) {
             if (containsDigit(term)) {
-                Filter filter = FilterFactory.createFilter("identifier", term + "*");
-                return service.getObjects(Arrays.asList(filter), Patient.class);
+                StringBuilder query = new StringBuilder();
+                query.append("identifier:").append(term).append("*");
+                return service.getObjects(query.toString(), Patient.class);
             } else {
                 StringBuilder query = new StringBuilder();
                 query.append("givenName:").append(term).append("*").append(" OR ");
@@ -123,8 +124,9 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
             throws ParseException, IOException {
         if (!StringUtil.isEmpty(term)) {
             if (containsDigit(term)) {
-                Filter filter = FilterFactory.createFilter("identifier", term + "*");
-                return service.getObjects(Arrays.asList(filter), Patient.class, page, pageSize);
+                StringBuilder query = new StringBuilder();
+                query.append("identifier:").append(term).append("*");
+                return service.getObjects(query.toString(), Patient.class, page, pageSize);
             } else {
                 StringBuilder query = new StringBuilder();
                 query.append("givenName:").append(term).append("*").append(" OR ");
