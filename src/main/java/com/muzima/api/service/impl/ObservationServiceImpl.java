@@ -67,7 +67,7 @@ public class ObservationServiceImpl implements ObservationService {
     public List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
                                                                      final String conceptUuid) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
-            put("person", patientUuid);
+            put("patient", patientUuid);
             put("concept", conceptUuid);
         }};
         return observationDao.download(parameter, Constants.SEARCH_OBSERVATION_RESOURCE);
