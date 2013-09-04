@@ -43,7 +43,7 @@ public class MuzimaModule extends AbstractModule {
         pathBuilder.append("/muzima");
         this.repositoryPath = pathBuilder.toString();
         // encryption and compression
-        this.useEncryption = true;
+        this.useEncryption = false;
         this.encryptionKey = "this-is-supposed-to-be-a-secure-key";
         this.useCompression = false;
         // server configuration

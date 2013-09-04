@@ -43,7 +43,7 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
 
         boolean dynamic = false;
         try {
-            dynamic = JsonPath.read(jsonObject, "$['dynamic']");
+            dynamic = (Boolean)JsonPath.read(jsonObject, "$['dynamic']");
         } catch (InvalidPathException e) {
             logger.error("REST resource doesn't contains dynamic information. Exiting!");
         }
