@@ -103,7 +103,7 @@ public class MuzimaModule extends AbstractModule {
 
         bind(String.class)
                 .annotatedWith(Names.named("configuration.lucene.encryption"))
-                .toInstance("AES/CBC/PKCS5Padding");
+                .toInstance("AES/ECB/PKCS5Padding");
         bind(String.class)
                 .annotatedWith(Names.named("configuration.lucene.encryption.key"))
                 .toInstance(this.encryptionKey);
