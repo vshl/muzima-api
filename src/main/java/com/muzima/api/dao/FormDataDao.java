@@ -17,7 +17,6 @@ public interface FormDataDao extends SearchableDao<FormData> {
     /**
      * Get all searchable form data with a particular status.
      *
-     *
      * @param patientUuid the patient uuid associated to this form data.
      * @param userUuid    user's uuid associated to this form data.
      * @param status      the status of this form data.

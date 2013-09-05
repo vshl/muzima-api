@@ -17,7 +17,6 @@ package com.muzima.api.dao.impl;
 
 import com.muzima.api.dao.CredentialDao;
 import com.muzima.api.model.Credential;
-import com.muzima.api.model.FormData;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.CollectionUtil;

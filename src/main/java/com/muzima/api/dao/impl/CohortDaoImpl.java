@@ -18,14 +18,10 @@ package com.muzima.api.dao.impl;
 import com.google.inject.Inject;
 import com.muzima.api.dao.CohortDao;
 import com.muzima.api.model.Cohort;
-import com.muzima.api.model.CohortMember;
 import com.muzima.search.api.context.ServiceContext;
-import com.muzima.search.api.filter.Filter;
-import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -13,16 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.muzima.api.dao.impl;
+package com.muzima.api.model;
 
-import com.muzima.api.dao.FormDao;
-import com.muzima.api.model.Form;
-
-public class FormDaoImpl extends OpenmrsDaoImpl<Form> implements FormDao {
-
-    private static final String TAG = FormDaoImpl.class.getSimpleName();
-
-    protected FormDaoImpl() {
-        super(Form.class);
-    }
+/**
+ * TODO: Write brief description about the class here.
+ */
+public class Person {
 }

@@ -25,7 +25,6 @@ import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDao {
@@ -38,7 +37,6 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
 
     /**
      * Get patient by using the identifier.
-     *
      *
      * @param identifier the identifier of the patient.
      * @return the patient with matching identifier.

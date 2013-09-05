@@ -59,7 +59,7 @@ public interface OpenmrsDao<T extends OpenmrsSearchable> extends SearchableDao<T
      *
      * @param name the partial name of the searchable or empty string.
      * @return the list of all matching searchable on the searchable name.
-     * @throws java.io.IOException    when search api unable to process the resource.
+     * @throws java.io.IOException when search api unable to process the resource.
      */
     List<T> getByName(final String name) throws IOException;
 
@@ -67,8 +67,8 @@ public interface OpenmrsDao<T extends OpenmrsSearchable> extends SearchableDao<T
      * Get searchable by the name of the searchable. Passing empty string will returns all
      * registered searchable objects.
      *
-     * @param name the partial name of the searchable or empty string.
-     * @param page the page number.
+     * @param name     the partial name of the searchable or empty string.
+     * @param page     the page number.
      * @param pageSize the number of elements in the page.
      * @return list of objects less or equals than the page size parameter.
      * @throws java.io.IOException

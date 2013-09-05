@@ -20,7 +20,6 @@ import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.service.impl.CohortServiceImpl;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.List;

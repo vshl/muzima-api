@@ -20,7 +20,6 @@ import com.muzima.api.model.Notification;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.StringUtil;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +35,6 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
 
     /**
      * Get all notifications for a particular sender from the Lucene repository identified by the sender uuid.
-     *
      *
      * @param senderUuid the sender's uuid.
      * @return list of all notification with matching sender uuid or empty list when no notification match the

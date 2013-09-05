@@ -31,7 +31,7 @@ public interface PatientDao extends OpenmrsDao<Patient> {
      *
      * @param identifier the identifier of the patient.
      * @return the patient with matching identifier.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     Patient getByIdentifier(final String identifier) throws IOException;
 

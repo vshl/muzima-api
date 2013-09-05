@@ -1,7 +1,6 @@
 package com.muzima.api.dao;
 
 import com.muzima.search.api.model.object.Searchable;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.List;
