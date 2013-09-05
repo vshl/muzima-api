@@ -58,6 +58,19 @@ public interface PatientDao extends OpenmrsDao<Patient> {
      */
     List<Patient> search(final String term) throws ParseException, IOException;
 
+    /**
+     * Search for patients matching the term on name and identifier.
+     *
+     * @param term the term that should match.
+     * @param cohortUuid the cohort to search in
+     * @return all patients with matching name or identifier within cohort.
+     * @throws ParseException when query parser from lucene unable to parse the query string.
+     * @throws IOException    when search api unable to process the resource.
+     */
+    List<Patient> search(final String term, final String cohortUuid) throws ParseException, IOException;
+
+
+
     List<Patient> search(final String term, final Integer page,
                          final Integer pageSize) throws ParseException, IOException;
 }

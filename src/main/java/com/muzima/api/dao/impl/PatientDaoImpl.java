@@ -16,6 +16,7 @@
 package com.muzima.api.dao.impl;
 
 import com.muzima.api.dao.PatientDao;
+import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
@@ -115,6 +116,27 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
             }
         }
         return service.getObjects(StringUtil.EMPTY, daoClass);
+    }
+
+    @Override
+    public List<Patient> search(String term, String cohortUuid) throws ParseException, IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(cohortUuid)) {
+            Filter filter = FilterFactory.createFilter("cohortUuid", cohortUuid);
+            filters.add(filter);
+        }
+        List<CohortMember> cohortMembers = service.getObjects(filters, CohortMember.class);
+        List<Patient> patients = search(term);
+        List<Patient> matchedPatients = new ArrayList<Patient>();
+        for (Patient patient : patients) {
+            for (CohortMember cohortMember : cohortMembers) {
+                if (cohortMember.getPatientUuid().equalsIgnoreCase(patient.getUuid())) {
+                    matchedPatients.add(patient);
+                    break;
+                }
+            }
+        }
+        return matchedPatients;
     }
 
     @Override

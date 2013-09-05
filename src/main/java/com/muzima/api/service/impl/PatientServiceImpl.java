@@ -173,6 +173,16 @@ public class PatientServiceImpl implements PatientService {
     /**
      * {@inheritDoc}
      *
+     * @see PatientService#searchPatients(String, String)
+     */
+    @Override
+    public List<Patient> searchPatients(final String term, final String cohortUuid) throws IOException, ParseException {
+        return patientDao.search(term, cohortUuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see PatientService#deletePatient(com.muzima.api.model.Patient)
      */
     @Override

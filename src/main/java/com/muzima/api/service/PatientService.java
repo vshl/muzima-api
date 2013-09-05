@@ -136,6 +136,19 @@ public interface PatientService extends MuzimaInterface {
     List<Patient> searchPatients(final String term) throws IOException, ParseException;
 
     /**
+     * Search for patients with matching characteristic on the name or identifier with the search term, within the give cohort.
+     *
+     * @param term the search term
+     * @param cohortUuid the Uuid of the cohort, only patients within the cohort will be searched
+     * @return list of all patients in the cohort with matching search term on the searchable fields or empty list.
+     * @throws ParseException when query parser from lucene unable to parse the query string.
+     * @throws IOException    when search api unable to process the resource.
+     * @should return list of all patients in cohort with matching search term on the searchable fields.
+     * @should return empty list when no patient match the search term.
+     */
+    List<Patient> searchPatients(final String term, final String cohortUuid) throws IOException, ParseException;
+
+    /**
      * Delete a single patient object from the local repository.
      *
      * @param patient the patient object.
