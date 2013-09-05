@@ -64,7 +64,7 @@ public class FormDataAlgorithm implements Algorithm {
      */
     @Override
     public String serialize(final Searchable object) throws IOException {
-        FormData formData = new FormData();
+        FormData formData = (FormData) object;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", formData.getUuid());
         jsonObject.put("status", formData.getStatus());
