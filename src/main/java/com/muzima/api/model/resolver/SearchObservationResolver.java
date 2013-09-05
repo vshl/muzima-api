@@ -22,7 +22,8 @@ import java.util.Map;
 public class SearchObservationResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION =
-            "?v=custom:(uuid,obsDatetime,concept.datatype.conceptDatatypeId,concept.name.name,concept.uuid,person.uuid,encounter:ref,location.uuid,location.name,valueCoded:ref,valueNumeric,valueDatetime)";
+            "?v=custom:(uuid,obsDatetime,concept.datatype.conceptDatatypeId,concept.name.name,concept.uuid," +
+                    "person.uuid,encounter:ref,location.uuid,location.name,valueCoded:ref,valueNumeric,valueDatetime)";
 
     /**
      * Return the full REST resource based on the parameters passed to the method.
@@ -35,6 +36,6 @@ public class SearchObservationResolver extends BaseOpenmrsResolver {
         for (String key : resourceParams.keySet()) {
             paramBuilder.append("&").append(key).append("=").append(resourceParams.get(key));
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/obs" + REPRESENTATION + paramBuilder.toString();
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/obs" + REPRESENTATION + paramBuilder.toString();
     }
 }

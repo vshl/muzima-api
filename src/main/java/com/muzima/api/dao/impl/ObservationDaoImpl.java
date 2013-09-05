@@ -49,7 +49,7 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
             filters.add(patientFilter);
         }
         if (!StringUtil.isEmpty(conceptName)) {
-            Filter conceptFilter = FilterFactory.createFilter("conceptName", conceptName);
+            Filter conceptFilter = FilterFactory.createFilter("conceptName", conceptName + "*");
             filters.add(conceptFilter);
         }
         return service.getObjects(filters, daoClass);
@@ -64,7 +64,7 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
             filters.add(patientFilter);
         }
         if (!StringUtil.isEmpty(conceptName)) {
-            Filter conceptFilter = FilterFactory.createFilter("conceptName", conceptName);
+            Filter conceptFilter = FilterFactory.createFilter("conceptName", conceptName + "*");
             filters.add(conceptFilter);
         }
         return service.getObjects(filters, daoClass, page, pageSize);
