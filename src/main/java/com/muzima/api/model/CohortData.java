@@ -8,9 +8,29 @@ import java.util.List;
  */
 public class CohortData extends OpenmrsSearchable {
 
+    private Cohort cohort;
+
     private List<CohortMember> cohortMembers;
 
     private List<Patient> patients;
+
+    /**
+     * Get the cohort for the cohort data.
+     *
+     * @return the cohort.
+     */
+    public Cohort getCohort() {
+        return cohort;
+    }
+
+    /**
+     * Set the cohort for the cohort data.
+     *
+     * @param cohort the cohort.
+     */
+    public void setCohort(final Cohort cohort) {
+        this.cohort = cohort;
+    }
 
     /**
      * Add a new member object into the cohort data object.

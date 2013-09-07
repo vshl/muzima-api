@@ -1,0 +1,985 @@
+{
+    "results": [
+        {
+            "uuid": "a877b1bc-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e6ca4-1350-11df-a1f1-0026b9348838",
+                    "name": "ANEMIA, BLOOD LOSS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a877c68e-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e726c-1350-11df-a1f1-0026b9348838",
+                    "name": "ANEMIA, HEMOLYSIS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a877c7f6-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a95359c4-1350-11df-a1f1-0026b9348838",
+                    "name": "ANAEMIA",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a957c0a4-1350-11df-a1f1-0026b9348838",
+                    "name": "MILD ANAEMIA",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a957c176-1350-11df-a1f1-0026b9348838",
+                    "name": "MILD ANEMIA",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a9536068-1350-11df-a1f1-0026b9348838",
+                    "name": "ANEMIA NOS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e73de-1350-11df-a1f1-0026b9348838",
+                    "name": "ANEMIA",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a877c92c-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a9542160-1350-11df-a1f1-0026b9348838",
+                    "name": "ASTHMA RELAPSE",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e7532-1350-11df-a1f1-0026b9348838",
+                    "name": "ASTHMA EXACERBATION",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a877ca58-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a9542084-1350-11df-a1f1-0026b9348838",
+                    "name": "ASTHMA NOS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e7672-1350-11df-a1f1-0026b9348838",
+                    "name": "ASTHMA",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a877ccb0-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "50851348-83a7-4abd-b931-b950da98606a",
+                    "name": "CHOLELITHIASIS ",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e78fc-1350-11df-a1f1-0026b9348838",
+                    "name": "GALLSTONES",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a9544082-1350-11df-a1f1-0026b9348838",
+                    "name": "BILIARY TRACT DISEASE, GALLSTONES",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a877cddc-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a9543fa6-1350-11df-a1f1-0026b9348838",
+                    "name": "BILIARY TRACT DISEASE NOS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e7a3c-1350-11df-a1f1-0026b9348838",
+                    "name": "BILIARY TRACT DISEASE NOT OTHERWISE SPECIFIED",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a877d034-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e7cc6-1350-11df-a1f1-0026b9348838",
+                    "name": "BRONCHITIS, ACUTE",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a9532562-1350-11df-a1f1-0026b9348838",
+                    "name": "ACUTE BRONCHITIS",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a8907be8-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a959782c-1350-11df-a1f1-0026b9348838",
+                    "name": "RECURRENT BRONCHITIS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e7e06-1350-11df-a1f1-0026b9348838",
+                    "name": "BRONCHITIS, RECURRENT",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a8908192-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Coded"
+            },
+            "names": [
+                {
+                    "uuid": "ce255d1a-0b8b-43c1-a1e2-44fc8d79ed6d",
+                    "name": "CXR, PRELIMINARY FINDINGS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "af83617b-1c43-4451-8b39-5560a0411935",
+                    "name": "X-RAY, CHEST, PRELIMINARY FINDINGS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "78962993-90a9-4faf-8de9-aa48879edc8c",
+                    "name": "CHEST XRAY, PRELIMINARY FINDINGS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890841c-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e8414-1350-11df-a1f1-0026b9348838",
+                    "name": "DIARRHEA, AMOEBIASIS",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a9534efc-1350-11df-a1f1-0026b9348838",
+                    "name": "AMOEBIC DIARRHOEA",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a9534fce-1350-11df-a1f1-0026b9348838",
+                    "name": "AMOEBIC DYSENTRY",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a890861a-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e859a-1350-11df-a1f1-0026b9348838",
+                    "name": "DIARRHEA",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a95522ea-1350-11df-a1f1-0026b9348838",
+                    "name": "DIARRHEA NOS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a95523bc-1350-11df-a1f1-0026b9348838",
+                    "name": "DIARRHOEA",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a89086ec-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e8658-1350-11df-a1f1-0026b9348838",
+                    "name": "DIPTHERIA TETANUS BOOSTER",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a95ad24e-1350-11df-a1f1-0026b9348838",
+                    "name": "TD BOOSTER",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a8908a16-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4488-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Numeric"
+            },
+            "names": [
+                {
+                    "uuid": "a92e896e-1350-11df-a1f1-0026b9348838",
+                    "name": "HEMOGLOBIN",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a95696de-1350-11df-a1f1-0026b9348838",
+                    "name": "HB",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a95262e4-1350-11df-a1f1-0026b9348838",
+                    "name": "HGB",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a8908ade-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e8a36-1350-11df-a1f1-0026b9348838",
+                    "name": "HEPATITIS A VACCINATION",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a956b2ae-1350-11df-a1f1-0026b9348838",
+                    "name": "HEP A",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a9525fba-1350-11df-a1f1-0026b9348838",
+                    "name": "HEPA",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a8908dfe-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e8d42-1350-11df-a1f1-0026b9348838",
+                    "name": "HEPATITIS A",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a8908ed0-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e8e00-1350-11df-a1f1-0026b9348838",
+                    "name": "HEPATITIS B",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a8908f8e-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e8ec8-1350-11df-a1f1-0026b9348838",
+                    "name": "HEPATITIS C",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a8909060-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e8f86-1350-11df-a1f1-0026b9348838",
+                    "name": "HEPATITIS",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a956b88a-1350-11df-a1f1-0026b9348838",
+                    "name": "HEPATITIS NOS",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a890945c-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a952d74c-1350-11df-a1f1-0026b9348838",
+                    "name": "SERVICES",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e910c-1350-11df-a1f1-0026b9348838",
+                    "name": "SERVICES ORDERED",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a8909524-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Coded"
+            },
+            "names": [
+                {
+                    "uuid": "a957d95e-1350-11df-a1f1-0026b9348838",
+                    "name": "MP TEST",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a95459a0-1350-11df-a1f1-0026b9348838",
+                    "name": "BS FOR MPS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e91d4-1350-11df-a1f1-0026b9348838",
+                    "name": "MALARIAL SMEAR",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a8909844-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e94ea-1350-11df-a1f1-0026b9348838",
+                    "name": "MEASLES VACCINATION",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890990c-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e95b2-1350-11df-a1f1-0026b9348838",
+                    "name": "MENSTRUAL DYSFUNCTION",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a8909cfe-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a9595482-1350-11df-a1f1-0026b9348838",
+                    "name": "PTB",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e997c-1350-11df-a1f1-0026b9348838",
+                    "name": "PNEUMONIA, TUBERCULOUS",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a95ac178-1350-11df-a1f1-0026b9348838",
+                    "name": "TB PNEUMONIA",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a95958b0-1350-11df-a1f1-0026b9348838",
+                    "name": "PULMONARY TB",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a959555e-1350-11df-a1f1-0026b9348838",
+                    "name": "PTB RELAPSE",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a8909dc6-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a958fbd6-1350-11df-a1f1-0026b9348838",
+                    "name": "PNEUMONIA R/O TB",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a958fb04-1350-11df-a1f1-0026b9348838",
+                    "name": "PNEUMONIA NOS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e9a44-1350-11df-a1f1-0026b9348838",
+                    "name": "PNEUMONIA",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a8909e8e-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e9b02-1350-11df-a1f1-0026b9348838",
+                    "name": "PREGNANCY",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a9567b4a-1350-11df-a1f1-0026b9348838",
+                    "name": "GESTATION",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a8909f56-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Coded"
+            },
+            "names": [
+                {
+                    "uuid": "a956a62e-1350-11df-a1f1-0026b9348838",
+                    "name": "HCG",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e9bca-1350-11df-a1f1-0026b9348838",
+                    "name": "URINE PREGNANCY TEST, QUALITATIVE",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a952a5a6-1350-11df-a1f1-0026b9348838",
+                    "name": "PREGNANCY TEST",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a890a028-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e9c92-1350-11df-a1f1-0026b9348838",
+                    "name": "PREGNANCY, ECTOPIC",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890a0e6-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a95b244c-1350-11df-a1f1-0026b9348838",
+                    "name": "TOXEMIA",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a9591ff8-1350-11df-a1f1-0026b9348838",
+                    "name": "PREGNANCY-INDUCED HYPERTENSION",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a9591ed6-1350-11df-a1f1-0026b9348838",
+                    "name": "PREECLAMPSIA",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e9d50-1350-11df-a1f1-0026b9348838",
+                    "name": "PREGNANCY, HYPERTENSION ASSOCIATED",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a958ecd6-1350-11df-a1f1-0026b9348838",
+                    "name": "PIH",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a890a1b8-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e9e18-1350-11df-a1f1-0026b9348838",
+                    "name": "PREGNANCY, MISCARRIAGE",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890a276-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92e9ed6-1350-11df-a1f1-0026b9348838",
+                    "name": "POSTPARTUM HEMORRHAGE 91",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890a33e-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a95312e8-1350-11df-a1f1-0026b9348838",
+                    "name": "ABORTION",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92e9f94-1350-11df-a1f1-0026b9348838",
+                    "name": "PREGNANCY, TERMINATION",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890a654-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4ab4-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Text"
+            },
+            "names": [
+                {
+                    "uuid": "a95b3798-1350-11df-a1f1-0026b9348838",
+                    "name": "TT2",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92ea2a0-1350-11df-a1f1-0026b9348838",
+                    "name": "TETANUS BOOSTER",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a95b36c6-1350-11df-a1f1-0026b9348838",
+                    "name": "TT1",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a95ae450-1350-11df-a1f1-0026b9348838",
+                    "name": "TETANUS TOXOID",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a890a71c-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92ea368-1350-11df-a1f1-0026b9348838",
+                    "name": "URINARY TRACT INFECTION",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a95b477e-1350-11df-a1f1-0026b9348838",
+                    "name": "UTI",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a954fbc6-1350-11df-a1f1-0026b9348838",
+                    "name": "CYSTITIS",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a890a7e4-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a48b6-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Coded"
+            },
+            "names": [
+                {
+                    "uuid": "a92ea426-1350-11df-a1f1-0026b9348838",
+                    "name": "URINE MICROSCOPY",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890a8ac-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a95b8c0c-1350-11df-a1f1-0026b9348838",
+                    "name": "YELLOW JACK",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a92ea4e4-1350-11df-a1f1-0026b9348838",
+                    "name": "YELLOW FEVER",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890a96a-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92ea5ac-1350-11df-a1f1-0026b9348838",
+                    "name": "TUBERCULOSIS",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a95ac8da-1350-11df-a1f1-0026b9348838",
+                    "name": "TB RELAPSE",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a95abb9c-1350-11df-a1f1-0026b9348838",
+                    "name": "TB",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a95b386a-1350-11df-a1f1-0026b9348838",
+                    "name": "TUBERCULOSIS NOS",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a890aafa-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92ea728-1350-11df-a1f1-0026b9348838",
+                    "name": "MENINGITIS, NOS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890ad48-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92ea96c-1350-11df-a1f1-0026b9348838",
+                    "name": "MEASLES",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890ae10-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92eaa34-1350-11df-a1f1-0026b9348838",
+                    "name": "MUMPS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890b126-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a92ead36-1350-11df-a1f1-0026b9348838",
+                    "name": "MALNUTRITION",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890b2ac-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a93c321c-1350-11df-a1f1-0026b9348838",
+                    "name": "CATARACT",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890b374-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a93c32ee-1350-11df-a1f1-0026b9348838",
+                    "name": "EAR DISORDERS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890b680-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a93c360e-1350-11df-a1f1-0026b9348838",
+                    "name": "NEOPLASM",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890b810-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a93c379e-1350-11df-a1f1-0026b9348838",
+                    "name": "MENTAL DISORDERS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890b8d8-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a93c385c-1350-11df-a1f1-0026b9348838",
+                    "name": "DENTAL DISORDERS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890b996-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a93c391a-1350-11df-a1f1-0026b9348838",
+                    "name": "SKIN DISORDERS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890ba5e-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a93c39e2-1350-11df-a1f1-0026b9348838",
+                    "name": "JOINT PAIN",
+                    "localePreferred": true
+                },
+                {
+                    "uuid": "a95424bc-1350-11df-a1f1-0026b9348838",
+                    "name": "ATHRALGIA",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a9536a5e-1350-11df-a1f1-0026b9348838",
+                    "name": "ARTHRALGIA",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a9598dd0-1350-11df-a1f1-0026b9348838",
+                    "name": "RHEUMATISM",
+                    "localePreferred": false
+                }
+            ]
+        },
+        {
+            "uuid": "a890bb26-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a954da74-1350-11df-a1f1-0026b9348838",
+                    "name": "CONGENITAL ANOMALIES",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a93c3aa0-1350-11df-a1f1-0026b9348838",
+                    "name": "CONGENITAL DISORDERS",
+                    "localePreferred": true
+                }
+            ]
+        },
+        {
+            "uuid": "a890bf04-1350-11df-a1f1-0026b9348838",
+            "datatype": {
+                "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "N/A"
+            },
+            "names": [
+                {
+                    "uuid": "a958fcbc-1350-11df-a1f1-0026b9348838",
+                    "name": "POISONING NOS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a95b251e-1350-11df-a1f1-0026b9348838",
+                    "name": "TOXICITY NOS",
+                    "localePreferred": false
+                },
+                {
+                    "uuid": "a93c3c26-1350-11df-a1f1-0026b9348838",
+                    "name": "TOXICITY, NOT OTHERWISE SPECIFIED",
+                    "localePreferred": false
+                }
+            ]
+        }
+    ],
+    "links": [
+        {
+            "uri": "http://localhost:8081/openmrs-standalone/ws/rest/v1/concept?v=custom%3A%28uuid%2Cdatatype%3A%28uuid%2Cname%29%2Cnames%3A%28uuid%2Cname%2ClocalePreferred%29%29&startIndex=50",
+            "rel": "next"
+        }
+    ]
+}

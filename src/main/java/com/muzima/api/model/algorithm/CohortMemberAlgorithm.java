@@ -16,13 +16,23 @@
 package com.muzima.api.model.algorithm;
 
 import com.jayway.jsonpath.JsonPath;
+import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortMember;
+import com.muzima.api.model.Patient;
 import com.muzima.search.api.model.object.Searchable;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
 
 public class CohortMemberAlgorithm extends BaseOpenmrsAlgorithm {
+
+    private CohortAlgorithm cohortAlgorithm;
+    private PatientAlgorithm patientAlgorithm;
+
+    public CohortMemberAlgorithm() {
+        this.cohortAlgorithm = new CohortAlgorithm();
+        this.patientAlgorithm = new PatientAlgorithm();
+    }
 
     /**
      * Implementation of this method will define how the patient will be serialized from the JSON representation.
@@ -33,15 +43,11 @@ public class CohortMemberAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         CohortMember cohortMember = new CohortMember();
-
         Object jsonObject = JsonPath.read(serialized, "$");
-
-        String userUuid = JsonPath.read(jsonObject, "$['cohort.uuid']");
-        cohortMember.setCohortUuid(userUuid);
-
-        String patientUuid = JsonPath.read(jsonObject, "$['patient.uuid']");
-        cohortMember.setPatientUuid(patientUuid);
-
+        Object cohortObject = JsonPath.read(jsonObject, "$['cohort']");
+        cohortMember.setCohort((Cohort) cohortAlgorithm.deserialize(cohortObject.toString()));
+        Object patientObject = JsonPath.read(jsonObject, "$['patient']");
+        cohortMember.setPatient((Patient) patientAlgorithm.deserialize(patientObject.toString()));
         return cohortMember;
     }
 
@@ -55,8 +61,10 @@ public class CohortMemberAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         CohortMember cohortMember = (CohortMember) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("cohort.uuid", cohortMember.getCohortUuid());
-        jsonObject.put("patient.uuid", cohortMember.getPatientUuid());
+        String cohort = cohortAlgorithm.serialize(cohortMember.getCohort());
+        jsonObject.put("cohort", JsonPath.read(cohort, "$"));
+        String patient = patientAlgorithm.serialize(cohortMember.getPatient());
+        jsonObject.put("patient", JsonPath.read(patient, "$"));
         return jsonObject.toJSONString();
     }
 }

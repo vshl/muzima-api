@@ -2,9 +2,24 @@
     "uuid": "dd7fc05a-1691-11df-97a5-7038c432aabf",
     "gender": "M",
     "birthdate": "1963-01-23T00:00:00.000-0500",
-    "personName.givenName": "Testarius",
-    "personName.middleName": "Kungu",
-    "personName.familyName": "Paul",
-    "patientIdentifier.identifier": "3645KT-3",
-    "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+    "names": [
+        {
+            "uuid": "dea78c39-1691-11df-97a5-7038c432aabf",
+            "givenName": "Testarius",
+            "middleName": "Kungu",
+            "familyName": "Paul",
+            "preferred": false
+        }
+    ],
+    "identifiers": [
+        {
+            "uuid": "dd0c8c79-1691-11df-97a5-7038c432aabf",
+            "identifier": "3645KT-3",
+            "preferred": false,
+            "identifierType": {
+                "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                "name": "Old AMPATH Medical Record Number"
+            }
+        }
+    ]
 }

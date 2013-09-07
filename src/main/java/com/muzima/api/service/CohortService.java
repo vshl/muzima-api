@@ -123,6 +123,7 @@ public interface CohortService extends MuzimaInterface {
      * @param name the partial name of the cohorts.
      * @return number of cohorts with matching the partial name.
      * @throws IOException when search api unable to process the resource.
+     * @should return number of cohort in the local repository with matching name.
      */
     Integer countCohorts(final String name) throws IOException;
 
@@ -155,6 +156,7 @@ public interface CohortService extends MuzimaInterface {
      *
      * @return number of cohorts.
      * @throws IOException when search api unable to process the resource.
+     * @should return number of cohort in the local repository.
      */
     Integer countAllCohorts() throws IOException;
 
@@ -262,6 +264,8 @@ public interface CohortService extends MuzimaInterface {
      */
     Integer countCohortMembers(final String cohortUuid) throws IOException;
 
+    Integer countCohortMembers(final Cohort cohort) throws IOException;
+
     /**
      * Get all members under the current cohort identified by the cohort's uuid which already saved in the local
      * repository.
@@ -273,6 +277,8 @@ public interface CohortService extends MuzimaInterface {
      * @should return empty list when no member are in the cohort.
      */
     List<CohortMember> getCohortMembers(final String cohortUuid) throws IOException;
+
+    List<CohortMember> getCohortMembers(final Cohort cohort) throws IOException;
 
     /**
      * Get all members under the current cohort identified by the cohort's uuid which already saved in the local
@@ -289,6 +295,9 @@ public interface CohortService extends MuzimaInterface {
     List<CohortMember> getCohortMembers(final String cohortUuid, final Integer page,
                                         final Integer pageSize) throws IOException;
 
+    List<CohortMember> getCohortMembers(final Cohort cohort, final Integer page,
+                                        final Integer pageSize) throws IOException;
+
     /**
      * Delete all members for the current cohort identified by the cohort's uuid.
      *
@@ -297,4 +306,6 @@ public interface CohortService extends MuzimaInterface {
      * @should delete all members for the cohort from the local repository.
      */
     void deleteCohortMembers(final String cohortUuid) throws IOException;
+
+    void deleteCohortMembers(final Cohort cohort) throws IOException;
 }

@@ -1,5 +1,6 @@
 package com.muzima.api.model.resolver;
 
+import com.muzima.api.model.algorithm.CohortDataAlgorithm;
 import com.muzima.search.api.util.StringUtil;
 
 import java.io.IOException;
@@ -10,9 +11,8 @@ import java.util.Map;
  */
 public class StaticCohortDataResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION = "?v=custom:(cohort:(uuid,name)," +
-            "patient:(uuid,gender,birthdate,personName.givenName,personName.middleName,personName.familyName," +
-            "patientIdentifier.identifier,patientIdentifier.identifierType.name))";
+    private static final String REPRESENTATION =
+            "?v=custom:" + CohortDataAlgorithm.STATIC_COHORT_DATA_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.

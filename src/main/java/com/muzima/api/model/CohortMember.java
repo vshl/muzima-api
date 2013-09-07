@@ -13,6 +13,8 @@
  */
 package com.muzima.api.model;
 
+import com.muzima.search.api.util.StringUtil;
+
 /**
  * The Member class will reference to uuid of all patients for which the Member is associated with.
  * <br/>
@@ -21,9 +23,53 @@ package com.muzima.api.model;
  */
 public class CohortMember extends OpenmrsSearchable {
 
-    private String cohortUuid;
+    private Cohort cohort;
 
-    private String patientUuid;
+    private Patient patient;
+
+    public CohortMember() {
+    }
+
+    public CohortMember(final Cohort cohort, final Patient patient) {
+        this.cohort = cohort;
+        this.patient = patient;
+    }
+
+    /**
+     * Get the cohort for this cohort member.
+     *
+     * @return the cohort.
+     */
+    public Cohort getCohort() {
+        return cohort;
+    }
+
+    /**
+     * Set the cohort for this cohort member.
+     *
+     * @param cohort the cohort.
+     */
+    public void setCohort(final Cohort cohort) {
+        this.cohort = cohort;
+    }
+
+    /**
+     * Get the patient for this cohort member.
+     *
+     * @return the patient.
+     */
+    public Patient getPatient() {
+        return patient;
+    }
+
+    /**
+     * Set the patient for this cohort member.
+     *
+     * @param patient the patient.
+     */
+    public void setPatient(final Patient patient) {
+        this.patient = patient;
+    }
 
     /**
      * Get the cohort uuid associated with this cohort member.
@@ -31,6 +77,10 @@ public class CohortMember extends OpenmrsSearchable {
      * @return the cohort uuid associated with this cohort member.
      */
     public String getCohortUuid() {
+        String cohortUuid = StringUtil.EMPTY;
+        if (cohort != null) {
+            cohortUuid = cohort.getUuid();
+        }
         return cohortUuid;
     }
 
@@ -40,7 +90,9 @@ public class CohortMember extends OpenmrsSearchable {
      * @param cohortUuid the cohort uuid associated with this cohort member.
      */
     public void setCohortUuid(final String cohortUuid) {
-        this.cohortUuid = cohortUuid;
+        if (cohort != null) {
+            cohort.setUuid(cohortUuid);
+        }
     }
 
     /**
@@ -49,6 +101,10 @@ public class CohortMember extends OpenmrsSearchable {
      * @return the uuid of the patient.
      */
     public String getPatientUuid() {
+        String patientUuid = StringUtil.EMPTY;
+        if (patient != null) {
+            patientUuid = patient.getUuid();
+        }
         return patientUuid;
     }
 
@@ -58,6 +114,8 @@ public class CohortMember extends OpenmrsSearchable {
      * @param patientUuid the the uuid of the patient.
      */
     public void setPatientUuid(final String patientUuid) {
-        this.patientUuid = patientUuid;
+        if (patient != null) {
+            patient.setUuid(patientUuid);
+        }
     }
 }

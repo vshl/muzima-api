@@ -15,12 +15,15 @@
  */
 package com.muzima.api.model.resolver;
 
+import com.muzima.api.model.algorithm.CohortAlgorithm;
+
 import java.io.IOException;
 import java.util.Map;
 
 public class SearchStaticCohortResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION = "?v=custom:(uuid,name)";
+    private static final String REPRESENTATION =
+            "?v=custom:" + CohortAlgorithm.COHORT_STANDARD_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.

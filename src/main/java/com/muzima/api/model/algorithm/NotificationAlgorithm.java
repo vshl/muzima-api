@@ -17,13 +17,26 @@ package com.muzima.api.model.algorithm;
 
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Notification;
+import com.muzima.api.model.Person;
 import com.muzima.search.api.model.object.Searchable;
+import com.muzima.util.JsonPathUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
 
 
 public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
+
+    public static final String NOTIFICATION_STANDAR_REPRESENTATION =
+            "(uuid,subject,payload," +
+                    "sender:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + "," +
+                    "receiver:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + ")";
+
+    private PersonAlgorithm personAlgorithm;
+
+    public NotificationAlgorithm() {
+        this.personAlgorithm = new PersonAlgorithm();
+    }
 
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
@@ -33,28 +46,15 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public Notification deserialize(final String json) throws IOException {
-
         Notification notification = new Notification();
-
-        // get the full json object representation and then pass this around to the next JsonPath.read()
-        // this should minimize the time for the subsequent read() call
         Object jsonObject = JsonPath.read(json, "$");
-
-        String uuid = JsonPath.read(jsonObject, "$['uuid']");
-        notification.setUuid(uuid);
-
-        String subject = JsonPath.read(jsonObject, "$['subject']");
-        notification.setSubject(subject);
-
-        String receiver = JsonPath.read(jsonObject, "$['receiver']");
-        notification.setReceiver(receiver);
-
-        String sender = JsonPath.read(jsonObject, "$['sender']");
-        notification.setSender(sender);
-
-        String payload = JsonPath.read(jsonObject, "$['payload']");
-        notification.setPayload(payload);
-
+        notification.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
+        notification.setSubject(JsonPathUtils.readAsString(jsonObject, "$['subject']"));
+        notification.setPayload(JsonPathUtils.readAsString(jsonObject, "$['payload']"));
+        Object senderObject = JsonPath.read(jsonObject, "$['sender']");
+        notification.setSender((Person) personAlgorithm.deserialize(senderObject.toString()));
+        Object receiverObject = JsonPath.read(jsonObject, "$['receiver']");
+        notification.setReceiver((Person) personAlgorithm.deserialize(receiverObject.toString()));
         return notification;
     }
 
@@ -70,9 +70,11 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", notification.getUuid());
         jsonObject.put("subject", notification.getSubject());
-        jsonObject.put("receiver", notification.getReceiver());
-        jsonObject.put("sender", notification.getSender());
         jsonObject.put("payload", notification.getPayload());
+        String sender = personAlgorithm.serialize(notification.getSender());
+        jsonObject.put("sender", JsonPath.read(sender, "$"));
+        String receiver = personAlgorithm.serialize(notification.getReceiver());
+        jsonObject.put("receiver", JsonPath.read(receiver, "$"));
         return jsonObject.toJSONString();
     }
 }

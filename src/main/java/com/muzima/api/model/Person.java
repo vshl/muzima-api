@@ -15,8 +15,119 @@
  */
 package com.muzima.api.model;
 
+import com.muzima.search.api.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * TODO: Write brief description about the class here.
  */
-public class Person {
+public class Person extends OpenmrsSearchable {
+
+    private String gender;
+
+    private Date birthdate;
+
+    private List<PersonName> names;
+
+    /**
+     * Get the patient gender
+     *
+     * @return the patient gender
+     */
+    public String getGender() {
+        return gender;
+    }
+
+    /**
+     * Set the patient gender
+     *
+     * @param gender the patient gender
+     */
+    public void setGender(final String gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * Get the patient birthdate
+     *
+     * @return the birthdate
+     */
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    /**
+     * Set the patient birthdate
+     *
+     * @param birthdate the patient birthdate
+     */
+    public void setBirthdate(final Date birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public void addName(final PersonName personName) {
+        getNames().add(personName);
+    }
+
+    public List<PersonName> getNames() {
+        if (names == null) {
+            names = new ArrayList<PersonName>();
+        }
+        return names;
+    }
+
+    public void setNames(final List<PersonName> names) {
+        this.names = names;
+    }
+
+    /**
+     * Get the given name for the patient.
+     *
+     * @return the given name for the patient.
+     */
+    public String getGivenName() {
+        String givenName = StringUtil.EMPTY;
+        for (PersonName name : names) {
+            givenName = name.getGivenName();
+            if (name.isPreferred()) {
+                return givenName;
+            }
+        }
+        return givenName;
+    }
+
+    /**
+     * Get the middle name for the patient.
+     *
+     * @return the middle name for the patient.
+     */
+    public String getMiddleName() {
+        String middleName = StringUtil.EMPTY;
+        for (PersonName name : names) {
+            middleName = name.getMiddleName();
+            if (name.isPreferred()) {
+                return middleName;
+            }
+        }
+        return middleName;
+    }
+
+    /**
+     * Get the family name for the patient.
+     *
+     * @return the family name for the patient.
+     */
+    public String getFamilyName() {
+        String familyName = StringUtil.EMPTY;
+        for (PersonName name : names) {
+            familyName = name.getFamilyName();
+            if (name.isPreferred()) {
+                return familyName;
+            }
+        }
+        return familyName;
+    }
 }

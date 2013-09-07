@@ -18,5 +18,15 @@ package com.muzima.api.model;
 /**
  * TODO: Write brief description about the class here.
  */
-public class Location {
+public class Location extends OpenmrsSearchable {
+
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
 }

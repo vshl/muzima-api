@@ -15,74 +15,28 @@
  */
 package com.muzima.api.model;
 
-import java.util.Date;
+import com.muzima.search.api.util.StringUtil;
 
-public class Patient extends OpenmrsSearchable {
+import java.util.ArrayList;
+import java.util.List;
 
-    private String givenName;
+public class Patient extends Person {
 
-    private String middleName;
+    private List<PatientIdentifier> identifiers;
 
-    private String familyName;
-
-    private String identifier;
-
-    private String gender;
-
-    private Date birthdate;
-
-    /**
-     * Get the given name for the patient.
-     *
-     * @return the given name for the patient.
-     */
-    public String getGivenName() {
-        return givenName;
+    public void addIdentifier(final PatientIdentifier identifier) {
+        getIdentifiers().add(identifier);
     }
 
-    /**
-     * Set the given name for the patient.
-     *
-     * @param givenName the given name for the patient.
-     */
-    public void setGivenName(final String givenName) {
-        this.givenName = givenName;
+    public List<PatientIdentifier> getIdentifiers() {
+        if (identifiers == null) {
+            identifiers = new ArrayList<PatientIdentifier>();
+        }
+        return identifiers;
     }
 
-    /**
-     * Get the middle name for the patient.
-     *
-     * @return the middle name for the patient.
-     */
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    /**
-     * Set the middle name for the patient.
-     *
-     * @param middleName the middle name for the patient.
-     */
-    public void setMiddleName(final String middleName) {
-        this.middleName = middleName;
-    }
-
-    /**
-     * Get the family name for the patient.
-     *
-     * @return the family name for the patient.
-     */
-    public String getFamilyName() {
-        return familyName;
-    }
-
-    /**
-     * Set the family name for the patient.
-     *
-     * @param familyName the family name for the patient.
-     */
-    public void setFamilyName(final String familyName) {
-        this.familyName = familyName;
+    public void setIdentifiers(final List<PatientIdentifier> identifiers) {
+        this.identifiers = identifiers;
     }
 
     /**
@@ -91,51 +45,13 @@ public class Patient extends OpenmrsSearchable {
      * @return the patient identifier
      */
     public String getIdentifier() {
+        String identifier = StringUtil.EMPTY;
+        for (PatientIdentifier patientIdentifier : identifiers) {
+            identifier = patientIdentifier.getIdentifier();
+            if (patientIdentifier.isPreferred()) {
+                return identifier;
+            }
+        }
         return identifier;
-    }
-
-    /**
-     * Set the patient identifier
-     *
-     * @param identifier the patient identifier
-     */
-    public void setIdentifier(final String identifier) {
-        this.identifier = identifier;
-    }
-
-    /**
-     * Get the patient gender
-     *
-     * @return the patient gender
-     */
-    public String getGender() {
-        return gender;
-    }
-
-    /**
-     * Set the patient gender
-     *
-     * @param gender the patient gender
-     */
-    public void setGender(final String gender) {
-        this.gender = gender;
-    }
-
-    /**
-     * Get the patient birthdate
-     *
-     * @return the birthdate
-     */
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    /**
-     * Set the patient birthdate
-     *
-     * @param birthdate the patient birthdate
-     */
-    public void setBirthdate(final Date birthdate) {
-        this.birthdate = birthdate;
     }
 }

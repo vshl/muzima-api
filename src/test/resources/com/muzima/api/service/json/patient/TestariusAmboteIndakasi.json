@@ -2,9 +2,24 @@
     "uuid": "dd55e586-1691-11df-97a5-7038c432aabf",
     "gender": "M",
     "birthdate": "1965-09-18T00:00:00.000-0500",
-    "personName.givenName": "Testarius",
-    "personName.middleName": "Ambote",
-    "personName.familyName": "Indakasi",
-    "patientIdentifier.identifier": "363MO-5",
-    "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+    "names": [
+        {
+            "uuid": "de836cec-1691-11df-97a5-7038c432aabf",
+            "givenName": "Testarius",
+            "middleName": "Ambote",
+            "familyName": "Indakasi",
+            "preferred": true
+        }
+    ],
+    "identifiers": [
+        {
+            "uuid": "dcea0c45-1691-11df-97a5-7038c432aabf",
+            "identifier": "363MO-5",
+            "preferred": true,
+            "identifierType": {
+                "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                "name": "Old AMPATH Medical Record Number"
+            }
+        }
+    ]
 }

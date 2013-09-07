@@ -52,6 +52,7 @@ public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements Coh
         List<Searchable> searchableList = service.loadObjects(resourceParams, serviceContext.getResource(resource));
         for (Searchable searchable : searchableList) {
             CohortData cohortData = (CohortData) searchable;
+            consolidatedCohortData.setCohort(cohortData.getCohort());
             patients.addAll(cohortData.getPatients());
             members.addAll(cohortData.getCohortMembers());
         }

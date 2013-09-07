@@ -1,456 +1,1108 @@
 {
-    "definition.uuid": "8a3b7bbf-cefc-4ea9-8ff1-45b5a274a689",
-    "definition.name": "Example Age Query",
+    "definition": {
+        "uuid": "8a3b7bbf-cefc-4ea9-8ff1-45b5a274a689",
+        "name": "Example Age Query"
+    },
     "members": [
         {
             "uuid": "dd5580a4-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1997-09-19T00:00:00.000-0500",
-            "personName.givenName": "Sammuel",
-            "personName.middleName": "Isadia",
-            "personName.familyName": "Jotham",
-            "patientIdentifier.identifier": "117CH-1",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de82373c-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Sammuel",
+                    "middleName": "Isadia",
+                    "familyName": "Jotham",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dce9a38f-1691-11df-97a5-7038c432aabf",
+                    "identifier": "117CH-1",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd55942c-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-02-09T00:00:00.000-0500",
-            "personName.givenName": "Khadija",
-            "personName.middleName": "Wangechi",
-            "personName.familyName": "Odhiambo",
-            "patientIdentifier.identifier": "159CH-3",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de8276a9-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Khadija",
+                    "middleName": "Wangechi",
+                    "familyName": "Odhiambo",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dce9b80b-1691-11df-97a5-7038c432aabf",
+                    "identifier": "159CH-3",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd66e8f5-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-05-21T00:00:00.000-0500",
-            "personName.givenName": "Sally",
-            "personName.middleName": "Kutto",
-            "personName.familyName": "Seonowe",
-            "patientIdentifier.identifier": "1032KT-6",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de95bc19-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Sally",
+                    "middleName": "Kutto",
+                    "familyName": "Seonowe",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dcfc3727-1691-11df-97a5-7038c432aabf",
+                    "identifier": "1032KT-6",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd66f4fd-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-07-08T00:00:00.000-0500",
-            "personName.givenName": "Gilbert",
-            "personName.middleName": "Muchesia",
-            "personName.familyName": "Bosire",
-            "patientIdentifier.identifier": "1053TS-5",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de9604fa-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Gilbert",
+                    "middleName": "Muchesia",
+                    "familyName": "Bosire",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dcfc4492-1691-11df-97a5-7038c432aabf",
+                    "identifier": "1053TS-5",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd6f9bc1-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-02-08T00:00:00.000-0500",
-            "personName.givenName": "Laxsin",
-            "personName.middleName": "Rangai",
-            "personName.familyName": "Morong",
-            "patientIdentifier.identifier": "1245CH-9",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de97418c-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Laxsin",
+                    "middleName": "Rangai",
+                    "familyName": "Morong",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dcfd5b14-1691-11df-97a5-7038c432aabf",
+                    "identifier": "1245CH-9",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd71257b-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1997-10-02T00:00:00.000-0500",
-            "personName.givenName": "Bilah",
-            "personName.middleName": "Lobor",
-            "personName.familyName": "Abdi",
-            "patientIdentifier.identifier": "1657NT-7",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de9a5449-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Bilah",
+                    "middleName": "Lobor",
+                    "familyName": "Abdi",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dcff4ec1-1691-11df-97a5-7038c432aabf",
+                    "identifier": "1657NT-7",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd715fc7-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-04-03T00:00:00.000-0500",
-            "personName.givenName": "Gaspa",
-            "personName.middleName": "Makaya",
-            "personName.familyName": "Muryoki",
-            "patientIdentifier.identifier": "1731EG-8",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de9a8cb1-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Gaspa",
+                    "middleName": "Makaya",
+                    "familyName": "Muryoki",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dcff8395-1691-11df-97a5-7038c432aabf",
+                    "identifier": "1731EG-8",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd73af54-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-08-23T00:00:00.000-0500",
-            "personName.givenName": "Phyllis",
-            "personName.middleName": "Moraa",
-            "personName.familyName": "Chebos",
-            "patientIdentifier.identifier": "1905CH-8",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de9b025e-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Phyllis",
+                    "middleName": "Moraa",
+                    "familyName": "Chebos",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd00aedc-1691-11df-97a5-7038c432aabf",
+                    "identifier": "1905CH-8",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd74bd91-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-05-04T00:00:00.000-0500",
-            "personName.givenName": "Gravy",
-            "personName.middleName": "Metinaa",
-            "personName.familyName": "Obatsa",
-            "patientIdentifier.identifier": "2122MP-1",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de9d95db-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Gravy",
+                    "middleName": "Metinaa",
+                    "familyName": "Obatsa",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd019030-1691-11df-97a5-7038c432aabf",
+                    "identifier": "2122MP-1",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd751786-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-01-09T00:00:00.000-0500",
-            "personName.givenName": "Audence",
-            "personName.middleName": "Aketch",
-            "personName.familyName": "Chepchirchir",
-            "patientIdentifier.identifier": "2226CH-8",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de9df880-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Audence",
+                    "middleName": "Aketch",
+                    "familyName": "Chepchirchir",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd020424-1691-11df-97a5-7038c432aabf",
+                    "identifier": "2226CH-8",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd75a891-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-12-21T00:00:00.000-0500",
-            "personName.givenName": "Imelda",
-            "personName.middleName": "Bulfana",
-            "personName.familyName": "Betyo",
-            "patientIdentifier.identifier": "2398AM-6",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de9e8f39-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Imelda",
+                    "middleName": "Bulfana",
+                    "familyName": "Betyo",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd047655-1691-11df-97a5-7038c432aabf",
+                    "identifier": "2398AM-6",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd75b070-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-03-01T00:00:00.000-0500",
-            "personName.givenName": "Eugine",
-            "personName.middleName": "Mwale",
-            "personName.familyName": "Konsolo",
-            "patientIdentifier.identifier": "2410AM-9",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "de9e973e-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Eugine",
+                    "middleName": "Mwale",
+                    "familyName": "Konsolo",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd0481fe-1691-11df-97a5-7038c432aabf",
+                    "identifier": "2410AM-9",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd791a7a-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-07-21T00:00:00.000-0500",
-            "personName.givenName": "Brighter",
-            "personName.middleName": "Nyanduko",
-            "personName.familyName": "Nchoe",
-            "patientIdentifier.identifier": "2789AM-6",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "dea1d1c8-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Brighter",
+                    "middleName": "Nyanduko",
+                    "familyName": "Nchoe",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd078453-1691-11df-97a5-7038c432aabf",
+                    "identifier": "2789AM-6",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd7b8051-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-11-27T00:00:00.000-0500",
-            "personName.givenName": "Dominic",
-            "personName.middleName": "Akole",
-            "personName.familyName": "Ngisirai",
-            "patientIdentifier.identifier": "3052MO-1",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "dea321ae-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Dominic",
+                    "middleName": "Akole",
+                    "familyName": "Ngisirai",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd08ff77-1691-11df-97a5-7038c432aabf",
+                    "identifier": "3052MO-1",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd7b9b55-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-01-08T00:00:00.000-0500",
-            "personName.givenName": "Cinton",
-            "personName.middleName": "Yama",
-            "personName.familyName": "Tuwei",
-            "patientIdentifier.identifier": "3062KP-0",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "dea32f8c-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Cinton",
+                    "middleName": "Yama",
+                    "familyName": "Tuwei",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd090a13-1691-11df-97a5-7038c432aabf",
+                    "identifier": "3062KP-0",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd7fe32c-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-05-03T00:00:00.000-0500",
-            "personName.givenName": "Etot",
-            "personName.middleName": "Kero",
-            "personName.familyName": "Akhanile",
-            "patientIdentifier.identifier": "3670EG-6",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "dea7a139-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Etot",
+                    "middleName": "Kero",
+                    "familyName": "Akhanile",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd0cac5e-1691-11df-97a5-7038c432aabf",
+                    "identifier": "3670EG-6",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd819213-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-08-25T00:00:00.000-0500",
-            "personName.givenName": "Wolter",
-            "personName.middleName": "Sakwa",
-            "personName.familyName": "Kipkechem",
-            "patientIdentifier.identifier": "4017KP-3",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deaabea3-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Wolter",
+                    "middleName": "Sakwa",
+                    "familyName": "Kipkechem",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd0f4ca3-1691-11df-97a5-7038c432aabf",
+                    "identifier": "4017KP-3",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd837e37-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-04-17T00:00:00.000-0500",
-            "personName.givenName": "Underson",
-            "personName.middleName": "Berech",
-            "personName.familyName": "Minning",
-            "patientIdentifier.identifier": "4092MT-5",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deab0009-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Underson",
+                    "middleName": "Berech",
+                    "familyName": "Minning",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd0f9522-1691-11df-97a5-7038c432aabf",
+                    "identifier": "4092MT-5",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd86f5f8-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-08-16T00:00:00.000-0500",
-            "personName.givenName": "Vaziliza",
-            "personName.middleName": "Sitienei",
-            "personName.familyName": "Etiang",
-            "patientIdentifier.identifier": "4556TS-4",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deae7fd7-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Vaziliza",
+                    "middleName": "Sitienei",
+                    "familyName": "Etiang",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd127324-1691-11df-97a5-7038c432aabf",
+                    "identifier": "4556TS-4",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd870c64-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1997-12-28T00:00:00.000-0500",
-            "personName.givenName": "Lazaros",
-            "personName.middleName": "Bargogoi",
-            "personName.familyName": "Kororiet",
-            "patientIdentifier.identifier": "4589TS-5",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deae96a2-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Lazaros",
+                    "middleName": "Bargogoi",
+                    "familyName": "Kororiet",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd12e620-1691-11df-97a5-7038c432aabf",
+                    "identifier": "4589TS-5",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd873fde-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-11-02T00:00:00.000-0500",
-            "personName.givenName": "Evalyne",
-            "personName.middleName": "Esiron",
-            "personName.familyName": "Motoo",
-            "patientIdentifier.identifier": "4645CH-7",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deaebadb-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Evalyne",
+                    "middleName": "Esiron",
+                    "familyName": "Motoo",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd13267c-1691-11df-97a5-7038c432aabf",
+                    "identifier": "4645CH-7",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8751ff-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-07-07T00:00:00.000-0500",
-            "personName.givenName": "Shadney",
-            "personName.middleName": "Lumula",
-            "personName.familyName": "Zacharia",
-            "patientIdentifier.identifier": "4672KP-5",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deaed9d5-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Shadney",
+                    "middleName": "Lumula",
+                    "familyName": "Zacharia",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd13420a-1691-11df-97a5-7038c432aabf",
+                    "identifier": "4672KP-5",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8769a4-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-08-12T00:00:00.000-0500",
-            "personName.givenName": "Phoemena",
-            "personName.middleName": "Agesa",
-            "personName.familyName": "Ng'Egny",
-            "patientIdentifier.identifier": "4711TS-5",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deaef62f-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Phoemena",
+                    "middleName": "Agesa",
+                    "familyName": "Ng'Egny",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd135c85-1691-11df-97a5-7038c432aabf",
+                    "identifier": "4711TS-5",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd886c5e-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-08-04T00:00:00.000-0500",
-            "personName.givenName": "Zephania",
-            "personName.middleName": "Ekae",
-            "personName.familyName": "Misoi",
-            "patientIdentifier.identifier": "4899MO-4",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deb00330-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Zephania",
+                    "middleName": "Ekae",
+                    "familyName": "Misoi",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd14131b-1691-11df-97a5-7038c432aabf",
+                    "identifier": "4899MO-4",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8afa75-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-11-15T00:00:00.000-0500",
-            "personName.givenName": "Edward",
-            "personName.middleName": "Scholy",
-            "personName.familyName": "Buseinei",
-            "patientIdentifier.identifier": "5153KT-6",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deb3507c-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Edward",
+                    "middleName": "Scholy",
+                    "familyName": "Buseinei",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd16378d-1691-11df-97a5-7038c432aabf",
+                    "identifier": "5153KT-6",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8b33d5-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-01-07T00:00:00.000-0500",
-            "personName.givenName": "Ascah",
-            "personName.middleName": "Orina",
-            "personName.familyName": "Nambande",
-            "patientIdentifier.identifier": "5227KP-7",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deb38ee0-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Ascah",
+                    "middleName": "Orina",
+                    "familyName": "Nambande",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd16a21a-1691-11df-97a5-7038c432aabf",
+                    "identifier": "5227KP-7",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8b5508-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-12-21T00:00:00.000-0500",
-            "personName.givenName": "Jeruto",
-            "personName.middleName": "Tarkwet",
-            "personName.familyName": "Omondi",
-            "patientIdentifier.identifier": "5258KT-3",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deb3b0f1-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Jeruto",
+                    "middleName": "Tarkwet",
+                    "familyName": "Omondi",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd16bc8d-1691-11df-97a5-7038c432aabf",
+                    "identifier": "5258KT-3",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8c1ce1-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-10-15T00:00:00.000-0500",
-            "personName.givenName": "Samarine",
-            "personName.middleName": "Jebor",
-            "personName.familyName": "Koibitat",
-            "patientIdentifier.identifier": "5376AM-9",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deb569bd-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Samarine",
+                    "middleName": "Jebor",
+                    "familyName": "Koibitat",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd172e2a-1691-11df-97a5-7038c432aabf",
+                    "identifier": "5376AM-9",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8c1f26-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-09-18T00:00:00.000-0500",
-            "personName.givenName": "Chritina",
-            "personName.middleName": "Aregen",
-            "personName.familyName": "Buigit",
-            "patientIdentifier.identifier": "5378KP-8",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deb56c72-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Chritina",
+                    "middleName": "Aregen",
+                    "familyName": "Buigit",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd173387-1691-11df-97a5-7038c432aabf",
+                    "identifier": "5378KP-8",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8c6643-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-02-28T00:00:00.000-0500",
-            "personName.givenName": "Frank",
-            "personName.middleName": "Ekuroit",
-            "personName.familyName": "Kimitei",
-            "patientIdentifier.identifier": "5475MT-1",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deb5c9f1-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Frank",
+                    "middleName": "Ekuroit",
+                    "familyName": "Kimitei",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd1890a9-1691-11df-97a5-7038c432aabf",
+                    "identifier": "5475MT-1",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8e7720-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-05-07T00:00:00.000-0500",
-            "personName.givenName": "Mendah",
-            "personName.middleName": "Kerito",
-            "personName.familyName": "Muryoki",
-            "patientIdentifier.identifier": "5616BF-2",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deb6a810-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Mendah",
+                    "middleName": "Kerito",
+                    "familyName": "Muryoki",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd194033-1691-11df-97a5-7038c432aabf",
+                    "identifier": "5616BF-2",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd8e7f14-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-05-08T00:00:00.000-0500",
-            "personName.givenName": "Arupe",
-            "personName.middleName": "Shirkoi",
-            "personName.familyName": "Msee",
-            "patientIdentifier.identifier": "5631BF-1",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "deb6bd08-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Arupe",
+                    "middleName": "Shirkoi",
+                    "familyName": "Msee",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd194923-1691-11df-97a5-7038c432aabf",
+                    "identifier": "5631BF-1",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd92da10-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-09-13T00:00:00.000-0500",
-            "personName.givenName": "Stephalyne",
-            "personName.middleName": "Mbithi",
-            "personName.familyName": "Orutaa",
-            "patientIdentifier.identifier": "6275TS-9",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "debb5455-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Stephalyne",
+                    "middleName": "Mbithi",
+                    "familyName": "Orutaa",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd1d17cf-1691-11df-97a5-7038c432aabf",
+                    "identifier": "6275TS-9",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd93a1e0-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-07-20T00:00:00.000-0500",
-            "personName.givenName": "Denida",
-            "personName.middleName": "Machuki",
-            "personName.familyName": "Mbaiza",
-            "patientIdentifier.identifier": "6378BF-8",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "debbb17f-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Denida",
+                    "middleName": "Machuki",
+                    "familyName": "Mbaiza",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd1df475-1691-11df-97a5-7038c432aabf",
+                    "identifier": "6378BF-8",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd93dbf8-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-05-22T00:00:00.000-0500",
-            "personName.givenName": "Petronila",
-            "personName.middleName": "Kimisik",
-            "personName.familyName": "Carter",
-            "patientIdentifier.identifier": "6463KP-7",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "debd47db-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Petronila",
+                    "middleName": "Kimisik",
+                    "familyName": "Carter",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd1e3a47-1691-11df-97a5-7038c432aabf",
+                    "identifier": "6463KP-7",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd96019e-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-04-03T00:00:00.000-0500",
-            "personName.givenName": "Alphresi",
-            "personName.middleName": "Elimo",
-            "personName.familyName": "Killy",
-            "patientIdentifier.identifier": "6579NT-8",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "debddc53-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Alphresi",
+                    "middleName": "Elimo",
+                    "familyName": "Killy",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd1fb075-1691-11df-97a5-7038c432aabf",
+                    "identifier": "6579NT-8",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd9a3721-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-05-25T00:00:00.000-0500",
-            "personName.givenName": "Esline",
-            "personName.middleName": "Chepterer",
-            "personName.familyName": "Kipnyango",
-            "patientIdentifier.identifier": "7208MT-4",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "dec235a4-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Esline",
+                    "middleName": "Chepterer",
+                    "familyName": "Kipnyango",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd23faa3-1691-11df-97a5-7038c432aabf",
+                    "identifier": "7208MT-4",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd9b7203-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-10-18T00:00:00.000-0500",
-            "personName.givenName": "Jerita",
-            "personName.middleName": "Sikanga",
-            "personName.familyName": "Barasa",
-            "patientIdentifier.identifier": "7475CH-6",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "dec3af4b-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Jerita",
+                    "middleName": "Sikanga",
+                    "familyName": "Barasa",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd24f2af-1691-11df-97a5-7038c432aabf",
+                    "identifier": "7475CH-6",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd9dc5ec-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-12-28T00:00:00.000-0500",
-            "personName.givenName": "Zainabu",
-            "personName.middleName": "Aketch",
-            "personName.familyName": "Burget",
-            "patientIdentifier.identifier": "7679AM-4",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "dec5dcb2-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Zainabu",
+                    "middleName": "Aketch",
+                    "familyName": "Burget",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd26e4b9-1691-11df-97a5-7038c432aabf",
+                    "identifier": "7679AM-4",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dd9f69e2-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-06-21T00:00:00.000-0500",
-            "personName.givenName": "Michael",
-            "personName.middleName": "Mukasa",
-            "personName.familyName": "Mutind",
-            "patientIdentifier.identifier": "8045MP-8",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "dec7c629-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Michael",
+                    "middleName": "Mukasa",
+                    "familyName": "Mutind",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd29556c-1691-11df-97a5-7038c432aabf",
+                    "identifier": "8045MP-8",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dda16708-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1997-09-28T00:00:00.000-0500",
-            "personName.givenName": "Dolly",
-            "personName.middleName": "Mukasa",
-            "personName.familyName": "Tutungo",
-            "patientIdentifier.identifier": "8141CH-3",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
-        },
-        {
-            "uuid": "dda351b7-1691-11df-97a5-7038c432aabf",
-            "gender": "M",
-            "birthdate": "1997-09-04T00:00:00.000-0500",
-            "personName.givenName": "Albert",
-            "personName.middleName": "Luganda",
-            "personName.familyName": "Matimit",
-            "patientIdentifier.identifier": "8539MP-0",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "dec9af13-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Dolly",
+                    "middleName": "Mukasa",
+                    "familyName": "Tutungo",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd2a16c9-1691-11df-97a5-7038c432aabf",
+                    "identifier": "8141CH-3",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dda5b81c-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-06-01T00:00:00.000-0500",
-            "personName.givenName": "Shirongoto",
-            "personName.middleName": "Mabwai",
-            "personName.familyName": "Mogira",
-            "patientIdentifier.identifier": "8756KT-3",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "decdfffd-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Shirongoto",
+                    "middleName": "Mabwai",
+                    "familyName": "Mogira",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd2dbe47-1691-11df-97a5-7038c432aabf",
+                    "identifier": "8756KT-3",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dda91cbc-1691-11df-97a5-7038c432aabf",
             "gender": "M",
             "birthdate": "1998-01-25T00:00:00.000-0500",
-            "personName.givenName": "Sala",
-            "personName.middleName": "Kipkemboi",
-            "personName.familyName": "Suiter",
-            "patientIdentifier.identifier": "9164KT-9",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "decfd641-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Sala",
+                    "middleName": "Kipkemboi",
+                    "familyName": "Suiter",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd314814-1691-11df-97a5-7038c432aabf",
+                    "identifier": "9164KT-9",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         },
         {
             "uuid": "dda93715-1691-11df-97a5-7038c432aabf",
             "gender": "F",
             "birthdate": "1998-04-11T00:00:00.000-0500",
-            "personName.givenName": "Sheldon",
-            "personName.middleName": "Muigei",
-            "personName.familyName": "Jepchirchir",
-            "patientIdentifier.identifier": "9200KP-0",
-            "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+            "names": [
+                {
+                    "uuid": "ded00103-1691-11df-97a5-7038c432aabf",
+                    "givenName": "Sheldon",
+                    "middleName": "Muigei",
+                    "familyName": "Jepchirchir",
+                    "preferred": false
+                }
+            ],
+            "identifiers": [
+                {
+                    "uuid": "dd3166e3-1691-11df-97a5-7038c432aabf",
+                    "identifier": "9200KP-0",
+                    "preferred": false,
+                    "identifierType": {
+                        "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                        "name": "Old AMPATH Medical Record Number"
+                    }
+                }
+            ]
         }
     ]
 }

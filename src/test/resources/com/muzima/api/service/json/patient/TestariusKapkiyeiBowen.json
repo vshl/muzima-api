@@ -2,9 +2,24 @@
     "uuid": "dda926e4-1691-11df-97a5-7038c432aabf",
     "gender": "M",
     "birthdate": "1975-08-02T00:00:00.000-0500",
-    "personName.givenName": "Testarius",
-    "personName.middleName": "Kapkiyei",
-    "personName.familyName": "Bowen",
-    "patientIdentifier.identifier": "9176BF-3",
-    "patientIdentifier.identifierType.name": "Old AMPATH Medical Record Number"
+    "names": [
+        {
+            "uuid": "decfef80-1691-11df-97a5-7038c432aabf",
+            "givenName": "Testarius",
+            "middleName": "Kapkiyei",
+            "familyName": "Bowen",
+            "preferred": false
+        }
+    ],
+    "identifiers": [
+        {
+            "uuid": "dd315417-1691-11df-97a5-7038c432aabf",
+            "identifier": "9176BF-3",
+            "preferred": false,
+            "identifierType": {
+                "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                "name": "Old AMPATH Medical Record Number"
+            }
+        }
+    ]
 }

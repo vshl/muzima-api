@@ -15,6 +15,7 @@
  */
 package com.muzima.api.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,12 +45,19 @@ public class Role extends OpenmrsSearchable {
         this.name = name;
     }
 
+    public void add(final Privilege privilege) {
+        getPrivileges().add(privilege);
+    }
+
     /**
      * Get all privileges under this role.
      *
      * @return all privileges under this role.
      */
     public List<Privilege> getPrivileges() {
+        if (privileges == null) {
+            privileges = new ArrayList<Privilege>();
+        }
         return privileges;
     }
 

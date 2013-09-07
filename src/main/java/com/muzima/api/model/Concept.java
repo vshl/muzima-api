@@ -15,22 +15,21 @@
  */
 package com.muzima.api.model;
 
+import com.muzima.search.api.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * TODO: Write brief description about the class here.
  */
 public class Concept extends OpenmrsSearchable {
 
-    private String name;
-
     private String unit;
 
-    public String getName() {
-        return name;
-    }
+    private ConceptType conceptType;
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+    private List<ConceptName> conceptNames;
 
     public String getUnit() {
         return unit;
@@ -38,5 +37,39 @@ public class Concept extends OpenmrsSearchable {
 
     public void setUnit(final String unit) {
         this.unit = unit;
+    }
+
+    public ConceptType getConceptType() {
+        return conceptType;
+    }
+
+    public void setConceptType(final ConceptType conceptType) {
+        this.conceptType = conceptType;
+    }
+
+    public void addName(final ConceptName conceptName) {
+        getConceptNames().add(conceptName);
+    }
+
+    public List<ConceptName> getConceptNames() {
+        if (conceptNames == null) {
+            conceptNames = new ArrayList<ConceptName>();
+        }
+        return conceptNames;
+    }
+
+    public void setConceptNames(final List<ConceptName> conceptNames) {
+        this.conceptNames = conceptNames;
+    }
+
+    public String getName() {
+        String name = StringUtil.EMPTY;
+        for (ConceptName conceptName : conceptNames) {
+            name = conceptName.getName();
+            if (conceptName.isPreferred()) {
+                return name;
+            }
+        }
+        return name;
     }
 }

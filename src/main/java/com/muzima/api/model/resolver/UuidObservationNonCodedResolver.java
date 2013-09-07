@@ -16,14 +16,16 @@
 package com.muzima.api.model.resolver;
 
 
+import com.muzima.api.model.algorithm.ObservationAlgorithm;
+import com.muzima.search.api.util.StringUtil;
+
 import java.io.IOException;
 import java.util.Map;
 
-public class SearchObservationResolver extends BaseOpenmrsResolver {
+public class UuidObservationNonCodedResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION =
-            "?v=custom:(uuid,obsDatetime,concept.datatype.conceptDatatypeId,concept.name.name,concept.uuid," +
-                    "person.uuid,encounter:ref,location.uuid,location.name,valueCoded:ref,valueNumeric,valueDatetime)";
+            "?v=custom:" + ObservationAlgorithm.NON_CODED_OBSERVATION_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.
@@ -32,10 +34,10 @@ public class SearchObservationResolver extends BaseOpenmrsResolver {
      * @return full uri to the REST resource.
      */
     public String resolve(final Map<String, String> resourceParams) throws IOException {
-        StringBuilder paramBuilder = new StringBuilder();
-        for (String key : resourceParams.keySet()) {
-            paramBuilder.append("&").append(key).append("=").append(resourceParams.get(key));
+        String uuid = resourceParams.get("uuid");
+        if (StringUtil.isEmpty(uuid)) {
+            throw new IOException("Resolver unable to find required parameter uuid!");
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/muzima/obs" + REPRESENTATION + paramBuilder.toString();
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/obs/" + uuid + REPRESENTATION;
     }
 }

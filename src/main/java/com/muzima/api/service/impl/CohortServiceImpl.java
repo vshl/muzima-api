@@ -385,6 +385,11 @@ public class CohortServiceImpl implements CohortService {
         return memberDao.countMembers(cohortUuid);
     }
 
+    @Override
+    public Integer countCohortMembers(final Cohort cohort) throws IOException {
+        return memberDao.countMembers(cohort.getUuid());
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -393,6 +398,11 @@ public class CohortServiceImpl implements CohortService {
     @Override
     public List<CohortMember> getCohortMembers(final String cohortUuid) throws IOException {
         return memberDao.getByCohortUuid(cohortUuid);
+    }
+
+    @Override
+    public List<CohortMember> getCohortMembers(final Cohort cohort) throws IOException {
+        return memberDao.getByCohortUuid(cohort.getUuid());
     }
 
     /**
@@ -406,6 +416,12 @@ public class CohortServiceImpl implements CohortService {
         return memberDao.getByCohortUuid(cohortUuid, page, pageSize);
     }
 
+    @Override
+    public List<CohortMember> getCohortMembers(final Cohort cohort, final Integer page,
+                                               final Integer pageSize) throws IOException {
+        return memberDao.getByCohortUuid(cohort.getUuid(), page, pageSize);
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -414,5 +430,10 @@ public class CohortServiceImpl implements CohortService {
     @Override
     public void deleteCohortMembers(final String cohortUuid) throws IOException {
         memberDao.delete(getCohortMembers(cohortUuid), Constants.LOCAL_COHORT_MEMBER_RESOURCE);
+    }
+
+    @Override
+    public void deleteCohortMembers(final Cohort cohort) throws IOException {
+        memberDao.delete(getCohortMembers(cohort.getUuid()), Constants.LOCAL_COHORT_MEMBER_RESOURCE);
     }
 }

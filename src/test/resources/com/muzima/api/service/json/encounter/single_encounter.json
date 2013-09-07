@@ -1,0 +1,50 @@
+{
+    "uuid": "bf9c3102-1691-11df-97a5-7038c432aabf",
+    "provider": {
+        "uuid": "dd552fc1-1691-11df-97a5-7038c432aabf",
+        "gender": "M",
+        "birthdate": null,
+        "names": [
+            {
+                "uuid": "ded2585e-1691-11df-97a5-7038c432aabf",
+                "givenName": "Super",
+                "middleName": "",
+                "familyName": "User",
+                "preferred": true
+            }
+        ]
+    },
+    "encounterType": {
+        "uuid": "8d5b2be0-c2cc-11de-8d13-0010c6dffd0f",
+        "name": "ADULTRETURN"
+    },
+    "location": {
+        "uuid": "8d6c993e-c2cc-11de-8d13-0010c6dffd0f",
+        "name": "Unknown Location"
+    },
+    "patient": {
+        "uuid": "dd55e586-1691-11df-97a5-7038c432aabf",
+        "gender": "M",
+        "birthdate": "1965-09-18T00:00:00.000-0500",
+        "names": [
+            {
+                "uuid": "de836cec-1691-11df-97a5-7038c432aabf",
+                "givenName": "Testarius",
+                "middleName": "Ambote",
+                "familyName": "Indakasi",
+                "preferred": true
+            }
+        ],
+        "identifiers": [
+            {
+                "uuid": "dcea0c45-1691-11df-97a5-7038c432aabf",
+                "identifier": "363MO-5",
+                "preferred": true,
+                "identifierType": {
+                    "uuid": "58a46a32-1359-11df-a1f1-0026b9348838",
+                    "name": "Old AMPATH Medical Record Number"
+                }
+            }
+        ]
+    }
+}

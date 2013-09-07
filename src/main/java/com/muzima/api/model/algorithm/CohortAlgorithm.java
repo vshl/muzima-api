@@ -15,19 +15,17 @@
  */
 package com.muzima.api.model.algorithm;
 
-import com.jayway.jsonpath.InvalidPathException;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Cohort;
 import com.muzima.search.api.model.object.Searchable;
+import com.muzima.util.JsonPathUtils;
 import net.minidev.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
 
-    private final Logger logger = LoggerFactory.getLogger(CohortAlgorithm.class.getSimpleName());
+    public static final String COHORT_STANDARD_REPRESENTATION = "(uuid,name)";
 
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
@@ -38,23 +36,10 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String json) throws IOException {
         Cohort cohort = new Cohort();
-
         Object jsonObject = JsonPath.read(json, "$");
-
-        boolean dynamic = false;
-        try {
-            dynamic = (Boolean) JsonPath.read(jsonObject, "$['dynamic']");
-        } catch (InvalidPathException e) {
-            logger.error("REST resource doesn't contains dynamic information. Exiting!");
-        }
-        cohort.setDynamic(dynamic);
-
-        String uuid = JsonPath.read(jsonObject, "$['uuid']");
-        cohort.setUuid(uuid);
-
-        String name = JsonPath.read(jsonObject, "$['name']");
-        cohort.setName(name);
-
+        cohort.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
+        cohort.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
+        cohort.setDynamic(JsonPathUtils.readAsBoolean(jsonObject, "$['dynamic']"));
         return cohort;
     }
 
@@ -66,7 +51,6 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public String serialize(final Searchable object) throws IOException {
-        // serialize the minimum needed to identify an object for deletion purposes.
         Cohort cohort = (Cohort) object;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", cohort.getUuid());

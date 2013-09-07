@@ -15,149 +15,97 @@
  */
 package com.muzima.api.model;
 
-import com.muzima.search.api.util.StringUtil;
-
 import java.util.Date;
 
 public class Observation extends OpenmrsSearchable {
 
-    private String patientUuid;
+    private Person person;
 
-    private String encounterUuid;
+    private Encounter encounter;
 
-    private String value = StringUtil.EMPTY;
+    private Concept concept;
 
-    private Date observationDate;
+    private Concept valueCoded;
 
-    private Integer dataType;
+    private Date valueDatetime;
 
-    private String questionName;
+    private Double valueNumeric;
 
-    private String questionUuid;
+    private String valueText;
 
-    /**
-     * Get the uuid for the patient.
-     *
-     * @return the uuid for the patient.
-     */
-    public String getPatientUuid() {
-        return patientUuid;
+    private Date observationDatetime;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(final Person person) {
+        this.person = person;
+    }
+
+    public Encounter getEncounter() {
+        return encounter;
+    }
+
+    public void setEncounter(final Encounter encounter) {
+        this.encounter = encounter;
+    }
+
+    public Concept getConcept() {
+        return concept;
+    }
+
+    public void setConcept(final Concept concept) {
+        this.concept = concept;
+    }
+
+    public Concept getValueCoded() {
+        return valueCoded;
+    }
+
+    public void setValueCoded(final Concept valueCoded) {
+        this.valueCoded = valueCoded;
+    }
+
+    public Date getValueDatetime() {
+        return valueDatetime;
+    }
+
+    public void setValueDatetime(final Date valueDatetime) {
+        this.valueDatetime = valueDatetime;
+    }
+
+    public Double getValueNumeric() {
+        return valueNumeric;
+    }
+
+    public void setValueNumeric(final Double valueNumeric) {
+        this.valueNumeric = valueNumeric;
+    }
+
+    public String getValueText() {
+        return valueText;
+    }
+
+    public void setValueText(final String valueText) {
+        this.valueText = valueText;
     }
 
     /**
-     * Set the uuid for the patient.
+     * Get the date and time of the observation.
      *
-     * @param patientUuid the uuid for the patient.
+     * @return the date and time of the observation.
      */
-    public void setPatientUuid(final String patientUuid) {
-        this.patientUuid = patientUuid;
+    public Date getObservationDatetime() {
+        return observationDatetime;
     }
 
     /**
-     * Get the encounter uuid for this observation.
+     * Set the date and time of the observation.
      *
-     * @return the encounter uuid.
+     * @param observationDatetime the date and time of the observation.
      */
-    public String getEncounterUuid() {
-        return encounterUuid;
-    }
-
-    /**
-     * Set the encounter uuid for this observation.
-     *
-     * @param encounterUuid the encounter id.
-     */
-    public void setEncounterUuid(final String encounterUuid) {
-        this.encounterUuid = encounterUuid;
-    }
-
-    /**
-     * Get the date of the observation.
-     *
-     * @return the date of the observation.
-     */
-    public Date getObservationDate() {
-        return observationDate;
-    }
-
-    /**
-     * Set the date of the observation.
-     *
-     * @param observationDate the date of the observation.
-     */
-    public void setObservationDate(final Date observationDate) {
-        this.observationDate = observationDate;
-    }
-
-    /**
-     * Get the data type of the observation.
-     *
-     * @return the data type of the observation.
-     */
-    public Integer getDataType() {
-        return dataType;
-    }
-
-    /**
-     * Set the data type of the observation.
-     *
-     * @param dataType the data type of the observation.
-     */
-    public void setDataType(Integer dataType) {
-        this.dataType = dataType;
-    }
-
-    /**
-     * Get the question name of the observation.
-     *
-     * @return the question name of the observation.
-     */
-    public String getQuestionName() {
-        return questionName;
-    }
-
-    /**
-     * Set the question name of the observation.
-     *
-     * @param questionName the question name of the observation.
-     */
-    public void setQuestionName(final String questionName) {
-        this.questionName = questionName;
-    }
-
-    /**
-     * Get the uuid of the question of the observation.
-     *
-     * @return the uuid of the question of the observation.
-     */
-    public String getQuestionUuid() {
-        return questionUuid;
-    }
-
-    /**
-     * Set the uuid of the question of the observation.
-     *
-     * @param questionUuid the uuid of the question of the observation.
-     */
-    public void setQuestionUuid(final String questionUuid) {
-        this.questionUuid = questionUuid;
-    }
-
-    /**
-     * Get the value of the observation.
-     *
-     * @return the value of the observation.
-     */
-    public String getValue() {
-        return value;
-    }
-
-    /**
-     * Set the value of the observation.
-     *
-     * @param value the value of the observation.
-     */
-    public void setValue(final String value) {
-        this.value = value;
+    public void setObservationDatetime(final Date observationDatetime) {
+        this.observationDatetime = observationDatetime;
     }
 }

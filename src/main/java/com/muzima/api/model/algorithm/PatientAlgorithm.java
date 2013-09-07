@@ -17,19 +17,32 @@ package com.muzima.api.model.algorithm;
 
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Patient;
+import com.muzima.api.model.PatientIdentifier;
+import com.muzima.api.model.PersonName;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.ISO8601Util;
+import com.muzima.util.JsonPathUtils;
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Calendar;
+import java.util.List;
 
 public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
 
-    private Logger logger = LoggerFactory.getLogger(PatientAlgorithm.class.getSimpleName());
+    public static final String PATIENT_SIMPLE_REPRESENTATION = "(uuid)";
+    public static final String PATIENT_STANDARD_REPRESENTATION =
+            "(uuid,gender,birthdate," +
+                    "names:" + PersonNameAlgorithm.PERSON_NAME_REPRESENTATION + "," +
+                    "identifiers:" + PatientIdentifierAlgorithm.PATIENT_IDENTIFIER_REPRESENTATION + ")";
+    private PersonNameAlgorithm personNameAlgorithm;
+    private PatientIdentifierAlgorithm patientIdentifierAlgorithm;
+
+    public PatientAlgorithm() {
+        this.personNameAlgorithm = new PersonNameAlgorithm();
+        this.patientIdentifierAlgorithm = new PatientIdentifierAlgorithm();
+    }
 
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
@@ -39,38 +52,19 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public Searchable deserialize(final String json) throws IOException {
-
         Patient patient = new Patient();
-
-        // get the full json object representation and then pass this around to the next JsonPath.read()
-        // this should minimize the time for the subsequent read() call
         Object jsonObject = JsonPath.read(json, "$");
-
-        String uuid = JsonPath.read(jsonObject, "$['uuid']");
-        patient.setUuid(uuid);
-
-        String givenName = JsonPath.read(jsonObject, "$['personName.givenName']");
-        patient.setGivenName(givenName);
-
-        String middleName = JsonPath.read(jsonObject, "$['personName.middleName']");
-        patient.setMiddleName(middleName);
-
-        String familyName = JsonPath.read(jsonObject, "$['personName.familyName']");
-        patient.setFamilyName(familyName);
-
-        String identifier = JsonPath.read(jsonObject, "$['patientIdentifier.identifier']");
-        patient.setIdentifier(identifier);
-
-        String gender = JsonPath.read(jsonObject, "$['gender']");
-        patient.setGender(gender);
-
-        String birthdate = JsonPath.read(jsonObject, "$['birthdate']");
-        try {
-            patient.setBirthdate(ISO8601Util.toCalendar(birthdate).getTime());
-        } catch (ParseException e) {
-            logger.error(this.getClass().getSimpleName(), "Unable to parse date data from json payload.", e);
+        patient.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
+        patient.setGender(JsonPathUtils.readAsString(jsonObject, "$['gender']"));
+        patient.setBirthdate(JsonPathUtils.readAsDate(jsonObject, "$['birthdate']"));
+        List<Object> personNameObjects = JsonPath.read(jsonObject, "$['names']");
+        for (Object personNameObject : personNameObjects) {
+            patient.addName((PersonName) personNameAlgorithm.deserialize(personNameObject.toString()));
         }
-
+        List<Object> identifierObjects = JsonPath.read(jsonObject, "$['identifiers']");
+        for (Object identifierObject : identifierObjects) {
+            patient.addIdentifier((PatientIdentifier) patientIdentifierAlgorithm.deserialize(identifierObject.toString()));
+        }
         return patient;
     }
 
@@ -85,14 +79,22 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
         Patient patient = (Patient) object;
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("uuid", patient.getUuid());
-        jsonObject.put("personName.givenName", patient.getGivenName());
-        jsonObject.put("personName.middleName", patient.getMiddleName());
-        jsonObject.put("personName.familyName", patient.getFamilyName());
-        jsonObject.put("patientIdentifier.identifier", patient.getIdentifier());
         jsonObject.put("gender", patient.getGender());
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(patient.getBirthdate());
         jsonObject.put("birthdate", ISO8601Util.fromCalendar(calendar));
+        JSONArray nameArray = new JSONArray();
+        for (PersonName personName : patient.getNames()) {
+            String name = personNameAlgorithm.serialize(personName);
+            nameArray.add(JsonPath.read(name, "$"));
+        }
+        jsonObject.put("names", nameArray);
+        JSONArray identifierArray = new JSONArray();
+        for (PatientIdentifier identifier : patient.getIdentifiers()) {
+            String name = patientIdentifierAlgorithm.serialize(identifier);
+            identifierArray.add(JsonPath.read(name, "$"));
+        }
+        jsonObject.put("identifiers", identifierArray);
         return jsonObject.toJSONString();
     }
 }

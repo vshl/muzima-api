@@ -2,16 +2,16 @@ package com.muzima.api.model.algorithm;
 
 import com.jayway.jsonpath.InvalidPathException;
 import com.jayway.jsonpath.JsonPath;
+import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.search.api.util.ISO8601Util;
+import com.muzima.search.api.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -19,7 +19,21 @@ import java.util.List;
  */
 public class CohortDataAlgorithm extends BaseOpenmrsAlgorithm {
 
+    public static final String DYNAMIC_COHORT_DATA_REPRESENTATION =
+            "(definition:" + CohortAlgorithm.COHORT_STANDARD_REPRESENTATION + "," +
+                    "members:" + PatientAlgorithm.PATIENT_STANDARD_REPRESENTATION + ")";
+    public static final String STATIC_COHORT_DATA_REPRESENTATION =
+            "(cohort:" + CohortAlgorithm.COHORT_STANDARD_REPRESENTATION + "," +
+                    "patient:" + PatientAlgorithm.PATIENT_STANDARD_REPRESENTATION + ")";
+
     private final Logger logger = LoggerFactory.getLogger(CohortDataAlgorithm.class.getSimpleName());
+    private CohortAlgorithm cohortAlgorithm;
+    private PatientAlgorithm patientAlgorithm;
+
+    public CohortDataAlgorithm() {
+        this.cohortAlgorithm = new CohortAlgorithm();
+        this.patientAlgorithm = new PatientAlgorithm();
+    }
 
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
@@ -43,81 +57,37 @@ public class CohortDataAlgorithm extends BaseOpenmrsAlgorithm {
         return cohortData;
     }
 
-    private void processStaticCohortDataObject(final CohortData cohortData, final Object serialized) {
-        String cohortUuid = JsonPath.read(serialized, "$['results'][0]['cohort']['uuid']");
+    private void processStaticCohortDataObject(final CohortData cohortData, final Object serialized) throws IOException {
+        Cohort cohort = new Cohort();
+        List<Object> cohortObjects = JsonPath.read(serialized, "$['results'][*]['cohort']");
+        for (Object cohortObject : cohortObjects) {
+            cohort = (Cohort) cohortAlgorithm.deserialize(cohortObject.toString());
+            if (!StringUtil.isEmpty(cohort.getUuid()) && !StringUtil.isEmpty(cohort.getName())) {
+                break;
+            }
+        }
+        cohort.setDynamic(false);
+        cohortData.setCohort(cohort);
+
         List<Object> patientObjects = JsonPath.read(serialized, "$['results'][*]['patient']");
         for (Object patientObject : patientObjects) {
-            Patient patient = new Patient();
-
-            String patientUuid = JsonPath.read(patientObject, "$['uuid']");
-            patient.setUuid(patientUuid);
-
-            String givenName = JsonPath.read(patientObject, "$['personName.givenName']");
-            patient.setGivenName(givenName);
-
-            String middleName = JsonPath.read(patientObject, "$['personName.middleName']");
-            patient.setMiddleName(middleName);
-
-            String familyName = JsonPath.read(patientObject, "$['personName.familyName']");
-            patient.setFamilyName(familyName);
-
-            String identifier = JsonPath.read(patientObject, "$['patientIdentifier.identifier']");
-            patient.setIdentifier(identifier);
-
-            String gender = JsonPath.read(patientObject, "$['gender']");
-            patient.setGender(gender);
-
-            String birthdate = JsonPath.read(patientObject, "$['birthdate']");
-            try {
-                patient.setBirthdate(ISO8601Util.toCalendar(birthdate).getTime());
-            } catch (ParseException e) {
-                logger.error(this.getClass().getSimpleName(), "Unable to parse date data from json payload.", e);
-            }
+            Patient patient = (Patient) patientAlgorithm.deserialize(patientObject.toString());
+            cohortData.addCohortMember(new CohortMember(cohort, patient));
             cohortData.addPatient(patient);
-
-            CohortMember cohortMember = new CohortMember();
-            cohortMember.setPatientUuid(patientUuid);
-            cohortMember.setCohortUuid(cohortUuid);
-            cohortData.addCohortMember(cohortMember);
         }
     }
 
-    private void processDynamicCohortDataObject(final CohortData cohortData, final Object serialized) {
-        String cohortUuid = JsonPath.read(serialized, "$['definition.uuid']");
+    private void processDynamicCohortDataObject(final CohortData cohortData, final Object serialized) throws IOException {
+        Object definitionObject = JsonPath.read(serialized, "$['definition']");
+        Cohort cohort = (Cohort) cohortAlgorithm.deserialize(definitionObject.toString());
+        cohort.setDynamic(true);
+        cohortData.setCohort(cohort);
+
         List<Object> patientObjects = JsonPath.read(serialized, "$['members']");
         for (Object patientObject : patientObjects) {
-            Patient patient = new Patient();
-
-            String patientUuid = JsonPath.read(patientObject, "$['uuid']");
-            patient.setUuid(patientUuid);
-
-            String givenName = JsonPath.read(patientObject, "$['personName.givenName']");
-            patient.setGivenName(givenName);
-
-            String middleName = JsonPath.read(patientObject, "$['personName.middleName']");
-            patient.setMiddleName(middleName);
-
-            String familyName = JsonPath.read(patientObject, "$['personName.familyName']");
-            patient.setFamilyName(familyName);
-
-            String identifier = JsonPath.read(patientObject, "$['patientIdentifier.identifier']");
-            patient.setIdentifier(identifier);
-
-            String gender = JsonPath.read(patientObject, "$['gender']");
-            patient.setGender(gender);
-
-            String birthdate = JsonPath.read(patientObject, "$['birthdate']");
-            try {
-                patient.setBirthdate(ISO8601Util.toCalendar(birthdate).getTime());
-            } catch (ParseException e) {
-                logger.error(this.getClass().getSimpleName(), "Unable to parse date data from json payload.", e);
-            }
+            Patient patient = (Patient) patientAlgorithm.deserialize(patientObject.toString());
+            cohortData.addCohortMember(new CohortMember(cohort, patient));
             cohortData.addPatient(patient);
-
-            CohortMember cohortMember = new CohortMember();
-            cohortMember.setPatientUuid(patientUuid);
-            cohortMember.setCohortUuid(cohortUuid);
-            cohortData.addCohortMember(cohortMember);
         }
     }
 

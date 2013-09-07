@@ -17,14 +17,20 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Privilege;
 import com.muzima.api.model.Role;
 import com.muzima.search.api.model.object.Searchable;
+import com.muzima.util.JsonPathUtils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RoleAlgorithm extends BaseOpenmrsAlgorithm {
+
+    private PrivilegeAlgorithm privilegeAlgorithm;
+
+    public RoleAlgorithm() {
+        this.privilegeAlgorithm = new PrivilegeAlgorithm();
+    }
 
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
@@ -35,31 +41,13 @@ public class RoleAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String json) throws IOException {
         Role role = new Role();
-
         Object jsonObject = JsonPath.read(json, "$");
-
-        String uuid = JsonPath.read(jsonObject, "$['uuid']");
-        role.setUuid(uuid);
-
-        String name = JsonPath.read(jsonObject, "$['name']");
-        role.setName(name);
-
+        role.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
+        role.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
         List<Object> privilegeObjectArray = JsonPath.read(jsonObject, "$['privileges']");
-        List<Privilege> privileges = new ArrayList<Privilege>();
         for (Object privilegeObject : privilegeObjectArray) {
-            Privilege privilege = new Privilege();
-
-            String privilegeUuid = JsonPath.read(privilegeObject, "$['uuid']");
-            privilege.setUuid(privilegeUuid);
-
-            String privilegeName = JsonPath.read(privilegeObject, "$['name']");
-            privilege.setName(privilegeName);
-
-            privileges.add(privilege);
+            role.add((Privilege) privilegeAlgorithm.deserialize(privilegeObject.toString()));
         }
-
-        role.setPrivileges(privileges);
-
         return role;
     }
 
