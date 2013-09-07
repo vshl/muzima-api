@@ -53,6 +53,7 @@ public interface NotificationService extends MuzimaInterface {
      *
      * @param notification the notifications to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save notification to local data repository.
      */
     void saveNotification(final Notification notification) throws IOException;
 
@@ -61,8 +62,9 @@ public interface NotificationService extends MuzimaInterface {
      *
      * @param notifications the notifications to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save notifications to local data repository.
      */
-    void saveNotification(final List<Notification> notifications) throws IOException;
+    void saveNotifications(final List<Notification> notifications) throws IOException;
 
     /**
      * Get a single notification record from the local repository with matching uuid.

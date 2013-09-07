@@ -40,6 +40,7 @@ public interface PatientService extends MuzimaInterface {
      *
      * @param patient the patient to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save patient to local data repository.
      */
     void savePatient(final Patient patient) throws IOException;
 
@@ -48,6 +49,7 @@ public interface PatientService extends MuzimaInterface {
      *
      * @param patients the patients to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save patients to local data repository.
      */
     void savePatients(final List<Patient> patients) throws IOException;
 
@@ -55,8 +57,8 @@ public interface PatientService extends MuzimaInterface {
      * Update patient in the local lucene repository.
      *
      * @param patient the patient to be updated.
-     * @return the updated patient.
      * @throws IOException when search api unable to process the resource.
+     * @should replace existing patient in local data repository.
      */
     void updatePatient(final Patient patient) throws IOException;
 
@@ -64,8 +66,8 @@ public interface PatientService extends MuzimaInterface {
      * Update patients in the local lucene repository.
      *
      * @param patients the patients to be updated.
-     * @return the updated patient.
      * @throws IOException when search api unable to process the resource.
+     * @should replace existing patients in local data repository.
      */
     void updatePatients(final List<Patient> patients) throws IOException;
 
@@ -104,7 +106,6 @@ public interface PatientService extends MuzimaInterface {
      * Get all saved patients in the local repository.
      *
      * @return all registered patients or empty list when no patient is registered.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
      * @should return all registered patients.
      * @should return empty list when no patient is registered.

@@ -56,6 +56,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param form the form object to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save form to local data repository.
      */
     void saveForm(final Form form) throws IOException;
 
@@ -64,6 +65,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param forms the form objects to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save list of forms to local data repository.
      */
     void saveForms(final List<Form> forms) throws IOException;
 
@@ -72,6 +74,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param form the form object to be updated.
      * @throws IOException when search api unable to process the resource.
+     * @should replace existing form in local data repository.
      */
     void updateForm(final Form form) throws IOException;
 
@@ -80,6 +83,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param forms the form objects to be updated.
      * @throws IOException when search api unable to process the resource.
+     * @should replace list of forms in local data repository.
      */
     void updateForms(final List<Form> forms) throws IOException;
 
@@ -100,6 +104,7 @@ public interface FormService extends MuzimaInterface {
      * @param name the partial form name.
      * @return total number of form with matching the partial name.
      * @throws IOException when search api unable to process the resource.
+     * @should count all forms with matching name.
      */
     Integer countFormByName(final String name) throws IOException;
 
@@ -119,6 +124,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @return the total number of the form objects.
      * @throws IOException when search api unable to process the resource.
+     * @should return number of all forms in local data repository.
      */
     Integer countAllForms() throws IOException;
 
@@ -137,6 +143,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param form the form to be deleted.
      * @throws IOException when search api unable to process the resource.
+     * @should delete form from local data repository.
      */
     void deleteForm(final Form form) throws IOException;
 
@@ -145,6 +152,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param forms the forms to be deleted.
      * @throws IOException when search api unable to process the resource.
+     * @should delete list of forms from local data repository.
      */
     void deleteForms(final List<Form> forms) throws IOException;
 
@@ -154,6 +162,7 @@ public interface FormService extends MuzimaInterface {
      * @param formUuid the uuid of the form.
      * @return true when the form template for the form is already downloaded.
      * @throws IOException when the search api unable to process the resource.
+     * @should return true if the template for the form with form uuid is downloaded.
      */
     Boolean isFormTemplateDownloaded(final String formUuid) throws IOException;
 
@@ -163,6 +172,7 @@ public interface FormService extends MuzimaInterface {
      * @param uuid the uuid of the form.
      * @return the form template with matching uuid downloaded from the server.
      * @throws IOException when search api unable to process the resource.
+     * @should download the form template by the uuid of the form.
      */
     FormTemplate downloadFormTemplateByUuid(final String uuid) throws IOException;
 
@@ -173,6 +183,7 @@ public interface FormService extends MuzimaInterface {
      * @return list of all matching form templates based on the name of the form.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
+     * @should download the form template by the name of the form.
      */
     List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException;
 
@@ -181,6 +192,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param formTemplate the form template to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save the form template to the local data repository.
      */
     void saveFormTemplate(final FormTemplate formTemplate) throws IOException;
 
@@ -189,6 +201,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param formTemplates the form templates to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save the list of form templates to local data repository.
      */
     void saveFormTemplates(final List<FormTemplate> formTemplates) throws IOException;
 
@@ -198,6 +211,7 @@ public interface FormService extends MuzimaInterface {
      * @param uuid the form template uuid.
      * @return the form template.
      * @throws IOException when search api unable to process the resource.
+     * @should get the form template by the uuid.
      */
     FormTemplate getFormTemplateByUuid(final String uuid) throws IOException;
 
@@ -206,6 +220,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @return the total number of saved form templates.
      * @throws IOException when search api unable to process the resource.
+     * @should count all form templates in local data repository.
      */
     Integer countAllFormTemplates() throws IOException;
 
@@ -214,6 +229,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @return all saved form templates or empty list when there's no form template saved.
      * @throws IOException when search api unable to process the resource.
+     * @should return all saved form templates fom local data repository.
      */
     List<FormTemplate> getAllFormTemplates() throws IOException;
 
@@ -222,6 +238,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param formTemplate the form template to be deleted.
      * @throws IOException when search api unable to process the resource.
+     * @should delete the form template from local data repository.
      */
     void deleteFormTemplate(final FormTemplate formTemplate) throws IOException;
 
@@ -230,6 +247,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param formTemplates the form templates to be deleted.
      * @throws IOException when search api unable to process the resource.
+     * @should delete the list of forms from local data repository.
      */
     void deleteFormTemplates(final List<FormTemplate> formTemplates) throws IOException;
 
@@ -238,6 +256,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param formData the form data to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save form data to local data repository.
      */
     void saveFormData(final FormData formData) throws IOException;
 
@@ -247,6 +266,7 @@ public interface FormService extends MuzimaInterface {
      * @param uuid the uuid for the form data.
      * @return the form data object.
      * @throws IOException when search api unable to process the resource.
+     * @should return form data by the uuid.
      */
     FormData getFormDataByUuid(final String uuid) throws IOException;
 
@@ -255,6 +275,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @return total number of form data.
      * @throws IOException when search api unable to process the resource.
+     * @should count all form data in local data repository.
      */
     Integer countAllFormData() throws IOException;
 
@@ -264,6 +285,7 @@ public interface FormService extends MuzimaInterface {
      * @param status the status of the form data (optional).
      * @return all form data with matching status.
      * @throws IOException when search api unable to process the resource.
+     * @should return all form data with matching status from local data repository.
      */
     List<FormData> getAllFormData(final String status) throws IOException;
 
@@ -274,6 +296,7 @@ public interface FormService extends MuzimaInterface {
      * @param status   the status of the form data (optional).
      * @return all form data for the user with matching status.
      * @throws IOException when search api unable to process the resource.
+     * @should return all form data with matching user and status.
      */
     List<FormData> getFormDataByUser(final String userUuid, final String status) throws IOException;
 
@@ -284,6 +307,7 @@ public interface FormService extends MuzimaInterface {
      * @param status      the status of the form data (optional).
      * @return all form data for the patient with matching status.
      * @throws IOException when search api unable to process the resource.
+     * @should return all form data with matching patient and status.
      */
     List<FormData> getFormDataByPatient(final String patientUuid, final String status) throws IOException;
 
@@ -292,6 +316,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param formData the form data
      * @throws IOException when search api unable to process the resource.
+     * @should delete form data from local data repository.
      */
     void deleteFormData(final FormData formData) throws IOException;
 
@@ -300,6 +325,7 @@ public interface FormService extends MuzimaInterface {
      *
      * @param formData the instances of form data
      * @throws IOException when search api unable to process the resource.
+     * @should delete list of form data from local data repository.
      */
     void deleteFormData(final List<FormData> formData) throws IOException;
 }

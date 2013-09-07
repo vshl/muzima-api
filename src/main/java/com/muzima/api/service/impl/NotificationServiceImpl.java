@@ -95,10 +95,10 @@ public class NotificationServiceImpl implements NotificationService {
     /**
      * {@inheritDoc}
      *
-     * @see NotificationService#saveNotification(java.util.List)
+     * @see NotificationService#saveNotifications(java.util.List
      */
     @Override
-    public void saveNotification(final List<Notification> notifications) throws IOException {
+    public void saveNotifications(final List<Notification> notifications) throws IOException {
         notificationDao.save(notifications, Constants.UUID_NOTIFICATION_RESOURCE);
     }
 

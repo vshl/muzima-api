@@ -55,6 +55,7 @@ public interface ObservationService extends MuzimaInterface {
      *
      * @param observation the observation to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save observation to local data repository
      */
     void saveObservation(final Observation observation) throws IOException;
 
@@ -63,6 +64,7 @@ public interface ObservationService extends MuzimaInterface {
      *
      * @param observations the observations to be saved.
      * @throws IOException when search api unable to process the resource.
+     * @should save observations to local data repository
      */
     void saveObservations(final List<Observation> observations) throws IOException;
 
@@ -71,6 +73,7 @@ public interface ObservationService extends MuzimaInterface {
      *
      * @param observation the observation to be updated.
      * @throws IOException when search api unable to process the resource.
+     * @should replace existing observation in the local data repository.
      */
     void updateObservation(final Observation observation) throws IOException;
 
@@ -79,6 +82,7 @@ public interface ObservationService extends MuzimaInterface {
      *
      * @param observations the observations to be updated.
      * @throws IOException when search api unable to process the resource.
+     * @should replace existing observations in the local data repository.
      */
     void updateObservations(final List<Observation> observations) throws IOException;
 
