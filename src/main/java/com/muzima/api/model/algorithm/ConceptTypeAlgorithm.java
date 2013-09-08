@@ -18,7 +18,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.ConceptType;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -40,8 +40,8 @@ public class ConceptTypeAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         ConceptType conceptType = new ConceptType();
         Object jsonObject = JsonPath.read(serialized, "$");
-        conceptType.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        conceptType.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
+        conceptType.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        conceptType.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
         return conceptType;
     }
 
@@ -55,8 +55,8 @@ public class ConceptTypeAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         ConceptType conceptType = (ConceptType) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", conceptType.getUuid());
-        jsonObject.put("name", conceptType.getName());
+        JsonUtils.writeAsString(jsonObject, "uuid", conceptType.getUuid());
+        JsonUtils.writeAsString(jsonObject, "name", conceptType.getName());
         return jsonObject.toJSONString();
     }
 }

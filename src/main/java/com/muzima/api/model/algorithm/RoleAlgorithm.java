@@ -17,7 +17,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Privilege;
 import com.muzima.api.model.Role;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
@@ -42,8 +42,8 @@ public class RoleAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String json) throws IOException {
         Role role = new Role();
         Object jsonObject = JsonPath.read(json, "$");
-        role.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        role.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
+        role.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        role.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
         List<Object> privilegeObjectArray = JsonPath.read(jsonObject, "$['privileges']");
         for (Object privilegeObject : privilegeObjectArray) {
             role.add((Privilege) privilegeAlgorithm.deserialize(privilegeObject.toString()));
@@ -61,18 +61,14 @@ public class RoleAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Role role = (Role) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", role.getUuid());
-        jsonObject.put("name", role.getName());
-
-        JSONArray privilegeObjectArray = new JSONArray();
+        JsonUtils.writeAsString(jsonObject, "uuid", role.getUuid());
+        JsonUtils.writeAsString(jsonObject, "name", role.getName());
+        JSONArray privilegeArray = new JSONArray();
         for (Privilege privilege : role.getPrivileges()) {
-            JSONObject privilegeObject = new JSONObject();
-            privilegeObject.put("uuid", privilege.getUuid());
-            privilegeObject.put("name", privilege.getName());
-            privilegeObjectArray.add(privilegeObject);
+            String privilegeString = privilegeAlgorithm.serialize(privilege);
+            privilegeArray.add(JsonPath.read(privilegeString, "$"));
         }
-        jsonObject.put("privileges", privilegeObjectArray);
-
+        jsonObject.put("privileges", privilegeArray);
         return jsonObject.toJSONString();
     }
 }

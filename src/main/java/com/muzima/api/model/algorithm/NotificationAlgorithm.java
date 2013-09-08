@@ -19,7 +19,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Notification;
 import com.muzima.api.model.Person;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -48,9 +48,9 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
     public Notification deserialize(final String json) throws IOException {
         Notification notification = new Notification();
         Object jsonObject = JsonPath.read(json, "$");
-        notification.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        notification.setSubject(JsonPathUtils.readAsString(jsonObject, "$['subject']"));
-        notification.setPayload(JsonPathUtils.readAsString(jsonObject, "$['payload']"));
+        notification.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        notification.setSubject(JsonUtils.readAsString(jsonObject, "$['subject']"));
+        notification.setPayload(JsonUtils.readAsString(jsonObject, "$['payload']"));
         Object senderObject = JsonPath.read(jsonObject, "$['sender']");
         notification.setSender((Person) personAlgorithm.deserialize(senderObject.toString()));
         Object receiverObject = JsonPath.read(jsonObject, "$['receiver']");
@@ -68,9 +68,9 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Notification notification = (Notification) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", notification.getUuid());
-        jsonObject.put("subject", notification.getSubject());
-        jsonObject.put("payload", notification.getPayload());
+        JsonUtils.writeAsString(jsonObject, "uuid", notification.getUuid());
+        JsonUtils.writeAsString(jsonObject, "subject", notification.getSubject());
+        JsonUtils.writeAsString(jsonObject, "payload", notification.getPayload());
         String sender = personAlgorithm.serialize(notification.getSender());
         jsonObject.put("sender", JsonPath.read(sender, "$"));
         String receiver = personAlgorithm.serialize(notification.getReceiver());

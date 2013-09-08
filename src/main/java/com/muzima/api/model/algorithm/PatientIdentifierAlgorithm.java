@@ -19,7 +19,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.PatientIdentifier;
 import com.muzima.api.model.PatientIdentifierType;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -45,9 +45,9 @@ public class PatientIdentifierAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String json) throws IOException {
         PatientIdentifier patientIdentifier = new PatientIdentifier();
         Object jsonObject = JsonPath.read(json, "$");
-        patientIdentifier.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        patientIdentifier.setIdentifier(JsonPathUtils.readAsString(jsonObject, "$['identifier']"));
-        patientIdentifier.setPreferred(JsonPathUtils.readAsBoolean(jsonObject, "$['preferred']"));
+        patientIdentifier.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        patientIdentifier.setIdentifier(JsonUtils.readAsString(jsonObject, "$['identifier']"));
+        patientIdentifier.setPreferred(JsonUtils.readAsBoolean(jsonObject, "$['preferred']"));
         Object identifierTypeObject = JsonPath.read(jsonObject, "$['identifierType']");
         PatientIdentifierType identifierType =
                 (PatientIdentifierType) patientIdentifierTypeAlgorithm.deserialize(identifierTypeObject.toString());
@@ -65,9 +65,9 @@ public class PatientIdentifierAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         PatientIdentifier patientIdentifier = (PatientIdentifier) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", patientIdentifier.getUuid());
-        jsonObject.put("identifier", patientIdentifier.getIdentifier());
-        jsonObject.put("preferred", patientIdentifier.isPreferred());
+        JsonUtils.writeAsString(jsonObject, "uuid", patientIdentifier.getUuid());
+        JsonUtils.writeAsString(jsonObject, "identifier", patientIdentifier.getIdentifier());
+        JsonUtils.writeAsBoolean(jsonObject, "preferred", patientIdentifier.isPreferred());
         String conceptType = patientIdentifierTypeAlgorithm.serialize(patientIdentifier.getIdentifierType());
         jsonObject.put("identifierType", JsonPath.read(conceptType, "$"));
         return jsonObject.toJSONString();

@@ -51,8 +51,6 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
  */
 public class CohortServiceTest {
 
-    private final Logger logger = LoggerFactory.getLogger(CohortServiceTest.class.getSimpleName());
-
     // baseline static cohort
     private Cohort staticCohort;
     private List<Cohort> staticCohorts;

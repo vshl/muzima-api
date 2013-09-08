@@ -17,6 +17,7 @@ package com.muzima.util;
 
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.search.api.util.ISO8601Util;
+import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,9 +28,16 @@ import java.util.Date;
 /**
  * TODO: Write brief description about the class here.
  */
-public class JsonPathUtils {
+public class JsonUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(JsonPathUtils.class.getSimpleName());
+    private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class.getSimpleName());
+
+    public static void writeAsBoolean(final Object object, final String path, final boolean value) {
+        if (object instanceof JSONObject) {
+            JSONObject jsonObject = (JSONObject) object;
+            jsonObject.put(path, value);
+        }
+    }
 
     public static boolean readAsBoolean(final Object jsonObject, final String path) {
         boolean returnedBoolean = false;
@@ -39,6 +47,13 @@ public class JsonPathUtils {
             logger.error("Unable to read boolean value with path: " + path + " from: " + String.valueOf(jsonObject));
         }
         return returnedBoolean;
+    }
+
+    public static void writeAsNumeric(final Object object, final String path, final double value) {
+        if (object instanceof JSONObject) {
+            JSONObject jsonObject = (JSONObject) object;
+            jsonObject.put(path, value);
+        }
     }
 
     public static double readAsNumeric(final Object jsonObject, final String path) {
@@ -51,6 +66,13 @@ public class JsonPathUtils {
         return returnedString;
     }
 
+    public static void writeAsString(final Object object, final String path, final String value) {
+        if (object instanceof JSONObject) {
+            JSONObject jsonObject = (JSONObject) object;
+            jsonObject.put(path, value);
+        }
+    }
+
     public static String readAsString(final Object jsonObject, final String path) {
         String returnedString = null;
         try {
@@ -59,6 +81,19 @@ public class JsonPathUtils {
             logger.error("Unable to read string value with path: " + path + " from: " + String.valueOf(jsonObject));
         }
         return returnedString;
+    }
+
+    public static void writeAsDate(final Object object, final String path, final Date value) {
+        if (object instanceof JSONObject) {
+            JSONObject jsonObject = (JSONObject) object;
+            String dateValue = null;
+            if (value != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(value);
+                dateValue = ISO8601Util.fromCalendar(calendar);
+            }
+            jsonObject.put(path, dateValue);
+        }
     }
 
     public static Date readAsDate(final Object jsonObject, final String path) {

@@ -18,7 +18,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.PersonName;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -40,11 +40,11 @@ public class PersonNameAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         PersonName personName = new PersonName();
         Object jsonObject = JsonPath.read(serialized, "$");
-        personName.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        personName.setGivenName(JsonPathUtils.readAsString(jsonObject, "$['givenName']"));
-        personName.setMiddleName(JsonPathUtils.readAsString(jsonObject, "$['middleName']"));
-        personName.setFamilyName(JsonPathUtils.readAsString(jsonObject, "$['familyName']"));
-        personName.setPreferred(JsonPathUtils.readAsBoolean(jsonObject, "$['preferred']"));
+        personName.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        personName.setGivenName(JsonUtils.readAsString(jsonObject, "$['givenName']"));
+        personName.setMiddleName(JsonUtils.readAsString(jsonObject, "$['middleName']"));
+        personName.setFamilyName(JsonUtils.readAsString(jsonObject, "$['familyName']"));
+        personName.setPreferred(JsonUtils.readAsBoolean(jsonObject, "$['preferred']"));
         return personName;
     }
 
@@ -58,11 +58,11 @@ public class PersonNameAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         PersonName personName = (PersonName) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", personName.getUuid());
-        jsonObject.put("givenName", personName.getGivenName());
-        jsonObject.put("middleName", personName.getMiddleName());
-        jsonObject.put("familyName", personName.getFamilyName());
-        jsonObject.put("preferred", personName.isPreferred());
+        JsonUtils.writeAsString(jsonObject, "uuid", personName.getUuid());
+        JsonUtils.writeAsString(jsonObject, "givenName", personName.getGivenName());
+        JsonUtils.writeAsString(jsonObject, "middleName", personName.getMiddleName());
+        JsonUtils.writeAsString(jsonObject, "familyName", personName.getFamilyName());
+        JsonUtils.writeAsBoolean(jsonObject, "preferred", personName.isPreferred());
         return jsonObject.toJSONString();
     }
 }

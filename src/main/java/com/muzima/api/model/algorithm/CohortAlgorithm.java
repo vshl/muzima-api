@@ -18,7 +18,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Cohort;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -37,9 +37,9 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String json) throws IOException {
         Cohort cohort = new Cohort();
         Object jsonObject = JsonPath.read(json, "$");
-        cohort.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        cohort.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
-        cohort.setDynamic(JsonPathUtils.readAsBoolean(jsonObject, "$['dynamic']"));
+        cohort.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        cohort.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
+        cohort.setDynamic(JsonUtils.readAsBoolean(jsonObject, "$['dynamic']"));
         return cohort;
     }
 
@@ -53,9 +53,9 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Cohort cohort = (Cohort) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", cohort.getUuid());
-        jsonObject.put("name", cohort.getName());
-        jsonObject.put("dynamic", cohort.isDynamic());
+        JsonUtils.writeAsString(jsonObject, "uuid", cohort.getUuid());
+        JsonUtils.writeAsString(jsonObject, "name", cohort.getName());
+        JsonUtils.writeAsBoolean(jsonObject, "dynamic", cohort.isDynamic());
         return jsonObject.toJSONString();
     }
 }

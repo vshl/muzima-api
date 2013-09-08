@@ -17,6 +17,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Form;
 import com.muzima.api.model.Tag;
 import com.muzima.search.api.model.object.Searchable;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
@@ -32,34 +33,22 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public Searchable deserialize(final String json) throws IOException {
-
         Form form = new Form();
-
         Object jsonObject = JsonPath.read(json, "$");
-
-        String uuid = JsonPath.read(jsonObject, "$['uuid']");
-        form.setUuid(uuid);
-
-        String name = JsonPath.read(jsonObject, "$['name']");
-        form.setName(name);
-
-        String description = JsonPath.read(jsonObject, "$['description']");
-        form.setDescription(description);
-
-        JSONArray tagsJson = JsonPath.read(jsonObject, "$['tags']");
-        Tag[] tags = new Tag[tagsJson.size()];
-        for (int i = 0; i < tagsJson.size(); i++) {
+        form.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        form.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
+        form.setDescription(JsonUtils.readAsString(jsonObject, "$['description']"));
+        JSONArray tagObjects = JsonPath.read(jsonObject, "$['tags']");
+        Tag[] tags = new Tag[tagObjects.size()];
+        for (int i = 0; i < tagObjects.size(); i++) {
             Tag tag = new Tag();
-            JSONObject tagJson = (JSONObject) tagsJson.get(i);
-            tag.setName((String) tagJson.get("name"));
-            tag.setUuid((String) tagJson.get("uuid"));
+            Object tagObject = tagObjects.get(i);
+            tag.setName(JsonUtils.readAsString(tagObject, "name"));
+            tag.setUuid(JsonUtils.readAsString(tagObject, "uuid"));
             tags[i] = tag;
         }
         form.setTags(tags);
-
-        //TODO fetch this from server
         form.setVersion("1");
-
         return form;
     }
 
@@ -74,11 +63,11 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
         // serialize the minimum needed to identify an object for deletion purposes.
         Form form = (Form) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", form.getUuid());
-        jsonObject.put("name", form.getName());
+        JsonUtils.writeAsString(jsonObject, "uuid", form.getUuid());
+        JsonUtils.writeAsString(jsonObject, "name", form.getName());
+        JsonUtils.writeAsString(jsonObject, "description", form.getDescription());
+        JsonUtils.writeAsString(jsonObject, "version", form.getVersion());
         jsonObject.put("tags", readTagsToJsonArray(form));
-        jsonObject.put("description", form.getDescription());
-        jsonObject.put("version", form.getVersion());
         return jsonObject.toJSONString();
     }
 
@@ -87,8 +76,8 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
         Tag[] tags = form.getTags();
         for (Tag tag : tags) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("name", tag.getName());
-            jsonObject.put("uuid", tag.getUuid());
+            JsonUtils.writeAsString(jsonObject, "name", tag.getName());
+            JsonUtils.writeAsString(jsonObject, "uuid", tag.getUuid());
             jsonArray.add(jsonObject);
         }
         return jsonArray;

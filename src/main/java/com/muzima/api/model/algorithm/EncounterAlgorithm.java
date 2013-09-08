@@ -23,7 +23,7 @@ import com.muzima.api.model.Patient;
 import com.muzima.api.model.Person;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.ISO8601Util;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -64,8 +64,8 @@ public class EncounterAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         Encounter encounter = new Encounter();
         Object jsonObject = JsonPath.read(serialized, "$");
-        encounter.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        encounter.setEncounterDatetime(JsonPathUtils.readAsDate(jsonObject, "$['encounterDatetime']"));
+        encounter.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        encounter.setEncounterDatetime(JsonUtils.readAsDate(jsonObject, "$['encounterDatetime']"));
         Object patientObject = JsonPath.read(jsonObject, "$['patient']");
         encounter.setPatient((Patient) patientAlgorithm.deserialize(patientObject.toString()));
         Object providerObject = JsonPath.read(jsonObject, "$['provider']");
@@ -87,9 +87,7 @@ public class EncounterAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Encounter encounter = (Encounter) object;
         JSONObject jsonObject = new JSONObject();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(encounter.getEncounterDatetime());
-        jsonObject.put("encounterDatetime", ISO8601Util.fromCalendar(calendar));
+        JsonUtils.writeAsDate(jsonObject, "encounterDatetime", encounter.getEncounterDatetime());
         String patient = patientAlgorithm.serialize(encounter.getPatient());
         jsonObject.put("patient", JsonPath.read(patient, "$"));
         String provider = personAlgorithm.serialize(encounter.getProvider());

@@ -20,7 +20,7 @@ import com.muzima.api.model.Person;
 import com.muzima.api.model.PersonName;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.ISO8601Util;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
@@ -49,9 +49,9 @@ public class PersonAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String json) throws IOException {
         Person person = new Person();
         Object jsonObject = JsonPath.read(json, "$");
-        person.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        person.setGender(JsonPathUtils.readAsString(jsonObject, "$['gender']"));
-        person.setBirthdate(JsonPathUtils.readAsDate(jsonObject, "$['birthdate']"));
+        person.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        person.setGender(JsonUtils.readAsString(jsonObject, "$['gender']"));
+        person.setBirthdate(JsonUtils.readAsDate(jsonObject, "$['birthdate']"));
         List<Object> personNameObjects = JsonPath.read(jsonObject, "$['names']");
         for (Object personNameObject : personNameObjects) {
             person.addName((PersonName) personNameAlgorithm.deserialize(personNameObject.toString()));
@@ -69,11 +69,9 @@ public class PersonAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Person person = (Person) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", person.getUuid());
-        jsonObject.put("gender", person.getGender());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(person.getBirthdate());
-        jsonObject.put("birthdate", ISO8601Util.fromCalendar(calendar));
+        JsonUtils.writeAsString(jsonObject, "uuid", person.getUuid());
+        JsonUtils.writeAsString(jsonObject, "gender", person.getGender());
+        JsonUtils.writeAsDate(jsonObject, "birthdate", person.getBirthdate());
         JSONArray nameArray = new JSONArray();
         for (PersonName personName : person.getNames()) {
             String name = personNameAlgorithm.serialize(personName);

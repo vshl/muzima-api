@@ -18,7 +18,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.PatientIdentifierType;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -40,8 +40,8 @@ public class PatientIdentifierTypeAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         PatientIdentifierType identifierType = new PatientIdentifierType();
         Object jsonObject = JsonPath.read(serialized, "$");
-        identifierType.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        identifierType.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
+        identifierType.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        identifierType.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
         return identifierType;
     }
 
@@ -55,8 +55,8 @@ public class PatientIdentifierTypeAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         PatientIdentifierType identifierType = (PatientIdentifierType) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", identifierType.getUuid());
-        jsonObject.put("name", identifierType.getName());
+        JsonUtils.writeAsString(jsonObject, "uuid", identifierType.getUuid());
+        JsonUtils.writeAsString(jsonObject, "name", identifierType.getName());
         return jsonObject.toJSONString();
     }
 }

@@ -18,7 +18,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Location;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -40,8 +40,8 @@ public class LocationAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         Location location = new Location();
         Object jsonObject = JsonPath.read(serialized, "$");
-        location.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        location.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
+        location.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        location.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
         return location;
     }
 
@@ -55,8 +55,8 @@ public class LocationAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Location location = (Location) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", location.getUuid());
-        jsonObject.put("name", location.getName());
+        JsonUtils.writeAsString(jsonObject, "uuid", location.getUuid());
+        JsonUtils.writeAsString(jsonObject, "name", location.getName());
         return jsonObject.toJSONString();
     }
 }

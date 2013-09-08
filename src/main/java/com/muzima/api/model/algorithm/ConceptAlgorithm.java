@@ -20,7 +20,7 @@ import com.muzima.api.model.Concept;
 import com.muzima.api.model.ConceptName;
 import com.muzima.api.model.ConceptType;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
@@ -33,7 +33,7 @@ import java.util.List;
 public class ConceptAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String CONCEPT_SIMPLE_REPRESENTATION = "(uuid)";
-    public static final String CONCEPT_NON_NUMERIC_STANDARD_REPRESENTATION =
+    public static final String CONCEPT_STANDARD_REPRESENTATION =
             "(uuid," +
                     "datatype:" + ConceptTypeAlgorithm.CONCEPT_TYPE_STANDARD_REPRESENTATION + "," +
                     "names:" + ConceptNameAlgorithm.CONCEPT_NAME_STANDARD_REPRESENTATION + ")";
@@ -60,8 +60,8 @@ public class ConceptAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         Concept concept = new Concept();
         Object jsonObject = JsonPath.read(serialized, "$");
-        concept.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        concept.setUnit(JsonPathUtils.readAsString(jsonObject, "$['units']"));
+        concept.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        concept.setUnit(JsonUtils.readAsString(jsonObject, "$['units']"));
         Object conceptTypeObject = JsonPath.read(jsonObject, "$['datatype']");
         concept.setConceptType((ConceptType) conceptTypeAlgorithm.deserialize(conceptTypeObject.toString()));
         List<Object> conceptNameObjects = JsonPath.read(jsonObject, "$['names']");
@@ -81,8 +81,8 @@ public class ConceptAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Concept concept = (Concept) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", concept.getUuid());
-        jsonObject.put("units", concept.getUnit());
+        JsonUtils.writeAsString(jsonObject, "uuid", concept.getUuid());
+        JsonUtils.writeAsString(jsonObject, "units", concept.getUnit());
         String conceptType = conceptTypeAlgorithm.serialize(concept.getConceptType());
         jsonObject.put("datatype", JsonPath.read(conceptType, "$"));
         JSONArray jsonArray = new JSONArray();

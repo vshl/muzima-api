@@ -18,7 +18,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.ConceptName;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -40,9 +40,9 @@ public class ConceptNameAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         ConceptName conceptName = new ConceptName();
         Object jsonObject = JsonPath.read(serialized, "$");
-        conceptName.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        conceptName.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
-        conceptName.setPreferred(JsonPathUtils.readAsBoolean(jsonObject, "$['localePreferred']"));
+        conceptName.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        conceptName.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
+        conceptName.setPreferred(JsonUtils.readAsBoolean(jsonObject, "$['localePreferred']"));
         return conceptName;
     }
 
@@ -56,9 +56,9 @@ public class ConceptNameAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         ConceptName conceptName = (ConceptName) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", conceptName.getUuid());
-        jsonObject.put("name", conceptName.getName());
-        jsonObject.put("localePreferred", conceptName.isPreferred());
+        JsonUtils.writeAsString(jsonObject, "uuid", conceptName.getUuid());
+        JsonUtils.writeAsString(jsonObject, "name", conceptName.getName());
+        JsonUtils.writeAsBoolean(jsonObject, "localePreferred", conceptName.isPreferred());
         return jsonObject.toJSONString();
     }
 }

@@ -18,7 +18,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.EncounterType;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -40,8 +40,8 @@ public class EncounterTypeAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         EncounterType encounterType = new EncounterType();
         Object jsonObject = JsonPath.read(serialized, "$");
-        encounterType.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        encounterType.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
+        encounterType.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        encounterType.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
         return encounterType;
     }
 
@@ -55,8 +55,8 @@ public class EncounterTypeAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         EncounterType encounterType = (EncounterType) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", encounterType.getUuid());
-        jsonObject.put("name", encounterType.getName());
+        JsonUtils.writeAsString(jsonObject, "uuid", encounterType.getUuid());
+        JsonUtils.writeAsString(jsonObject, "name", encounterType.getName());
         return jsonObject.toJSONString();
     }
 }

@@ -21,7 +21,7 @@ import com.muzima.api.model.PatientIdentifier;
 import com.muzima.api.model.PersonName;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.ISO8601Util;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
@@ -54,9 +54,9 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String json) throws IOException {
         Patient patient = new Patient();
         Object jsonObject = JsonPath.read(json, "$");
-        patient.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        patient.setGender(JsonPathUtils.readAsString(jsonObject, "$['gender']"));
-        patient.setBirthdate(JsonPathUtils.readAsDate(jsonObject, "$['birthdate']"));
+        patient.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        patient.setGender(JsonUtils.readAsString(jsonObject, "$['gender']"));
+        patient.setBirthdate(JsonUtils.readAsDate(jsonObject, "$['birthdate']"));
         List<Object> personNameObjects = JsonPath.read(jsonObject, "$['names']");
         for (Object personNameObject : personNameObjects) {
             patient.addName((PersonName) personNameAlgorithm.deserialize(personNameObject.toString()));
@@ -78,11 +78,9 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Patient patient = (Patient) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", patient.getUuid());
-        jsonObject.put("gender", patient.getGender());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(patient.getBirthdate());
-        jsonObject.put("birthdate", ISO8601Util.fromCalendar(calendar));
+        JsonUtils.writeAsString(jsonObject, "uuid", patient.getUuid());
+        JsonUtils.writeAsString(jsonObject, "gender", patient.getGender());
+        JsonUtils.writeAsDate(jsonObject, "birthdate", patient.getBirthdate());
         JSONArray nameArray = new JSONArray();
         for (PersonName personName : patient.getNames()) {
             String name = personNameAlgorithm.serialize(personName);

@@ -114,8 +114,8 @@ public interface FormService extends MuzimaInterface {
      * @param name the form name.
      * @return form with matching uuid or null when no form match the uuid.
      * @throws IOException when search api unable to process the resource.
-     * @should return form with matching uuid.
-     * @should return null when no form match the uuid.
+     * @should return form with matching name.
+     * @should return null when no form match the name.
      */
     List<Form> getFormByName(final String name) throws IOException;
 
@@ -162,7 +162,7 @@ public interface FormService extends MuzimaInterface {
      * @param formUuid the uuid of the form.
      * @return true when the form template for the form is already downloaded.
      * @throws IOException when the search api unable to process the resource.
-     * @should return true if the template for the form with form uuid is downloaded.
+     * @should return true if the template of a form is downloaded.
      */
     Boolean isFormTemplateDownloaded(final String formUuid) throws IOException;
 

@@ -23,7 +23,7 @@ import com.muzima.api.model.Observation;
 import com.muzima.api.model.Person;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.ISO8601Util;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
                     "concept:" + ConceptAlgorithm.CONCEPT_SIMPLE_REPRESENTATION + ")";
     public static final String CODED_OBSERVATION_REPRESENTATION =
             "(uuid,obsDatetime," +
-                    "valueCoded:" + ConceptAlgorithm.CONCEPT_NON_NUMERIC_STANDARD_REPRESENTATION + "," +
+                    "valueCoded:" + ConceptAlgorithm.CONCEPT_STANDARD_REPRESENTATION + "," +
                     "encounter:" + EncounterAlgorithm.ENCOUNTER_SIMPLE_REPRESENTATION + "," +
                     "patient:" + PatientAlgorithm.PATIENT_SIMPLE_REPRESENTATION + "," +
                     "concept:" + ConceptAlgorithm.CONCEPT_SIMPLE_REPRESENTATION + ")";
@@ -66,12 +66,12 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String json) throws IOException {
         Observation observation = new Observation();
         Object jsonObject = JsonPath.read(json, "$");
-        observation.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        observation.setObservationDatetime(JsonPathUtils.readAsDate(jsonObject, "$['obsDatetime']"));
+        observation.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        observation.setObservationDatetime(JsonUtils.readAsDate(jsonObject, "$['obsDatetime']"));
         // values, ignored when they are not exists in the resource
-        observation.setValueText(JsonPathUtils.readAsString(jsonObject, "$['valueText']"));
-        observation.setValueNumeric(JsonPathUtils.readAsNumeric(jsonObject, "$['valueNumeric']"));
-        observation.setValueDatetime(JsonPathUtils.readAsDate(jsonObject, "$['valueDatetime']"));
+        observation.setValueText(JsonUtils.readAsString(jsonObject, "$['valueText']"));
+        observation.setValueNumeric(JsonUtils.readAsNumeric(jsonObject, "$['valueNumeric']"));
+        observation.setValueDatetime(JsonUtils.readAsDate(jsonObject, "$['valueDatetime']"));
         try {
             // value coded need to be handled separately because we can't create the custom structure of value coded!
             Object valueCodedObject = JsonPath.read(jsonObject, "$['valueCoded']");
@@ -99,14 +99,11 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Observation observation = (Observation) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", observation.getUuid());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(observation.getObservationDatetime());
-        jsonObject.put("obsDatetime", ISO8601Util.fromCalendar(calendar));
-        jsonObject.put("valueText", observation.getValueText());
-        jsonObject.put("valueNumeric", observation.getValueNumeric());
-        calendar.setTime(observation.getValueDatetime());
-        jsonObject.put("valueDatetime", ISO8601Util.fromCalendar(calendar));
+        JsonUtils.writeAsString(jsonObject, "uuid", observation.getUuid());
+        JsonUtils.writeAsDate(jsonObject, "obsDatetime", observation.getObservationDatetime());
+        JsonUtils.writeAsString(jsonObject, "valueText", observation.getValueText());
+        JsonUtils.writeAsNumeric(jsonObject, "valueNumeric", observation.getValueNumeric());
+        JsonUtils.writeAsDate(jsonObject, "valueDatetime", observation.getValueDatetime());
         String valueCoded = conceptAlgorithm.serialize(observation.getValueCoded());
         jsonObject.put("valueCoded", JsonPath.read(valueCoded, "$"));
         String encounter = encounterAlgorithm.serialize(observation.getEncounter());

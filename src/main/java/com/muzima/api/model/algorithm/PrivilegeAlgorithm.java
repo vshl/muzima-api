@@ -16,7 +16,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Privilege;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.util.JsonPathUtils;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -33,8 +33,8 @@ public class PrivilegeAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String json) throws IOException {
         Privilege privilege = new Privilege();
         Object jsonObject = JsonPath.read(json, "$");
-        privilege.setUuid(JsonPathUtils.readAsString(jsonObject, "$['uuid']"));
-        privilege.setName(JsonPathUtils.readAsString(jsonObject, "$['name']"));
+        privilege.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
+        privilege.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
         return privilege;
     }
 
@@ -48,8 +48,8 @@ public class PrivilegeAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Privilege privilege = (Privilege) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", privilege.getUuid());
-        jsonObject.put("name", privilege.getUuid());
+        JsonUtils.writeAsString(jsonObject, "uuid", privilege.getUuid());
+        JsonUtils.writeAsString(jsonObject, "name", privilege.getUuid());
         return jsonObject.toJSONString();
     }
 }

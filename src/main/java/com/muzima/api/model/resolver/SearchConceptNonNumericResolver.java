@@ -26,7 +26,7 @@ import java.util.Map;
 public class SearchConceptNonNumericResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION =
-            "?v=custom:" + ConceptAlgorithm.CONCEPT_NON_NUMERIC_STANDARD_REPRESENTATION;
+            "?v=custom:" + ConceptAlgorithm.CONCEPT_STANDARD_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.
