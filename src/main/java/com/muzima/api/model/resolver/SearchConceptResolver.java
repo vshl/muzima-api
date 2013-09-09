@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * TODO: Write brief description about the class here.
  */
-public class SearchConceptNonNumericResolver extends BaseOpenmrsResolver {
+public class SearchConceptResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION =
             "?v=custom:" + ConceptAlgorithm.CONCEPT_STANDARD_REPRESENTATION;

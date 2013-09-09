@@ -25,11 +25,14 @@ import java.util.List;
  */
 public class Concept extends OpenmrsSearchable {
 
+    private static final String NUMERIC_TYPE = "Numeric";
+
     private String unit;
 
     private ConceptType conceptType;
 
     private List<ConceptName> conceptNames;
+    private boolean numeric;
 
     public String getUnit() {
         return unit;
@@ -71,5 +74,13 @@ public class Concept extends OpenmrsSearchable {
             }
         }
         return name;
+    }
+
+    public boolean isNumeric() {
+        boolean numeric = false;
+        if (getConceptType() != null) {
+            numeric = StringUtil.equals(getConceptType().getName(), NUMERIC_TYPE);
+        }
+        return numeric;
     }
 }

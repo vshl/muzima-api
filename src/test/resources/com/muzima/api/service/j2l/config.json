@@ -9,11 +9,7 @@
             "field.unique": null,
             "field.searchable": {
                 "cohortUuid": "$['cohort']['uuid']",
-                "patientUuid": "$['patient']['uuid']",
-                "patientGivenName":"$['patient']['names'][*]['givenName']",
-                "patientMiddleName":"$['patient']['names'][*]['middleName']",
-                "patientFamilyName":"$['patient']['names'][*]['familyName']",
-                "patientIdentifier":"$['patient']['identifiers'][*]['identifier']"
+                "patientUuid": "$['patient']['uuid']"
             }
         },
         {
@@ -337,6 +333,78 @@
             "resolver.class": "com.muzima.api.model.resolver.DynamicCohortDataResolver",
             "field.unique": null,
             "field.searchable": {
+            }
+        },
+        {
+            "resource.name": "Search Concept Numeric Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Concept",
+            "algorithm.class": "com.muzima.api.model.algorithm.ConceptAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchConceptNumericResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['names'][*]['name']"
+            }
+        },
+        {
+            "resource.name": "Search Concept Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Concept",
+            "algorithm.class": "com.muzima.api.model.algorithm.ConceptAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchConceptResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['names'][*]['name']"
+            }
+        },
+        {
+            "resource.name": "Uuid Concept Numeric Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Concept",
+            "algorithm.class": "com.muzima.api.model.algorithm.ConceptAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidConceptNumericResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['names'][*]['name']"
+            }
+        },
+        {
+            "resource.name": "Uuid Concept Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Concept",
+            "algorithm.class": "com.muzima.api.model.algorithm.ConceptAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidConceptResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['names'][*]['name']"
+            }
+        },
+        {
+            "resource.name": "Search Encounter Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Encounter",
+            "algorithm.class": "com.muzima.api.model.algorithm.EncounterAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchEncounterResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "patientUuid": "$['patient']['uuid']"
+            }
+        },
+        {
+            "resource.name": "Uuid Encounter Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Encounter",
+            "algorithm.class": "com.muzima.api.model.algorithm.EncounterAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidEncounterResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "patientUuid": "$['patient']['uuid']"
             }
         }
     ]

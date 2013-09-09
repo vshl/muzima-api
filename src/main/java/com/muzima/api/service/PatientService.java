@@ -31,7 +31,6 @@ public interface PatientService extends MuzimaInterface {
      * @param name the partial name of the patient to be downloaded. When empty, will return all patients available.
      * @throws IOException when search api unable to process the resource.
      * @should download all patient with partially matched name.
-     * @should download all patient when name is empty.
      */
     List<Patient> downloadPatientsByName(final String name) throws IOException;
 
@@ -131,7 +130,7 @@ public interface PatientService extends MuzimaInterface {
      * @return list of all patients with matching search term on the searchable fields or empty list.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
-     * @should return list of all patients with matching search term on the searchable fields.
+     * @should return list of all patients with matching search term.
      * @should return empty list when no patient match the search term.
      */
     List<Patient> searchPatients(final String term) throws IOException, ParseException;
@@ -144,7 +143,7 @@ public interface PatientService extends MuzimaInterface {
      * @return list of all patients in the cohort with matching search term on the searchable fields or empty list.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
-     * @should return list of all patients in cohort with matching search term on the searchable fields.
+     * @should return list of all patients in cohort with matching search term.
      * @should return empty list when no patient match the search term.
      */
     List<Patient> searchPatients(final String term, final String cohortUuid) throws IOException, ParseException;

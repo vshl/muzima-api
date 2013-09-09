@@ -47,6 +47,7 @@ public abstract class OpenmrsDaoImpl<T extends OpenmrsSearchable> extends Search
      * @throws IOException when search api unable to process the resource.
      */
     @Override
+    @SuppressWarnings("unchecked")
     public List<T> download(final Map<String, String> resourceParams, final String resource) throws IOException {
         List<T> list = new ArrayList<T>();
         for (Searchable searchable : service.loadObjects(resourceParams, serviceContext.getResource(resource))) {

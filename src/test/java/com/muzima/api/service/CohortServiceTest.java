@@ -50,7 +50,6 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
  * TODO: Write brief description about the class here.
  */
 public class CohortServiceTest {
-
     // baseline static cohort
     private Cohort staticCohort;
     private List<Cohort> staticCohorts;

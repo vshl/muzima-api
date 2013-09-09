@@ -157,7 +157,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> getPatientsByName(final String name) throws IOException, ParseException {
-        return patientDao.getByName(name);
+        return patientDao.getPatientByName(name);
     }
 
     /**

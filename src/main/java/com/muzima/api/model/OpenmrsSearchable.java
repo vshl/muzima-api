@@ -59,4 +59,32 @@ public abstract class OpenmrsSearchable implements Searchable {
     public void setUuid(final String uuid) {
         this.uuid = uuid;
     }
+
+    /**
+     * Hash code implementation will be based on the uuid value of the object.
+     *
+     * @return the hash code of the object.
+     */
+    public int hashCode() {
+        if (getUuid() == null)
+            return super.hashCode();
+        return getUuid().hashCode();
+    }
+
+    /**
+     * Object equality implementation will be based on the uuid of the object.
+     *
+     * @param   obj   the reference object with which to compare.
+     * @return  {@code true} if this object is the same as the obj
+     *          argument; {@code false} otherwise.
+     * @see     #hashCode()
+     */
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof OpenmrsSearchable))
+            return false;
+        OpenmrsSearchable other = (OpenmrsSearchable) obj;
+        return getUuid() != null && getUuid().equals(other.getUuid());
+    }
 }

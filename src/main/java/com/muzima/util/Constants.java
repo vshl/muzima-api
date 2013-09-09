@@ -102,4 +102,16 @@ public class Constants {
     public static final String STATIC_COHORT_DATA_RESOURCE = "Static Cohort Data Resource";
 
     public static final String DYNAMIC_COHORT_DATA_RESOURCE = "Dynamic Cohort Data Resource";
+
+    public static final String SEARCH_CONCEPT_RESOURCE = "Search Concept Resource";
+
+    public static final String UUID_CONCEPT_RESOURCE = "Uuid Concept Resource";
+
+    public static final String SEARCH_CONCEPT_NUMERIC_RESOURCE = "Search Concept Numeric Resource";
+
+    public static final String UUID_CONCEPT_NUMERIC_RESOURCE = "Uuid Concept Numeric Resource";
+
+    public static final String SEARCH_ENCOUNTER_RESOURCE = "Search Encounter Resource";
+
+    public static final String UUID_ENCOUNTER_RESOURCE = "Uuid Encounter Resource";
 }

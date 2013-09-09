@@ -18,11 +18,6 @@ package com.muzima.api.service;
 import com.muzima.api.context.Context;
 import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Form;
-import com.muzima.api.model.Form;
-import com.muzima.api.model.Form;
-import com.muzima.api.model.Form;
-import com.muzima.api.model.Form;
-import com.muzima.api.model.Form;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.search.api.util.StringUtil;
@@ -30,8 +25,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
@@ -52,12 +45,12 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
  * TODO: Write brief description about the class here.
  */
 public class FormServiceTest {
-
-    private Context context;
-    private FormService formService;
     // baseline form
     private Form form;
     private List<Form> forms;
+
+    private Context context;
+    private FormService formService;
 
     private static int nextInt(int size) {
         Random random = new Random();

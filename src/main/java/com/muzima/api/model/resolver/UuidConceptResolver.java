@@ -19,7 +19,7 @@ import com.muzima.search.api.util.StringUtil;
 import java.io.IOException;
 import java.util.Map;
 
-public class UuidConceptNonNumericResolver extends BaseOpenmrsResolver {
+public class UuidConceptResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION =
             "?v=custom:" + ConceptAlgorithm.CONCEPT_STANDARD_REPRESENTATION;
