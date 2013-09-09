@@ -23,6 +23,7 @@ import com.muzima.api.model.Form;
 import com.muzima.api.model.Form;
 import com.muzima.api.model.Form;
 import com.muzima.api.model.Form;
+import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.search.api.util.StringUtil;
 import org.junit.After;
@@ -463,8 +464,10 @@ public class FormServiceTest {
      */
     @Test
     public void saveFormData_shouldSaveFormDataToLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData formData = new FormData();
+        formService.saveFormData(formData);
+        assertThat(formService.countAllFormData(), equalTo(1));
     }
 
     /**
@@ -473,8 +476,14 @@ public class FormServiceTest {
      */
     @Test
     public void getFormDataByUuid_shouldReturnFormDataByTheUuid() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        String formDataUuid = UUID.randomUUID().toString();
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData formData = new FormData();
+        formData.setUuid(formDataUuid);
+        formService.saveFormData(formData);
+        assertThat(formService.countAllFormData(), equalTo(1));
+        assertThat(formService.getFormDataByUuid(formDataUuid), samePropertyValuesAs(formData));
+
     }
 
     /**
@@ -483,8 +492,10 @@ public class FormServiceTest {
      */
     @Test
     public void countAllFormData_shouldCountAllFormDataInLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData formData = new FormData();
+        formService.saveFormData(formData);
+        assertThat(formService.countAllFormData(), equalTo(1));
     }
 
     /**
@@ -493,8 +504,21 @@ public class FormServiceTest {
      */
     @Test
     public void getAllFormData_shouldReturnAllFormDataWithMatchingStatusFromLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData firstFormData = new FormData();
+        firstFormData.setUuid(UUID.randomUUID().toString());
+        firstFormData.setStatus("Some random status");
+        formService.saveFormData(firstFormData);
+        FormData secondFormData = new FormData();
+        secondFormData.setUuid(UUID.randomUUID().toString());
+        secondFormData.setStatus("Some other random status");
+        formService.saveFormData(secondFormData);
+        assertThat(formService.countAllFormData(), equalTo(2));
+        List<FormData> savedFormData = formService.getAllFormData("Some random status");
+        assertThat(savedFormData, hasSize(1));
+        for (FormData formData : savedFormData) {
+            assertThat(formData.getStatus(), equalTo("Some random status"));
+        }
     }
 
     /**
@@ -503,8 +527,24 @@ public class FormServiceTest {
      */
     @Test
     public void getFormDataByUser_shouldReturnAllFormDataWithMatchingUserAndStatus() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        String userUuid = UUID.randomUUID().toString();
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData firstFormData = new FormData();
+        firstFormData.setUuid(UUID.randomUUID().toString());
+        firstFormData.setStatus("Some random status");
+        firstFormData.setUserUuid(userUuid);
+        formService.saveFormData(firstFormData);
+        FormData secondFormData = new FormData();
+        secondFormData.setUuid(UUID.randomUUID().toString());
+        secondFormData.setStatus("Some other random status");
+        secondFormData.setUserUuid(userUuid);
+        formService.saveFormData(secondFormData);
+        assertThat(formService.countAllFormData(), equalTo(2));
+        List<FormData> savedFormData = formService.getFormDataByUser(userUuid, "Some random status");
+        assertThat(savedFormData, hasSize(1));
+        for (FormData formData : savedFormData) {
+            assertThat(formData.getStatus(), equalTo("Some random status"));
+        }
     }
 
     /**
@@ -513,8 +553,24 @@ public class FormServiceTest {
      */
     @Test
     public void getFormDataByPatient_shouldReturnAllFormDataWithMatchingPatientAndStatus() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        String patientUuid = UUID.randomUUID().toString();
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData firstFormData = new FormData();
+        firstFormData.setUuid(UUID.randomUUID().toString());
+        firstFormData.setStatus("Some random status");
+        firstFormData.setPatientUuid(patientUuid);
+        formService.saveFormData(firstFormData);
+        FormData secondFormData = new FormData();
+        secondFormData.setUuid(UUID.randomUUID().toString());
+        secondFormData.setStatus("Some other random status");
+        secondFormData.setPatientUuid(patientUuid);
+        formService.saveFormData(secondFormData);
+        assertThat(formService.countAllFormData(), equalTo(2));
+        List<FormData> savedFormData = formService.getFormDataByPatient(patientUuid, "Some random status");
+        assertThat(savedFormData, hasSize(1));
+        for (FormData formData : savedFormData) {
+            assertThat(formData.getStatus(), equalTo("Some random status"));
+        }
     }
 
     /**
@@ -523,8 +579,24 @@ public class FormServiceTest {
      */
     @Test
     public void deleteFormData_shouldDeleteFormDataFromLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        String userUuid = UUID.randomUUID().toString();
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData firstFormData = new FormData();
+        firstFormData.setUuid(UUID.randomUUID().toString());
+        firstFormData.setStatus("Some random status");
+        firstFormData.setUserUuid(userUuid);
+        formService.saveFormData(firstFormData);
+        FormData secondFormData = new FormData();
+        secondFormData.setUuid(UUID.randomUUID().toString());
+        secondFormData.setStatus("Some other random status");
+        secondFormData.setUserUuid(userUuid);
+        formService.saveFormData(secondFormData);
+        assertThat(formService.countAllFormData(), equalTo(2));
+        List<FormData> formDataList = formService.getAllFormData(StringUtil.EMPTY);
+        for (FormData formData : formDataList) {
+            formService.deleteFormData(formData);
+        }
+        assertThat(formService.countAllFormData(), equalTo(0));
     }
 
     /**
@@ -533,7 +605,21 @@ public class FormServiceTest {
      */
     @Test
     public void deleteFormData_shouldDeleteListOfFormDataFromLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        String userUuid = UUID.randomUUID().toString();
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData firstFormData = new FormData();
+        firstFormData.setUuid(UUID.randomUUID().toString());
+        firstFormData.setStatus("Some random status");
+        firstFormData.setUserUuid(userUuid);
+        formService.saveFormData(firstFormData);
+        FormData secondFormData = new FormData();
+        secondFormData.setUuid(UUID.randomUUID().toString());
+        secondFormData.setStatus("Some other random status");
+        secondFormData.setUserUuid(userUuid);
+        formService.saveFormData(secondFormData);
+        assertThat(formService.countAllFormData(), equalTo(2));
+        List<FormData> formDataList = formService.getAllFormData(StringUtil.EMPTY);
+        formService.deleteFormData(formDataList);
+        assertThat(formService.countAllFormData(), equalTo(0));
     }
 }
