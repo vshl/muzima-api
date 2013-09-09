@@ -35,9 +35,9 @@ public interface ConceptService extends MuzimaInterface {
      * @return list of concepts with matching name.
      * @throws IOException when the search api unable to process the resource.
      * @should download list of concepts with matching name.
-     * @should download all concepts when the name is empty.
+     * @should return empty list when the name is empty.
      */
-    List<Concept> downloadConceptByName(final String name) throws IOException;
+    List<Concept> downloadConceptsByName(final String name) throws IOException;
 
     /**
      * Get a single concept from local data repository with matching uuid.
@@ -60,6 +60,22 @@ public interface ConceptService extends MuzimaInterface {
      * @should return empty list when no concept match the name.
      */
     List<Concept> getConceptsByName(final String name) throws IOException;
+
+    /**
+     * Get all concepts stored in the local data repository.
+     * @return all concepts stored in the local data repository.
+     * @throws IOException when the search api unable to process the resource.
+     * @should return all concepts stored in the local data repository.
+     */
+    List<Concept> getAllConcepts() throws IOException;
+
+    /**
+     * Count all concepts stored in the local data repository.
+     * @return number of concepts stored in the local data repository.
+     * @throws IOException when the search api unable to process the resource.
+     * @should return number of concepts stored in the local data repository.
+     */
+    Integer countAllConcepts() throws IOException;
 
     /**
      * Save a concept into local data repository.

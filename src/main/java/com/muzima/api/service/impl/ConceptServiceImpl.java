@@ -20,6 +20,7 @@ import com.muzima.api.dao.ConceptDao;
 import com.muzima.api.model.Concept;
 import com.muzima.api.service.ConceptService;
 import com.muzima.search.api.util.CollectionUtil;
+import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 
 import java.io.IOException;
@@ -81,20 +82,22 @@ public class ConceptServiceImpl implements ConceptService {
     /**
      * {@inheritDoc}
      *
-     * @see ConceptService#downloadConceptByName(String)
+     * @see ConceptService#downloadConceptsByName(String)
      */
     @Override
-    public List<Concept> downloadConceptByName(final String name) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>() {{
-            put("q", name);
-        }};
+    public List<Concept> downloadConceptsByName(final String name) throws IOException {
         List<Concept> consolidatedConcepts = new ArrayList<Concept>();
-        List<Concept> cohorts = conceptDao.download(parameter, Constants.UUID_CONCEPT_RESOURCE);
-        for (Concept concept : cohorts) {
-            if (concept.isNumeric()) {
-                consolidatedConcepts.add(downloadConcept(concept));
-            } else {
-                consolidatedConcepts.add(concept);
+        if (!StringUtil.isEmpty(name)) {
+            Map<String, String> parameter = new HashMap<String, String>() {{
+                put("q", name);
+            }};
+            List<Concept> cohorts = conceptDao.download(parameter, Constants.SEARCH_CONCEPT_RESOURCE);
+            for (Concept concept : cohorts) {
+                if (concept.isNumeric()) {
+                    consolidatedConcepts.add(downloadConcept(concept));
+                } else {
+                    consolidatedConcepts.add(concept);
+                }
             }
         }
         return consolidatedConcepts;
@@ -118,6 +121,26 @@ public class ConceptServiceImpl implements ConceptService {
     @Override
     public List<Concept> getConceptsByName(final String name) throws IOException {
         return conceptDao.getByName(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ConceptService#getAllConcepts()
+     */
+    @Override
+    public List<Concept> getAllConcepts() throws IOException {
+        return conceptDao.getAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ConceptService#countAllConcepts()
+     */
+    @Override
+    public Integer countAllConcepts() throws IOException {
+        return conceptDao.countAll();
     }
 
     /**

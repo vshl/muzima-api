@@ -15,31 +15,95 @@
  */
 package com.muzima.api.service;
 
+import com.muzima.api.context.Context;
+import com.muzima.api.context.ContextFactory;
+import com.muzima.api.model.Concept;
+import com.muzima.api.model.Concept;
+import com.muzima.api.model.Concept;
+import com.muzima.search.api.util.StringUtil;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.isIn;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 /**
  * TODO: Write brief description about the class here.
  */
 public class ConceptServiceTest {
+    // baseline concept
+    private Concept concept;
+    private List<Concept> concepts;
+
+    private Context context;
+    private ConceptService conceptService;
+
+    private static int nextInt(int size) {
+        Random random = new Random();
+        return random.nextInt(size);
+    }
+
+    @Before
+    public void prepare() throws Exception {
+        context = ContextFactory.createContext();
+        context.openSession();
+        if (!context.isAuthenticated()) {
+            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
+        }
+        conceptService = context.getService(ConceptService.class);
+        concepts = conceptService.downloadConceptsByName("CD4");
+        concept = concepts.get(nextInt(concepts.size()));
+    }
+
+    @After
+    public void cleanUp() throws Exception {
+        String tmpDirectory = System.getProperty("java.io.tmpdir");
+        String lucenePath = tmpDirectory + "/muzima";
+        File luceneDirectory = new File(lucenePath);
+        for (String filename : luceneDirectory.list()) {
+            File file = new File(luceneDirectory, filename);
+            Assert.assertTrue(file.delete());
+        }
+        context.deauthenticate();
+        context.closeSession();
+    }
+
     /**
-     * @verifies download all concepts when the name is empty.
-     * @see ConceptService#downloadConceptByName(String)
+     * @verifies return empty list when the name is empty.
+     * @see ConceptService#downloadConceptsByName(String)
      */
     @Test
-    public void downloadConceptByName_shouldDownloadAllConceptsWhenTheNameIsEmpty() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+    public void downloadConceptsByName_shouldReturnEmptyListWhenTheNameIsEmpty() throws Exception {
+        List<Concept> downloadedConcepts = conceptService.downloadConceptsByName(StringUtil.EMPTY);
+        assertThat(downloadedConcepts, hasSize(0));
     }
 
     /**
      * @verifies download list of concepts with matching name.
-     * @see ConceptService#downloadConceptByName(String)
+     * @see ConceptService#downloadConceptsByName(String)
      */
     @Test
-    public void downloadConceptByName_shouldDownloadListOfConceptsWithMatchingName() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+    public void downloadConceptsByName_shouldDownloadListOfConceptsWithMatchingName() throws Exception {
+        String name = concept.getName();
+        String partialName = name.substring(0, name.length() - 1);
+        List<Concept> downloadedConcepts = conceptService.downloadConceptsByName(partialName);
+        for (Concept downloadedConcept : downloadedConcepts) {
+            assertThat(downloadedConcept.getName(), containsString(partialName));
+        }
     }
 
     /**
@@ -48,8 +112,12 @@ public class ConceptServiceTest {
      */
     @Test
     public void getConceptByUuid_shouldReturnConceptWithMatchingUuid() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        Concept nullConcept = conceptService.getConceptByUuid(concept.getUuid());
+        assertThat(nullConcept, nullValue());
+        conceptService.saveConcept(concept);
+        Concept savedConcept = conceptService.getConceptByUuid(concept.getUuid());
+        assertThat(savedConcept, notNullValue());
+        assertThat(savedConcept, samePropertyValuesAs(concept));
     }
 
     /**
@@ -58,8 +126,12 @@ public class ConceptServiceTest {
      */
     @Test
     public void getConceptByUuid_shouldReturnNullWhenNoConceptMatchTheUuid() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        Concept nullConcept = conceptService.getConceptByUuid(concept.getUuid());
+        assertThat(nullConcept, nullValue());
+        conceptService.saveConcept(concept);
+        String randomUuid = UUID.randomUUID().toString();
+        Concept savedConcept = conceptService.getConceptByUuid(randomUuid);
+        assertThat(savedConcept, nullValue());
     }
 
     /**
@@ -68,8 +140,10 @@ public class ConceptServiceTest {
      */
     @Test
     public void getConceptsByName_shouldReturnListOfConceptsWithMatchingName() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        assertThat(0, equalTo(conceptService.countAllConcepts()));
+        conceptService.saveConcept(concept);
+        List<Concept> savedStaticConcepts = conceptService.getConceptsByName(concept.getName());
+        assertThat(1, equalTo(savedStaticConcepts.size()));
     }
 
     /**
@@ -78,8 +152,11 @@ public class ConceptServiceTest {
      */
     @Test
     public void getConceptsByName_shouldReturnEmptyListWhenNoConceptMatchTheName() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        String randomName = UUID.randomUUID().toString();
+        conceptService.saveConcept(concept);
+        List<Concept> savedStaticConcepts = conceptService.getConceptsByName(randomName);
+        assertThat(0, equalTo(savedStaticConcepts.size()));
+        assertThat(concept, not(isIn(savedStaticConcepts)));
     }
 
     /**
@@ -88,8 +165,11 @@ public class ConceptServiceTest {
      */
     @Test
     public void saveConcept_shouldSaveConceptIntoLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        int conceptCounter = conceptService.countAllConcepts();
+        conceptService.saveConcept(concept);
+        assertThat(conceptCounter + 1, equalTo(conceptService.countAllConcepts()));
+        conceptService.saveConcept(concept);
+        assertThat(conceptCounter + 1, equalTo(conceptService.countAllConcepts()));
     }
 
     /**
@@ -98,8 +178,11 @@ public class ConceptServiceTest {
      */
     @Test
     public void saveConcepts_shouldSaveListOfConceptsIntoLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        int conceptCounter = conceptService.countAllConcepts();
+        conceptService.saveConcepts(concepts);
+        assertThat(conceptCounter + concepts.size(), equalTo(conceptService.countAllConcepts()));
+        conceptService.saveConcepts(concepts);
+        assertThat(conceptCounter + concepts.size(), equalTo(conceptService.countAllConcepts()));
     }
 
     /**
@@ -108,8 +191,19 @@ public class ConceptServiceTest {
      */
     @Test
     public void updateConcept_shouldUpdateConceptInLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        Concept nullConcept = conceptService.getConceptByUuid(concept.getUuid());
+        assertThat(nullConcept, nullValue());
+        conceptService.saveConcept(concept);
+        Concept savedConcept = conceptService.getConceptByUuid(concept.getUuid());
+        assertThat(savedConcept, notNullValue());
+        assertThat(savedConcept, samePropertyValuesAs(concept));
+
+        String unitName = "mL/cm";
+        savedConcept.setUnit(unitName);
+        conceptService.updateConcept(savedConcept);
+        Concept updatedConcept = conceptService.getConceptByUuid(savedConcept.getUuid());
+        assertThat(updatedConcept, not(samePropertyValuesAs(concept)));
+        assertThat(updatedConcept.getUnit(), equalTo(unitName));
     }
 
     /**
@@ -118,8 +212,20 @@ public class ConceptServiceTest {
      */
     @Test
     public void updateConcepts_shouldUpdateListOfConceptsInLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        int counter = 0;
+        conceptService.saveConcepts(concepts);
+        List<Concept> savedConcepts = conceptService.getAllConcepts();
+        for (Concept concept : savedConcepts) {
+            concept.setUnit("New Unit For Concept: " + counter++);
+        }
+        conceptService.updateConcepts(savedConcepts);
+        List<Concept> updatedConcepts = conceptService.getAllConcepts();
+        for (Concept updatedConcept : updatedConcepts) {
+            for (Concept concept : concepts) {
+                assertThat(updatedConcept, not(samePropertyValuesAs(concept)));
+            }
+            assertThat(updatedConcept.getUnit(), containsString("New Unit For Concept"));
+        }
     }
 
     /**
@@ -128,8 +234,14 @@ public class ConceptServiceTest {
      */
     @Test
     public void deleteConcept_shouldDeleteConceptFromLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        assertThat(conceptService.getAllConcepts(), hasSize(0));
+        conceptService.saveConcepts(concepts);
+        int conceptCount = concepts.size();
+        assertThat(conceptService.getAllConcepts(), hasSize(conceptCount));
+        for (Concept concept : concepts) {
+            conceptService.deleteConcept(concept);
+            assertThat(conceptService.getAllConcepts(), hasSize(--conceptCount));
+        }
     }
 
     /**
@@ -138,7 +250,39 @@ public class ConceptServiceTest {
      */
     @Test
     public void deleteConcepts_shouldDeleteListOfConceptsFromLocalDataRepository() throws Exception {
-        //TODO auto-generated
-        Assert.fail("Not yet implemented");
+        assertThat(conceptService.getAllConcepts(), hasSize(0));
+        conceptService.saveConcepts(concepts);
+        List<Concept> savedConcepts = conceptService.getAllConcepts();
+        assertThat(savedConcepts, hasSize(concepts.size()));
+        conceptService.deleteConcepts(savedConcepts);
+        assertThat(conceptService.getAllConcepts(), hasSize(0));
+    }
+
+    /**
+     * @verifies return all concepts stored in the local data repository.
+     * @see ConceptService#getAllConcepts()
+     */
+    @Test
+    public void getAllConcepts_shouldReturnAllConceptsStoredInTheLocalDataRepository() throws Exception {
+        assertThat(conceptService.countAllConcepts(), equalTo(0));
+        assertThat(conceptService.getAllConcepts(), hasSize(0));
+        conceptService.saveConcepts(concepts);
+        List<Concept> savedConcepts = conceptService.getAllConcepts();
+        assertThat(savedConcepts.size(), equalTo(concepts.size()));
+        assertThat(savedConcepts, hasSize(concepts.size()));
+    }
+
+    /**
+     * @verifies return number of concepts stored in the local data repository.
+     * @see ConceptService#countAllConcepts()
+     */
+    @Test
+    public void countAllConcepts_shouldReturnNumberOfConceptsStoredInTheLocalDataRepository() throws Exception {
+        assertThat(conceptService.countAllConcepts(), equalTo(0));
+        assertThat(conceptService.getAllConcepts(), hasSize(0));
+        conceptService.saveConcepts(concepts);
+        List<Concept> savedConcepts = conceptService.getAllConcepts();
+        assertThat(savedConcepts.size(), equalTo(concepts.size()));
+        assertThat(savedConcepts, hasSize(concepts.size()));
     }
 }

@@ -43,7 +43,7 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
  * TODO: Write brief description about the class here.
  */
 public class PatientServiceTest {
-    // baseline static patient
+    // baseline patient
     private Patient patient;
     private List<Patient> patients;
 

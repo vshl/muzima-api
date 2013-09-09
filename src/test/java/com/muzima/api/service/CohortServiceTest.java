@@ -109,7 +109,7 @@ public class CohortServiceTest {
     @Test
     public void downloadCohortsByName_shouldDownloadAllCohortsWithPartiallyMatchedName() throws Exception {
         String name = staticCohort.getName();
-        String partialName = name.substring(name.length() - 1);
+        String partialName = name.substring(0, name.length() - 1);
         List<Cohort> downloadedStaticCohorts = cohortService.downloadCohortsByName(partialName);
         for (Cohort downloadedStaticCohort : downloadedStaticCohorts) {
             assertThat(downloadedStaticCohort.getName(), containsString(partialName));
