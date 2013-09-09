@@ -48,7 +48,7 @@ public class ConceptServiceImpl implements ConceptService {
      * @throws IOException when the search api unable to process the resource.
      */
     private Concept downloadConceptByUuid(final String uuid, final boolean numeric) throws IOException {
-        Concept cohort = null;
+        Concept concept = null;
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
@@ -56,14 +56,14 @@ public class ConceptServiceImpl implements ConceptService {
         if (numeric) {
             resourceName = Constants.UUID_CONCEPT_NUMERIC_RESOURCE;
         }
-        List<Concept> cohorts = conceptDao.download(parameter, resourceName);
-        if (!CollectionUtil.isEmpty(cohorts)) {
-            if (cohorts.size() > 1) {
-                throw new IOException("Unable to uniquely identify a cohort record.");
+        List<Concept> concepts = conceptDao.download(parameter, resourceName);
+        if (!CollectionUtil.isEmpty(concepts)) {
+            if (concepts.size() > 1) {
+                throw new IOException("Unable to uniquely identify a concept record.");
             }
-            cohort = cohorts.get(0);
+            concept = concepts.get(0);
         }
-        return cohort;
+        return concept;
     }
 
     /**
@@ -91,8 +91,8 @@ public class ConceptServiceImpl implements ConceptService {
             Map<String, String> parameter = new HashMap<String, String>() {{
                 put("q", name);
             }};
-            List<Concept> cohorts = conceptDao.download(parameter, Constants.SEARCH_CONCEPT_RESOURCE);
-            for (Concept concept : cohorts) {
+            List<Concept> concepts = conceptDao.download(parameter, Constants.SEARCH_CONCEPT_RESOURCE);
+            for (Concept concept : concepts) {
                 if (concept.isNumeric()) {
                     consolidatedConcepts.add(downloadConcept(concept));
                 } else {
@@ -166,11 +166,11 @@ public class ConceptServiceImpl implements ConceptService {
     public void saveConcepts(final List<Concept> concepts) throws IOException {
         List<Concept> numericConcepts = new ArrayList<Concept>();
         List<Concept> nonNumericConcepts = new ArrayList<Concept>();
-        for (Concept cohort : concepts) {
-            if (cohort.isNumeric()) {
-                numericConcepts.add(cohort);
+        for (Concept concept : concepts) {
+            if (concept.isNumeric()) {
+                numericConcepts.add(concept);
             } else {
-                nonNumericConcepts.add(cohort);
+                nonNumericConcepts.add(concept);
             }
         }
         conceptDao.save(numericConcepts, Constants.UUID_CONCEPT_NUMERIC_RESOURCE);
@@ -200,11 +200,11 @@ public class ConceptServiceImpl implements ConceptService {
     public void updateConcepts(final List<Concept> concepts) throws IOException {
         List<Concept> numericConcepts = new ArrayList<Concept>();
         List<Concept> nonNumericConcepts = new ArrayList<Concept>();
-        for (Concept cohort : concepts) {
-            if (cohort.isNumeric()) {
-                numericConcepts.add(cohort);
+        for (Concept concept : concepts) {
+            if (concept.isNumeric()) {
+                numericConcepts.add(concept);
             } else {
-                nonNumericConcepts.add(cohort);
+                nonNumericConcepts.add(concept);
             }
         }
         conceptDao.update(numericConcepts, Constants.UUID_CONCEPT_NUMERIC_RESOURCE);
@@ -234,11 +234,11 @@ public class ConceptServiceImpl implements ConceptService {
     public void deleteConcepts(final List<Concept> concepts) throws IOException {
         List<Concept> numericConcepts = new ArrayList<Concept>();
         List<Concept> nonNumericConcepts = new ArrayList<Concept>();
-        for (Concept cohort : concepts) {
-            if (cohort.isNumeric()) {
-                numericConcepts.add(cohort);
+        for (Concept concept : concepts) {
+            if (concept.isNumeric()) {
+                numericConcepts.add(concept);
             } else {
-                nonNumericConcepts.add(cohort);
+                nonNumericConcepts.add(concept);
             }
         }
         conceptDao.delete(numericConcepts, Constants.UUID_CONCEPT_NUMERIC_RESOURCE);

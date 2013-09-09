@@ -68,8 +68,8 @@ public class PatientIdentifierAlgorithm extends BaseOpenmrsAlgorithm {
         JsonUtils.writeAsString(jsonObject, "uuid", patientIdentifier.getUuid());
         JsonUtils.writeAsString(jsonObject, "identifier", patientIdentifier.getIdentifier());
         JsonUtils.writeAsBoolean(jsonObject, "preferred", patientIdentifier.isPreferred());
-        String conceptType = patientIdentifierTypeAlgorithm.serialize(patientIdentifier.getIdentifierType());
-        jsonObject.put("identifierType", JsonPath.read(conceptType, "$"));
+        String identifierType = patientIdentifierTypeAlgorithm.serialize(patientIdentifier.getIdentifierType());
+        jsonObject.put("identifierType", JsonPath.read(identifierType, "$"));
         return jsonObject.toJSONString();
     }
 }
