@@ -39,9 +39,8 @@ public class PatientIdentifierTypeAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         PatientIdentifierType identifierType = new PatientIdentifierType();
-        Object jsonObject = JsonPath.read(serialized, "$");
-        identifierType.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        identifierType.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
+        identifierType.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        identifierType.setName(JsonUtils.readAsString(serialized, "$['name']"));
         return identifierType;
     }
 

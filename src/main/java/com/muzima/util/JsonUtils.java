@@ -56,7 +56,7 @@ public class JsonUtils {
      * @param path       the path inside the json object.
      * @return the boolean value in the json object. When the path is invalid, by default will return false.
      */
-    public static boolean readAsBoolean(final Object jsonObject, final String path) {
+    public static boolean readAsBoolean(final String jsonObject, final String path) {
         boolean returnedBoolean = false;
         try {
             returnedBoolean = JsonPath.read(jsonObject, path);
@@ -88,7 +88,7 @@ public class JsonUtils {
      * @param path       the path inside the json object.
      * @return the numeric value in the json object. When the path is invalid, by default will return 0.
      */
-    public static double readAsNumeric(final Object jsonObject, final String path) {
+    public static double readAsNumeric(final String jsonObject, final String path) {
         double returnedString = 0;
         try {
             returnedString = JsonPath.read(jsonObject, path);
@@ -120,7 +120,7 @@ public class JsonUtils {
      * @param path       the path inside the json object.
      * @return the string value in the json object. When the path is invalid, by default will return null.
      */
-    public static String readAsString(final Object jsonObject, final String path) {
+    public static String readAsString(final String jsonObject, final String path) {
         String returnedString = null;
         try {
             returnedString = JsonPath.read(jsonObject, path);
@@ -162,7 +162,7 @@ public class JsonUtils {
      * @return the date value in the json object. When the path is invalid, by default will return null.
      * @see @link <a href="http://en.wikipedia.org/wiki/ISO_8601">ISO-8601 Wikipedia Page</a>
      */
-    public static Date readAsDate(final Object jsonObject, final String path) {
+    public static Date readAsDate(final String jsonObject, final String path) {
         Date returnedDate = null;
         try {
             String dateAsString = readAsString(jsonObject, path);
@@ -183,7 +183,7 @@ public class JsonUtils {
      * @param path       the path inside the json object.
      * @return the object value in the json object. When the path is invalid, by default will return null.
      */
-    public static Object readAsObject(final Object jsonObject, final String path) {
+    public static Object readAsObject(final String jsonObject, final String path) {
         Object object = null;
         try {
             object = JsonPath.read(jsonObject, path);
@@ -200,7 +200,7 @@ public class JsonUtils {
      * @param path       the path inside the json object.
      * @return the list of object values in the json object. When the path is invalid, by default will return empty list.
      */
-    public static List<Object> readAsObjectList(final Object jsonObject, final String path) {
+    public static List<Object> readAsObjectList(final String jsonObject, final String path) {
         List<Object> objects = new ArrayList<Object>();
         try {
             objects = JsonPath.read(jsonObject, path);

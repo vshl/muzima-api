@@ -26,15 +26,14 @@ public class PrivilegeAlgorithm extends BaseOpenmrsAlgorithm {
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
      *
-     * @param json the string representation
+     * @param serialized the string representation
      * @return the concrete object
      */
     @Override
-    public Searchable deserialize(final String json) throws IOException {
+    public Searchable deserialize(final String serialized) throws IOException {
         Privilege privilege = new Privilege();
-        Object jsonObject = JsonPath.read(json, "$");
-        privilege.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        privilege.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
+        privilege.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        privilege.setName(JsonUtils.readAsString(serialized, "$['name']"));
         return privilege;
     }
 

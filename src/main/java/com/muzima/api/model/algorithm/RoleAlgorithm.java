@@ -35,18 +35,17 @@ public class RoleAlgorithm extends BaseOpenmrsAlgorithm {
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
      *
-     * @param json the string representation
+     * @param serialized the string representation
      * @return the concrete object
      */
     @Override
-    public Searchable deserialize(final String json) throws IOException {
+    public Searchable deserialize(final String serialized) throws IOException {
         Role role = new Role();
-        Object jsonObject = JsonPath.read(json, "$");
-        role.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        role.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
-        List<Object> privilegeObjectArray = JsonPath.read(jsonObject, "$['privileges']");
+        role.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        role.setName(JsonUtils.readAsString(serialized, "$['name']"));
+        List<Object> privilegeObjectArray = JsonUtils.readAsObjectList(serialized, "$['privileges']");
         for (Object privilegeObject : privilegeObjectArray) {
-            role.add((Privilege) privilegeAlgorithm.deserialize(privilegeObject.toString()));
+            role.add((Privilege) privilegeAlgorithm.deserialize(String.valueOf(privilegeObject)));
         }
         return role;
     }

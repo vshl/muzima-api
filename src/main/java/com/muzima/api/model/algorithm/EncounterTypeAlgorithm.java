@@ -39,9 +39,8 @@ public class EncounterTypeAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         EncounterType encounterType = new EncounterType();
-        Object jsonObject = JsonPath.read(serialized, "$");
-        encounterType.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        encounterType.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
+        encounterType.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        encounterType.setName(JsonUtils.readAsString(serialized, "$['name']"));
         return encounterType;
     }
 

@@ -41,20 +41,19 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
      *
-     * @param json the json representation
+     * @param serialized the json representation
      * @return the concrete observation object
      */
     @Override
-    public Notification deserialize(final String json) throws IOException {
+    public Notification deserialize(final String serialized) throws IOException {
         Notification notification = new Notification();
-        Object jsonObject = JsonPath.read(json, "$");
-        notification.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        notification.setSubject(JsonUtils.readAsString(jsonObject, "$['subject']"));
-        notification.setPayload(JsonUtils.readAsString(jsonObject, "$['payload']"));
-        Object senderObject = JsonPath.read(jsonObject, "$['sender']");
-        notification.setSender((Person) personAlgorithm.deserialize(senderObject.toString()));
-        Object receiverObject = JsonPath.read(jsonObject, "$['receiver']");
-        notification.setReceiver((Person) personAlgorithm.deserialize(receiverObject.toString()));
+        notification.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        notification.setSubject(JsonUtils.readAsString(serialized, "$['subject']"));
+        notification.setPayload(JsonUtils.readAsString(serialized, "$['payload']"));
+        Object senderObject = JsonUtils.readAsObject(serialized, "$['sender']");
+        notification.setSender((Person) personAlgorithm.deserialize(String.valueOf(senderObject)));
+        Object receiverObject = JsonUtils.readAsObject(serialized, "$['receiver']");
+        notification.setReceiver((Person) personAlgorithm.deserialize(String.valueOf(receiverObject)));
         return notification;
     }
 

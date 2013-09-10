@@ -30,16 +30,15 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
      *
-     * @param json the string representation
+     * @param serialized the string representation
      * @return the concrete object
      */
     @Override
-    public Searchable deserialize(final String json) throws IOException {
+    public Searchable deserialize(final String serialized) throws IOException {
         Cohort cohort = new Cohort();
-        Object jsonObject = JsonPath.read(json, "$");
-        cohort.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        cohort.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
-        cohort.setDynamic(JsonUtils.readAsBoolean(jsonObject, "$['dynamic']"));
+        cohort.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        cohort.setName(JsonUtils.readAsString(serialized, "$['name']"));
+        cohort.setDynamic(JsonUtils.readAsBoolean(serialized, "$['dynamic']"));
         return cohort;
     }
 

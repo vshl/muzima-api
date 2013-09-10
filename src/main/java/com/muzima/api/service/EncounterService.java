@@ -17,6 +17,7 @@ package com.muzima.api.service;
 
 import com.google.inject.ImplementedBy;
 import com.muzima.api.model.Encounter;
+import com.muzima.api.model.Patient;
 import com.muzima.api.service.impl.EncounterServiceImpl;
 import org.apache.lucene.queryParser.ParseException;
 
@@ -41,7 +42,7 @@ public interface EncounterService extends MuzimaInterface {
     Encounter downloadEncounterByUuid(final String uuid) throws IOException;
 
     /**
-     * Download list of encounters with matching name.
+     * Download list of encounters with matching patient name.
      *
      * @param name the partial name of the patient.
      * @return list of encounters with for patient with matching name.
@@ -52,7 +53,7 @@ public interface EncounterService extends MuzimaInterface {
     List<Encounter> downloadEncountersByPatientName(final String name) throws IOException;
 
     /**
-     * Download list of encounters with matching name.
+     * Download list of encounters with matching patient uuid.
      *
      * @param patientUuid the uuid of the patient.
      * @return list of encounters with matching name.
@@ -61,6 +62,16 @@ public interface EncounterService extends MuzimaInterface {
      * @should return empty list when the uuid is empty.
      */
     List<Encounter> downloadEncountersByPatientUuid(final String patientUuid) throws IOException;
+
+    /**
+     * Download list of encounters with matching patient.
+     * @param patient the patient who own the encounter.
+     * @return list of encounters for the patient.
+     * @throws java.io.IOException when the search api unable to process the resource.
+     * @should return downloaded list of encounters with matching uuid.
+     * @should return empty list when the uuid is empty.
+     */
+    List<Encounter> downloadEncountersByPatient(final Patient patient) throws IOException;
 
     /**
      * Get a single encounter from local data repository with matching uuid.
@@ -94,6 +105,17 @@ public interface EncounterService extends MuzimaInterface {
      * @should return empty list when no encounter match the patient uuid.
      */
     List<Encounter> getEncountersByPatientUuid(final String patientUuid) throws IOException;
+
+    /**
+     * Get list of encounters from local data repository with matching patient.
+     *
+     * @param patient the patient who own the encounters.
+     * @return list of encounters for the patient.
+     * @throws java.io.IOException when the search api unable to process the resource.
+     * @should return list of encounters with matching patient.
+     * @should return empty list when no encounter match the patient.
+     */
+    List<Encounter> getEncountersByPatient(final Patient patient) throws IOException;
 
     /**
      * Get all encounters stored in the local data repository.

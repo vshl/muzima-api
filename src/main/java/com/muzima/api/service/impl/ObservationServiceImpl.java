@@ -16,8 +16,11 @@
 package com.muzima.api.service.impl;
 
 import com.google.inject.Inject;
+import com.muzima.api.dao.ConceptDao;
 import com.muzima.api.dao.ObservationDao;
+import com.muzima.api.model.Concept;
 import com.muzima.api.model.Observation;
+import com.muzima.api.model.Patient;
 import com.muzima.api.service.ObservationService;
 import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.StringUtil;
@@ -25,11 +28,15 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ObservationServiceImpl implements ObservationService {
+
+    @Inject
+    private ConceptDao conceptDao;
 
     @Inject
     private ObservationDao observationDao;
@@ -38,39 +45,25 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * {@inheritDoc}
+     * Download all observations for patient with the concept as the question.
      *
-     * @see ObservationService#downloadObservationByUuid(String)
+     * @param patient the patient.
+     * @param concept the concept.
+     * @return list of all observation matching the patient and concept.
+     * @throws java.io.IOException when search api unable to process the resource.
+     * @should download all observation with matching patient and concept.
      */
     @Override
-    public Observation downloadObservationByUuid(final String uuid) throws IOException {
-        Observation observation = null;
+    public List<Observation> downloadObservationsByPatientAndConcept(final Patient patient, final Concept concept) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
-            put("uuid", uuid);
+            put("person", patient.getUuid());
+            put("concept", concept.getUuid());
         }};
-        List<Observation> observations = observationDao.download(parameter, Constants.UUID_OBSERVATION_RESOURCE);
-        if (!CollectionUtil.isEmpty(observations)) {
-            if (observations.size() > 1) {
-                throw new IOException("Unable to uniquely identify a form record.");
-            }
-            observation = observations.get(0);
+        String resourceName = Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE;
+        if (concept.isCoded()) {
+            resourceName = Constants.SEARCH_OBSERVATION_CODED_RESOURCE;
         }
-        return observation;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @see ObservationService#downloadObservationsByPatientAndConcept(String, String)
-     */
-    @Override
-    public List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
-                                                                     final String conceptUuid) throws IOException {
-        Map<String, String> parameter = new HashMap<String, String>() {{
-            put("person", patientUuid);
-            put("concept", conceptUuid);
-        }};
-        return observationDao.download(parameter, Constants.SEARCH_OBSERVATION_RESOURCE);
+        return observationDao.download(parameter, resourceName);
     }
 
     /**
@@ -130,7 +123,17 @@ public class ObservationServiceImpl implements ObservationService {
      */
     @Override
     public List<Observation> getObservationsByPatient(final String patientUuid) throws IOException {
-        return observationDao.search(patientUuid, StringUtil.EMPTY);
+        return observationDao.get(patientUuid, StringUtil.EMPTY);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#getObservationsByPatient(String)
+     */
+    @Override
+    public List<Observation> getObservationsByPatient(final Patient patient) throws IOException {
+        return getObservationsByPatient(patient.getUuid());
     }
 
     /**
@@ -146,11 +149,36 @@ public class ObservationServiceImpl implements ObservationService {
     /**
      * {@inheritDoc}
      *
+     * @see ObservationService#getObservationsByPatientAndConcept(String, String)
+     */
+    @Override
+    public List<Observation> getObservationsByPatientAndConcept(final Patient patient, final Concept concept) throws IOException {
+        return getObservationsByPatientAndConcept(patient.getUuid(), concept.getUuid());
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see ObservationService#searchObservations(String, String)
      */
     @Override
-    public List<Observation> searchObservations(final String patientUuid, final String term) throws IOException, ParseException {
-        return observationDao.search(patientUuid, term);
+    public List<Observation> searchObservations(final String patientUuid, final String term) throws IOException {
+        List<Concept> concepts = conceptDao.getByName(term);
+        List<Observation> observations = new ArrayList<Observation>();
+        for (Concept concept : concepts) {
+            observations.addAll(getObservationsByPatientAndConcept(patientUuid, concept.getUuid()));
+        }
+        return observations;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#searchObservations(String, String)
+     */
+    @Override
+    public List<Observation> searchObservations(final Patient patient, final String term) throws IOException {
+        return searchObservations(patient.getUuid(), term);
     }
 
     /**

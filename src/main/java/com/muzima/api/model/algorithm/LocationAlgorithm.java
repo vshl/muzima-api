@@ -39,9 +39,8 @@ public class LocationAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         Location location = new Location();
-        Object jsonObject = JsonPath.read(serialized, "$");
-        location.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        location.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
+        location.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        location.setName(JsonUtils.readAsString(serialized, "$['name']"));
         return location;
     }
 

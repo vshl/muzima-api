@@ -88,20 +88,6 @@
             }
         },
         {
-            "resource.name": "Search Observation Resource",
-            "node.root": "$['results']",
-            "resource.object": "com.muzima.api.model.Observation",
-            "algorithm.class": "com.muzima.api.model.algorithm.ObservationAlgorithm",
-            "resolver.class": "com.muzima.api.model.resolver.SearchObservationCodedResolver",
-            "field.unique": "uuid",
-            "field.searchable": {
-                "uuid": "$['uuid']",
-                "patientUuid": "$['person.uuid']",
-                "conceptUuid": "$['concept.uuid']",
-                "conceptName": "$['concept.name.name']"
-            }
-        },
-        {
             "resource.name": "Sender Notification Resource",
             "node.root": "$['results']",
             "resource.object": "com.muzima.api.model.Cohort",
@@ -245,19 +231,6 @@
                 "subject": "$['subject']",
                 "receiver": "$['receiver.uuid']",
                 "sender": "$['sender.uuid']"
-            }
-        },
-        {
-            "resource.name": "Uuid Observation Resource",
-            "node.root": "$",
-            "resource.object": "com.muzima.api.model.Observation",
-            "algorithm.class": "com.muzima.api.model.algorithm.ObservationAlgorithm",
-            "resolver.class": "com.muzima.api.model.resolver.UuidObservationCodedResolver",
-            "field.unique": "uuid",
-            "field.searchable": {
-                "uuid": "$['uuid']",
-                "patientUuid": "$['person']['uuid']",
-                "conceptUuid": "$['concept']['uuid']"
             }
         },
         {
@@ -405,6 +378,47 @@
             "field.searchable": {
                 "uuid": "$['uuid']",
                 "patientUuid": "$['patient']['uuid']"
+            }
+        },
+        {
+            "resource.name": "Search Observation Coded Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Observation",
+            "algorithm.class": "com.muzima.api.model.algorithm.ObservationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchObservationCodedResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "patientUuid": "$['person.uuid']",
+                "conceptUuid": "$['concept.uuid']",
+                "conceptName": "$['concept.name.name']"
+            }
+        },
+        {
+            "resource.name": "Search Observation Non Coded Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Observation",
+            "algorithm.class": "com.muzima.api.model.algorithm.ObservationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchObservationNonCodedResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "patientUuid": "$['person.uuid']",
+                "conceptUuid": "$['concept.uuid']",
+                "conceptName": "$['concept.name.name']"
+            }
+        },
+        {
+            "resource.name": "Uuid Observation Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Observation",
+            "algorithm.class": "com.muzima.api.model.algorithm.ObservationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.LocalResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "patientUuid": "$['person']['uuid']",
+                "conceptUuid": "$['concept']['uuid']"
             }
         }
     ]

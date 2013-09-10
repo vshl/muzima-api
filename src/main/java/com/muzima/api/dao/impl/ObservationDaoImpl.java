@@ -34,43 +34,6 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
     }
 
     /**
-     * Search observations for patient with matching partial search term.
-     *
-     * @param patientUuid the uuid of the patient.
-     * @param conceptName the search term for the question of the observations.
-     * @return all observations for the patient with question matching the search term.
-     * @throws IOException when search api unable to process the resource.
-     */
-    @Override
-    public List<Observation> search(final String patientUuid, final String conceptName) throws IOException {
-        List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(patientUuid)) {
-            Filter patientFilter = FilterFactory.createFilter("patientUuid", patientUuid);
-            filters.add(patientFilter);
-        }
-        if (!StringUtil.isEmpty(conceptName)) {
-            Filter conceptFilter = FilterFactory.createFilter("conceptName", conceptName + "*");
-            filters.add(conceptFilter);
-        }
-        return service.getObjects(filters, daoClass);
-    }
-
-    @Override
-    public List<Observation> search(final String patientUuid, final String conceptName,
-                                    final Integer page, final Integer pageSize) throws IOException {
-        List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(patientUuid)) {
-            Filter patientFilter = FilterFactory.createFilter("patientUuid", patientUuid);
-            filters.add(patientFilter);
-        }
-        if (!StringUtil.isEmpty(conceptName)) {
-            Filter conceptFilter = FilterFactory.createFilter("conceptName", conceptName + "*");
-            filters.add(conceptFilter);
-        }
-        return service.getObjects(filters, daoClass, page, pageSize);
-    }
-
-    /**
      * Search observations for patient with matching uuid of the question.
      *
      * @param patientUuid the uuid of the patient.

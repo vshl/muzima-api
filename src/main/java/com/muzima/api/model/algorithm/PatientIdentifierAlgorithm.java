@@ -38,19 +38,18 @@ public class PatientIdentifierAlgorithm extends BaseOpenmrsAlgorithm {
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
      *
-     * @param json the json representation
+     * @param serialized the json representation
      * @return the concrete observation object
      */
     @Override
-    public Searchable deserialize(final String json) throws IOException {
+    public Searchable deserialize(final String serialized) throws IOException {
         PatientIdentifier patientIdentifier = new PatientIdentifier();
-        Object jsonObject = JsonPath.read(json, "$");
-        patientIdentifier.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        patientIdentifier.setIdentifier(JsonUtils.readAsString(jsonObject, "$['identifier']"));
-        patientIdentifier.setPreferred(JsonUtils.readAsBoolean(jsonObject, "$['preferred']"));
-        Object identifierTypeObject = JsonPath.read(jsonObject, "$['identifierType']");
+        patientIdentifier.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        patientIdentifier.setIdentifier(JsonUtils.readAsString(serialized, "$['identifier']"));
+        patientIdentifier.setPreferred(JsonUtils.readAsBoolean(serialized, "$['preferred']"));
+        Object identifierTypeObject = JsonUtils.readAsObject(serialized, "$['identifierType']");
         PatientIdentifierType identifierType =
-                (PatientIdentifierType) patientIdentifierTypeAlgorithm.deserialize(identifierTypeObject.toString());
+                (PatientIdentifierType) patientIdentifierTypeAlgorithm.deserialize(String.valueOf(identifierTypeObject));
         patientIdentifier.setIdentifierType(identifierType);
         return patientIdentifier;
     }

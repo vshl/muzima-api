@@ -34,15 +34,15 @@ import java.util.Calendar;
 public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String NON_CODED_OBSERVATION_REPRESENTATION =
-            "(uuid,obsDatetime,valueText,valueNumeric,valueDatetime," +
+            "(uuid,obsDatetime,valueText,valueNumeric,valueDatetime,valueCoded," +
                     "encounter:" + EncounterAlgorithm.ENCOUNTER_SIMPLE_REPRESENTATION + "," +
-                    "patient:" + PatientAlgorithm.PATIENT_SIMPLE_REPRESENTATION + "," +
+                    "person:" + PersonAlgorithm.PERSON_SIMPLE_REPRESENTATION + "," +
                     "concept:" + ConceptAlgorithm.CONCEPT_SIMPLE_REPRESENTATION + ")";
     public static final String CODED_OBSERVATION_REPRESENTATION =
-            "(uuid,obsDatetime," +
+            "(uuid,obsDatetime,valueText,valueNumeric,valueDatetime," +
                     "valueCoded:" + ConceptAlgorithm.CONCEPT_STANDARD_REPRESENTATION + "," +
                     "encounter:" + EncounterAlgorithm.ENCOUNTER_SIMPLE_REPRESENTATION + "," +
-                    "patient:" + PatientAlgorithm.PATIENT_SIMPLE_REPRESENTATION + "," +
+                    "person:" + PersonAlgorithm.PERSON_SIMPLE_REPRESENTATION + "," +
                     "concept:" + ConceptAlgorithm.CONCEPT_SIMPLE_REPRESENTATION + ")";
 
     private Logger logger = LoggerFactory.getLogger(ObservationAlgorithm.class.getSimpleName());
@@ -59,33 +59,28 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
      *
-     * @param json the json representation
+     * @param serialized the json representation
      * @return the concrete observation object
      */
     @Override
-    public Searchable deserialize(final String json) throws IOException {
+    public Searchable deserialize(final String serialized) throws IOException {
         Observation observation = new Observation();
-        Object jsonObject = JsonPath.read(json, "$");
-        observation.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        observation.setObservationDatetime(JsonUtils.readAsDate(jsonObject, "$['obsDatetime']"));
+        observation.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        observation.setObservationDatetime(JsonUtils.readAsDate(serialized, "$['obsDatetime']"));
         // values, ignored when they are not exists in the resource
-        observation.setValueText(JsonUtils.readAsString(jsonObject, "$['valueText']"));
-        observation.setValueNumeric(JsonUtils.readAsNumeric(jsonObject, "$['valueNumeric']"));
-        observation.setValueDatetime(JsonUtils.readAsDate(jsonObject, "$['valueDatetime']"));
-        try {
-            // value coded need to be handled separately because we can't create the custom structure of value coded!
-            Object valueCodedObject = JsonPath.read(jsonObject, "$['valueCoded']");
-            observation.setValueCoded((Concept) conceptAlgorithm.deserialize(valueCodedObject.toString()));
-            // some observation might not have the encounter associated with it!
-            Object encounterObject = JsonPath.read(jsonObject, "$['encounter']");
-            observation.setEncounter((Encounter) encounterAlgorithm.deserialize(encounterObject.toString()));
-        } catch (InvalidPathException e) {
-            logger.error("Unable to read the coded structure from the resource", e);
-        }
-        Object conceptObject = JsonPath.read(jsonObject, "$['concept']");
-        observation.setConcept((Concept) conceptAlgorithm.deserialize(conceptObject.toString()));
-        Object personObject = JsonPath.read(jsonObject, "$['person']");
-        observation.setPerson((Person) personAlgorithm.deserialize(personObject.toString()));
+        observation.setValueText(JsonUtils.readAsString(serialized, "$['valueText']"));
+        observation.setValueNumeric(JsonUtils.readAsNumeric(serialized, "$['valueNumeric']"));
+        observation.setValueDatetime(JsonUtils.readAsDate(serialized, "$['valueDatetime']"));
+        // value coded need to be handled separately because we can't create the custom structure of value coded!
+        Object valueCodedObject = JsonUtils.readAsObject(serialized, "$['valueCoded']");
+        observation.setValueCoded((Concept) conceptAlgorithm.deserialize(String.valueOf(valueCodedObject)));
+        // some observation might not have the encounter associated with it!
+        Object encounterObject = JsonUtils.readAsObject(serialized, "$['encounter']");
+        observation.setEncounter((Encounter) encounterAlgorithm.deserialize(String.valueOf(encounterObject)));
+        Object conceptObject = JsonUtils.readAsObject(serialized, "$['concept']");
+        observation.setConcept((Concept) conceptAlgorithm.deserialize(String.valueOf(conceptObject)));
+        Object personObject = JsonUtils.readAsObject(serialized, "$['person']");
+        observation.setPerson((Person) personAlgorithm.deserialize(String.valueOf(personObject)));
         return observation;
     }
 

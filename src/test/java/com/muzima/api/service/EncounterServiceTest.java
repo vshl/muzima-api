@@ -18,9 +18,6 @@ package com.muzima.api.service;
 import com.muzima.api.context.Context;
 import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Encounter;
-import com.muzima.api.model.Encounter;
-import com.muzima.api.model.Encounter;
-import com.muzima.api.model.Encounter;
 import com.muzima.api.model.Patient;
 import com.muzima.search.api.util.StringUtil;
 import org.junit.After;
@@ -35,7 +32,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
@@ -88,6 +85,7 @@ public class EncounterServiceTest {
         context.deauthenticate();
         context.closeSession();
     }
+
     /**
      * @verifies return downloaded encounter with matching uuid.
      * @see EncounterService#downloadEncounterByUuid(String)
@@ -128,8 +126,8 @@ public class EncounterServiceTest {
      */
     @Test
     public void downloadEncountersByPatientName_shouldReturnEmptyListWhenTheNameIsEmpty() throws Exception {
-        // TODO: need to check passing empty string to download
-        List<Encounter> downloadedEncounters = encounterService.downloadEncountersByPatientName("Blah");
+        String randomUuid = UUID.randomUUID().toString();
+        List<Encounter> downloadedEncounters = encounterService.downloadEncountersByPatientName(randomUuid);
         assertThat(downloadedEncounters, hasSize(0));
     }
 
@@ -341,5 +339,83 @@ public class EncounterServiceTest {
         assertThat(savedEncounters, hasSize(encounters.size()));
         encounterService.deleteEncounters(savedEncounters);
         assertThat(encounterService.getAllEncounters(), hasSize(0));
+    }
+
+    /**
+     * @verifies return list of encounters with matching patient uuid.
+     * @see EncounterService#getEncountersByPatientUuid(String)
+     */
+    @Test
+    public void getEncountersByPatientUuid_shouldReturnListOfEncountersWithMatchingPatientUuid() throws Exception {
+        Patient patient = encounter.getPatient();
+        assertThat(encounterService.getEncountersByPatientUuid(patient.getUuid()), empty());
+        encounterService.saveEncounter(encounter);
+        assertThat(encounterService.getEncountersByPatientUuid(patient.getUuid()), not(empty()));
+    }
+
+    /**
+     * @verifies return empty list when no encounter match the patient uuid.
+     * @see EncounterService#getEncountersByPatientUuid(String)
+     */
+    @Test
+    public void getEncountersByPatientUuid_shouldReturnEmptyListWhenNoEncounterMatchThePatientUuid() throws Exception {
+        Patient patient = encounter.getPatient();
+        assertThat(encounterService.getEncountersByPatientUuid(patient.getUuid()), empty());
+        encounterService.saveEncounter(encounter);
+        assertThat(encounterService.getEncountersByPatientUuid(patient.getUuid()), not(empty()));
+        String randomPatientUuid = UUID.randomUUID().toString();
+        assertThat(encounterService.getEncountersByPatientUuid(randomPatientUuid), empty());
+    }
+
+    /**
+     * @verifies return list of encounters with matching patient.
+     * @see EncounterService#getEncountersByPatient(com.muzima.api.model.Patient)
+     */
+    @Test
+    public void getEncountersByPatient_shouldReturnListOfEncountersWithMatchingPatient() throws Exception {
+        Patient patient = encounter.getPatient();
+        assertThat(encounterService.getEncountersByPatient(patient), empty());
+        encounterService.saveEncounter(encounter);
+        assertThat(encounterService.getEncountersByPatient(patient), not(empty()));
+    }
+
+    /**
+     * @verifies return empty list when no encounter match the patient.
+     * @see EncounterService#getEncountersByPatient(com.muzima.api.model.Patient)
+     */
+    @Test
+    public void getEncountersByPatient_shouldReturnEmptyListWhenNoEncounterMatchThePatient() throws Exception {
+        Patient patient = encounter.getPatient();
+        assertThat(encounterService.getEncountersByPatient(patient), empty());
+        encounterService.saveEncounter(encounter);
+        assertThat(encounterService.getEncountersByPatient(patient), not(empty()));
+        Patient randomPatient = new Patient();
+        randomPatient.setUuid(UUID.randomUUID().toString());
+        assertThat(encounterService.getEncountersByPatient(randomPatient), empty());
+    }
+
+    /**
+     * @verifies return downloaded list of encounters with matching uuid.
+     * @see EncounterService#downloadEncountersByPatient(com.muzima.api.model.Patient)
+     */
+    @Test
+    public void downloadEncountersByPatient_shouldReturnDownloadedListOfEncountersWithMatchingUuid() throws Exception {
+        Patient patient = encounter.getPatient();
+        List<Encounter> downloadedEncounters = encounterService.downloadEncountersByPatient(patient);
+        for (Encounter downloadedEncounter : downloadedEncounters) {
+            assertThat(downloadedEncounter.getPatient(), equalTo(patient));
+        }
+    }
+
+    /**
+     * @verifies return empty list when the uuid is empty.
+     * @see EncounterService#downloadEncountersByPatient(com.muzima.api.model.Patient)
+     */
+    @Test
+    public void downloadEncountersByPatient_shouldReturnEmptyListWhenTheUuidIsEmpty() throws Exception {
+        Patient randomPatient = new Patient();
+        randomPatient.setUuid(UUID.randomUUID().toString());
+        List<Encounter> downloadedEncounters = encounterService.downloadEncountersByPatient(randomPatient);
+        assertThat(downloadedEncounters, empty());
     }
 }

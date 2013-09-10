@@ -47,23 +47,23 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
      *
-     * @param json the json representation
+     * @param serialized the json representation
      * @return the concrete observation object
      */
     @Override
-    public Searchable deserialize(final String json) throws IOException {
+    public Searchable deserialize(final String serialized) throws IOException {
         Patient patient = new Patient();
-        Object jsonObject = JsonPath.read(json, "$");
-        patient.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        patient.setGender(JsonUtils.readAsString(jsonObject, "$['gender']"));
-        patient.setBirthdate(JsonUtils.readAsDate(jsonObject, "$['birthdate']"));
-        List<Object> personNameObjects = JsonUtils.readAsObjectList(jsonObject, "$['names']");
+        patient.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        patient.setGender(JsonUtils.readAsString(serialized, "$['gender']"));
+        patient.setBirthdate(JsonUtils.readAsDate(serialized, "$['birthdate']"));
+        List<Object> personNameObjects = JsonUtils.readAsObjectList(serialized, "$['names']");
         for (Object personNameObject : personNameObjects) {
-            patient.addName((PersonName) personNameAlgorithm.deserialize(personNameObject.toString()));
+            patient.addName((PersonName) personNameAlgorithm.deserialize(String.valueOf(personNameObject)));
         }
-        List<Object> identifierObjects = JsonUtils.readAsObjectList(jsonObject, "$['identifiers']");
+        List<Object> identifierObjects = JsonUtils.readAsObjectList(serialized, "$['identifiers']");
         for (Object identifierObject : identifierObjects) {
-            patient.addIdentifier((PatientIdentifier) patientIdentifierAlgorithm.deserialize(identifierObject.toString()));
+            patient.addIdentifier(
+                    (PatientIdentifier) patientIdentifierAlgorithm.deserialize(String.valueOf(identifierObject)));
         }
         return patient;
     }

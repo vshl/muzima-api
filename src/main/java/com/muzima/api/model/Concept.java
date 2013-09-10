@@ -27,12 +27,13 @@ public class Concept extends OpenmrsSearchable {
 
     private static final String NUMERIC_TYPE = "Numeric";
 
+    private static final String CODED_TYPE = "Coded";
+
     private String unit;
 
     private ConceptType conceptType;
 
     private List<ConceptName> conceptNames;
-    private boolean numeric;
 
     public String getUnit() {
         return unit;
@@ -82,5 +83,13 @@ public class Concept extends OpenmrsSearchable {
             numeric = StringUtil.equals(getConceptType().getName(), NUMERIC_TYPE);
         }
         return numeric;
+    }
+
+    public boolean isCoded() {
+        boolean coded = false;
+        if (getConceptType() != null) {
+            coded = StringUtil.equals(getConceptType().getName(), CODED_TYPE);
+        }
+        return coded;
     }
 }

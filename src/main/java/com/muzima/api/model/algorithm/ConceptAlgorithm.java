@@ -36,11 +36,11 @@ public class ConceptAlgorithm extends BaseOpenmrsAlgorithm {
     public static final String CONCEPT_STANDARD_REPRESENTATION =
             "(uuid," +
                     "datatype:" + ConceptTypeAlgorithm.CONCEPT_TYPE_STANDARD_REPRESENTATION + "," +
-                    "names:" + ConceptNameAlgorithm.CONCEPT_NAME_STANDARD_REPRESENTATION + ")";
+                    "names:" + ConceptNameAlgorithm.CONCEPT_NAME_STANDARD_REPRESENTATION + ",uuid)";
     public static final String CONCEPT_NUMERIC_STANDARD_REPRESENTATION =
             "(uuid,units," +
                     "datatype:" + ConceptTypeAlgorithm.CONCEPT_TYPE_STANDARD_REPRESENTATION + "," +
-                    "names:" + ConceptNameAlgorithm.CONCEPT_NAME_STANDARD_REPRESENTATION + ")";
+                    "names:" + ConceptNameAlgorithm.CONCEPT_NAME_STANDARD_REPRESENTATION + ",uuid)";
 
     private ConceptTypeAlgorithm conceptTypeAlgorithm;
     private ConceptNameAlgorithm conceptNameAlgorithm;
@@ -59,14 +59,13 @@ public class ConceptAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         Concept concept = new Concept();
-        Object jsonObject = JsonPath.read(serialized, "$");
-        concept.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        concept.setUnit(JsonUtils.readAsString(jsonObject, "$['units']"));
-        Object conceptTypeObject = JsonPath.read(jsonObject, "$['datatype']");
-        concept.setConceptType((ConceptType) conceptTypeAlgorithm.deserialize(conceptTypeObject.toString()));
-        List<Object> conceptNameObjects = JsonPath.read(jsonObject, "$['names']");
+        concept.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        concept.setUnit(JsonUtils.readAsString(serialized, "$['units']"));
+        Object conceptTypeObject = JsonUtils.readAsObject(serialized, "$['datatype']");
+        concept.setConceptType((ConceptType) conceptTypeAlgorithm.deserialize(String.valueOf(conceptTypeObject)));
+        List<Object> conceptNameObjects = JsonUtils.readAsObjectList(serialized, "$['names']");
         for (Object conceptNameObject : conceptNameObjects) {
-            concept.addName((ConceptName) conceptNameAlgorithm.deserialize(conceptNameObject.toString()));
+            concept.addName((ConceptName) conceptNameAlgorithm.deserialize(String.valueOf(conceptNameObject)));
         }
         return concept;
     }

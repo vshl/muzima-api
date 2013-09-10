@@ -30,7 +30,7 @@ import java.util.List;
 
 public class PersonAlgorithm extends BaseOpenmrsAlgorithm {
 
-    public static final String PERSON_SIMPLE_REPRESENTATION = "(uuid)";
+    public static final String PERSON_SIMPLE_REPRESENTATION = "(uuid,uuid)";
     public static final String PERSON_STANDARD_REPRESENTATION =
             "(uuid,gender,birthdate,names:" + PersonNameAlgorithm.PERSON_NAME_REPRESENTATION + ",uuid)";
     private PersonNameAlgorithm personNameAlgorithm;
@@ -42,19 +42,18 @@ public class PersonAlgorithm extends BaseOpenmrsAlgorithm {
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
      *
-     * @param json the json representation
+     * @param serialized the json representation
      * @return the concrete observation object
      */
     @Override
-    public Searchable deserialize(final String json) throws IOException {
+    public Searchable deserialize(final String serialized) throws IOException {
         Person person = new Person();
-        Object jsonObject = JsonPath.read(json, "$");
-        person.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        person.setGender(JsonUtils.readAsString(jsonObject, "$['gender']"));
-        person.setBirthdate(JsonUtils.readAsDate(jsonObject, "$['birthdate']"));
-        List<Object> personNameObjects = JsonUtils.readAsObjectList(jsonObject, "$['names']");
+        person.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        person.setGender(JsonUtils.readAsString(serialized, "$['gender']"));
+        person.setBirthdate(JsonUtils.readAsDate(serialized, "$['birthdate']"));
+        List<Object> personNameObjects = JsonUtils.readAsObjectList(serialized, "$['names']");
         for (Object personNameObject : personNameObjects) {
-            person.addName((PersonName) personNameAlgorithm.deserialize(personNameObject.toString()));
+            person.addName((PersonName) personNameAlgorithm.deserialize(String.valueOf(personNameObject)));
         }
         return person;
     }

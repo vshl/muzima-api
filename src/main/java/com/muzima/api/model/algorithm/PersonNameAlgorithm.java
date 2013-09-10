@@ -39,12 +39,11 @@ public class PersonNameAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         PersonName personName = new PersonName();
-        Object jsonObject = JsonPath.read(serialized, "$");
-        personName.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        personName.setGivenName(JsonUtils.readAsString(jsonObject, "$['givenName']"));
-        personName.setMiddleName(JsonUtils.readAsString(jsonObject, "$['middleName']"));
-        personName.setFamilyName(JsonUtils.readAsString(jsonObject, "$['familyName']"));
-        personName.setPreferred(JsonUtils.readAsBoolean(jsonObject, "$['preferred']"));
+        personName.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        personName.setGivenName(JsonUtils.readAsString(serialized, "$['givenName']"));
+        personName.setMiddleName(JsonUtils.readAsString(serialized, "$['middleName']"));
+        personName.setFamilyName(JsonUtils.readAsString(serialized, "$['familyName']"));
+        personName.setPreferred(JsonUtils.readAsBoolean(serialized, "$['preferred']"));
         return personName;
     }
 

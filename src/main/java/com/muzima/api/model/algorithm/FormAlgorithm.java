@@ -28,21 +28,20 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
      *
-     * @param json the json representation
+     * @param serialized the json representation
      * @return the concrete observation object
      */
     @Override
-    public Searchable deserialize(final String json) throws IOException {
+    public Searchable deserialize(final String serialized) throws IOException {
         Form form = new Form();
-        Object jsonObject = JsonPath.read(json, "$");
-        form.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        form.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
-        form.setDescription(JsonUtils.readAsString(jsonObject, "$['description']"));
-        JSONArray tagObjects = JsonPath.read(jsonObject, "$['tags']");
+        form.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        form.setName(JsonUtils.readAsString(serialized, "$['name']"));
+        form.setDescription(JsonUtils.readAsString(serialized, "$['description']"));
+        JSONArray tagObjects = JsonPath.read(serialized, "$['tags']");
         Tag[] tags = new Tag[tagObjects.size()];
         for (int i = 0; i < tagObjects.size(); i++) {
             Tag tag = new Tag();
-            Object tagObject = tagObjects.get(i);
+            String tagObject = String.valueOf(tagObjects.get(i));
             tag.setName(JsonUtils.readAsString(tagObject, "name"));
             tag.setUuid(JsonUtils.readAsString(tagObject, "uuid"));
             tags[i] = tag;

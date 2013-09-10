@@ -44,12 +44,11 @@ public class CohortDataAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         CohortData cohortData = new CohortData();
-        Object cohortDataObject = JsonPath.read(serialized, "$");
         try {
-            processStaticCohortDataObject(cohortData, cohortDataObject);
+            processStaticCohortDataObject(cohortData, serialized);
         } catch (InvalidPathException invalidStaticCohortException) {
             try {
-                processDynamicCohortDataObject(cohortData, cohortDataObject);
+                processDynamicCohortDataObject(cohortData, serialized);
             } catch (InvalidPathException invalidDynamicCohortException) {
                 logger.error("Unable to tell if the data is dynamic or static cohort!", invalidDynamicCohortException);
             }
@@ -57,11 +56,11 @@ public class CohortDataAlgorithm extends BaseOpenmrsAlgorithm {
         return cohortData;
     }
 
-    private void processStaticCohortDataObject(final CohortData cohortData, final Object serialized) throws IOException {
+    private void processStaticCohortDataObject(final CohortData cohortData, final String serialized) throws IOException {
         Cohort cohort = new Cohort();
         List<Object> cohortObjects = JsonPath.read(serialized, "$['results'][*]['cohort']");
         for (Object cohortObject : cohortObjects) {
-            cohort = (Cohort) cohortAlgorithm.deserialize(cohortObject.toString());
+            cohort = (Cohort) cohortAlgorithm.deserialize(String.valueOf(cohortObject));
             if (!StringUtil.isEmpty(cohort.getUuid()) && !StringUtil.isEmpty(cohort.getName())) {
                 break;
             }
@@ -71,21 +70,21 @@ public class CohortDataAlgorithm extends BaseOpenmrsAlgorithm {
 
         List<Object> patientObjects = JsonPath.read(serialized, "$['results'][*]['patient']");
         for (Object patientObject : patientObjects) {
-            Patient patient = (Patient) patientAlgorithm.deserialize(patientObject.toString());
+            Patient patient = (Patient) patientAlgorithm.deserialize(String.valueOf(patientObject));
             cohortData.addCohortMember(new CohortMember(cohort, patient));
             cohortData.addPatient(patient);
         }
     }
 
-    private void processDynamicCohortDataObject(final CohortData cohortData, final Object serialized) throws IOException {
+    private void processDynamicCohortDataObject(final CohortData cohortData, final String serialized) throws IOException {
         Object definitionObject = JsonPath.read(serialized, "$['definition']");
-        Cohort cohort = (Cohort) cohortAlgorithm.deserialize(definitionObject.toString());
+        Cohort cohort = (Cohort) cohortAlgorithm.deserialize(String.valueOf(definitionObject));
         cohort.setDynamic(true);
         cohortData.setCohort(cohort);
 
         List<Object> patientObjects = JsonPath.read(serialized, "$['members']");
         for (Object patientObject : patientObjects) {
-            Patient patient = (Patient) patientAlgorithm.deserialize(patientObject.toString());
+            Patient patient = (Patient) patientAlgorithm.deserialize(String.valueOf(patientObject));
             cohortData.addCohortMember(new CohortMember(cohort, patient));
             cohortData.addPatient(patient);
         }

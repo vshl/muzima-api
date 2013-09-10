@@ -27,20 +27,6 @@ import java.util.List;
 public interface ObservationDao extends OpenmrsDao<Observation> {
 
     /**
-     * Search observations for patient with matching partial search term.
-     *
-     * @param patientUuid the uuid of the patient.
-     * @param term        the search term for the question of the observations.
-     * @return all observations for the patient with question matching the search term.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
-     */
-    List<Observation> search(final String patientUuid, final String term) throws IOException;
-
-    List<Observation> search(final String patientUuid, final String term,
-                             final Integer page, final Integer pageSize) throws IOException;
-
-    /**
      * Search observations for patient with matching uuid of the question.
      *
      * @param patientUuid the uuid of the patient.

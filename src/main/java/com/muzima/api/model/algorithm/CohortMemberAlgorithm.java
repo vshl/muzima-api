@@ -20,6 +20,7 @@ import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
 import com.muzima.search.api.model.object.Searchable;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
@@ -43,11 +44,10 @@ public class CohortMemberAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         CohortMember cohortMember = new CohortMember();
-        Object jsonObject = JsonPath.read(serialized, "$");
-        Object cohortObject = JsonPath.read(jsonObject, "$['cohort']");
-        cohortMember.setCohort((Cohort) cohortAlgorithm.deserialize(cohortObject.toString()));
-        Object patientObject = JsonPath.read(jsonObject, "$['patient']");
-        cohortMember.setPatient((Patient) patientAlgorithm.deserialize(patientObject.toString()));
+        Object cohortObject = JsonUtils.readAsObject(serialized, "$['cohort']");
+        cohortMember.setCohort((Cohort) cohortAlgorithm.deserialize(String.valueOf(cohortObject)));
+        Object patientObject = JsonUtils.readAsObject(serialized, "$['patient']");
+        cohortMember.setPatient((Patient) patientAlgorithm.deserialize(String.valueOf(patientObject)));
         return cohortMember;
     }
 

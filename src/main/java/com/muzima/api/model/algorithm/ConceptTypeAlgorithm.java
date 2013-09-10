@@ -39,9 +39,8 @@ public class ConceptTypeAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         ConceptType conceptType = new ConceptType();
-        Object jsonObject = JsonPath.read(serialized, "$");
-        conceptType.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        conceptType.setName(JsonUtils.readAsString(jsonObject, "$['name']"));
+        conceptType.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        conceptType.setName(JsonUtils.readAsString(serialized, "$['name']"));
         return conceptType;
     }
 

@@ -42,6 +42,9 @@ public class EncounterServiceImpl implements EncounterService {
     @Inject
     private EncounterDao encounterDao;
 
+    protected EncounterServiceImpl() {
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -93,6 +96,16 @@ public class EncounterServiceImpl implements EncounterService {
     /**
      * {@inheritDoc}
      *
+     * @see EncounterService#downloadEncountersByPatient(com.muzima.api.model.Patient)
+     */
+    @Override
+    public List<Encounter> downloadEncountersByPatient(final Patient patient) throws IOException {
+        return downloadEncountersByPatientUuid(patient.getUuid());
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see com.muzima.api.service.EncounterService#getEncounterByUuid(String)
      */
     @Override
@@ -123,6 +136,16 @@ public class EncounterServiceImpl implements EncounterService {
     @Override
     public List<Encounter> getEncountersByPatientUuid(final String patientUuid) throws IOException {
         return encounterDao.getEncountersByPatientUuid(patientUuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see EncounterService#getEncountersByPatient(com.muzima.api.model.Patient)
+     */
+    @Override
+    public List<Encounter> getEncountersByPatient(final Patient patient) throws IOException {
+        return encounterDao.getEncountersByPatientUuid(patient.getUuid());
     }
 
     /**

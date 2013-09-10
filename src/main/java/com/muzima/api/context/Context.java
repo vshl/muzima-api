@@ -108,7 +108,7 @@ public class Context {
     private void registerResources(final InputStream inputStream, final ServiceContext serviceContext) throws Exception {
         List<Object> configurations = JsonPath.read(inputStream, "$['configurations']");
         for (Object configuration : configurations) {
-            Resource resource = createResource(configuration.toString());
+            Resource resource = createResource(String.valueOf(configuration));
             serviceContext.registerResource(resource.getName(), resource);
         }
     }
@@ -160,11 +160,11 @@ public class Context {
             Map map = (Map) searchableFields;
             for (Object fieldName : map.keySet()) {
                 Boolean unique = Boolean.FALSE;
-                if (uniqueFields.contains(fieldName.toString())) {
+                if (uniqueFields.contains(String.valueOf(fieldName))) {
                     unique = Boolean.TRUE;
                 }
-                String expression = map.get(fieldName).toString();
-                resource.addFieldDefinition(fieldName.toString(), expression, unique);
+                String expression = String.valueOf(map.get(fieldName));
+                resource.addFieldDefinition(String.valueOf(fieldName), expression, unique);
             }
         }
         return resource;

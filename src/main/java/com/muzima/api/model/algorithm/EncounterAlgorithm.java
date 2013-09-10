@@ -34,7 +34,7 @@ import java.util.Calendar;
  */
 public class EncounterAlgorithm extends BaseOpenmrsAlgorithm {
 
-    public static final String ENCOUNTER_SIMPLE_REPRESENTATION = "(uuid)";
+    public static final String ENCOUNTER_SIMPLE_REPRESENTATION = "(uuid,uuid)";
     public static final String ENCOUNTER_STANDARD_REPRESENTATION =
             "(uuid,encounterDatetime," +
                     "provider:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + "," +
@@ -64,17 +64,16 @@ public class EncounterAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         Encounter encounter = new Encounter();
-        Object jsonObject = JsonPath.read(serialized, "$");
-        encounter.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
-        encounter.setEncounterDatetime(JsonUtils.readAsDate(jsonObject, "$['encounterDatetime']"));
-        Object patientObject = JsonPath.read(jsonObject, "$['patient']");
-        encounter.setPatient((Patient) patientAlgorithm.deserialize(patientObject.toString()));
-        Object providerObject = JsonPath.read(jsonObject, "$['provider']");
-        encounter.setProvider((Person) personAlgorithm.deserialize(providerObject.toString()));
-        Object locationObject = JsonPath.read(jsonObject, "$['location']");
-        encounter.setLocation((Location) locationAlgorithm.deserialize(locationObject.toString()));
-        Object encounterTypeObject = JsonPath.read(jsonObject, "$['encounterType']");
-        encounter.setEncounterType((EncounterType) encounterTypeAlgorithm.deserialize(encounterTypeObject.toString()));
+        encounter.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        encounter.setEncounterDatetime(JsonUtils.readAsDate(serialized, "$['encounterDatetime']"));
+        Object patientObject = JsonUtils.readAsObject(serialized, "$['patient']");
+        encounter.setPatient((Patient) patientAlgorithm.deserialize(String.valueOf(patientObject)));
+        Object providerObject = JsonUtils.readAsObject(serialized, "$['provider']");
+        encounter.setProvider((Person) personAlgorithm.deserialize(String.valueOf(providerObject)));
+        Object locationObject = JsonUtils.readAsObject(serialized, "$['location']");
+        encounter.setLocation((Location) locationAlgorithm.deserialize(String.valueOf(locationObject)));
+        Object encounterTypeObject = JsonUtils.readAsObject(serialized, "$['encounterType']");
+        encounter.setEncounterType((EncounterType) encounterTypeAlgorithm.deserialize(String.valueOf(encounterTypeObject)));
         return encounter;
     }
 

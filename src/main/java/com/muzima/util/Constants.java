@@ -65,8 +65,6 @@ public class Constants {
 
     public static final String SEARCH_FORM_TEMPLATE_RESOURCE = "Search Form Template Resource";
 
-    public static final String SEARCH_OBSERVATION_RESOURCE = "Search Observation Resource";
-
     public static final String SEARCH_PATIENT_RESOURCE = "Search Patient Resource";
 
     public static final String SEARCH_PRIVILEGE_RESOURCE = "Search Privilege Resource";
@@ -88,8 +86,6 @@ public class Constants {
     public static final String SENDER_NOTIFICATION_RESOURCE = "Sender Notification  Resource";
 
     public static final String RECEIVER_NOTIFICATION_RESOURCE = "Receiver Notification  Resource";
-
-    public static final String UUID_OBSERVATION_RESOURCE = "Uuid Observation Resource";
 
     public static final String UUID_PATIENT_RESOURCE = "Uuid Patient Resource";
 
@@ -114,4 +110,10 @@ public class Constants {
     public static final String SEARCH_ENCOUNTER_RESOURCE = "Search Encounter Resource";
 
     public static final String UUID_ENCOUNTER_RESOURCE = "Uuid Encounter Resource";
+
+    public static final String SEARCH_OBSERVATION_CODED_RESOURCE = "Search Observation Coded Resource";
+
+    public static final String SEARCH_OBSERVATION_NON_CODED_RESOURCE = "Search Observation Non Coded Resource";
+
+    public static final String UUID_OBSERVATION_RESOURCE = "Uuid Observation Resource";
 }
