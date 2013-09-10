@@ -18,6 +18,7 @@ package com.muzima.api.service;
 import com.google.inject.ImplementedBy;
 import com.muzima.api.model.Encounter;
 import com.muzima.api.service.impl.EncounterServiceImpl;
+import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +46,7 @@ public interface EncounterService extends MuzimaInterface {
      * @param name the partial name of the patient.
      * @return list of encounters with for patient with matching name.
      * @throws java.io.IOException when the search api unable to process the resource.
-     * @should return downloaded list of encounters for patient with matching name.
+     * @should return encounters for patient with matching name.
      * @should return empty list when the name is empty.
      */
     List<Encounter> downloadEncountersByPatientName(final String name) throws IOException;
@@ -56,8 +57,8 @@ public interface EncounterService extends MuzimaInterface {
      * @param patientUuid the uuid of the patient.
      * @return list of encounters with matching name.
      * @throws java.io.IOException when the search api unable to process the resource.
-     * @should return downloaded list of encounters with matching name.
-     * @should return empty list when the name is empty.
+     * @should return downloaded list of encounters with matching uuid.
+     * @should return empty list when the uuid is empty.
      */
     List<Encounter> downloadEncountersByPatientUuid(final String patientUuid) throws IOException;
 
@@ -73,15 +74,26 @@ public interface EncounterService extends MuzimaInterface {
     Encounter getEncounterByUuid(final String uuid) throws IOException;
 
     /**
-     * Get list of encounters from local data repository with matching name.
+     * Get list of encounters from local data repository with matching patient name.
      *
-     * @param name the name of the encounter.
+     * @param name the name of the patient.
      * @return list of encounters with matching name.
      * @throws java.io.IOException when the search api unable to process the resource.
-     * @should return list of encounters with matching name.
-     * @should return empty list when no encounter match the name.
+     * @should return list of encounters with matching patient name.
+     * @should return empty list when no encounter match the patient name.
      */
-    List<Encounter> getEncountersByName(final String name) throws IOException;
+    List<Encounter> getEncountersByPatientName(final String name) throws IOException, ParseException;
+
+    /**
+     * Get list of encounters from local data repository with matching patient uuid.
+     *
+     * @param patientUuid the patient uuid.
+     * @return list of encounters with matching uuid.
+     * @throws java.io.IOException when the search api unable to process the resource.
+     * @should return list of encounters with matching patient uuid.
+     * @should return empty list when no encounter match the patient uuid.
+     */
+    List<Encounter> getEncountersByPatientUuid(final String patientUuid) throws IOException;
 
     /**
      * Get all encounters stored in the local data repository.

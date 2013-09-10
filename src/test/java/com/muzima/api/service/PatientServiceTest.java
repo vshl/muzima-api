@@ -43,6 +43,8 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
  * TODO: Write brief description about the class here.
  */
 public class PatientServiceTest {
+    private static final String GIVEN_NAME = "Test";
+    private static final String FAMILY_NAME = "Indakasi";
     // baseline patient
     private Patient patient;
     private List<Patient> patients;
@@ -63,7 +65,7 @@ public class PatientServiceTest {
             context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
         }
         patientService = context.getPatientService();
-        patients = patientService.downloadPatientsByName("Test");
+        patients = patientService.downloadPatientsByName(GIVEN_NAME);
         patient = patients.get(nextInt(patients.size()));
     }
 
@@ -96,7 +98,7 @@ public class PatientServiceTest {
      */
     @Test
     public void downloadPatientsByName_shouldDownloadAllPatientWithPartiallyMatchedName() throws Exception {
-        String name = "Indakasi";
+        String name = FAMILY_NAME;
         String partialName = name.substring(0, name.length() - 1);
         List<Patient> downloadedPatients = patientService.downloadPatientsByName(partialName);
         for (Patient downloadedPatient : downloadedPatients) {
@@ -279,7 +281,7 @@ public class PatientServiceTest {
     @Test
     public void searchPatients_shouldReturnListOfAllPatientsWithMatchingSearchTerm() throws Exception {
         patientService.savePatients(patients);
-        String name ="Indakasi";
+        String name = FAMILY_NAME;
         String partialName = name.substring(0, name.length() - 1);
         List<Patient> patientsByName = patientService.searchPatients(partialName);
         assertThat(patientsByName.size(), equalTo(1));

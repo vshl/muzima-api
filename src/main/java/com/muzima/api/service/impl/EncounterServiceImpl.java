@@ -17,12 +17,16 @@ package com.muzima.api.service.impl;
 
 import com.google.inject.Inject;
 import com.muzima.api.dao.EncounterDao;
+import com.muzima.api.dao.PatientDao;
 import com.muzima.api.model.Encounter;
+import com.muzima.api.model.Patient;
 import com.muzima.api.service.EncounterService;
 import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.util.Constants;
+import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +35,9 @@ import java.util.Map;
  * TODO: Write brief description about the class here.
  */
 public class EncounterServiceImpl implements EncounterService {
+
+    @Inject
+    private PatientDao patientDao;
 
     @Inject
     private EncounterDao encounterDao;
@@ -96,11 +103,26 @@ public class EncounterServiceImpl implements EncounterService {
     /**
      * {@inheritDoc}
      *
-     * @see com.muzima.api.service.EncounterService#getEncountersByName(String)
+     * @see com.muzima.api.service.EncounterService#getEncountersByPatientName(String)
      */
     @Override
-    public List<Encounter> getEncountersByName(final String name) throws IOException {
+    public List<Encounter> getEncountersByPatientName(final String name) throws IOException, ParseException {
+        List<Encounter> encounters = new ArrayList<Encounter>();
+        List<Patient> patients = patientDao.getPatientByName(name);
+        for (Patient patient : patients) {
+            encounters.addAll(getEncountersByPatientUuid(patient.getUuid()));
+        }
         return encounterDao.getByName(name);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.EncounterService#getEncountersByPatientUuid(String)
+     */
+    @Override
+    public List<Encounter> getEncountersByPatientUuid(final String patientUuid) throws IOException {
+        return encounterDao.getEncountersByPatientUuid(patientUuid);
     }
 
     /**

@@ -32,7 +32,7 @@ public class PersonAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String PERSON_SIMPLE_REPRESENTATION = "(uuid)";
     public static final String PERSON_STANDARD_REPRESENTATION =
-            "(uuid,gender,birthdate,names:" + PersonNameAlgorithm.PERSON_NAME_REPRESENTATION + ")";
+            "(uuid,gender,birthdate,names:" + PersonNameAlgorithm.PERSON_NAME_REPRESENTATION + ",uuid)";
     private PersonNameAlgorithm personNameAlgorithm;
 
     public PersonAlgorithm() {
@@ -52,7 +52,7 @@ public class PersonAlgorithm extends BaseOpenmrsAlgorithm {
         person.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
         person.setGender(JsonUtils.readAsString(jsonObject, "$['gender']"));
         person.setBirthdate(JsonUtils.readAsDate(jsonObject, "$['birthdate']"));
-        List<Object> personNameObjects = JsonPath.read(jsonObject, "$['names']");
+        List<Object> personNameObjects = JsonUtils.readAsObjectList(jsonObject, "$['names']");
         for (Object personNameObject : personNameObjects) {
             person.addName((PersonName) personNameAlgorithm.deserialize(personNameObject.toString()));
         }

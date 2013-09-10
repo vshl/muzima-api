@@ -57,11 +57,11 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
         patient.setUuid(JsonUtils.readAsString(jsonObject, "$['uuid']"));
         patient.setGender(JsonUtils.readAsString(jsonObject, "$['gender']"));
         patient.setBirthdate(JsonUtils.readAsDate(jsonObject, "$['birthdate']"));
-        List<Object> personNameObjects = JsonPath.read(jsonObject, "$['names']");
+        List<Object> personNameObjects = JsonUtils.readAsObjectList(jsonObject, "$['names']");
         for (Object personNameObject : personNameObjects) {
             patient.addName((PersonName) personNameAlgorithm.deserialize(personNameObject.toString()));
         }
-        List<Object> identifierObjects = JsonPath.read(jsonObject, "$['identifiers']");
+        List<Object> identifierObjects = JsonUtils.readAsObjectList(jsonObject, "$['identifiers']");
         for (Object identifierObject : identifierObjects) {
             patient.addIdentifier((PatientIdentifier) patientIdentifierAlgorithm.deserialize(identifierObject.toString()));
         }

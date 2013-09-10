@@ -37,10 +37,11 @@ public class EncounterAlgorithm extends BaseOpenmrsAlgorithm {
     public static final String ENCOUNTER_SIMPLE_REPRESENTATION = "(uuid)";
     public static final String ENCOUNTER_STANDARD_REPRESENTATION =
             "(uuid,encounterDatetime," +
-                    "patient:" + PatientAlgorithm.PATIENT_SIMPLE_REPRESENTATION + "," +
                     "provider:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + "," +
                     "location:" + LocationAlgorithm.LOCATION_STANDARD_REPRESENTATION + "," +
-                    "encounterType:" + EncounterTypeAlgorithm.ENCOUNTER_TYPE_STANDARD_REPRESENTATION + ")";
+                    "encounterType:" + EncounterTypeAlgorithm.ENCOUNTER_TYPE_STANDARD_REPRESENTATION + "," +
+                    "patient:" + PatientAlgorithm.PATIENT_SIMPLE_REPRESENTATION +
+                    ")";
 
     private PersonAlgorithm personAlgorithm;
     private PatientAlgorithm patientAlgorithm;
@@ -87,6 +88,7 @@ public class EncounterAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Encounter encounter = (Encounter) object;
         JSONObject jsonObject = new JSONObject();
+        JsonUtils.writeAsString(jsonObject, "uuid", encounter.getUuid());
         JsonUtils.writeAsDate(jsonObject, "encounterDatetime", encounter.getEncounterDatetime());
         String patient = patientAlgorithm.serialize(encounter.getPatient());
         jsonObject.put("patient", JsonPath.read(patient, "$"));

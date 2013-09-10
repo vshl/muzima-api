@@ -16,7 +16,15 @@
 package com.muzima.api.dao.impl;
 
 import com.muzima.api.dao.EncounterDao;
+import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Encounter;
+import com.muzima.search.api.filter.Filter;
+import com.muzima.search.api.filter.FilterFactory;
+import com.muzima.search.api.util.StringUtil;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * TODO: Write brief description about the class here.
@@ -25,5 +33,20 @@ public class EncounterDaoImpl extends OpenmrsDaoImpl<Encounter> implements Encou
 
     protected EncounterDaoImpl() {
         super(Encounter.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see EncounterDao#getEncountersByPatientUuid(String)
+     */
+    @Override
+    public List<Encounter> getEncountersByPatientUuid(final String patientUuid) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter filter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass);
     }
 }
