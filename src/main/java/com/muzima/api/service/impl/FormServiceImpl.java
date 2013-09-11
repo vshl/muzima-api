@@ -313,7 +313,7 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public void saveFormData(final FormData formData) throws IOException {
-        formDataDao.save(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
+        formDataDao.update(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
     }
 
     /**

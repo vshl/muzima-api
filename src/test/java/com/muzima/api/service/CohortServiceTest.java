@@ -49,7 +49,7 @@ public class CohortServiceTest {
     }
 
     @Test
-    public void donwloadStaticCohort() throws Exception {
+    public void downloadStaticCohort() throws Exception {
         Context context = ContextFactory.createContext();
 
         context.openSession();
@@ -90,7 +90,7 @@ public class CohortServiceTest {
     }
 
     @Test
-    public void donwloadDynamicCohort() throws Exception {
+    public void downloadDynamicCohort() throws Exception {
         Context context = ContextFactory.createContext();
 
         context.openSession();
