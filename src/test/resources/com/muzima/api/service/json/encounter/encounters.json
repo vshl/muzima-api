@@ -1,0 +1,200 @@
+{
+    "results": [
+        {
+            "uuid": "bf493781-1691-11df-97a5-7038c432aabf",
+            "provider": {
+                "uuid": "dd552fc1-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": null,
+                "names": [
+                    {
+                        "uuid": "ded2585e-1691-11df-97a5-7038c432aabf",
+                        "givenName": "Super",
+                        "middleName": "",
+                        "familyName": "User",
+                        "preferred": true
+                    }
+                ]
+            },
+            "encounterType": {
+                "uuid": "8d5b2be0-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "ADULTRETURN"
+            },
+            "location": {
+                "uuid": "8d6c993e-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Unknown Location"
+            },
+            "patient": {
+                "uuid": "dd55e586-1691-11df-97a5-7038c432aabf"
+            }
+        },
+        {
+            "uuid": "bf9c3102-1691-11df-97a5-7038c432aabf",
+            "provider": {
+                "uuid": "dd552fc1-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": null,
+                "names": [
+                    {
+                        "uuid": "ded2585e-1691-11df-97a5-7038c432aabf",
+                        "givenName": "Super",
+                        "middleName": "",
+                        "familyName": "User",
+                        "preferred": true
+                    }
+                ]
+            },
+            "encounterType": {
+                "uuid": "8d5b2be0-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "ADULTRETURN"
+            },
+            "location": {
+                "uuid": "8d6c993e-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Unknown Location"
+            },
+            "patient": {
+                "uuid": "dd55e586-1691-11df-97a5-7038c432aabf"
+            }
+        },
+        {
+            "uuid": "993eaf73-ff84-43ab-9d3c-c9b13ee2cefc",
+            "provider": {
+                "uuid": "dd552fc1-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": null,
+                "names": [
+                    {
+                        "uuid": "ded2585e-1691-11df-97a5-7038c432aabf",
+                        "givenName": "Super",
+                        "middleName": "",
+                        "familyName": "User",
+                        "preferred": true
+                    }
+                ]
+            },
+            "encounterType": {
+                "uuid": "8d5b2be0-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "ADULTRETURN"
+            },
+            "location": {
+                "uuid": "c0937b97-1691-11df-97a5-7038c432aabf",
+                "name": "Wishard Hospital"
+            },
+            "patient": {
+                "uuid": "dd55e586-1691-11df-97a5-7038c432aabf"
+            }
+        },
+        {
+            "uuid": "bf65d049-1691-11df-97a5-7038c432aabf",
+            "provider": {
+                "uuid": "dd552fc1-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": null,
+                "names": [
+                    {
+                        "uuid": "ded2585e-1691-11df-97a5-7038c432aabf",
+                        "givenName": "Super",
+                        "middleName": "",
+                        "familyName": "User",
+                        "preferred": true
+                    }
+                ]
+            },
+            "encounterType": {
+                "uuid": "8d5b2be0-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "ADULTRETURN"
+            },
+            "location": {
+                "uuid": "8d6c993e-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Unknown Location"
+            },
+            "patient": {
+                "uuid": "dda926e4-1691-11df-97a5-7038c432aabf"
+            }
+        },
+        {
+            "uuid": "bf3ecc32-1691-11df-97a5-7038c432aabf",
+            "provider": {
+                "uuid": "dd552fc1-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": null,
+                "names": [
+                    {
+                        "uuid": "ded2585e-1691-11df-97a5-7038c432aabf",
+                        "givenName": "Super",
+                        "middleName": "",
+                        "familyName": "User",
+                        "preferred": true
+                    }
+                ]
+            },
+            "encounterType": {
+                "uuid": "8d5b2be0-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "ADULTRETURN"
+            },
+            "location": {
+                "uuid": "8d6c993e-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Unknown Location"
+            },
+            "patient": {
+                "uuid": "dd7fc05a-1691-11df-97a5-7038c432aabf"
+            }
+        },
+        {
+            "uuid": "bf62937a-1691-11df-97a5-7038c432aabf",
+            "provider": {
+                "uuid": "dd552fc1-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": null,
+                "names": [
+                    {
+                        "uuid": "ded2585e-1691-11df-97a5-7038c432aabf",
+                        "givenName": "Super",
+                        "middleName": "",
+                        "familyName": "User",
+                        "preferred": true
+                    }
+                ]
+            },
+            "encounterType": {
+                "uuid": "8d5b2be0-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "ADULTRETURN"
+            },
+            "location": {
+                "uuid": "8d6c993e-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Unknown Location"
+            },
+            "patient": {
+                "uuid": "dd7fc05a-1691-11df-97a5-7038c432aabf"
+            }
+        },
+        {
+            "uuid": "bf83a028-1691-11df-97a5-7038c432aabf",
+            "provider": {
+                "uuid": "dd552fc1-1691-11df-97a5-7038c432aabf",
+                "gender": "M",
+                "birthdate": null,
+                "names": [
+                    {
+                        "uuid": "ded2585e-1691-11df-97a5-7038c432aabf",
+                        "givenName": "Super",
+                        "middleName": "",
+                        "familyName": "User",
+                        "preferred": true
+                    }
+                ]
+            },
+            "encounterType": {
+                "uuid": "8d5b2be0-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "ADULTRETURN"
+            },
+            "location": {
+                "uuid": "8d6c993e-c2cc-11de-8d13-0010c6dffd0f",
+                "name": "Unknown Location"
+            },
+            "patient": {
+                "uuid": "dd7fc05a-1691-11df-97a5-7038c432aabf"
+            }
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "results": [
+        {
+            "uuid": "11ffa6ea-060a-425b-8801-d385b1f7c115",
+            "obsDatetime": "2012-12-19T08:05:09.000-0500",
+            "valueDatetime": null,
+            "valueText": null,
+            "valueBoolean": null,
+            "valueNumeric": 465,
+            "valueCoded": null,
+            "person": {
+                "uuid": "dd55e586-1691-11df-97a5-7038c432aabf"
+            },
+            "encounter": {
+                "uuid": "993eaf73-ff84-43ab-9d3c-c9b13ee2cefc"
+            },
+            "concept": {
+                "uuid": "a8a8bb18-1350-11df-a1f1-0026b9348838"
+            }
+        },
+        {
+            "uuid": "d05a6a71-1691-11df-97a5-7038c432aabf",
+            "obsDatetime": "2006-03-15T00:00:00.000-0500",
+            "valueDatetime": null,
+            "valueText": null,
+            "valueBoolean": null,
+            "valueNumeric": 373,
+            "valueCoded": null,
+            "person": {
+                "uuid": "dd55e586-1691-11df-97a5-7038c432aabf"
+            },
+            "encounter": {
+                "uuid": "bf9c3102-1691-11df-97a5-7038c432aabf"
+            },
+            "concept": {
+                "uuid": "a8a8bb18-1350-11df-a1f1-0026b9348838"
+            }
+        }
+    ]
+}

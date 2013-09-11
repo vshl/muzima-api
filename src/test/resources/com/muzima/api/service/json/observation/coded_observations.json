@@ -1,0 +1,66 @@
+{
+    "results": [
+        {
+            "uuid": "d05ab28e-1691-11df-97a5-7038c432aabf",
+            "obsDatetime": "2006-05-10T00:00:00.000-0400",
+            "valueDatetime": null,
+            "valueText": null,
+            "valueBoolean": null,
+            "valueNumeric": null,
+            "valueCoded": {
+                "uuid": "a89b7908-1350-11df-a1f1-0026b9348838",
+                "datatype": {
+                    "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                    "name": "N/A"
+                },
+                "names": [
+                    {
+                        "uuid": "a94357d6-1350-11df-a1f1-0026b9348838",
+                        "name": "CONTINUE REGIMEN",
+                        "localePreferred": true
+                    }
+                ]
+            },
+            "person": {
+                "uuid": "dd55e586-1691-11df-97a5-7038c432aabf"
+            },
+            "encounter": {
+                "uuid": "bf9c3102-1691-11df-97a5-7038c432aabf"
+            },
+            "concept": {
+                "uuid": "a89b75d4-1350-11df-a1f1-0026b9348838"
+            }
+        },
+        {
+            "uuid": "c2f1599b-1691-11df-97a5-7038c432aabf",
+            "obsDatetime": "2006-03-15T00:00:00.000-0500",
+            "valueDatetime": null,
+            "valueText": null,
+            "valueBoolean": null,
+            "valueNumeric": null,
+            "valueCoded": {
+                "uuid": "a89b7908-1350-11df-a1f1-0026b9348838",
+                "datatype": {
+                    "uuid": "8d4a4c94-c2cc-11de-8d13-0010c6dffd0f",
+                    "name": "N/A"
+                },
+                "names": [
+                    {
+                        "uuid": "a94357d6-1350-11df-a1f1-0026b9348838",
+                        "name": "CONTINUE REGIMEN",
+                        "localePreferred": true
+                    }
+                ]
+            },
+            "person": {
+                "uuid": "dd55e586-1691-11df-97a5-7038c432aabf"
+            },
+            "encounter": {
+                "uuid": "bf493781-1691-11df-97a5-7038c432aabf"
+            },
+            "concept": {
+                "uuid": "a89b75d4-1350-11df-a1f1-0026b9348838"
+            }
+        }
+    ]
+}

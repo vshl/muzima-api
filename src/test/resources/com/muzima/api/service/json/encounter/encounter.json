@@ -1,0 +1,28 @@
+{
+    "uuid": "bf83a028-1691-11df-97a5-7038c432aabf",
+    "provider": {
+        "uuid": "dd552fc1-1691-11df-97a5-7038c432aabf",
+        "gender": "M",
+        "birthdate": null,
+        "names": [
+            {
+                "uuid": "ded2585e-1691-11df-97a5-7038c432aabf",
+                "givenName": "Super",
+                "middleName": "",
+                "familyName": "User",
+                "preferred": true
+            }
+        ]
+    },
+    "encounterType": {
+        "uuid": "8d5b2be0-c2cc-11de-8d13-0010c6dffd0f",
+        "name": "ADULTRETURN"
+    },
+    "location": {
+        "uuid": "8d6c993e-c2cc-11de-8d13-0010c6dffd0f",
+        "name": "Unknown Location"
+    },
+    "patient": {
+        "uuid": "dd7fc05a-1691-11df-97a5-7038c432aabf"
+    }
+}

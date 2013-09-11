@@ -1,0 +1,18 @@
+{
+    "uuid": "d05a6a71-1691-11df-97a5-7038c432aabf",
+    "obsDatetime": "2006-03-15T00:00:00.000-0500",
+    "valueDatetime": null,
+    "valueText": null,
+    "valueBoolean": null,
+    "valueNumeric": 373,
+    "valueCoded": null,
+    "person": {
+        "uuid": "dd55e586-1691-11df-97a5-7038c432aabf"
+    },
+    "encounter": {
+        "uuid": "bf9c3102-1691-11df-97a5-7038c432aabf"
+    },
+    "concept": {
+        "uuid": "a8a8bb18-1350-11df-a1f1-0026b9348838"
+    }
+}
