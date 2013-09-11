@@ -1,0 +1,25 @@
+{
+    "uuid": "a8908a16-1350-11df-a1f1-0026b9348838",
+    "datatype": {
+        "uuid": "8d4a4488-c2cc-11de-8d13-0010c6dffd0f",
+        "name": "Numeric"
+    },
+    "names": [
+        {
+            "uuid": "a92e896e-1350-11df-a1f1-0026b9348838",
+            "name": "HEMOGLOBIN",
+            "localePreferred": true
+        },
+        {
+            "uuid": "a95696de-1350-11df-a1f1-0026b9348838",
+            "name": "HB",
+            "localePreferred": false
+        },
+        {
+            "uuid": "a95262e4-1350-11df-a1f1-0026b9348838",
+            "name": "HGB",
+            "localePreferred": false
+        }
+    ],
+    "units": "g/dL"
+}
