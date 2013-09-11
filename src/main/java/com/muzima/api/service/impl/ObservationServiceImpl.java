@@ -45,13 +45,9 @@ public class ObservationServiceImpl implements ObservationService {
     }
 
     /**
-     * Download all observations for patient with the concept as the question.
+     * {@inheritDoc}
      *
-     * @param patient the patient.
-     * @param concept the concept.
-     * @return list of all observation matching the patient and concept.
-     * @throws java.io.IOException when search api unable to process the resource.
-     * @should download all observation with matching patient and concept.
+     * @see ObservationService#downloadObservationsByPatientAndConcept(com.muzima.api.model.Patient, com.muzima.api.model.Concept)
      */
     @Override
     public List<Observation> downloadObservationsByPatientAndConcept(final Patient patient, final Concept concept) throws IOException {
