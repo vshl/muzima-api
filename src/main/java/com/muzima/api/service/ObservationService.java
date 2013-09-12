@@ -42,6 +42,8 @@ public interface ObservationService extends MuzimaInterface {
      */
     List<Observation> downloadObservationsByPatientAndConcept(final Patient patient,
                                                               final Concept concept) throws IOException;
+    List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
+                                                              final String conceptUuid) throws IOException;
 
     /**
      * Save the observation into the local lucene repository.

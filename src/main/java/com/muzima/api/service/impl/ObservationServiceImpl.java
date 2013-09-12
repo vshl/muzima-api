@@ -62,6 +62,20 @@ public class ObservationServiceImpl implements ObservationService {
         return observationDao.download(parameter, resourceName);
     }
 
+    @Override
+    public List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid, final String conceptUuid) throws IOException {
+        Map<String, String> parameter = new HashMap<String, String>() {{
+            put("person", patientUuid);
+            put("concept", conceptUuid);
+        }};
+        Concept concept = conceptDao.getByUuid(conceptUuid);
+        String resourceName = Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE;
+        if (concept != null && concept.isCoded()) {
+            resourceName = Constants.SEARCH_OBSERVATION_CODED_RESOURCE;
+        }
+        return observationDao.download(parameter, resourceName);
+    }
+
     /**
      * {@inheritDoc}
      *
