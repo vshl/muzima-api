@@ -38,7 +38,7 @@ public class ConceptAlgorithm extends BaseOpenmrsAlgorithm {
                     "datatype:" + ConceptTypeAlgorithm.CONCEPT_TYPE_STANDARD_REPRESENTATION + "," +
                     "names:" + ConceptNameAlgorithm.CONCEPT_NAME_STANDARD_REPRESENTATION + ",uuid)";
     public static final String CONCEPT_NUMERIC_STANDARD_REPRESENTATION =
-            "(uuid,units," +
+            "(uuid,units,precise," +
                     "datatype:" + ConceptTypeAlgorithm.CONCEPT_TYPE_STANDARD_REPRESENTATION + "," +
                     "names:" + ConceptNameAlgorithm.CONCEPT_NAME_STANDARD_REPRESENTATION + ",uuid)";
 
@@ -61,6 +61,7 @@ public class ConceptAlgorithm extends BaseOpenmrsAlgorithm {
         Concept concept = new Concept();
         concept.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
         concept.setUnit(JsonUtils.readAsString(serialized, "$['units']"));
+        concept.setPrecise(JsonUtils.readAsBoolean(serialized, "$['precise']"));
         Object conceptTypeObject = JsonUtils.readAsObject(serialized, "$['datatype']");
         concept.setConceptType((ConceptType) conceptTypeAlgorithm.deserialize(String.valueOf(conceptTypeObject)));
         List<Object> conceptNameObjects = JsonUtils.readAsObjectList(serialized, "$['names']");
@@ -82,6 +83,7 @@ public class ConceptAlgorithm extends BaseOpenmrsAlgorithm {
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", concept.getUuid());
         JsonUtils.writeAsString(jsonObject, "units", concept.getUnit());
+        JsonUtils.writeAsBoolean(jsonObject, "precise", concept.isPrecise());
         String conceptType = conceptTypeAlgorithm.serialize(concept.getConceptType());
         jsonObject.put("datatype", JsonPath.read(conceptType, "$"));
         JSONArray jsonArray = new JSONArray();

@@ -25,11 +25,17 @@ import java.util.List;
  */
 public class Concept extends OpenmrsSearchable {
 
-    private static final String NUMERIC_TYPE = "Numeric";
+    public static final String NUMERIC_TYPE = "Numeric";
 
-    private static final String CODED_TYPE = "Coded";
+    public static final String CODED_TYPE = "Coded";
+
+    public static final String DATETIME_TYPE = "Datetime";
+
+    public static final String DATE_TYPE = "Date";
 
     private String unit;
+
+    private boolean precise;
 
     private ConceptType conceptType;
 
@@ -41,6 +47,14 @@ public class Concept extends OpenmrsSearchable {
 
     public void setUnit(final String unit) {
         this.unit = unit;
+    }
+
+    public boolean isPrecise() {
+        return precise;
+    }
+
+    public void setPrecise(final boolean precise) {
+        this.precise = precise;
     }
 
     public ConceptType getConceptType() {
@@ -91,5 +105,14 @@ public class Concept extends OpenmrsSearchable {
             coded = StringUtil.equals(getConceptType().getName(), CODED_TYPE);
         }
         return coded;
+    }
+
+    public boolean isDatetime() {
+        boolean datetime = false;
+        if (getConceptType() != null) {
+            datetime = (StringUtil.equals(getConceptType().getName(), DATE_TYPE)
+                    || StringUtil.equals(getConceptType().getName(), DATETIME_TYPE));
+        }
+        return datetime;
     }
 }
