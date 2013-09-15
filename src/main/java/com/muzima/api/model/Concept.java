@@ -82,7 +82,7 @@ public class Concept extends OpenmrsSearchable {
 
     public String getName() {
         String name = StringUtil.EMPTY;
-        for (ConceptName conceptName : conceptNames) {
+        for (ConceptName conceptName : getConceptNames()) {
             name = conceptName.getName();
             if (conceptName.isPreferred()) {
                 return name;

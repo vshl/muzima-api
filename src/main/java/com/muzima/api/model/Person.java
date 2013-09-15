@@ -90,7 +90,7 @@ public class Person extends OpenmrsSearchable {
      */
     public String getGivenName() {
         String givenName = StringUtil.EMPTY;
-        for (PersonName name : names) {
+        for (PersonName name : getNames()) {
             givenName = name.getGivenName();
             if (name.isPreferred()) {
                 return givenName;
@@ -106,7 +106,7 @@ public class Person extends OpenmrsSearchable {
      */
     public String getMiddleName() {
         String middleName = StringUtil.EMPTY;
-        for (PersonName name : names) {
+        for (PersonName name : getNames()) {
             middleName = name.getMiddleName();
             if (name.isPreferred()) {
                 return middleName;
@@ -122,7 +122,7 @@ public class Person extends OpenmrsSearchable {
      */
     public String getFamilyName() {
         String familyName = StringUtil.EMPTY;
-        for (PersonName name : names) {
+        for (PersonName name : getNames()) {
             familyName = name.getFamilyName();
             if (name.isPreferred()) {
                 return familyName;

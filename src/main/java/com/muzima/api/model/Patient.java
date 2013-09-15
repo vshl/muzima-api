@@ -46,7 +46,7 @@ public class Patient extends Person {
      */
     public String getIdentifier() {
         String identifier = StringUtil.EMPTY;
-        for (PatientIdentifier patientIdentifier : identifiers) {
+        for (PatientIdentifier patientIdentifier : getIdentifiers()) {
             identifier = patientIdentifier.getIdentifier();
             if (patientIdentifier.isPreferred()) {
                 return identifier;
