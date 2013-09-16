@@ -319,6 +319,16 @@ public class FormServiceImpl implements FormService {
     /**
      * {@inheritDoc}
      *
+     * @see FormService#updateFormData(com.muzima.api.model.FormData)
+     */
+    @Override
+    public void updateFormData(final FormData formData) throws IOException {
+        formDataDao.update(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see FormService#getFormDataByUuid(String)
      */
     @Override

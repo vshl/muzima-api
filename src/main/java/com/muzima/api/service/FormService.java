@@ -261,6 +261,15 @@ public interface FormService extends MuzimaInterface {
     void saveFormData(final FormData formData) throws IOException;
 
     /**
+     * Update existing form data object in local data repository.
+     *
+     * @param formData the form data to be updated.
+     * @throws IOException when search api unable to process the resource.
+     * @should update form data in local data repository.
+     */
+    void updateFormData(final FormData formData) throws IOException;
+
+    /**
      * Get a single form data object from the local data repository.
      *
      * @param uuid the uuid for the form data.
