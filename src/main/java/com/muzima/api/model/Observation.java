@@ -15,6 +15,9 @@
  */
 package com.muzima.api.model;
 
+import com.muzima.search.api.util.StringUtil;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Observation extends OpenmrsSearchable {
@@ -108,4 +111,22 @@ public class Observation extends OpenmrsSearchable {
     public void setObservationDatetime(final Date observationDatetime) {
         this.observationDatetime = observationDatetime;
     }
+
+    public String getValueAsString() {
+        if(getConcept().getName().equals(StringUtil.EMPTY)) {
+            throw new UnsupportedOperationException("The concept has not been loaded fully");
+        }
+        if (getConcept().isNumeric() && valueNumeric != null) {
+            return valueNumeric.toString();
+        } else if (getConcept().isDatetime() && valueDatetime != null) {
+            return new SimpleDateFormat("yyyy-MM-dd hh:mm").format(valueDatetime);
+        } else if (getConcept().isCoded() && valueCoded != null) {
+            return getValueCoded().getName();
+        } else {
+            if (valueText != null)
+                return valueText;
+        }
+        return "";
+    }
+
 }
