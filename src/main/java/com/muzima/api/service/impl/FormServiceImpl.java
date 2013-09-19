@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class FormServiceImpl implements FormService {
 
@@ -313,7 +314,13 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public void saveFormData(final FormData formData) throws IOException {
-        formDataDao.save(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
+        if (StringUtil.isEmpty(formData.getUuid())) {
+            String uuid = UUID.randomUUID().toString();
+            formData.setUuid(uuid);
+            formDataDao.save(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
+        } else {
+            formDataDao.update(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
+        }
     }
 
     /**
@@ -323,7 +330,13 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public void updateFormData(final FormData formData) throws IOException {
-        formDataDao.update(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
+        if (StringUtil.isEmpty(formData.getUuid())) {
+            String uuid = UUID.randomUUID().toString();
+            formData.setUuid(uuid);
+            formDataDao.save(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
+        } else {
+            formDataDao.update(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
+        }
     }
 
     /**

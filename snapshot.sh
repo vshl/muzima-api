@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn -DaltDeploymentRepository=snapshot-repo::default::file:../muzima-maven/snapshots deploy
+mvn -DskipTests -DaltDeploymentRepository=snapshot-repo::default::file:../muzima-maven/snapshots deploy
