@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
     public User downloadUserByUsername(final String username) throws IOException {
         User user = null;
         Map<String, String> parameter = new HashMap<String, String>() {{
-            put("q", username);
+            put("username", username);
         }};
         List<User> users = userDao.download(parameter, Constants.SEARCH_USER_RESOURCE);
         if (!CollectionUtil.isEmpty(users)) {
