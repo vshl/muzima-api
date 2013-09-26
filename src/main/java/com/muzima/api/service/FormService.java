@@ -337,4 +337,14 @@ public interface FormService extends MuzimaInterface {
      * @should delete list of form data from local data repository.
      */
     void deleteFormData(final List<FormData> formData) throws IOException;
+
+    /**
+     * Send form data information to the server.
+     *
+     * @param formData the form data.
+     * @return true when the form data successfully synced to the server.
+     * @throws IOException when search api unable to process the resource.
+     * @should sync the form data to the server.
+     */
+    boolean syncFormData(final FormData formData) throws IOException;
 }

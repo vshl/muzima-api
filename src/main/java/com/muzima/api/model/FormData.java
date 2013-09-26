@@ -28,6 +28,8 @@ public class FormData implements Searchable {
 
     private String status;
 
+    private String discriminator;
+
     private String payload;
 
     private String patientUuid;
@@ -70,6 +72,24 @@ public class FormData implements Searchable {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * Get the discriminator information for this form data.
+     *
+     * @return the discriminator for this form data.
+     */
+    public String getDiscriminator() {
+        return discriminator;
+    }
+
+    /**
+     * Set the discriminator information for this form data.
+     *
+     * @param discriminator the discriminator for this form data.
+     */
+    public void setDiscriminator(final String discriminator) {
+        this.discriminator = discriminator;
     }
 
     /**

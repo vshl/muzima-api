@@ -15,19 +15,46 @@
  */
 package com.muzima.api.dao.impl;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.dao.FormDataDao;
 import com.muzima.api.model.FormData;
+import com.muzima.api.model.algorithm.FormDataAlgorithm;
+import com.muzima.api.model.resolver.SyncFormDataResolver;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
+import com.muzima.search.api.model.resolver.Resolver;
 import com.muzima.search.api.util.StringUtil;
+import com.muzima.util.JsonUtils;
+import net.minidev.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements FormDataDao {
 
     private static final String TAG = FormDataDaoImpl.class.getSimpleName();
+
+    @Inject(optional = true)
+    @Named("connection.proxy")
+    private Proxy proxy;
+
+    @Inject
+    @Named("connection.timeout")
+    private int timeout;
+
+    @Inject
+    private SyncFormDataResolver resolver;
 
     protected FormDataDaoImpl() {
         super(FormData.class);
@@ -84,5 +111,38 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
             filters.add(statusFilter);
         }
         return service.getObjects(filters, daoClass, page, pageSize);
+    }
+
+    @Override
+    public boolean syncFormData(final FormData formData) throws IOException {
+        boolean synced = false;
+
+        String resourcePath = resolver.resolve(Collections.<String, String>emptyMap());
+        URL url = new URL(resourcePath);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        if (proxy != null) {
+            connection = (HttpURLConnection) url.openConnection(proxy);
+        }
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setConnectTimeout(timeout);
+        connection = resolver.authenticate(connection);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("dataSource", "Mobile Device");
+        jsonObject.put("payload", JsonPath.read(formData.getPayload(), "$"));
+        jsonObject.put("discriminator", formData.getDiscriminator());
+
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
+        writer.write(jsonObject.toJSONString());
+        writer.close();
+
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK
+                || responseCode == HttpURLConnection.HTTP_CREATED) {
+            synced = true;
+        }
+        return synced;
     }
 }

@@ -21,6 +21,7 @@ import com.muzima.api.model.Form;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.search.api.util.StringUtil;
+import net.minidev.json.JSONObject;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,6 +36,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
@@ -614,5 +616,18 @@ public class FormServiceTest {
         List<FormData> formDataList = formService.getAllFormData(StringUtil.EMPTY);
         formService.deleteFormData(formDataList);
         assertThat(formService.countAllFormData(), equalTo(0));
+    }
+
+    /**
+     * @verifies sync the form data to the server.
+     * @see FormService#syncFormData(com.muzima.api.model.FormData)
+     */
+    @Test
+    public void syncFormData_shouldSyncTheFormDataToTheServer() throws Exception {
+        FormData formData = new FormData();
+        JSONObject jsonObject = new JSONObject();
+        formData.setPayload(jsonObject.toJSONString());
+        boolean synced = formService.syncFormData(formData);
+        assertThat(synced, is(true));
     }
 }

@@ -408,4 +408,9 @@ public class FormServiceImpl implements FormService {
     public void deleteFormData(final List<FormData> formData) throws IOException {
         formDataDao.delete(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
     }
+
+    @Override
+    public boolean syncFormData(final FormData formData) throws IOException {
+        return formDataDao.syncFormData(formData);
+    }
 }
