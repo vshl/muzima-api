@@ -13,7 +13,6 @@
  */
 package com.muzima.api.model.algorithm;
 
-import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Form;
 import com.muzima.api.model.Tag;
 import com.muzima.search.api.model.object.Searchable;
@@ -22,8 +21,12 @@ import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FormAlgorithm extends BaseOpenmrsAlgorithm {
+
+    public static final String STANDARD_FORM_REPRESENTATION = "(uuid,name,description,tags:(uuid,name,uuid))";
 
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
@@ -37,16 +40,16 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
         form.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
         form.setName(JsonUtils.readAsString(serialized, "$['name']"));
         form.setDescription(JsonUtils.readAsString(serialized, "$['description']"));
-        JSONArray tagObjects = JsonPath.read(serialized, "$['tags']");
-        Tag[] tags = new Tag[tagObjects.size()];
-        for (int i = 0; i < tagObjects.size(); i++) {
-            Tag tag = new Tag();
-            String tagObject = String.valueOf(tagObjects.get(i));
-            tag.setName(JsonUtils.readAsString(tagObject, "name"));
-            tag.setUuid(JsonUtils.readAsString(tagObject, "uuid"));
-            tags[i] = tag;
+        List<Object> objects = JsonUtils.readAsObjectList(serialized, "$['tags']");
+        List<Tag> formTags = new ArrayList<Tag>();
+        for (Object tagObject : objects) {
+            Tag formTag = new Tag();
+            String tagString = String.valueOf(tagObject);
+            formTag.setName(JsonUtils.readAsString(tagString, "name"));
+            formTag.setUuid(JsonUtils.readAsString(tagString, "uuid"));
+            formTags.add(formTag);
         }
-        form.setTags(tags);
+        form.setTags(formTags.toArray(new Tag[formTags.size()]));
         form.setVersion("1");
         return form;
     }

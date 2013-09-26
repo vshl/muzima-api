@@ -627,6 +627,8 @@ public class FormServiceTest {
         FormData formData = new FormData();
         JSONObject jsonObject = new JSONObject();
         formData.setPayload(jsonObject.toJSONString());
+        // for form with observation data, we use encounter as the discriminator.
+        formData.setDiscriminator("encounter");
         boolean synced = formService.syncFormData(formData);
         assertThat(synced, is(true));
     }

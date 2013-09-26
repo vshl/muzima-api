@@ -13,12 +13,15 @@
  */
 package com.muzima.api.model.resolver;
 
+import com.muzima.api.model.algorithm.FormAlgorithm;
+
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 public class SearchFormResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION = "?v=custom:(uuid,name,tags,description)";
+    private static final String REPRESENTATION = "?v=custom:" + FormAlgorithm.STANDARD_FORM_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.
@@ -27,8 +30,11 @@ public class SearchFormResolver extends BaseOpenmrsResolver {
      * @return full uri to the REST resource.
      */
     public String resolve(final Map<String, String> resourceParams) throws IOException {
-        //This resolver currently ignore search string and fetch all forms
-        return getConfiguration().getServer() + "/ws/rest/v1/muzimaforms/form" + REPRESENTATION;
+        StringBuilder paramBuilder = new StringBuilder();
+        for (String key : resourceParams.keySet()) {
+            paramBuilder.append("&").append(key).append("=").append(URLEncoder.encode(resourceParams.get(key), "UTF-8"));
+        }
+        return getConfiguration().getServer() + "/ws/rest/v1/muzimaforms/form" + REPRESENTATION + paramBuilder.toString();
 
     }
 }

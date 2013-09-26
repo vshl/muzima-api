@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class SearchFormTemplateResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION = "?v=custom:(uuid,name,version)";
+    private static final String REPRESENTATION = "?v=custom:(uuid,model,modelJson,html)";
 
     /**
      * Return the full REST resource based on the parameters passed to the method.
