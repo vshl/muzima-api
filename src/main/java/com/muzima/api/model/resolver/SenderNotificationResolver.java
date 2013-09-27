@@ -36,6 +36,6 @@ public class SenderNotificationResolver extends BaseOpenmrsResolver {
         for (String key : resourceParams.keySet()) {
             paramBuilder.append("&").append(key).append("=").append(URLEncoder.encode(resourceParams.get(key), "UTF-8"));
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/muzima/notificationData" + REPRESENTATION + paramBuilder.toString();
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/notificationdata" + REPRESENTATION + paramBuilder.toString();
     }
 }

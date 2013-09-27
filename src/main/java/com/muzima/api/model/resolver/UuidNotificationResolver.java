@@ -37,6 +37,6 @@ public class UuidNotificationResolver extends BaseOpenmrsResolver {
         if (StringUtil.isEmpty(uuid)) {
             throw new IOException("Resolver unable to find required parameter uuid!");
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/muzima/notificationData/" + uuid + REPRESENTATION;
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/notificationdata/" + uuid + REPRESENTATION;
     }
 }

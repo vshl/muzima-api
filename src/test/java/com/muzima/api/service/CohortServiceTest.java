@@ -50,6 +50,7 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
  * TODO: Write brief description about the class here.
  */
 public class CohortServiceTest {
+    private static final Logger logger = LoggerFactory.getLogger(CohortServiceTest.class.getSimpleName());
     // baseline static cohort
     private Cohort staticCohort;
     private List<Cohort> staticCohorts;
@@ -74,8 +75,10 @@ public class CohortServiceTest {
         }
         cohortService = context.getCohortService();
         staticCohorts = cohortService.downloadCohortsByName(StringUtil.EMPTY);
+        logger.info("Number of downloaded static cohorts: {}", staticCohorts.size());
         staticCohort = staticCohorts.get(nextInt(staticCohorts.size()));
         dynamicCohorts = cohortService.downloadDynamicCohortsByName(StringUtil.EMPTY);
+        logger.info("Number of downloaded dynamic cohorts: {}", dynamicCohorts.size());
         dynamicCohort = dynamicCohorts.get(nextInt(dynamicCohorts.size()));
     }
 
