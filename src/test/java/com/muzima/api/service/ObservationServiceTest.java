@@ -49,7 +49,7 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
  */
 public class ObservationServiceTest {
     private static final String GIVEN_NAME = "Test";
-    private static final String CONCEPT_NAME = "ANTIRETROVIRAL PLAN";
+    private static final String CONCEPT_NAME = "WEIGHT (KG)";
     // baseline observation
     private Observation observation;
     private List<Patient> patients;
