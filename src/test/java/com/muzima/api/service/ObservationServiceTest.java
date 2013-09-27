@@ -220,7 +220,7 @@ public class ObservationServiceTest {
         observation.setConcept(selectedConcept);
         savedObservation.setConcept(selectedConcept);
 
-        assertThat(observationService.getObservationByUuid(observation.getUuid()), samePropertyValuesAs(observation));
+        assertThat(savedObservation, samePropertyValuesAs(observation));
     }
 
     /**
