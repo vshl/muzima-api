@@ -26,6 +26,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,6 +50,8 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
  * TODO: Write brief description about the class here.
  */
 public class ObservationServiceTest {
+    private static final Logger logger = LoggerFactory.getLogger(ObservationServiceTest.class.getSimpleName());
+
     private static final String GIVEN_NAME = "Test";
     private static final String CONCEPT_NAME = "WEIGHT (KG)";
     // baseline observation
@@ -83,11 +87,14 @@ public class ObservationServiceTest {
         observations = new ArrayList<Observation>();
         for (Patient patient : patients) {
             for (Concept concept : concepts) {
+                logger.info("Downloading observations on '{}' for: '{}'", concept.getName(), patient.getFamilyName());
                 List<Observation> downloadedObservations =
                         observationService.downloadObservationsByPatientAndConcept(patient, concept);
+                logger.info("Number of observations downloaded: {}", downloadedObservations.size());
                 observations.addAll(downloadedObservations);
             }
         }
+        logger.info("Total number of observations downloaded: {}", observations.size());
         observation = observations.get(nextInt(observations.size()));
     }
 
