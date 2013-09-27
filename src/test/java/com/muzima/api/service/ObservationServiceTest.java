@@ -40,6 +40,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isIn;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
@@ -203,9 +204,22 @@ public class ObservationServiceTest {
      */
     @Test
     public void getObservationByUuid_shouldReturnObservationWithMatchingUuid() throws Exception {
+        int conceptCounter = 0;
+        Concept selectedConcept = concepts.get(conceptCounter ++);
+        while (!selectedConcept.equals(observation.getConcept())) {
+            selectedConcept = concepts.get(conceptCounter ++);
+        }
+        assertThat(selectedConcept, is(notNullValue()));
+
         assertThat(observationService.getObservationByUuid(observation.getUuid()), nullValue());
         observationService.saveObservation(observation);
         assertThat(observationService.getObservationByUuid(observation.getUuid()), not(nullValue()));
+
+        Observation savedObservation = observationService.getObservationByUuid(observation.getUuid());
+
+        observation.setConcept(selectedConcept);
+        savedObservation.setConcept(selectedConcept);
+
         assertThat(observationService.getObservationByUuid(observation.getUuid()), samePropertyValuesAs(observation));
     }
 
