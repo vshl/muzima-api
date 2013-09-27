@@ -143,7 +143,7 @@ public class CohortServiceTest {
     @Test
     public void downloadDynamicCohortsByName_shouldDownloadAllCohortDefinitionsWithPartiallyMatchedName() throws Exception {
         String name = dynamicCohort.getName();
-        String partialName = name.substring(name.length() - 1);
+        String partialName = name.substring(0, name.length() - 1);
         List<Cohort> downloadedDynamicCohorts = cohortService.downloadDynamicCohortsByName(partialName);
         for (Cohort downloadedDynamicCohort : downloadedDynamicCohorts) {
             assertThat(downloadedDynamicCohort.getName(), containsString(partialName));
