@@ -117,7 +117,7 @@ public class Observation extends OpenmrsSearchable {
             throw new UnsupportedOperationException("The concept has not been loaded fully");
         }
         if (getConcept().isNumeric() && valueNumeric != null) {
-            return valueNumeric.toString();
+            return getStringOfNumeric();
         } else if (getConcept().isDatetime() && valueDatetime != null) {
             return new SimpleDateFormat("yyyy-MM-dd hh:mm").format(valueDatetime);
         } else if (getConcept().isCoded() && valueCoded != null) {
@@ -127,6 +127,13 @@ public class Observation extends OpenmrsSearchable {
                 return valueText;
         }
         return "";
+    }
+
+    private String getStringOfNumeric() {
+        if(getConcept().isPrecise())
+            return valueNumeric.toString();
+        else
+            return String.valueOf(valueNumeric.intValue());
     }
 
 }
