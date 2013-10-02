@@ -21,4 +21,13 @@ public class PersonTest {
         String displayName = familyName + ", " + givenName + " " + middleName;
         assertThat(person.getDisplayName(), is(displayName));
     }
+
+    @Test
+    public void shouldReturnEmptyDisplayNameForPersonWithNullNames() throws Exception {
+        PersonName personName = new PersonName();
+        Person person = new Person();
+        person.addName(personName);
+
+        assertThat(person.getDisplayName(), is(""));
+    }
 }

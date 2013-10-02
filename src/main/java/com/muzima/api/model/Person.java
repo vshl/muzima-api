@@ -26,6 +26,7 @@ import java.util.List;
  */
 public class Person extends OpenmrsSearchable {
 
+    public static final String DISPLAY_NAME_FOR_ENCOUNTER_FOR_OBSERVATIONS_WITH_NULL_UUID = "";
     private String gender;
 
     private Date birthdate;
@@ -132,6 +133,8 @@ public class Person extends OpenmrsSearchable {
     }
 
     public String getDisplayName() {
+        if(getFamilyName()== null && getGivenName()==null && getMiddleName()==null)
+            return DISPLAY_NAME_FOR_ENCOUNTER_FOR_OBSERVATIONS_WITH_NULL_UUID;
         return getFamilyName() + ", " + getGivenName() + " " + getMiddleName();
     }
 }
