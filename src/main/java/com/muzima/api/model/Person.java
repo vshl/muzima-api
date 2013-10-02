@@ -130,4 +130,8 @@ public class Person extends OpenmrsSearchable {
         }
         return familyName;
     }
+
+    public String getDisplayName() {
+        return getFamilyName() + ", " + getGivenName() + " " + getMiddleName();
+    }
 }
