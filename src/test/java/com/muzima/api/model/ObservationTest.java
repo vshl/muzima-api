@@ -15,10 +15,19 @@ public class ObservationTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void shouldGetNumericValueAsString() throws Exception {
+    public void shouldGetNumericValueAsStringForPreciseConcept() throws Exception {
         Observation observation = createObservation(Concept.NUMERIC_TYPE);
+        observation.getConcept().setPrecise(true);
         observation.setValueNumeric(12.432423);
         assertThat(observation.getValueAsString(), is("12.432423"));
+    }
+
+    @Test
+    public void shouldGetNumericValueAsStringForNonPreciseConcept() throws Exception {
+        Observation observation = createObservation(Concept.NUMERIC_TYPE);
+        observation.getConcept().setPrecise(false);
+        observation.setValueNumeric(12.432423);
+        assertThat(observation.getValueAsString(), is("12"));
     }
 
     @Test
