@@ -72,6 +72,14 @@ public class ObservationTest {
         observation.getValueAsString();
     }
 
+    @Test
+    public void shouldOnlyShowTheIntegerPartWhenThePreciseIsFalse() throws Exception {
+        Observation observation = createObservation(Concept.NUMERIC_TYPE);
+        observation.setValueNumeric(10.0);
+        observation.getConcept().setPrecise(false);
+        assertThat(observation.getValueAsString(), is("10"));
+    }
+
     private Concept getValueConcept() {
         Concept valueCoded = new Concept();
         ConceptName conceptName = new ConceptName();
