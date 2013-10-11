@@ -54,4 +54,18 @@ public class Patient extends Person {
         }
         return identifier;
     }
+
+    public String getSummary() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("f".equalsIgnoreCase(getGender()) ? "♀" : "♂")
+                .append(" ")
+                .append(getAbbreviatedName())
+                .append(", ")
+                .append(getIdentifier());
+        return sb.toString();
+    }
+
+    private String getAbbreviatedName() {
+        return getFamilyName() + ", " + getGivenName().substring(0, 1) + " " + getMiddleName().substring(0, 1);
+    }
 }

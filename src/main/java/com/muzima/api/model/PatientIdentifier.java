@@ -15,7 +15,7 @@
  */
 package com.muzima.api.model;
 
-public class PatientIdentifier extends Person {
+public class PatientIdentifier extends OpenmrsSearchable {
 
     private boolean preferred;
 

@@ -15,10 +15,12 @@ package com.muzima.api.model;
 
 import com.muzima.search.api.model.object.Searchable;
 
+import java.io.Serializable;
+
 /**
  * Every OpenMRS object will have uri associated with it. This is not being used right now.
  */
-public abstract class OpenmrsSearchable implements Searchable {
+public abstract class OpenmrsSearchable implements Searchable, Serializable {
 
     private String uri;
 
