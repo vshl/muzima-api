@@ -106,6 +106,44 @@ public class EncounterServiceImpl implements EncounterService {
     /**
      * {@inheritDoc}
      *
+     * @see EncounterService#downloadEncountersByPatients(java.util.List)
+     */
+    public List<Encounter> downloadEncountersByPatients(final List<Patient> patients) throws IOException {
+        final StringBuilder patientBuilder = new StringBuilder();
+        for (Patient patient : patients) {
+            if (patientBuilder.length() > 0) {
+                patientBuilder.append(",");
+            }
+            patientBuilder.append(patient.getUuid());
+        }
+        Map<String, String> parameter = new HashMap<String, String>() {{
+            put("patient", patientBuilder.toString());
+        }};
+        return encounterDao.download(parameter, Constants.SEARCH_ENCOUNTER_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see EncounterService#downloadEncountersByPatientUuids(java.util.List)
+     */
+    public List<Encounter> downloadEncountersByPatientUuids(final List<String> patientUuids) throws IOException {
+        final StringBuilder patientBuilder = new StringBuilder();
+        for (String patientUuid : patientUuids) {
+            if (patientBuilder.length() > 0) {
+                patientBuilder.append(",");
+            }
+            patientBuilder.append(patientUuid);
+        }
+        Map<String, String> parameter = new HashMap<String, String>() {{
+            put("patient", patientBuilder.toString());
+        }};
+        return encounterDao.download(parameter, Constants.SEARCH_ENCOUNTER_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see com.muzima.api.service.EncounterService#getEncounterByUuid(String)
      */
     @Override

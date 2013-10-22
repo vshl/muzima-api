@@ -35,6 +35,6 @@ public class UuidEncounterResolver extends BaseOpenmrsResolver {
         if (StringUtil.isEmpty(uuid)) {
             throw new IOException("Resolver unable to find required parameter uuid!");
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/encounter/" + uuid + REPRESENTATION;
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/encounter/" + uuid + REPRESENTATION;
     }
 }

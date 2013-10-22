@@ -73,6 +73,10 @@ public interface EncounterService extends MuzimaInterface {
      */
     List<Encounter> downloadEncountersByPatient(final Patient patient) throws IOException;
 
+    List<Encounter> downloadEncountersByPatients(final List<Patient> patients) throws IOException;
+
+    List<Encounter> downloadEncountersByPatientUuids(final List<String> uuids) throws IOException;
+
     /**
      * Get a single encounter from local data repository with matching uuid.
      *

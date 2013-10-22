@@ -50,7 +50,8 @@ public class ObservationServiceImpl implements ObservationService {
      * @see ObservationService#downloadObservationsByPatientAndConcept(com.muzima.api.model.Patient, com.muzima.api.model.Concept)
      */
     @Override
-    public List<Observation> downloadObservationsByPatientAndConcept(final Patient patient, final Concept concept) throws IOException {
+    public List<Observation> downloadObservationsByPatientAndConcept(final Patient patient,
+                                                                     final Concept concept) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("person", patient.getUuid());
             put("concept", concept.getUuid());
@@ -62,8 +63,14 @@ public class ObservationServiceImpl implements ObservationService {
         return observationDao.download(parameter, resourceName);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#downloadObservationsByPatientAndConcept(com.muzima.api.model.Patient, com.muzima.api.model.Concept)
+     */
     @Override
-    public List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid, final String conceptUuid) throws IOException {
+    public List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
+                                                                     final String conceptUuid) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("person", patientUuid);
             put("concept", conceptUuid);
@@ -74,6 +81,101 @@ public class ObservationServiceImpl implements ObservationService {
             resourceName = Constants.SEARCH_OBSERVATION_CODED_RESOURCE;
         }
         return observationDao.download(parameter, resourceName);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#downloadObservationsByPatientsAndConcepts(java.util.List, java.util.List)
+     */
+    public List<Observation> downloadObservationsByPatientsAndConcepts(final List<Patient> patients,
+                                                                       final List<Concept> concepts) throws IOException {
+        final StringBuilder personBuilder = new StringBuilder();
+        for (Patient patient : patients) {
+            if (personBuilder.length() > 0) {
+                personBuilder.append(",");
+            }
+            personBuilder.append(patient.getUuid());
+        }
+        final StringBuilder codedBuilder = new StringBuilder();
+        final StringBuilder nonCodedBuilder = new StringBuilder();
+        for (Concept concept : concepts) {
+            if (concept.isCoded()) {
+                if (codedBuilder.length() > 0) {
+                    codedBuilder.append(",");
+                }
+                codedBuilder.append(concept.getUuid());
+            } else {
+                if (nonCodedBuilder.length() > 0) {
+                    nonCodedBuilder.append(",");
+                }
+                nonCodedBuilder.append(concept.getUuid());
+            }
+        }
+        Map<String, String> codedParameter = new HashMap<String, String>() {{
+            put("person", personBuilder.toString());
+            put("concept", codedBuilder.toString());
+        }};
+        Map<String, String> nonCodedParameter = new HashMap<String, String>() {{
+            put("person", personBuilder.toString());
+            put("concept", nonCodedBuilder.toString());
+        }};
+        List<Observation> codedObservations = observationDao.download(codedParameter,
+                Constants.SEARCH_OBSERVATION_CODED_RESOURCE);
+        List<Observation> nonCodedObservations = observationDao.download(nonCodedParameter,
+                Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE);
+        List<Observation> observations = new ArrayList<Observation>();
+        observations.addAll(codedObservations);
+        observations.addAll(nonCodedObservations);
+        return observations;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#downloadObservationsByPatientUuidsAndConceptUuids(java.util.List, java.util.List)
+     */
+    public List<Observation> downloadObservationsByPatientUuidsAndConceptUuids(final List<String> patientUuids,
+                                                                               final List<String> conceptUuids) throws IOException {
+        final StringBuilder personBuilder = new StringBuilder();
+        for (String patientUuid : patientUuids) {
+            if (personBuilder.length() > 0) {
+                personBuilder.append(",");
+            }
+            personBuilder.append(patientUuid);
+        }
+        final StringBuilder codedBuilder = new StringBuilder();
+        final StringBuilder nonCodedBuilder = new StringBuilder();
+        for (String conceptUuid : conceptUuids) {
+            Concept concept = conceptDao.getByUuid(conceptUuid);
+            if (concept.isCoded()) {
+                if (codedBuilder.length() > 0) {
+                    codedBuilder.append(",");
+                }
+                codedBuilder.append(concept.getUuid());
+            } else {
+                if (nonCodedBuilder.length() > 0) {
+                    nonCodedBuilder.append(",");
+                }
+                nonCodedBuilder.append(concept.getUuid());
+            }
+        }
+        Map<String, String> codedParameter = new HashMap<String, String>() {{
+            put("person", personBuilder.toString());
+            put("concept", codedBuilder.toString());
+        }};
+        Map<String, String> nonCodedParameter = new HashMap<String, String>() {{
+            put("person", personBuilder.toString());
+            put("concept", nonCodedBuilder.toString());
+        }};
+        List<Observation> codedObservations = observationDao.download(codedParameter,
+                Constants.SEARCH_OBSERVATION_CODED_RESOURCE);
+        List<Observation> nonCodedObservations = observationDao.download(nonCodedParameter,
+                Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE);
+        List<Observation> observations = new ArrayList<Observation>();
+        observations.addAll(codedObservations);
+        observations.addAll(nonCodedObservations);
+        return observations;
     }
 
     /**
