@@ -34,6 +34,10 @@ public interface PatientService extends MuzimaInterface {
      */
     List<Patient> downloadPatientsByName(final String name) throws IOException;
 
+    Patient consolidateTemporaryPatient(final String temporaryUuid) throws IOException;
+
+    Patient consolidateTemporaryPatient(final Patient temporaryPatient) throws IOException;
+
     /**
      * Save patient to the local lucene repository.
      *

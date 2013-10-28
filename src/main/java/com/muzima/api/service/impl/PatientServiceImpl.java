@@ -73,6 +73,48 @@ public class PatientServiceImpl implements PatientService {
     /**
      * {@inheritDoc}
      *
+     * @see PatientService#consolidateTemporaryPatient(String)
+     */
+    @Override
+    public Patient consolidateTemporaryPatient(final String temporaryUuid) throws IOException {
+        Patient patient = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
+            put("uuid", temporaryUuid);
+        }};
+        List<Patient> patients = patientDao.download(parameter, Constants.UUID_REGISTRATION_RESOURCE);
+        if (!CollectionUtil.isEmpty(patients)) {
+            if (patients.size() > 1) {
+                throw new IOException("Unable to uniquely identify a patient record.");
+            }
+            patient = patients.get(0);
+        }
+        return patient;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see PatientService#consolidateTemporaryPatient(com.muzima.api.model.Patient)
+     */
+    @Override
+    public Patient consolidateTemporaryPatient(final Patient temporaryPatient) throws IOException {
+        Patient patient = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
+            put("uuid", temporaryPatient.getUuid());
+        }};
+        List<Patient> patients = patientDao.download(parameter, Constants.UUID_REGISTRATION_RESOURCE);
+        if (!CollectionUtil.isEmpty(patients)) {
+            if (patients.size() > 1) {
+                throw new IOException("Unable to uniquely identify a patient record.");
+            }
+            patient = patients.get(0);
+        }
+        return patient;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see PatientService#savePatient(com.muzima.api.model.Patient)
      */
     @Override

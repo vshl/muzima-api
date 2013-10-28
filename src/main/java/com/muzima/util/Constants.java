@@ -116,4 +116,6 @@ public class Constants {
     public static final String SEARCH_OBSERVATION_NON_CODED_RESOURCE = "Search Observation Non Coded Resource";
 
     public static final String UUID_OBSERVATION_RESOURCE = "Uuid Observation Resource";
+
+    public static final String UUID_REGISTRATION_RESOURCE = "Uuid Registration Resource";
 }
