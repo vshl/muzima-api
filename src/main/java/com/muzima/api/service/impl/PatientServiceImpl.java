@@ -241,4 +241,6 @@ public class PatientServiceImpl implements PatientService {
     public void deletePatients(final List<Patient> patients) throws IOException {
         patientDao.delete(patients, Constants.UUID_PATIENT_RESOURCE);
     }
+
+
 }
