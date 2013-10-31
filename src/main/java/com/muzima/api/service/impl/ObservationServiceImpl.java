@@ -160,21 +160,27 @@ public class ObservationServiceImpl implements ObservationService {
                 nonCodedBuilder.append(concept.getUuid());
             }
         }
-        Map<String, String> codedParameter = new HashMap<String, String>() {{
-            put("person", personBuilder.toString());
-            put("concept", codedBuilder.toString());
-        }};
-        Map<String, String> nonCodedParameter = new HashMap<String, String>() {{
-            put("person", personBuilder.toString());
-            put("concept", nonCodedBuilder.toString());
-        }};
-        List<Observation> codedObservations = observationDao.download(codedParameter,
-                Constants.SEARCH_OBSERVATION_CODED_RESOURCE);
-        List<Observation> nonCodedObservations = observationDao.download(nonCodedParameter,
-                Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE);
+
         List<Observation> observations = new ArrayList<Observation>();
-        observations.addAll(codedObservations);
-        observations.addAll(nonCodedObservations);
+        if (codedBuilder.length() > 0) {
+            Map<String, String> codedParameter = new HashMap<String, String>() {{
+                put("person", personBuilder.toString());
+                put("concept", codedBuilder.toString());
+            }};
+            List<Observation> codedObservations = observationDao.download(codedParameter,
+                    Constants.SEARCH_OBSERVATION_CODED_RESOURCE);
+            observations.addAll(codedObservations);
+        }
+
+        if (nonCodedBuilder.length() > 0) {
+            Map<String, String> nonCodedParameter = new HashMap<String, String>() {{
+                put("person", personBuilder.toString());
+                put("concept", nonCodedBuilder.toString());
+            }};
+            List<Observation> nonCodedObservations = observationDao.download(nonCodedParameter,
+                    Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE);
+            observations.addAll(nonCodedObservations);
+        }
         return observations;
     }
 
