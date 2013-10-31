@@ -15,13 +15,38 @@
  */
 package com.muzima.api.model.resolver;
 
+import org.apache.commons.codec.binary.Base64;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
 import java.io.IOException;
+import java.net.Authenticator;
+import java.net.HttpURLConnection;
+import java.net.PasswordAuthentication;
 import java.util.Map;
 
 /**
  * TODO: Write brief description about the class here.
  */
 public class SyncFormDataResolver extends BaseOpenmrsResolver {
+
+    /**
+     * Add authentication information to the http url connection.
+     *
+     * @param connection the original connection without authentication information.
+     * @return the connection with authentication information when applicable.
+     */
+    @Override
+    public HttpURLConnection authenticate(final HttpURLConnection connection) {
+        HttpURLConnection authenticatedConnection = super.authenticate(connection);
+        String userPassword = getConfiguration().getUsername() + ":" + getConfiguration().getPassword();
+        String basicAuth = "Basic " + new String(new Base64().encode(userPassword.getBytes()));
+        authenticatedConnection.setRequestProperty ("Authorization", basicAuth);
+        return authenticatedConnection;
+    }
+
     /**
      * Return the full REST resource based on the parameters passed to the method.
      *
