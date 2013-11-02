@@ -33,7 +33,7 @@ import java.util.Map;
  * TODO: Write brief description about the class here.
  */
 public class ContextFactory {
-
+    public static final String LUCENE_DIR = "/data/data/com.muzima";
     private static final Map<String, Object> parameters = new HashMap<String, Object>();
 
     private static final List<Module> modules = new ArrayList<Module>();
@@ -44,7 +44,7 @@ public class ContextFactory {
         parameters.put(Constants.RESOURCE_CONFIGURATION_PATH, resourcePath);
         // override this property if using custom folder.
         StringBuilder lucenePath = new StringBuilder();
-        lucenePath.append(System.getProperty("java.io.tmpdir"));
+        lucenePath.append(LUCENE_DIR);
         lucenePath.append("/muzima");
         parameters.put(Constants.LUCENE_DIRECTORY_PATH, lucenePath.toString());
         parameters.put(Constants.LUCENE_DEFAULT_FIELD, "uuid");

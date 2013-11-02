@@ -101,8 +101,7 @@ public class ObservationServiceTest {
 
     @After
     public void cleanUp() throws Exception {
-        String tmpDirectory = System.getProperty("java.io.tmpdir");
-        String lucenePath = tmpDirectory + "/muzima";
+        String lucenePath = ContextFactory.LUCENE_DIR + "/muzima";
         File luceneDirectory = new File(lucenePath);
         for (String filename : luceneDirectory.list()) {
             File file = new File(luceneDirectory, filename);
