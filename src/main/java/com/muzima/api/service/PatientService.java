@@ -45,7 +45,7 @@ public interface PatientService extends MuzimaInterface {
      * @throws IOException when search api unable to process the resource.
      * @should save patient to local data repository.
      */
-    void savePatient(final Patient patient) throws IOException;
+    Patient savePatient(final Patient patient) throws IOException, ParseException;
 
     /**
      * Save patients to the local lucene repository.

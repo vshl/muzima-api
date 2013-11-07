@@ -118,8 +118,12 @@ public class PatientServiceImpl implements PatientService {
      * @see PatientService#savePatient(com.muzima.api.model.Patient)
      */
     @Override
-    public void savePatient(final Patient patient) throws IOException {
-        patientDao.save(patient, Constants.UUID_PATIENT_RESOURCE);
+    public Patient savePatient(final Patient patient) throws IOException, ParseException {
+        if (!patientExists(patient)) {
+            patientDao.save(patient, Constants.UUID_PATIENT_RESOURCE);
+            return patient;
+        }
+        return null;
     }
 
     /**
@@ -242,5 +246,7 @@ public class PatientServiceImpl implements PatientService {
         patientDao.delete(patients, Constants.UUID_PATIENT_RESOURCE);
     }
 
-
+    private boolean patientExists(Patient patient) throws IOException, ParseException {
+        return patientDao.getByUuid(patient.getUuid()) != null;
+    }
 }

@@ -346,4 +346,12 @@ public class PatientServiceTest {
         patientService.deletePatients(savedPatients);
         assertThat(patientService.getAllPatients(), hasSize(0));
     }
+
+    @Test
+    public void savePatient_shouldReturnNullWhenPatientAlreadyExists() throws Exception {
+        Patient patient = new Patient();
+        patient.setUuid("uuid1");
+        assertThat(patientService.savePatient(patient), notNullValue());
+        assertThat(patientService.savePatient(patient), nullValue());
+    }
 }
