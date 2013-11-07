@@ -55,6 +55,15 @@ public class Patient extends Person {
         return identifier;
     }
 
+    public PatientIdentifier getIdentifier(String identifierTypeName) {
+        for (PatientIdentifier identifier : identifiers) {
+            if (identifier.getIdentifierType().getName().equals(identifierTypeName)) {
+                return identifier;
+            }
+        }
+        return null;
+    }
+
     public String getSummary() {
         StringBuilder sb = new StringBuilder();
         sb.append("f".equalsIgnoreCase(getGender()) ? "♀" : "♂")
