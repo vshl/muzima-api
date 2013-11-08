@@ -56,7 +56,7 @@ public class Patient extends Person {
     }
 
     public PatientIdentifier getIdentifier(String identifierTypeName) {
-        for (PatientIdentifier identifier : identifiers) {
+        for (PatientIdentifier identifier : getIdentifiers()) {
             if (identifier.getIdentifierType().getName().equals(identifierTypeName)) {
                 return identifier;
             }
