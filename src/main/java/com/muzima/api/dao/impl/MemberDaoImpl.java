@@ -69,6 +69,17 @@ public class MemberDaoImpl extends SearchableDaoImpl<CohortMember> implements Me
     }
 
     @Override
+    public List<CohortMember> getByPatientUuid(String patientUuid) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter filter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(filter);
+            return service.getObjects(filters, daoClass);
+        }
+        return new ArrayList<CohortMember>();
+    }
+
+    @Override
     public List<CohortMember> getByCohortUuid(final String cohortUuid, final Integer page,
                                               final Integer pageSize) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();

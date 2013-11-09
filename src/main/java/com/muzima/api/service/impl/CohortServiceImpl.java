@@ -405,6 +405,11 @@ public class CohortServiceImpl implements CohortService {
         return memberDao.getByCohortUuid(cohort.getUuid());
     }
 
+    @Override
+    public List<CohortMember> getCohortMemberByPatientUUID(String patientUUID) throws IOException {
+        return memberDao.getByPatientUuid(patientUUID);
+    }
+
     /**
      * {@inheritDoc}
      *

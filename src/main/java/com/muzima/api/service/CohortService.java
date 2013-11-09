@@ -281,6 +281,13 @@ public interface CohortService extends MuzimaInterface {
     List<CohortMember> getCohortMembers(final Cohort cohort) throws IOException;
 
     /**
+     *
+     * @param patientUUID the patients' uuid.
+     * @return list of all cohort members where patient is a part of.
+     * @throws IOException when search api unable to process the resource.
+     */
+    List<CohortMember> getCohortMemberByPatientUUID(final String patientUUID) throws IOException;
+    /**
      * Get all members under the current cohort identified by the cohort's uuid which already saved in the local
      * repository.
      *
