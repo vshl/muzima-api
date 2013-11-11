@@ -31,7 +31,7 @@ public interface MemberDao extends SearchableDao<CohortMember> {
      */
     List<CohortMember> getByCohortUuid(final String cohortUuid) throws IOException;
 
-    List<CohortMember> getByPatientUuid(final String patientUuid) throws IOException;
+    Integer countByPatientUUID(final String patientUuid) throws IOException;
 
     List<CohortMember> getByCohortUuid(final String cohortUuid, final Integer page,
                                        final Integer pageSize) throws IOException;

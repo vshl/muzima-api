@@ -169,4 +169,10 @@ public interface PatientService extends MuzimaInterface {
      * @should delete the patient object from the local repository.
      */
     void deletePatients(final List<Patient> patients) throws IOException;
+
+    /**
+     *
+     * @return List of patients that are not a part of any cohort.
+     */
+    List<Patient> getPatientsNotInCohorts() throws IOException;
 }

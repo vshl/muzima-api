@@ -52,6 +52,17 @@ public class MemberDaoImpl extends SearchableDaoImpl<CohortMember> implements Me
         return service.countObjects(filters, CohortMember.class);
     }
 
+    @Override
+    public Integer countByPatientUUID(String patientUuid) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter filter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(filter);
+            return service.countObjects(filters, daoClass);
+        }
+        return 0;
+    }
+
     /**
      * Get cohort by the name of the cohort. Passing empty string will returns all registered cohorts.
      *
@@ -66,17 +77,6 @@ public class MemberDaoImpl extends SearchableDaoImpl<CohortMember> implements Me
             filters.add(filter);
         }
         return service.getObjects(filters, daoClass);
-    }
-
-    @Override
-    public List<CohortMember> getByPatientUuid(String patientUuid) throws IOException {
-        List<Filter> filters = new ArrayList<Filter>();
-        if (!StringUtil.isEmpty(patientUuid)) {
-            Filter filter = FilterFactory.createFilter("patientUuid", patientUuid);
-            filters.add(filter);
-            return service.getObjects(filters, daoClass);
-        }
-        return new ArrayList<CohortMember>();
     }
 
     @Override

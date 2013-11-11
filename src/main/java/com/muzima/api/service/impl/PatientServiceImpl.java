@@ -16,6 +16,7 @@
 package com.muzima.api.service.impl;
 
 import com.google.inject.Inject;
+import com.muzima.api.dao.MemberDao;
 import com.muzima.api.dao.PatientDao;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.PatientService;
@@ -24,6 +25,7 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Inject
     private PatientDao patientDao;
+
+    @Inject
+    private MemberDao memberDao;
 
     protected PatientServiceImpl() {
     }
@@ -244,6 +249,21 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public void deletePatients(final List<Patient> patients) throws IOException {
         patientDao.delete(patients, Constants.UUID_PATIENT_RESOURCE);
+    }
+
+    @Override
+    public List<Patient> getPatientsNotInCohorts() throws IOException {
+        List<Patient> patientsNotInCohorts = new ArrayList<Patient>();
+        for (Patient patient : getAllPatients()) {
+            if (isNotAPartOfAnyCohort(patient)) {
+                patientsNotInCohorts.add(patient);
+            }
+        }
+        return patientsNotInCohorts;
+    }
+
+    private boolean isNotAPartOfAnyCohort(Patient patient) throws IOException {
+        return memberDao.countByPatientUUID(patient.getUuid()) == 0;
     }
 
     private boolean patientExists(Patient patient) throws IOException, ParseException {

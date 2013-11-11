@@ -17,27 +17,24 @@ package com.muzima.api.service;
 
 import com.muzima.api.context.Context;
 import com.muzima.api.context.ContextFactory;
+import com.muzima.api.model.Cohort;
+import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
 import com.muzima.search.api.util.StringUtil;
+import org.apache.lucene.queryParser.ParseException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.isIn;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.hamcrest.Matchers.*;
 
 /**
  * TODO: Write brief description about the class here.
@@ -51,6 +48,7 @@ public class PatientServiceTest {
 
     private Context context;
     private PatientService patientService;
+    private CohortService cohortService;
 
     private static int nextInt(int size) {
         Random random = new Random();
@@ -65,6 +63,7 @@ public class PatientServiceTest {
             context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
         }
         patientService = context.getPatientService();
+        cohortService = context.getCohortService();
         patients = patientService.downloadPatientsByName(GIVEN_NAME);
         patient = patients.get(nextInt(patients.size()));
     }
@@ -353,5 +352,43 @@ public class PatientServiceTest {
         patient.setUuid("uuid1");
         assertThat(patientService.savePatient(patient), notNullValue());
         assertThat(patientService.savePatient(patient), nullValue());
+    }
+
+    @Test
+    public void shouldReturnPatientsThatAreNotInCohort() throws IOException, ParseException {
+        Cohort cohort = new Cohort();
+        cohort.setUuid("cohortUUID");
+        cohortService.saveCohort(cohort);
+
+        Patient patient1 = patient("uuid1");
+        Patient patient2 = patient("uuid2");
+
+        patientService.savePatient(patient1);
+        patientService.savePatient(patient2);
+        cohortService.saveCohortMember(new CohortMember(cohort,patient1));
+
+        List<Patient> patientsNotInCohorts = patientService.getPatientsNotInCohorts();
+
+        assertThat(patientsNotInCohorts.size(),is(1));
+        assertThat(patientsNotInCohorts.get(0).getUuid(),is("uuid2"));
+    }
+
+    @Test
+    public void shouldReturnEmptyPatientListIfAllPatientBelongsToSomeCohort() throws Exception {
+        Cohort cohort = new Cohort();
+        cohort.setUuid("cohortUUID");
+        cohortService.saveCohort(cohort);
+
+        patientService.savePatient(patient("uuid1"));
+        cohortService.saveCohortMember(new CohortMember(cohort, patient("uuid1")));
+
+        List<Patient> patientsNotInCohorts = patientService.getPatientsNotInCohorts();
+        assertThat(patientsNotInCohorts.size(),is(0));
+    }
+
+    private Patient patient(String uuid) {
+        Patient patient = new Patient();
+        patient.setUuid(uuid);
+        return patient;
     }
 }
