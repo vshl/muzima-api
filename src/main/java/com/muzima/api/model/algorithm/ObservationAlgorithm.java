@@ -15,21 +15,18 @@
  */
 package com.muzima.api.model.algorithm;
 
-import com.jayway.jsonpath.InvalidPathException;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Concept;
 import com.muzima.api.model.Encounter;
 import com.muzima.api.model.Observation;
 import com.muzima.api.model.Person;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
 
@@ -66,11 +63,11 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         Observation observation = new Observation();
         observation.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
-        observation.setObservationDatetime(JsonUtils.readAsDate(serialized, "$['obsDatetime']"));
+        observation.setObservationDatetime(JsonUtils.readAsDateTime(serialized, "$['obsDatetime']"));
         // values, ignored when they are not exists in the resource
         observation.setValueText(JsonUtils.readAsString(serialized, "$['valueText']"));
         observation.setValueNumeric(JsonUtils.readAsNumeric(serialized, "$['valueNumeric']"));
-        observation.setValueDatetime(JsonUtils.readAsDate(serialized, "$['valueDatetime']"));
+        observation.setValueDatetime(JsonUtils.readAsDateTime(serialized, "$['valueDatetime']"));
         // value coded need to be handled separately because we can't create the custom structure of value coded!
         Object valueCodedObject = JsonUtils.readAsObject(serialized, "$['valueCoded']");
         observation.setValueCoded((Concept) conceptAlgorithm.deserialize(String.valueOf(valueCodedObject)));
@@ -95,10 +92,10 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
         Observation observation = (Observation) object;
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", observation.getUuid());
-        JsonUtils.writeAsDate(jsonObject, "obsDatetime", observation.getObservationDatetime());
+        JsonUtils.writeAsDateTime(jsonObject, "obsDatetime", observation.getObservationDatetime());
         JsonUtils.writeAsString(jsonObject, "valueText", observation.getValueText());
         JsonUtils.writeAsNumeric(jsonObject, "valueNumeric", observation.getValueNumeric());
-        JsonUtils.writeAsDate(jsonObject, "valueDatetime", observation.getValueDatetime());
+        JsonUtils.writeAsDateTime(jsonObject, "valueDatetime", observation.getValueDatetime());
         String valueCoded = conceptAlgorithm.serialize(observation.getValueCoded());
         jsonObject.put("valueCoded", JsonPath.read(valueCoded, "$"));
         String encounter = encounterAlgorithm.serialize(observation.getEncounter());

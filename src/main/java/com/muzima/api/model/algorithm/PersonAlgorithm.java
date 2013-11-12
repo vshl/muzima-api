@@ -19,13 +19,11 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Person;
 import com.muzima.api.model.PersonName;
 import com.muzima.search.api.model.object.Searchable;
-import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.List;
 
 public class PersonAlgorithm extends BaseOpenmrsAlgorithm {
