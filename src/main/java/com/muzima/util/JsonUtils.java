@@ -244,7 +244,7 @@ public class JsonUtils {
             return null;
         }
         try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(dateAsString);
+            return new SimpleDateFormat(DATE_PATTERN).parse(dateAsString);
         } catch (ParseException e) {
             logger.error("Unable to convert string value from path: " + path + " from: " + String.valueOf(serialized));
         }
