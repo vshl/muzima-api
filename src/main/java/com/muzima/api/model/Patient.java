@@ -75,6 +75,10 @@ public class Patient extends Person {
     }
 
     private String getAbbreviatedName() {
-        return getFamilyName() + ", " + getGivenName().substring(0, 1) + " " + getMiddleName().substring(0, 1);
+        String middleNameAbbr = "";
+        if(!StringUtil.isEmpty(getMiddleName())){
+            middleNameAbbr = " " + getMiddleName().substring(0, 1);
+        }
+        return getFamilyName() + ", " + getGivenName().substring(0, 1) + middleNameAbbr;
     }
 }
