@@ -19,14 +19,13 @@ import com.google.inject.Inject;
 import com.muzima.api.config.Configuration;
 import com.muzima.search.api.internal.http.CustomKeyStore;
 import com.muzima.search.api.model.resolver.Resolver;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
-import java.net.Authenticator;
 import java.net.HttpURLConnection;
-import java.net.PasswordAuthentication;
 
 public abstract class BaseOpenmrsResolver implements Resolver {
 
@@ -53,13 +52,6 @@ public abstract class BaseOpenmrsResolver implements Resolver {
      */
     @Override
     public HttpURLConnection authenticate(final HttpURLConnection connection) {
-        Authenticator.setDefault(new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(
-                        getConfiguration().getUsername(),
-                        getConfiguration().getPassword().toCharArray());
-            }
-        });
         if (connection instanceof HttpsURLConnection) {
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) connection;
             if (customKeyStore != null) {
@@ -76,6 +68,10 @@ public abstract class BaseOpenmrsResolver implements Resolver {
                 }
             }
         }
+
+        String userPassword = getConfiguration().getUsername() + ":" + getConfiguration().getPassword();
+        String basicAuth = "Basic " + new String(new Base64().encode(userPassword.getBytes()));
+        connection.setRequestProperty ("Authorization", basicAuth);
         return connection;
     }
 }
