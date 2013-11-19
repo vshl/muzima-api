@@ -17,7 +17,6 @@ package com.muzima.api.service;
 
 import com.muzima.api.context.Context;
 import com.muzima.api.context.ContextFactory;
-import com.muzima.api.model.Cohort;
 import com.muzima.api.model.Concept;
 import com.muzima.api.model.Observation;
 import com.muzima.api.model.Patient;
@@ -101,7 +100,7 @@ public class ObservationServiceTest {
 
     @After
     public void cleanUp() throws Exception {
-        String lucenePath = ContextFactory.LUCENE_DIR + "/muzima";
+        String lucenePath = ContextFactory.APP_DIR + "/muzima";
         File luceneDirectory = new File(lucenePath);
         for (String filename : luceneDirectory.list()) {
             File file = new File(luceneDirectory, filename);

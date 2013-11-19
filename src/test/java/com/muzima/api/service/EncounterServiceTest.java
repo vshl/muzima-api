@@ -75,7 +75,7 @@ public class EncounterServiceTest {
 
     @After
     public void cleanUp() throws Exception {
-        String lucenePath = ContextFactory.LUCENE_DIR + "/muzima";
+        String lucenePath = ContextFactory.APP_DIR + "/muzima";
         File luceneDirectory = new File(lucenePath);
         for (String filename : luceneDirectory.list()) {
             File file = new File(luceneDirectory, filename);

@@ -20,7 +20,6 @@ import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
-import com.muzima.api.model.Patient;
 import com.muzima.search.api.util.StringUtil;
 import org.junit.After;
 import org.junit.Assert;
@@ -30,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -84,7 +82,7 @@ public class CohortServiceTest {
 
     @After
     public void cleanUp() throws Exception {
-        String lucenePath = ContextFactory.LUCENE_DIR + "/muzima";
+        String lucenePath = ContextFactory.APP_DIR + "/muzima";
         File luceneDirectory = new File(lucenePath);
         for (String filename : luceneDirectory.list()) {
             File file = new File(luceneDirectory, filename);
