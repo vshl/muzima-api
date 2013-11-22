@@ -20,7 +20,7 @@ import com.muzima.search.api.util.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Patient extends Person {
+public class Patient extends Person implements Comparable<Patient> {
 
     private List<PatientIdentifier> identifiers;
 
@@ -76,9 +76,17 @@ public class Patient extends Person {
 
     private String getAbbreviatedName() {
         String middleNameAbbr = "";
-        if(!StringUtil.isEmpty(getMiddleName())){
+        if (!StringUtil.isEmpty(getMiddleName())) {
             middleNameAbbr = " " + getMiddleName().substring(0, 1);
         }
         return getFamilyName() + ", " + getGivenName().substring(0, 1) + middleNameAbbr;
+    }
+
+    @Override
+    public int compareTo(Patient patient) {
+        if (this.getFamilyName() != null && patient.getFamilyName() != null) {
+            return this.getFamilyName().compareTo(patient.getFamilyName());
+        }
+        return 0;
     }
 }

@@ -18,6 +18,7 @@ package com.muzima.api.service.impl;
 import com.google.inject.Inject;
 import com.muzima.api.dao.MemberDao;
 import com.muzima.api.dao.PatientDao;
+import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.PatientService;
 import com.muzima.search.api.util.CollectionUtil;
@@ -25,10 +26,7 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PatientServiceImpl implements PatientService {
 
@@ -72,7 +70,7 @@ public class PatientServiceImpl implements PatientService {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
-        return patientDao.download(parameter, Constants.SEARCH_PATIENT_RESOURCE);
+        return sortFamilyNameAscending(patientDao.download(parameter, Constants.SEARCH_PATIENT_RESOURCE));
     }
 
     /**
@@ -198,8 +196,9 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> getAllPatients() throws IOException {
-        return patientDao.getAll();
+        return sortFamilyNameAscending(patientDao.getAll());
     }
+
 
     /**
      * {@inheritDoc}
@@ -208,7 +207,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> getPatientsByName(final String name) throws IOException, ParseException {
-        return patientDao.getPatientByName(name);
+        return sortFamilyNameAscending(patientDao.getPatientByName(name));
     }
 
     /**
@@ -218,7 +217,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> searchPatients(final String term) throws IOException, ParseException {
-        return patientDao.search(term);
+        return sortFamilyNameAscending(patientDao.search(term));
     }
 
     /**
@@ -228,7 +227,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> searchPatients(final String term, final String cohortUuid) throws IOException, ParseException {
-        return patientDao.search(term, cohortUuid);
+        return sortFamilyNameAscending(patientDao.search(term, cohortUuid));
     }
 
     /**
@@ -259,7 +258,16 @@ public class PatientServiceImpl implements PatientService {
                 patientsNotInCohorts.add(patient);
             }
         }
-        return patientsNotInCohorts;
+        return sortFamilyNameAscending(patientsNotInCohorts);
+    }
+
+    @Override
+    public List<Patient> getPatientsFromCohortMembers(List<CohortMember> cohortMembers) {
+        List<Patient> patients = new ArrayList<Patient>();
+        for (CohortMember member : cohortMembers) {
+            patients.add(member.getPatient());
+        }
+        return patients;
     }
 
     private boolean isNotAPartOfAnyCohort(Patient patient) throws IOException {
@@ -268,5 +276,10 @@ public class PatientServiceImpl implements PatientService {
 
     private boolean patientExists(Patient patient) throws IOException, ParseException {
         return patientDao.getByUuid(patient.getUuid()) != null;
+    }
+
+    private List<Patient> sortFamilyNameAscending(List<Patient> patientList) {
+        Collections.sort(patientList);
+        return patientList;
     }
 }

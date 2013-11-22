@@ -20,7 +20,9 @@ import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
+import com.muzima.api.model.PersonName;
 import com.muzima.search.api.util.StringUtil;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.lucene.queryParser.ParseException;
 import org.junit.After;
 import org.junit.Assert;
@@ -33,6 +35,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -390,5 +393,31 @@ public class PatientServiceTest {
         Patient patient = new Patient();
         patient.setUuid(uuid);
         return patient;
+    }
+
+    @Test
+    public void shouldSortPatientsByLastname() throws Exception {
+        Patient patient1 = getPatientWithFamilyName("b");
+        Patient patient2 = getPatientWithFamilyName("a");
+        Patient patient3 = getPatientWithFamilyName(null);
+        patientService.savePatient(patient1);
+        patientService.savePatient(patient2);
+        patientService.savePatient(patient3);
+
+        List<Patient> allPatients = patientService.getAllPatients();
+        assertThat(allPatients.size(), is(3));
+        assertThat(allPatients.get(0).getFamilyName(), is(patient2.getFamilyName()));
+        assertThat(allPatients.get(1).getFamilyName(), is(patient1.getFamilyName()));
+        assertThat(allPatients.get(2).getFamilyName(), is(nullValue()));
+
+    }
+
+    private Patient getPatientWithFamilyName(String familyName) {
+        Patient patient1 = new Patient();
+        patient1.setUuid(RandomStringUtils.random(10));
+        PersonName personName = new PersonName();
+        personName.setFamilyName(familyName);
+        patient1.setNames(asList(personName));
+        return patient1;
     }
 }
