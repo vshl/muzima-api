@@ -20,8 +20,10 @@ import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Form;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
+import com.muzima.api.model.Tag;
 import com.muzima.search.api.util.StringUtil;
 import net.minidev.json.JSONObject;
+import org.apache.commons.lang.RandomStringUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -33,15 +35,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isIn;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.hamcrest.Matchers.*;
 
 /**
  * TODO: Write brief description about the class here.
@@ -630,5 +624,26 @@ public class FormServiceTest {
         formData.setDiscriminator("encounter");
         boolean synced = formService.syncFormData(formData);
         assertThat(synced, is(true));
+    }
+
+    @Test
+    public void shouldFilterFormsByName() throws Exception {
+        Form form1 = getFormWithName("b form");
+        Form form2 = getFormWithName("a form");
+        formService.saveForm(form1);
+        formService.saveForm(form2);
+
+        List<Form> allForms = formService.getAllForms();
+        assertThat(allForms.size(), is(2));
+
+        assertThat(allForms.get(0).getName(), is(form2.getName()));
+    }
+
+    private Form getFormWithName(String formName) {
+        Form form = new Form();
+        form.setTags(new Tag[]{});
+        form.setUuid(RandomStringUtils.random(10));
+        form.setName(formName);
+        return form;
     }
 }

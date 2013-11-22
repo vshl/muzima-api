@@ -29,10 +29,7 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class FormServiceImpl implements FormService {
 
@@ -79,7 +76,7 @@ public class FormServiceImpl implements FormService {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
-        return formDao.download(parameter, Constants.SEARCH_FORM_RESOURCE);
+        return sortNameAscending(formDao.download(parameter, Constants.SEARCH_FORM_RESOURCE));
     }
 
     /**
@@ -149,7 +146,7 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public List<Form> getFormByName(final String name) throws IOException {
-        return formDao.getByName(name);
+        return sortNameAscending(formDao.getByName(name));
     }
 
     /**
@@ -169,7 +166,7 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public List<Form> getAllForms() throws IOException {
-        return formDao.getAll();
+        return sortNameAscending(formDao.getAll());
     }
 
     /**
@@ -412,5 +409,10 @@ public class FormServiceImpl implements FormService {
     @Override
     public boolean syncFormData(final FormData formData) throws IOException {
         return formDataDao.syncFormData(formData);
+    }
+
+    private List<Form> sortNameAscending(List<Form> all) {
+        Collections.sort(all);
+        return all;
     }
 }

@@ -19,7 +19,7 @@ package com.muzima.api.model;
  * A form is a class to hold form reference in the server. Each form will have one to one connection with a
  * FormTemplate.
  */
-public class Form extends OpenmrsSearchable {
+public class Form extends OpenmrsSearchable implements Comparable<Form>{
 
     private String name;
 
@@ -99,5 +99,13 @@ public class Form extends OpenmrsSearchable {
      */
     public void setVersion(final String version) {
         this.version = version;
+    }
+
+    @Override
+    public int compareTo(Form form) {
+        if (this.getName() != null && form.getName() != null) {
+            return this.getName().toLowerCase().compareTo(form.getName().toLowerCase());
+        }
+        return 0;
     }
 }
