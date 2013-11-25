@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.is;
@@ -13,13 +15,18 @@ import static org.junit.Assert.assertThat;
 public class PatientTest {
 
     private Patient patient;
+    private PatientIdentifier patientId1;
+    private PatientIdentifier patientId2;
 
     @Before
     public void setUp() throws Exception {
         patient = new Patient();
-        PatientIdentifier patientId1 = getPatientIdentifier("PatientIdTypeName1", "Identifier1");
-        PatientIdentifier patientId2 = getPatientIdentifier("PatientIdTypeName2", "Identifier2");
-        patient.setIdentifiers(asList(patientId1, patientId2));
+        patientId1 = getPatientIdentifier("PatientIdTypeName1", "Identifier1");
+        patientId2 = getPatientIdentifier("PatientIdTypeName2", "Identifier2");
+        List<PatientIdentifier> patientIdentifiers = new ArrayList<PatientIdentifier>();
+        patientIdentifiers.add(patientId1);
+        patientIdentifiers.add(patientId2);
+        patient.setIdentifiers(patientIdentifiers);
     }
 
     private PatientIdentifier getPatientIdentifier(String patientIdTypeName, String identifier) {
@@ -60,6 +67,12 @@ public class PatientTest {
     @Test
     public void shouldReturnPatientIdentifierGivenTheName() throws Exception {
         assertThat(patient.getIdentifier("PatientIdTypeName1").getIdentifier(), is("Identifier1"));
+    }
+
+    @Test
+    public void shouldRemoveIdentifierWithTheGivenName() throws Exception {
+        patient.removeIdentifier("PatientIdTypeName1");
+        assertThat(patient.getIdentifiers(), is(asList(patientId2)));
     }
 
     @Test

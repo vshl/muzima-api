@@ -18,6 +18,7 @@ package com.muzima.api.model;
 import com.muzima.search.api.util.StringUtil;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Patient extends Person implements Comparable<Patient> {
@@ -55,6 +56,12 @@ public class Patient extends Person implements Comparable<Patient> {
         return identifier;
     }
 
+    /**
+     * Gets the PatientIdentifier with the given identifier type name.
+     *
+     * @param identifierTypeName the name of the identifier type
+     * @return the PatientIdentifier with the given identifier type name
+     */
     public PatientIdentifier getIdentifier(String identifierTypeName) {
         for (PatientIdentifier identifier : getIdentifiers()) {
             if (identifier.getIdentifierType().getName().equals(identifierTypeName)) {
@@ -62,6 +69,20 @@ public class Patient extends Person implements Comparable<Patient> {
             }
         }
         return null;
+    }
+
+    /**
+     * Removes the PatientIdentifier with the given identifier type name.
+     * @param identifierTypeName the name of the identifier type
+     */
+    public void removeIdentifier(String identifierTypeName){
+        Iterator<PatientIdentifier> iterator = getIdentifiers().iterator();
+        while(iterator.hasNext()){
+            PatientIdentifier next = iterator.next();
+            if(identifierTypeName.equals(next.getIdentifierType().getName())){
+                iterator.remove();
+            }
+        }
     }
 
     public String getSummary() {
