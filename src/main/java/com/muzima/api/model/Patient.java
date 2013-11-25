@@ -84,8 +84,8 @@ public class Patient extends Person implements Comparable<Patient> {
 
     @Override
     public int compareTo(Patient patient) {
-        if (this.getFamilyName() != null && patient.getFamilyName() != null) {
-            return this.getFamilyName().compareTo(patient.getFamilyName());
+        if (this.getDisplayName() != null && patient.getDisplayName() != null) {
+            return this.getDisplayName().toLowerCase().compareTo(patient.getDisplayName().toLowerCase());
         }
         return 0;
     }

@@ -70,7 +70,7 @@ public class PatientServiceImpl implements PatientService {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
-        return sortFamilyNameAscending(patientDao.download(parameter, Constants.SEARCH_PATIENT_RESOURCE));
+        return sortDisplayNameAscending(patientDao.download(parameter, Constants.SEARCH_PATIENT_RESOURCE));
     }
 
     /**
@@ -196,7 +196,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> getAllPatients() throws IOException {
-        return sortFamilyNameAscending(patientDao.getAll());
+        return sortDisplayNameAscending(patientDao.getAll());
     }
 
 
@@ -207,7 +207,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> getPatientsByName(final String name) throws IOException, ParseException {
-        return sortFamilyNameAscending(patientDao.getPatientByName(name));
+        return sortDisplayNameAscending(patientDao.getPatientByName(name));
     }
 
     /**
@@ -217,7 +217,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> searchPatients(final String term) throws IOException, ParseException {
-        return sortFamilyNameAscending(patientDao.search(term));
+        return sortDisplayNameAscending(patientDao.search(term));
     }
 
     /**
@@ -227,7 +227,7 @@ public class PatientServiceImpl implements PatientService {
      */
     @Override
     public List<Patient> searchPatients(final String term, final String cohortUuid) throws IOException, ParseException {
-        return sortFamilyNameAscending(patientDao.search(term, cohortUuid));
+        return sortDisplayNameAscending(patientDao.search(term, cohortUuid));
     }
 
     /**
@@ -258,7 +258,7 @@ public class PatientServiceImpl implements PatientService {
                 patientsNotInCohorts.add(patient);
             }
         }
-        return sortFamilyNameAscending(patientsNotInCohorts);
+        return sortDisplayNameAscending(patientsNotInCohorts);
     }
 
     @Override
@@ -278,7 +278,7 @@ public class PatientServiceImpl implements PatientService {
         return patientDao.getByUuid(patient.getUuid()) != null;
     }
 
-    private List<Patient> sortFamilyNameAscending(List<Patient> patientList) {
+    private List<Patient> sortDisplayNameAscending(List<Patient> patientList) {
         Collections.sort(patientList);
         return patientList;
     }
