@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * TODO: Write brief description about the class here.
  */
-public class Concept extends OpenmrsSearchable {
+public class Concept extends OpenmrsSearchable implements Comparable<Concept> {
 
     public static final String NUMERIC_TYPE = "Numeric";
 
@@ -114,5 +114,10 @@ public class Concept extends OpenmrsSearchable {
                     || StringUtil.equals(getConceptType().getName(), DATETIME_TYPE));
         }
         return datetime;
+    }
+
+    @Override
+    public int compareTo(Concept otherConcept) {
+        return this.getName().toLowerCase().compareTo(otherConcept.getName().toLowerCase());
     }
 }
