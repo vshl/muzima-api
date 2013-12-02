@@ -61,6 +61,8 @@ class UserContext {
         if (user == null) {
             user = userService.downloadUserByUsername(username);
             if (user != null) {
+                userService.saveUser(user);
+
                 String uuid = UUID.randomUUID().toString();
                 String salt = DigestUtil.getSHA1Checksum(uuid);
                 String hashedPassword = DigestUtil.getSHA1Checksum(salt + ":" + password);
