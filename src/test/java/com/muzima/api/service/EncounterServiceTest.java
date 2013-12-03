@@ -64,6 +64,8 @@ public class EncounterServiceTest {
 
     @Before
     public void prepare() throws Exception {
+        String path = System.getProperty("java.io.tmpdir") + "/muzima/" + UUID.randomUUID().toString();
+        ContextFactory.setProperty(Constants.LUCENE_DIRECTORY_PATH, path);
         context = ContextFactory.createContext();
         context.openSession();
         if (!context.isAuthenticated()) {

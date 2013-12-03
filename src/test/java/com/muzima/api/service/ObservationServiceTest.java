@@ -42,7 +42,7 @@ public class ObservationServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(ObservationServiceTest.class.getSimpleName());
 
     private static final String GIVEN_NAME = "Test";
-    private static final String CONCEPT_NAME = "WEIGHT (KG)";
+    private static final String CONCEPT_NAME = "TEMPERATURE (C)";
     // baseline observation
     private Observation observation;
     private List<Patient> patients;
@@ -62,6 +62,8 @@ public class ObservationServiceTest {
 
     @Before
     public void prepare() throws Exception {
+        String path = System.getProperty("java.io.tmpdir") + "/muzima/" + UUID.randomUUID().toString();
+        ContextFactory.setProperty(Constants.LUCENE_DIRECTORY_PATH, path);
         context = ContextFactory.createContext();
         context.openSession();
         if (!context.isAuthenticated()) {
