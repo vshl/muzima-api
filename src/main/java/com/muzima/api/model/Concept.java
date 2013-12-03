@@ -116,6 +116,23 @@ public class Concept extends OpenmrsSearchable implements Comparable<Concept> {
         return datetime;
     }
 
+    public String getSynonyms() {
+        int size = this.getConceptNames().size();
+        switch (size) {
+            case 0:
+            case 1:
+                return "";
+            case 2:
+                return getFirstConceptName();
+            default:
+                return getFirstConceptName() + " (" + (size - 2) + " more.)";
+        }
+    }
+
+    private String getFirstConceptName() {
+        return this.getConceptNames().get(0).getName();
+    }
+
     @Override
     public int compareTo(Concept otherConcept) {
         return this.getName().toLowerCase().compareTo(otherConcept.getName().toLowerCase());
