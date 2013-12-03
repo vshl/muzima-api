@@ -48,7 +48,7 @@ public class ContextFactory {
         parameters.put(Constants.LUCENE_ENCRYPTION_KEY, "this-is-supposed-to-be-a-secure-key");
         parameters.put(Constants.LUCENE_DIRECTORY_PATH, lucenePath.toString());
         parameters.put(Constants.LUCENE_DEFAULT_FIELD, "uuid");
-        parameters.put(Constants.LUCENE_USE_ENCRYPTION, true);
+        parameters.put(Constants.LUCENE_USE_ENCRYPTION, false);
     }
 
     /**
@@ -110,7 +110,7 @@ public class ContextFactory {
         MuzimaModule muzimaModule = new MuzimaModule();
         muzimaModule.setRepositoryPath(getProperty(Constants.LUCENE_DIRECTORY_PATH));
         muzimaModule.setEncryptionKey(getProperty(Constants.LUCENE_ENCRYPTION_KEY));
-        muzimaModule.setUseEncryption(true);
+        muzimaModule.setUseEncryption(false);
         SearchModule searchModule = new SearchModule();
         Injector injector = Guice.createInjector(muzimaModule, searchModule);
         return new Context(injector);
