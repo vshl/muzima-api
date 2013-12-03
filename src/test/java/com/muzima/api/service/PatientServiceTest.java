@@ -22,6 +22,8 @@ import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
 import com.muzima.api.model.PersonName;
 import com.muzima.search.api.util.StringUtil;
+import com.muzima.util.Constants;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.lucene.queryParser.ParseException;
 import org.junit.After;
@@ -73,7 +75,7 @@ public class PatientServiceTest {
 
     @After
     public void cleanUp() throws Exception {
-        String lucenePath = ContextFactory.APP_DIR + "/muzima";
+        String lucenePath = ContextFactory.getProperty(Constants.LUCENE_DIRECTORY_PATH);
         File luceneDirectory = new File(lucenePath);
         for (String filename : luceneDirectory.list()) {
             File file = new File(luceneDirectory, filename);

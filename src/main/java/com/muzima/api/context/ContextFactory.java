@@ -33,7 +33,6 @@ import java.util.Map;
  * TODO: Write brief description about the class here.
  */
 public class ContextFactory {
-    public static final String APP_DIR = "/data/data/com.muzima";
     private static final Map<String, Object> parameters = new HashMap<String, Object>();
 
     private static final List<Module> modules = new ArrayList<Module>();
@@ -44,8 +43,9 @@ public class ContextFactory {
         parameters.put(Constants.RESOURCE_CONFIGURATION_PATH, resourcePath);
         // override this property if using custom folder.
         StringBuilder lucenePath = new StringBuilder();
-        lucenePath.append(APP_DIR);
+        lucenePath.append(System.getProperty("java.io.tmpdir"));
         lucenePath.append("/muzima");
+        parameters.put(Constants.LUCENE_ENCRYPTION_KEY, "this-is-supposed-to-be-a-secure-key");
         parameters.put(Constants.LUCENE_DIRECTORY_PATH, lucenePath.toString());
         parameters.put(Constants.LUCENE_DEFAULT_FIELD, "uuid");
         parameters.put(Constants.LUCENE_USE_ENCRYPTION, true);
@@ -108,6 +108,9 @@ public class ContextFactory {
      */
     public static Context createContext() throws Exception {
         MuzimaModule muzimaModule = new MuzimaModule();
+        muzimaModule.setRepositoryPath(getProperty(Constants.LUCENE_DIRECTORY_PATH));
+        muzimaModule.setEncryptionKey(getProperty(Constants.LUCENE_ENCRYPTION_KEY));
+        muzimaModule.setUseEncryption(true);
         SearchModule searchModule = new SearchModule();
         Injector injector = Guice.createInjector(muzimaModule, searchModule);
         return new Context(injector);

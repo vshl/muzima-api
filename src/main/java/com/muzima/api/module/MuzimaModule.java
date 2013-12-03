@@ -20,8 +20,6 @@ import com.google.inject.name.Names;
 import com.muzima.api.config.Configuration;
 import com.muzima.util.Constants;
 
-import static com.muzima.api.context.ContextFactory.APP_DIR;
-
 public class MuzimaModule extends AbstractModule {
 
     private String documentKey;
@@ -41,7 +39,7 @@ public class MuzimaModule extends AbstractModule {
         this.documentKey = "uuid";
         // data repository path
         StringBuilder pathBuilder = new StringBuilder();
-        pathBuilder.append(APP_DIR);
+        pathBuilder.append(System.getProperty("java.io.tmpdir"));
         pathBuilder.append("/muzima");
         this.repositoryPath = pathBuilder.toString();
         // encryption and compression

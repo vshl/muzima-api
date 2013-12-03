@@ -22,6 +22,8 @@ import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.api.model.Tag;
 import com.muzima.search.api.util.StringUtil;
+import com.muzima.util.Constants;
+
 import net.minidev.json.JSONObject;
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.After;
@@ -67,7 +69,7 @@ public class FormServiceTest {
 
     @After
     public void cleanUp() throws Exception {
-        String lucenePath = ContextFactory.APP_DIR + "/muzima";
+        String lucenePath = ContextFactory.getProperty(Constants.LUCENE_DIRECTORY_PATH);
         File luceneDirectory = new File(lucenePath);
         for (String filename : luceneDirectory.list()) {
             File file = new File(luceneDirectory, filename);

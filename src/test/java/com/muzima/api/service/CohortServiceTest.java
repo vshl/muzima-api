@@ -21,6 +21,8 @@ import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
 import com.muzima.search.api.util.StringUtil;
+import com.muzima.util.Constants;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -82,7 +84,7 @@ public class CohortServiceTest {
 
     @After
     public void cleanUp() throws Exception {
-        String lucenePath = ContextFactory.APP_DIR + "/muzima";
+        String lucenePath = ContextFactory.getProperty(Constants.LUCENE_DIRECTORY_PATH);
         File luceneDirectory = new File(lucenePath);
         for (String filename : luceneDirectory.list()) {
             File file = new File(luceneDirectory, filename);
