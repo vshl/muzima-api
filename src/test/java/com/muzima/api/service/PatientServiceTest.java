@@ -23,7 +23,6 @@ import com.muzima.api.model.Patient;
 import com.muzima.api.model.PersonName;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.lucene.queryParser.ParseException;
 import org.junit.After;
@@ -370,12 +369,12 @@ public class PatientServiceTest {
 
         patientService.savePatient(patient1);
         patientService.savePatient(patient2);
-        cohortService.saveCohortMember(new CohortMember(cohort,patient1));
+        cohortService.saveCohortMember(new CohortMember(cohort, patient1));
 
         List<Patient> patientsNotInCohorts = patientService.getPatientsNotInCohorts();
 
-        assertThat(patientsNotInCohorts.size(),is(1));
-        assertThat(patientsNotInCohorts.get(0).getUuid(),is("uuid2"));
+        assertThat(patientsNotInCohorts.size(), is(1));
+        assertThat(patientsNotInCohorts.get(0).getUuid(), is("uuid2"));
     }
 
     @Test
@@ -388,7 +387,7 @@ public class PatientServiceTest {
         cohortService.saveCohortMember(new CohortMember(cohort, patient("uuid1")));
 
         List<Patient> patientsNotInCohorts = patientService.getPatientsNotInCohorts();
-        assertThat(patientsNotInCohorts.size(),is(0));
+        assertThat(patientsNotInCohorts.size(), is(0));
     }
 
     private Patient patient(String uuid) {
@@ -398,27 +397,32 @@ public class PatientServiceTest {
     }
 
     @Test
-    public void shouldSortPatientsByLastname() throws Exception {
-        Patient patient1 = getPatientWithFamilyName("b");
-        Patient patient2 = getPatientWithFamilyName("a");
-        Patient patient3 = getPatientWithFamilyName(null);
+    public void shouldSortPatientsByDisplayName() throws Exception {
+        Patient patient1 = getPatientWith("Alpha", "greek", "middle");
+        Patient patient2 = getPatientWith("Beta", "greek", "middle");
+        Patient patient3 = getPatientWith(null, "greek", "middle");
+        Patient patient4 = getPatientWith("Alpha", "latin", "middle");
         patientService.savePatient(patient1);
         patientService.savePatient(patient2);
         patientService.savePatient(patient3);
+        patientService.savePatient(patient4);
 
         List<Patient> allPatients = patientService.getAllPatients();
-        assertThat(allPatients.size(), is(3));
-        assertThat(allPatients.get(0).getFamilyName(), is(patient2.getFamilyName()));
-        assertThat(allPatients.get(1).getFamilyName(), is(patient1.getFamilyName()));
-        assertThat(allPatients.get(2).getFamilyName(), is(nullValue()));
+        assertThat(allPatients.size(), is(4));
+        assertThat(allPatients.get(0).getFamilyName(), is(patient1.getFamilyName()));
+        assertThat(allPatients.get(1).getFamilyName(), is(patient4.getFamilyName()));
+        assertThat(allPatients.get(2).getFamilyName(), is(patient2.getFamilyName()));
+        assertThat(allPatients.get(3).getFamilyName(), is(nullValue()));
 
     }
 
-    private Patient getPatientWithFamilyName(String familyName) {
+    private Patient getPatientWith(String familyName, String givenName, String middle) {
         Patient patient1 = new Patient();
         patient1.setUuid(RandomStringUtils.random(10));
         PersonName personName = new PersonName();
         personName.setFamilyName(familyName);
+        personName.setGivenName(givenName);
+        personName.setMiddleName(middle);
         patient1.setNames(asList(personName));
         return patient1;
     }

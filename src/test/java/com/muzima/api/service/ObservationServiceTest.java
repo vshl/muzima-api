@@ -22,7 +22,6 @@ import com.muzima.api.model.Observation;
 import com.muzima.api.model.Patient;
 import com.muzima.api.model.Person;
 import com.muzima.util.Constants;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,22 +30,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isIn;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
-import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.hamcrest.Matchers.*;
 
 /**
  * TODO: Write brief description about the class here.
@@ -205,9 +192,9 @@ public class ObservationServiceTest {
     @Test
     public void getObservationByUuid_shouldReturnObservationWithMatchingUuid() throws Exception {
         int conceptCounter = 0;
-        Concept selectedConcept = concepts.get(conceptCounter ++);
+        Concept selectedConcept = concepts.get(conceptCounter++);
         while (!selectedConcept.equals(observation.getConcept())) {
-            selectedConcept = concepts.get(conceptCounter ++);
+            selectedConcept = concepts.get(conceptCounter++);
         }
         assertThat(selectedConcept, is(notNullValue()));
 
@@ -220,7 +207,8 @@ public class ObservationServiceTest {
         observation.setConcept(selectedConcept);
         savedObservation.setConcept(selectedConcept);
 
-        assertThat(savedObservation, samePropertyValuesAs(observation));
+        assertThat(savedObservation.getValueNumeric(), is(observation.getValueNumeric()));
+        assertThat(savedObservation.getUuid(), is(observation.getUuid()));
     }
 
     /**

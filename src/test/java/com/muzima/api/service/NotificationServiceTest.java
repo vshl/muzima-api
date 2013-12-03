@@ -16,11 +16,13 @@
 package com.muzima.api.service;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * TODO: Write brief description about the class here.
  */
+@Ignore
 public class NotificationServiceTest {
     /**
      * @verifies download notification with matching uuid.
