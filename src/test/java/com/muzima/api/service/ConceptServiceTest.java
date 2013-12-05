@@ -67,7 +67,7 @@ public class ConceptServiceTest {
             context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone");
         }
         conceptService = context.getService(ConceptService.class);
-        concepts = conceptService.downloadConceptsByName("CD4");
+        concepts = conceptService.downloadConceptsByName("HEIGHT (CM)");
         concept = concepts.get(nextInt(concepts.size()));
     }
 
