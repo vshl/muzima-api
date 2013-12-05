@@ -623,7 +623,7 @@ public class FormServiceTest {
     public void syncFormData_shouldSyncTheFormDataToTheServer() throws Exception {
         FormData formData = new FormData();
         JSONObject jsonObject = new JSONObject();
-        formData.setPayload(jsonObject.toJSONString());
+        formData.setJsonPayload(jsonObject.toJSONString());
         // for form with observation data, we use encounter as the discriminator.
         formData.setDiscriminator("encounter");
         boolean synced = formService.syncFormData(formData);

@@ -45,7 +45,7 @@ public class FormDataAlgorithm implements Algorithm {
         formData.setDiscriminator(discriminator);
 
         String payload = JsonPath.read(jsonObject, "$['payload']");
-        formData.setPayload(payload);
+        formData.setJsonPayload(payload);
 
         String templateUuid = JsonPath.read(jsonObject, "$['template.uuid']");
         formData.setTemplateUuid(templateUuid);
@@ -72,7 +72,7 @@ public class FormDataAlgorithm implements Algorithm {
         jsonObject.put("uuid", formData.getUuid());
         jsonObject.put("status", formData.getStatus());
         jsonObject.put("discriminator", formData.getDiscriminator());
-        jsonObject.put("payload", formData.getPayload());
+        jsonObject.put("payload", formData.getJsonPayload());
         jsonObject.put("template.uuid", formData.getTemplateUuid());
         jsonObject.put("patient.uuid", formData.getPatientUuid());
         jsonObject.put("user.uuid", formData.getUserUuid());

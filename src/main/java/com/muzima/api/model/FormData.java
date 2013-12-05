@@ -30,7 +30,9 @@ public class FormData implements Searchable {
 
     private String discriminator;
 
-    private String payload;
+    private String xmlPayload;
+
+    private String jsonPayload;
 
     private String patientUuid;
 
@@ -93,21 +95,21 @@ public class FormData implements Searchable {
     }
 
     /**
-     * Get the payload of the form data.
+     * Get the payload of the form data in JSON format.
      *
-     * @return the payload of the form data.
+     * @return the payload of the form data in JSON format.
      */
-    public String getPayload() {
-        return payload;
+    public String getJsonPayload() {
+        return jsonPayload;
     }
 
     /**
-     * Set the payload of the form data.
+     * Set the payload in JSON format of the form data.
      *
      * @param payload the payload of the form data.
      */
-    public void setPayload(String payload) {
-        this.payload = payload;
+    public void setJsonPayload(String payload) {
+        this.jsonPayload = payload;
     }
 
     /**
@@ -162,5 +164,23 @@ public class FormData implements Searchable {
      */
     public void setTemplateUuid(String templateUuid) {
         this.templateUuid = templateUuid;
+    }
+
+    /**
+     * Get the XML Payload of the form data.
+     *
+     * @return the XML payload of the form data.
+     */
+    public String getXmlPayload() {
+        return xmlPayload;
+    }
+
+    /**
+     * Set the XML payload of the form data.
+     *
+     * @param xmlPayload the XML payload of the form data.
+     */
+    public void setXmlPayload(String xmlPayload) {
+        this.xmlPayload = xmlPayload;
     }
 }

@@ -20,19 +20,14 @@ import com.google.inject.name.Named;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.dao.FormDataDao;
 import com.muzima.api.model.FormData;
-import com.muzima.api.model.algorithm.FormDataAlgorithm;
 import com.muzima.api.model.resolver.SyncFormDataResolver;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
-import com.muzima.search.api.model.resolver.Resolver;
 import com.muzima.search.api.util.StringUtil;
-import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
@@ -131,7 +126,7 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("dataSource", "Mobile Device");
-        jsonObject.put("payload", JsonPath.read(formData.getPayload(), "$"));
+        jsonObject.put("payload", JsonPath.read(formData.getJsonPayload(), "$"));
         jsonObject.put("discriminator", formData.getDiscriminator());
         jsonObject.put("tempUUID",formData.getPatientUuid());
 
