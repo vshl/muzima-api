@@ -137,4 +137,16 @@ public class Concept extends OpenmrsSearchable implements Comparable<Concept> {
     public int compareTo(Concept otherConcept) {
         return this.getName().toLowerCase().compareTo(otherConcept.getName().toLowerCase());
     }
+
+    public Boolean containsNameIgnoreLowerCase(String name) {
+        List<ConceptName> conceptNames = getConceptNames();
+        int index = 0;
+        ConceptName conceptName = conceptNames.get(index);
+        boolean found = name.equalsIgnoreCase(conceptName.getName());
+        while (!found & index<conceptNames.size()){
+            conceptName = conceptNames.get(index++);
+            found = name.equalsIgnoreCase(conceptName.getName());
+        }
+        return found;
+    }
 }

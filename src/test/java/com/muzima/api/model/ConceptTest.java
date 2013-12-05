@@ -2,6 +2,8 @@ package com.muzima.api.model;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -31,6 +33,23 @@ public class ConceptTest {
         String synonyms = concept.getSynonyms();
 
         assertThat(synonyms, is("concept1 (1 more.)"));
+    }
+
+    @Test
+    public void shouldKnowWhenAGivenNameIsThePreferred() throws Exception {
+        final String name = "PreferredName";
+        Concept aConcept = new Concept();
+        aConcept.setConceptNames(Arrays.asList(conceptName(name)));
+        assertThat(aConcept.containsNameIgnoreLowerCase(name), is(true));
+    }
+
+    @Test
+    public void shouldKnowWhenAGivenNameIsNotThePreferred() throws Exception {
+        final String preferredName = "PreferredName";
+        final String nonPreferredName = "NonPreferredName";
+        Concept aConcept = new Concept();
+        aConcept.setConceptNames(Arrays.asList(conceptName(preferredName), conceptName(nonPreferredName)));
+        assertThat(aConcept.containsNameIgnoreLowerCase(nonPreferredName), is(true));
     }
 
     private ConceptName conceptName(String name) {
