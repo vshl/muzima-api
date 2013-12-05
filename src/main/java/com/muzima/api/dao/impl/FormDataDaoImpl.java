@@ -17,7 +17,6 @@ package com.muzima.api.dao.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.dao.FormDataDao;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.resolver.SyncFormDataResolver;
@@ -126,9 +125,9 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("dataSource", "Mobile Device");
-        jsonObject.put("payload", JsonPath.read(formData.getJsonPayload(), "$"));
+        jsonObject.put("payload", formData.getXmlPayload());
         jsonObject.put("discriminator", formData.getDiscriminator());
-        jsonObject.put("tempUUID",formData.getPatientUuid());
+        jsonObject.put("tempUUID", formData.getPatientUuid());
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         writer.write(jsonObject.toJSONString());

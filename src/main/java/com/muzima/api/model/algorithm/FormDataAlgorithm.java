@@ -72,7 +72,7 @@ public class FormDataAlgorithm implements Algorithm {
         jsonObject.put("uuid", formData.getUuid());
         jsonObject.put("status", formData.getStatus());
         jsonObject.put("discriminator", formData.getDiscriminator());
-        jsonObject.put("payload", formData.getJsonPayload());
+        jsonObject.put("payload", formData.getXmlPayload());
         jsonObject.put("template.uuid", formData.getTemplateUuid());
         jsonObject.put("patient.uuid", formData.getPatientUuid());
         jsonObject.put("user.uuid", formData.getUserUuid());
