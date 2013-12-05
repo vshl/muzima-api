@@ -44,6 +44,14 @@ public class ConceptTest {
     }
 
     @Test
+    public void shouldIgnoreSpaceInEitherName() throws Exception {
+        final String name = " PreferredName ";
+        Concept aConcept = new Concept();
+        aConcept.setConceptNames(Arrays.asList(conceptName(name)));
+        assertThat(aConcept.containsNameIgnoreLowerCase(name+"    "), is(true));
+    }
+
+    @Test
     public void shouldKnowWhenAGivenNameIsNotThePreferred() throws Exception {
         final String preferredName = "PreferredName";
         final String nonPreferredName = "NonPreferredName";
