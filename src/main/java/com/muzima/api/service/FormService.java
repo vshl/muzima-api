@@ -339,6 +339,15 @@ public interface FormService extends MuzimaInterface {
     void deleteFormData(final List<FormData> formData) throws IOException;
 
     /**
+     * Delete instances of form template.
+     *
+     * @param formUUID List of UUIDs of form that are to be deleted.
+     * @throws IOException
+     * @should delete list of form templates from local data repository.
+     */
+    void deleteFormTemplateByUUIDs(final List<String> formUUID) throws IOException;
+
+    /**
      * Send form data information to the server.
      *
      * @param formData the form data.

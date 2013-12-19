@@ -406,6 +406,20 @@ public class FormServiceImpl implements FormService {
         formDataDao.delete(formData, Constants.LOCAL_FORM_DATA_RESOURCE);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#deleteFormTemplateByUUIDs(java.util.List)
+     */
+    @Override
+    public void deleteFormTemplateByUUIDs(List<String> formUUID) throws IOException {
+        List<FormTemplate> formTemplates = new ArrayList<FormTemplate>();
+        for (String uuid : formUUID) {
+            formTemplates.add(getFormTemplateByUuid(uuid));
+        }
+        deleteFormTemplates(formTemplates);
+    }
+
     @Override
     public boolean syncFormData(final FormData formData) throws IOException {
         return formDataDao.syncFormData(formData);
