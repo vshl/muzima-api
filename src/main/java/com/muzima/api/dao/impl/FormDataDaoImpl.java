@@ -127,7 +127,6 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
         jsonObject.put("dataSource", "Mobile Device");
         jsonObject.put("payload", formData.getXmlPayload());
         jsonObject.put("discriminator", formData.getDiscriminator());
-        jsonObject.put("tempUUID", formData.getPatientUuid());
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         writer.write(jsonObject.toJSONString());
