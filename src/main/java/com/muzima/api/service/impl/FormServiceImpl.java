@@ -425,6 +425,11 @@ public class FormServiceImpl implements FormService {
         return formDataDao.syncFormData(formData);
     }
 
+    @Override
+    public List<FormData> getFormDataByTemplateUUID(String templateUUID) throws IOException {
+        return formDataDao.getFormDataByTemplateUUID(templateUUID);
+    }
+
     private List<Form> sortNameAscending(List<Form> all) {
         Collections.sort(all);
         return all;

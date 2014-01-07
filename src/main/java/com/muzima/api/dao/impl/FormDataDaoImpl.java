@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.util.Arrays.asList;
+
 public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements FormDataDao {
 
     private static final String TAG = FormDataDaoImpl.class.getSimpleName();
@@ -138,5 +140,16 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
             synced = true;
         }
         return synced;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.dao.FormDataDao#getFormDataByTemplateUUID(String)
+     */
+    @Override
+    public List<FormData> getFormDataByTemplateUUID(String templateUUID) throws IOException {
+        Filter templateUUIDFilter = FilterFactory.createFilter("templateUuid", templateUUID);
+        return service.getObjects(asList(templateUUIDFilter), daoClass);
     }
 }

@@ -40,4 +40,13 @@ public interface FormDataDao extends SearchableDao<FormData> {
     FormData getFormDataByUuid(final String uuid) throws IOException;
 
     boolean syncFormData(final FormData formData) throws IOException;
+
+    /**
+     * Get the FormData based on templateUUID.
+     *
+     * @param templateUUID template UUID, which requires FormData
+     * @return List of FormData associated with the given templateUUID. Returns empty list if no FormData present.
+     * @throws IOException
+     */
+    List<FormData> getFormDataByTemplateUUID(final String templateUUID) throws IOException;
 }

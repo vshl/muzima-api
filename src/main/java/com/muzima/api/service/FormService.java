@@ -356,4 +356,12 @@ public interface FormService extends MuzimaInterface {
      * @should sync the form data to the server.
      */
     boolean syncFormData(final FormData formData) throws IOException;
+
+    /**
+     *
+     * Fetches FormData from DB which matches templateUUID.
+     * @param templateUUID
+     * @return List of FormData that matches templateUUID.
+     */
+    List<FormData> getFormDataByTemplateUUID(String templateUUID) throws IOException;
 }

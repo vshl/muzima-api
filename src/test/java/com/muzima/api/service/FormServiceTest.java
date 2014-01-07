@@ -23,7 +23,6 @@ import com.muzima.api.model.FormTemplate;
 import com.muzima.api.model.Tag;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
-
 import net.minidev.json.JSONObject;
 import org.apache.commons.lang.RandomStringUtils;
 import org.junit.After;
@@ -641,6 +640,32 @@ public class FormServiceTest {
         assertThat(allForms.size(), is(2));
 
         assertThat(allForms.get(0).getName(), is(form2.getName()));
+    }
+
+    @Test
+    public void shouldRetrieveFormDataMatchingTemplateUUID() throws Exception {
+        formService.saveFormData(getFormData("Random1", "template1"));
+        formService.saveFormData(getFormData("Random2", "template1"));
+        formService.saveFormData(getFormData("Random3", "template2"));
+
+        List<FormData> formDataList = formService.getFormDataByTemplateUUID("template1");
+
+        assertThat(formDataList.size(),is(2));
+        assertThat(formDataList.get(0).getUuid(),is("Random1"));
+        assertThat(formDataList.get(1).getUuid(),is("Random2"));
+    }
+
+    @Test
+    public void shouldReturnEmptyListIfNoFormDataExistForTemplateUUID() throws Exception {
+        List<FormData> formDataList = formService.getFormDataByTemplateUUID("someTemplateId");
+        assertThat(formDataList.size(),is(0));
+    }
+
+    private FormData getFormData(String uuid, String templateUUID) {
+        FormData formData = new FormData();
+        formData.setUuid(uuid);
+        formData.setTemplateUuid(templateUUID);
+        return formData;
     }
 
     private Form getFormWithName(String formName) {
