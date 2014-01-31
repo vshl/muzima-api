@@ -80,4 +80,8 @@ public class FormTemplate extends OpenmrsSearchable {
     public void setHtml(String html) {
         this.html = html;
     }
+
+    public boolean isHTMLForm() {
+        return getModel() == null || getModelJson() == null;
+    }
 }
