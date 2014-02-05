@@ -28,7 +28,7 @@ import java.io.IOException;
 public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String NOTIFICATION_STANDAR_REPRESENTATION =
-            "(uuid,subject,payload," +
+            "(uuid,subject,source,status,payload," +
                     "sender:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + "," +
                     "receiver:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + ")";
 
@@ -49,6 +49,8 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
         Notification notification = new Notification();
         notification.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
         notification.setSubject(JsonUtils.readAsString(serialized, "$['subject']"));
+        notification.setSource(JsonUtils.readAsString(serialized, "$['source']"));
+        notification.setStatus(JsonUtils.readAsString(serialized, "$['status']"));
         notification.setPayload(JsonUtils.readAsString(serialized, "$['payload']"));
         Object senderObject = JsonUtils.readAsObject(serialized, "$['sender']");
         notification.setSender((Person) personAlgorithm.deserialize(String.valueOf(senderObject)));
@@ -69,6 +71,8 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", notification.getUuid());
         JsonUtils.writeAsString(jsonObject, "subject", notification.getSubject());
+        JsonUtils.writeAsString(jsonObject, "source", notification.getSource());
+        JsonUtils.writeAsString(jsonObject, "status", notification.getStatus());
         JsonUtils.writeAsString(jsonObject, "payload", notification.getPayload());
         String sender = personAlgorithm.serialize(notification.getSender());
         jsonObject.put("sender", JsonPath.read(sender, "$"));
