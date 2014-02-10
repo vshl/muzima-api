@@ -77,7 +77,7 @@ public class JsonUtils {
      * @param path   the path in the object.
      * @param value  the value to be assigned for the path.
      */
-    public static void writeAsNumeric(final Object object, final String path, final double value) {
+    public static void writeAsNumeric(final Object object, final String path, final Double value) {
         if (object instanceof JSONObject) {
             JSONObject jsonObject = (JSONObject) object;
             jsonObject.put(path, value);
