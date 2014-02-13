@@ -27,6 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -111,6 +113,15 @@ public class CohortServiceTest {
         for (Cohort downloadedStaticCohort : downloadedStaticCohorts) {
             assertThat(downloadedStaticCohort.getName(), containsString(partialName));
         }
+        List<Cohort> emptyCohortWithSyncDate = cohortService.downloadCohortsByNameAndSyncDate(partialName, new Date());
+        assertThat(emptyCohortWithSyncDate, hasSize(0));
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2012);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DATE, 1);
+        List<Cohort> nonEmptyCohortWithSyncDate = cohortService.downloadCohortsByNameAndSyncDate(partialName, calendar.getTime());
+        assertThat(nonEmptyCohortWithSyncDate, hasSize(1));
     }
 
     /**

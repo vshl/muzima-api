@@ -4,6 +4,7 @@ import com.muzima.api.model.algorithm.CohortDataAlgorithm;
 import com.muzima.search.api.util.StringUtil;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -21,10 +22,10 @@ public class StaticCohortDataResolver extends BaseOpenmrsResolver {
      * @return full uri to the REST resource.
      */
     public String resolve(final Map<String, String> resourceParams) throws IOException {
-        String uuid = resourceParams.get("uuid");
-        if (StringUtil.isEmpty(uuid)) {
-            throw new IOException("Resolver unable to find required parameter uuid!");
+        StringBuilder paramBuilder = new StringBuilder();
+        for (String key : resourceParams.keySet()) {
+            paramBuilder.append("&").append(key).append("=").append(URLEncoder.encode(resourceParams.get(key), "UTF-8"));
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/cohort/" + uuid + "/member" + REPRESENTATION;
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/member" + REPRESENTATION + paramBuilder.toString();
     }
 }

@@ -23,12 +23,15 @@ import com.muzima.api.model.Observation;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.ObservationService;
 import com.muzima.search.api.util.CollectionUtil;
+import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,10 +55,25 @@ public class ObservationServiceImpl implements ObservationService {
     @Override
     public List<Observation> downloadObservationsByPatientAndConcept(final Patient patient,
                                                                      final Concept concept) throws IOException {
+        return downloadObs(patient, concept, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#downloadObservationsByPatientAndConcept(com.muzima.api.model.Patient, com.muzima.api.model.Concept)
+     */
+    @Override
+    public List<Observation> downloadObs(final Patient patient, final Concept concept, final Date syncDate) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("person", patient.getUuid());
             put("concept", concept.getUuid());
         }};
+        if (syncDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(syncDate);
+            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+        }
         String resourceName = Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE;
         if (concept.isCoded()) {
             resourceName = Constants.SEARCH_OBSERVATION_CODED_RESOURCE;
@@ -71,10 +89,25 @@ public class ObservationServiceImpl implements ObservationService {
     @Override
     public List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
                                                                      final String conceptUuid) throws IOException {
+        return downloadObs(patientUuid, conceptUuid, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#downloadObservationsByPatientAndConcept(com.muzima.api.model.Patient, com.muzima.api.model.Concept)
+     */
+    @Override
+    public List<Observation> downloadObs(final String patientUuid, final String conceptUuid, final Date syncDate) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("person", patientUuid);
             put("concept", conceptUuid);
         }};
+        if (syncDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(syncDate);
+            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+        }
         Concept concept = conceptDao.getByUuid(conceptUuid);
         String resourceName = Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE;
         if (concept != null && concept.isCoded()) {
@@ -90,6 +123,17 @@ public class ObservationServiceImpl implements ObservationService {
      */
     public List<Observation> downloadObservationsByPatientsAndConcepts(final List<Patient> patients,
                                                                        final List<Concept> concepts) throws IOException {
+        return downloadObsByObjects(patients, concepts, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#downloadObservationsByPatientsAndConcepts(java.util.List, java.util.List)
+     */
+    @Override
+    public List<Observation> downloadObsByObjects(final List<Patient> patients, final List<Concept> concepts,
+                                                  final Date syncDate) throws IOException {
         final StringBuilder personBuilder = new StringBuilder();
         for (Patient patient : patients) {
             if (personBuilder.length() > 0) {
@@ -119,6 +163,11 @@ public class ObservationServiceImpl implements ObservationService {
                 put("person", personBuilder.toString());
                 put("concept", codedBuilder.toString());
             }};
+            if (syncDate != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(syncDate);
+                codedParameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            }
             List<Observation> codedObservations = observationDao.download(codedParameter,
                     Constants.SEARCH_OBSERVATION_CODED_RESOURCE);
             observations.addAll(codedObservations);
@@ -129,6 +178,11 @@ public class ObservationServiceImpl implements ObservationService {
                 put("person", personBuilder.toString());
                 put("concept", nonCodedBuilder.toString());
             }};
+            if (syncDate != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(syncDate);
+                nonCodedParameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            }
             List<Observation> nonCodedObservations = observationDao.download(nonCodedParameter,
                     Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE);
             observations.addAll(nonCodedObservations);
@@ -144,6 +198,17 @@ public class ObservationServiceImpl implements ObservationService {
      */
     public List<Observation> downloadObservationsByPatientUuidsAndConceptUuids(final List<String> patientUuids,
                                                                                final List<String> conceptUuids) throws IOException {
+        return downloadObsByUuid(patientUuids, conceptUuids, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#downloadObservationsByPatientUuidsAndConceptUuids(java.util.List, java.util.List)
+     */
+    @Override
+    public List<Observation> downloadObsByUuid(final List<String> patientUuids, final List<String> conceptUuids,
+                                               final Date syncDate) throws IOException {
         final StringBuilder personBuilder = new StringBuilder();
         for (String patientUuid : patientUuids) {
             if (personBuilder.length() > 0) {
@@ -174,6 +239,11 @@ public class ObservationServiceImpl implements ObservationService {
                 put("person", personBuilder.toString());
                 put("concept", codedBuilder.toString());
             }};
+            if (syncDate != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(syncDate);
+                codedParameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            }
             List<Observation> codedObservations = observationDao.download(codedParameter,
                     Constants.SEARCH_OBSERVATION_CODED_RESOURCE);
             observations.addAll(codedObservations);
@@ -184,6 +254,11 @@ public class ObservationServiceImpl implements ObservationService {
                 put("person", personBuilder.toString());
                 put("concept", nonCodedBuilder.toString());
             }};
+            if (syncDate != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(syncDate);
+                nonCodedParameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            }
             List<Observation> nonCodedObservations = observationDao.download(nonCodedParameter,
                     Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE);
             observations.addAll(nonCodedObservations);

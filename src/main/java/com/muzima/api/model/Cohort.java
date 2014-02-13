@@ -23,6 +23,8 @@ public class Cohort extends OpenmrsSearchable {
 
     private boolean dynamic;
 
+    private boolean voided;
+
     private String name;
 
     /**
@@ -41,6 +43,14 @@ public class Cohort extends OpenmrsSearchable {
      */
     public void setDynamic(final boolean dynamic) {
         this.dynamic = dynamic;
+    }
+
+    public boolean isVoided() {
+        return voided;
+    }
+
+    public void setVoided(final boolean voided) {
+        this.voided = voided;
     }
 
     /**

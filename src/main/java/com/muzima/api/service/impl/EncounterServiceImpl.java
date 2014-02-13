@@ -22,11 +22,14 @@ import com.muzima.api.model.Encounter;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.EncounterService;
 import com.muzima.search.api.util.CollectionUtil;
+import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,9 +90,24 @@ public class EncounterServiceImpl implements EncounterService {
      */
     @Override
     public List<Encounter> downloadEncountersByPatientUuid(final String patientUuid) throws IOException {
+        return downloadEncountersByPatientUuidAndSyncDate(patientUuid, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.EncounterService#downloadEncountersByPatientUuid(String)
+     */
+    @Override
+    public List<Encounter> downloadEncountersByPatientUuidAndSyncDate(final String patientUuid, final Date syncDate) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("patient", patientUuid);
         }};
+        if (syncDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(syncDate);
+            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+        }
         return encounterDao.download(parameter, Constants.SEARCH_ENCOUNTER_RESOURCE);
     }
 
@@ -106,9 +124,30 @@ public class EncounterServiceImpl implements EncounterService {
     /**
      * {@inheritDoc}
      *
+     * @see EncounterService#downloadEncountersByPatient(com.muzima.api.model.Patient)
+     */
+    @Override
+    public List<Encounter> downloadEncountersByPatient(final Patient patient, final Date syncDate) throws IOException {
+        return downloadEncountersByPatientUuidAndSyncDate(patient.getUuid(), syncDate);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see EncounterService#downloadEncountersByPatients(java.util.List)
      */
+    @Override
     public List<Encounter> downloadEncountersByPatients(final List<Patient> patients) throws IOException {
+        return downloadEncountersByPatientsAndSyncDate(patients, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see EncounterService#downloadEncountersByPatients(java.util.List)
+     */
+    @Override
+    public List<Encounter> downloadEncountersByPatientsAndSyncDate(final List<Patient> patients, final Date syncDate) throws IOException {
         final StringBuilder patientBuilder = new StringBuilder();
         for (Patient patient : patients) {
             if (patientBuilder.length() > 0) {
@@ -119,6 +158,11 @@ public class EncounterServiceImpl implements EncounterService {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("patient", patientBuilder.toString());
         }};
+        if (syncDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(syncDate);
+            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+        }
         return encounterDao.download(parameter, Constants.SEARCH_ENCOUNTER_RESOURCE);
     }
 
@@ -127,7 +171,18 @@ public class EncounterServiceImpl implements EncounterService {
      *
      * @see EncounterService#downloadEncountersByPatientUuids(java.util.List)
      */
+    @Override
     public List<Encounter> downloadEncountersByPatientUuids(final List<String> patientUuids) throws IOException {
+        return downloadEncountersByPatientUuidsAndSyncDate(patientUuids, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see EncounterService#downloadEncountersByPatientUuids(java.util.List)
+     */
+    @Override
+    public List<Encounter> downloadEncountersByPatientUuidsAndSyncDate(final List<String> patientUuids, final Date syncDate) throws IOException {
         final StringBuilder patientBuilder = new StringBuilder();
         for (String patientUuid : patientUuids) {
             if (patientBuilder.length() > 0) {
@@ -138,6 +193,11 @@ public class EncounterServiceImpl implements EncounterService {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("patient", patientBuilder.toString());
         }};
+        if (syncDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(syncDate);
+            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+        }
         return encounterDao.download(parameter, Constants.SEARCH_ENCOUNTER_RESOURCE);
     }
 

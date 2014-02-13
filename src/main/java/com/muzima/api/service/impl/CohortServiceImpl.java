@@ -25,10 +25,13 @@ import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.service.CohortService;
 import com.muzima.search.api.util.CollectionUtil;
+import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.util.Constants;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,9 +80,25 @@ public class CohortServiceImpl implements CohortService {
     @Override
     @Authorization(privileges = {"View Cohort Privilege"})
     public List<Cohort> downloadCohortsByName(final String name) throws IOException {
+        return downloadCohortsByNameAndSyncDate(name, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see CohortService#downloadCohortsByName(String)
+     */
+    @Override
+    @Authorization(privileges = {"View Cohort Privilege"})
+    public List<Cohort> downloadCohortsByNameAndSyncDate(final String name, final Date syncDate) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
+        if (syncDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(syncDate);
+            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+        }
         return cohortDao.download(parameter, Constants.SEARCH_STATIC_COHORT_RESOURCE);
     }
 
@@ -294,6 +313,16 @@ public class CohortServiceImpl implements CohortService {
      */
     @Override
     public CohortData downloadCohortData(final String uuid, final boolean dynamic) throws IOException {
+        return downloadCohortDataAndSyncDate(uuid, dynamic, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see CohortService#downloadCohortData(String, boolean)
+     */
+    @Override
+    public CohortData downloadCohortDataAndSyncDate(final String uuid, final boolean dynamic, final Date syncDate) throws IOException {
         CohortData cohortData = null;
         String resourceName = Constants.STATIC_COHORT_DATA_RESOURCE;
         if (dynamic) {
@@ -302,6 +331,11 @@ public class CohortServiceImpl implements CohortService {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("uuid", uuid);
         }};
+        if (syncDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(syncDate);
+            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+        }
         List<CohortData> cohortDataList = cohortDataDao.download(parameter, resourceName);
         if (!CollectionUtil.isEmpty(cohortDataList)) {
             if (cohortDataList.size() > 1) {
@@ -319,22 +353,17 @@ public class CohortServiceImpl implements CohortService {
      */
     @Override
     public CohortData downloadCohortData(final Cohort cohort) throws IOException {
-        CohortData cohortData = null;
-        String resourceName = Constants.STATIC_COHORT_DATA_RESOURCE;
-        if (cohort.isDynamic()) {
-            resourceName = Constants.DYNAMIC_COHORT_DATA_RESOURCE;
-        }
-        Map<String, String> parameter = new HashMap<String, String>() {{
-            put("uuid", cohort.getUuid());
-        }};
-        List<CohortData> cohortDataList = cohortDataDao.download(parameter, resourceName);
-        if (!CollectionUtil.isEmpty(cohortDataList)) {
-            if (cohortDataList.size() > 1) {
-                throw new IOException("Unable to uniquely identify a cohort data record.");
-            }
-            cohortData = cohortDataList.get(0);
-        }
-        return cohortData;
+        return downloadCohortData(cohort.getUuid(), cohort.isDynamic());
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see CohortService#downloadCohortData(com.muzima.api.model.Cohort)
+     */
+    @Override
+    public CohortData downloadCohortDataAndSyncDate(final Cohort cohort, final Date syncDate) throws IOException {
+        return downloadCohortData(cohort.getUuid(), cohort.isDynamic());
     }
 
     /**
