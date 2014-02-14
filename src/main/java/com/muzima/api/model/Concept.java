@@ -16,6 +16,7 @@
 package com.muzima.api.model;
 
 import com.muzima.search.api.util.StringUtil;
+import com.muzima.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,5 +150,9 @@ public class Concept extends OpenmrsSearchable implements Comparable<Concept> {
             found = name.equalsIgnoreCase(conceptName.getName().trim());
         }
         return found;
+    }
+
+    public boolean isCreatedOnDevice(){
+        return getUuid().startsWith(Constants.CONCEPT_CREATED_ON_PHONE);
     }
 }
