@@ -23,6 +23,7 @@ import com.muzima.api.service.impl.ObservationServiceImpl;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,14 +44,24 @@ public interface ObservationService extends MuzimaInterface {
     List<Observation> downloadObservationsByPatientAndConcept(final Patient patient,
                                                               final Concept concept) throws IOException;
 
+    List<Observation> downloadObs(Patient patient, Concept concept, Date syncDate) throws IOException;
+
     List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
                                                               final String conceptUuid) throws IOException;
+
+    List<Observation> downloadObs(String patientUuid, String conceptUuid, Date syncDate) throws IOException;
 
     List<Observation> downloadObservationsByPatientsAndConcepts(final List<Patient> patients,
                                                                 final List<Concept> concepts) throws IOException;
 
+    List<Observation> downloadObsByObjects(List<Patient> patients, List<Concept> concepts,
+                                           Date syncDate) throws IOException;
+
     List<Observation> downloadObservationsByPatientUuidsAndConceptUuids(final List<String> patientUuids,
                                                                         final List<String> conceptUuids) throws IOException;
+
+    List<Observation> downloadObsByUuid(List<String> patientUuids, List<String> conceptUuids,
+                                        Date syncDate) throws IOException;
 
     /**
      * Save the observation into the local lucene repository.

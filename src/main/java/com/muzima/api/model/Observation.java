@@ -38,6 +38,8 @@ public class Observation extends OpenmrsSearchable {
 
     private Date observationDatetime;
 
+    private boolean voided;
+
     public Person getPerson() {
         return person;
     }
@@ -136,4 +138,11 @@ public class Observation extends OpenmrsSearchable {
             return String.valueOf(valueNumeric.intValue());
     }
 
+    public boolean isVoided() {
+        return voided;
+    }
+
+    public void setVoided(final boolean voided) {
+        this.voided = voided;
+    }
 }

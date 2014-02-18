@@ -25,7 +25,7 @@ import java.io.IOException;
 
 public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
 
-    public static final String COHORT_STANDARD_REPRESENTATION = "(uuid,name)";
+    public static final String COHORT_STANDARD_REPRESENTATION = "(uuid,voided,name)";
 
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
@@ -37,6 +37,7 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         Cohort cohort = new Cohort();
         cohort.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        cohort.setVoided(JsonUtils.readAsBoolean(serialized, "$['voided']"));
         cohort.setName(JsonUtils.readAsString(serialized, "$['name']"));
         cohort.setDynamic(JsonUtils.readAsBoolean(serialized, "$['dynamic']"));
         return cohort;
@@ -53,6 +54,7 @@ public class CohortAlgorithm extends BaseOpenmrsAlgorithm {
         Cohort cohort = (Cohort) object;
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", cohort.getUuid());
+        JsonUtils.writeAsBoolean(jsonObject, "voided", cohort.isVoided());
         JsonUtils.writeAsString(jsonObject, "name", cohort.getName());
         JsonUtils.writeAsBoolean(jsonObject, "dynamic", cohort.isDynamic());
         return jsonObject.toJSONString();

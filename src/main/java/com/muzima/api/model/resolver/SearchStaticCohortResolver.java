@@ -37,6 +37,6 @@ public class SearchStaticCohortResolver extends BaseOpenmrsResolver {
         for (String key : resourceParams.keySet()) {
             paramBuilder.append("&").append(key).append("=").append(URLEncoder.encode(resourceParams.get(key), "UTF-8"));
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/cohort" + REPRESENTATION + paramBuilder.toString();
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/cohort" + REPRESENTATION + paramBuilder.toString();
     }
 }

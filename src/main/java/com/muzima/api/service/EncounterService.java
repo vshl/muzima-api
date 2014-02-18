@@ -22,6 +22,7 @@ import com.muzima.api.service.impl.EncounterServiceImpl;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,6 +64,8 @@ public interface EncounterService extends MuzimaInterface {
      */
     List<Encounter> downloadEncountersByPatientUuid(final String patientUuid) throws IOException;
 
+    List<Encounter> downloadEncountersByPatientUuidAndSyncDate(final String patientUuid, final Date syncDate) throws IOException;
+
     /**
      * Download list of encounters with matching patient.
      * @param patient the patient who own the encounter.
@@ -73,9 +76,15 @@ public interface EncounterService extends MuzimaInterface {
      */
     List<Encounter> downloadEncountersByPatient(final Patient patient) throws IOException;
 
+    List<Encounter> downloadEncountersByPatient(final Patient patient, final Date syncDate) throws IOException;
+
     List<Encounter> downloadEncountersByPatients(final List<Patient> patients) throws IOException;
 
+    List<Encounter> downloadEncountersByPatientsAndSyncDate(final List<Patient> patients, final Date syncDate) throws IOException;
+
     List<Encounter> downloadEncountersByPatientUuids(final List<String> uuids) throws IOException;
+
+    List<Encounter> downloadEncountersByPatientUuidsAndSyncDate(final List<String> patientUuids, final Date syncDate) throws IOException;
 
     /**
      * Get a single encounter from local data repository with matching uuid.

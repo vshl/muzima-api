@@ -32,6 +32,8 @@ public class Encounter extends OpenmrsSearchable {
 
     private Date encounterDatetime;
 
+    private boolean voided;
+
     public Patient getPatient() {
         return patient;
     }
@@ -70,5 +72,13 @@ public class Encounter extends OpenmrsSearchable {
 
     public void setEncounterDatetime(final Date encounterDatetime) {
         this.encounterDatetime = encounterDatetime;
+    }
+
+    public boolean isVoided() {
+        return voided;
+    }
+
+    public void setVoided(final boolean voided) {
+        this.voided = voided;
     }
 }

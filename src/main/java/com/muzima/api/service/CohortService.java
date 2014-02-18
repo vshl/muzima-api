@@ -16,12 +16,14 @@
 package com.muzima.api.service;
 
 import com.google.inject.ImplementedBy;
+import com.muzima.api.annotation.Authorization;
 import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.service.impl.CohortServiceImpl;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,6 +50,17 @@ public interface CohortService extends MuzimaInterface {
      * @should download all cohorts when name is empty.
      */
     List<Cohort> downloadCohortsByName(final String name) throws IOException;
+
+    /**
+     * Download all cohorts with name similar to the partial name and sync date passed in the parameter.
+     *
+     * @param name the partial name of the cohort to be downloaded. When empty, will return all cohorts available.
+     * @param syncDate last sync date of the cohort.
+     * @throws IOException when search api unable to process the resource.
+     * @should download all cohorts with partially matched name.
+     * @should download all cohorts when name is empty.
+     */
+    List<Cohort> downloadCohortsByNameAndSyncDate(final String name, final Date syncDate) throws IOException;
 
     /**
      * Download a single cohort definition record from the cohort definition rest resource and convert them into
@@ -203,6 +216,8 @@ public interface CohortService extends MuzimaInterface {
      */
     CohortData downloadCohortData(final String uuid, final boolean dynamic) throws IOException;
 
+    CohortData downloadCohortDataAndSyncDate(String uuid, boolean dynamic, Date syncDate) throws IOException;
+
     /**
      * Download data for the cohort. The API will check the dynamic field of the
      * cohort to determine whether the API should download the data from the reporting
@@ -218,6 +233,8 @@ public interface CohortService extends MuzimaInterface {
      * @should download cohort data for the cohort object
      */
     CohortData downloadCohortData(final Cohort cohort) throws IOException;
+
+    CohortData downloadCohortDataAndSyncDate(Cohort cohort, Date syncDate) throws IOException;
 
     /**
      * Save the cohort member object to the local lucene directory.

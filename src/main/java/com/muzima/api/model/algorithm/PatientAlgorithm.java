@@ -31,7 +31,7 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String PATIENT_SIMPLE_REPRESENTATION = "(uuid)";
     public static final String PATIENT_STANDARD_REPRESENTATION =
-            "(uuid,gender,birthdate," +
+            "(uuid,voided,gender,birthdate," +
                     "names:" + PersonNameAlgorithm.PERSON_NAME_REPRESENTATION + "," +
                     "identifiers:" + PatientIdentifierAlgorithm.PATIENT_IDENTIFIER_REPRESENTATION + ")";
     private PersonNameAlgorithm personNameAlgorithm;
@@ -52,6 +52,7 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         Patient patient = new Patient();
         patient.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        patient.setVoided(JsonUtils.readAsBoolean(serialized, "$['voided']"));
         patient.setGender(JsonUtils.readAsString(serialized, "$['gender']"));
         patient.setBirthdate(JsonUtils.readAsDate(serialized, "$['birthdate']"));
         List<Object> personNameObjects = JsonUtils.readAsObjectList(serialized, "$['names']");
@@ -77,6 +78,7 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
         Patient patient = (Patient) object;
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", patient.getUuid());
+        JsonUtils.writeAsBoolean(jsonObject, "voided", patient.isVoided());
         JsonUtils.writeAsString(jsonObject, "gender", patient.getGender());
         JsonUtils.writeAsDate(jsonObject, "birthdate", patient.getBirthdate());
         JSONArray nameArray = new JSONArray();

@@ -27,11 +27,14 @@ import java.util.List;
 public class Person extends OpenmrsSearchable {
 
     public static final String DISPLAY_NAME_FOR_ENCOUNTER_FOR_OBSERVATIONS_WITH_NULL_UUID = "";
+
     private String gender;
 
     private Date birthdate;
 
     private List<PersonName> names;
+
+    private boolean voided;
 
     /**
      * Get the patient gender
@@ -136,5 +139,13 @@ public class Person extends OpenmrsSearchable {
         if(getFamilyName()== null && getGivenName()==null && getMiddleName()==null)
             return DISPLAY_NAME_FOR_ENCOUNTER_FOR_OBSERVATIONS_WITH_NULL_UUID;
         return getFamilyName() + ", " + getGivenName() + " " + getMiddleName();
+    }
+
+    public boolean isVoided() {
+        return voided;
+    }
+
+    public void setVoided(final boolean voided) {
+        this.voided = voided;
     }
 }

@@ -31,12 +31,12 @@ import java.io.IOException;
 public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String NON_CODED_OBSERVATION_REPRESENTATION =
-            "(uuid,obsDatetime,valueText,valueNumeric,valueDatetime,valueCoded," +
+            "(uuid,voided,obsDatetime,valueText,valueNumeric,valueDatetime,valueCoded," +
                     "encounter:" + EncounterAlgorithm.ENCOUNTER_SIMPLE_REPRESENTATION + "," +
                     "person:" + PersonAlgorithm.PERSON_SIMPLE_REPRESENTATION + "," +
                     "concept:" + ConceptAlgorithm.CONCEPT_SIMPLE_REPRESENTATION + ")";
     public static final String CODED_OBSERVATION_REPRESENTATION =
-            "(uuid,obsDatetime,valueText,valueNumeric,valueDatetime," +
+            "(uuid,voided,obsDatetime,valueText,valueNumeric,valueDatetime," +
                     "valueCoded:" + ConceptAlgorithm.CONCEPT_STANDARD_REPRESENTATION + "," +
                     "encounter:" + EncounterAlgorithm.ENCOUNTER_SIMPLE_REPRESENTATION + "," +
                     "person:" + PersonAlgorithm.PERSON_SIMPLE_REPRESENTATION + "," +
@@ -63,6 +63,7 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
     public Searchable deserialize(final String serialized) throws IOException {
         Observation observation = new Observation();
         observation.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        observation.setVoided(JsonUtils.readAsBoolean(serialized, "$['voided']"));
         observation.setObservationDatetime(JsonUtils.readAsDateTime(serialized, "$['obsDatetime']"));
         // values, ignored when they are not exists in the resource
         observation.setValueText(JsonUtils.readAsString(serialized, "$['valueText']"));
@@ -91,6 +92,7 @@ public class ObservationAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         Observation observation = (Observation) object;
         JSONObject jsonObject = new JSONObject();
+        JsonUtils.writeAsBoolean(jsonObject, "voided", observation.isVoided());
         JsonUtils.writeAsString(jsonObject, "uuid", observation.getUuid());
         JsonUtils.writeAsDateTime(jsonObject, "obsDatetime", observation.getObservationDatetime());
         JsonUtils.writeAsString(jsonObject, "valueText", observation.getValueText());
