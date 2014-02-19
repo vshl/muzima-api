@@ -1,6 +1,7 @@
 package com.muzima.api.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 /*
 This structure is going to hold the last sync time for the API along with its param signature. Useful to make the
@@ -11,6 +12,9 @@ public class LastSyncTime extends OpenmrsSearchable implements Comparable<LastSy
     private String paramSignature;
     private Date lastSyncDate;
 
+    public LastSyncTime(){
+        this.setUuid(UUID.randomUUID().toString());
+    }
     public APIName getApiName() {
         return apiName;
     }
