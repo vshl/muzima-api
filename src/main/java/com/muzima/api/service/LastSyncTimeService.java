@@ -8,7 +8,7 @@ import com.muzima.api.service.impl.LastSyncTimeServiceImpl;
 import java.io.IOException;
 
 @ImplementedBy(LastSyncTimeServiceImpl.class)
-public interface LastSyncTimeService {
+public interface LastSyncTimeService  extends MuzimaInterface{
 
     LastSyncTime getLastSyncTimeFor(APIName apiName) throws IOException;
 
