@@ -118,5 +118,8 @@ public class Constants {
     public static final String UUID_OBSERVATION_RESOURCE = "Uuid Observation Resource";
 
     public static final String UUID_REGISTRATION_RESOURCE = "Uuid Registration Resource";
+
     public static final String CONCEPT_CREATED_ON_PHONE = "ConceptCreatedOnPhone";
+
+    public static final String UUID_LAST_SYNC_TIME = "Uuid Last Sync Time Resource";
 }
