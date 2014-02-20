@@ -2,7 +2,7 @@ package com.muzima.api.model;
 
 public enum APIName {
     DOWNLOAD_OBSERVATIONS,
-    DOWNLOAD_FORMS, DOWNLOAD_COHORTS;
+    DOWNLOAD_FORMS, DOWNLOAD_COHORTS, DOWNLOAD_COHORTS_DATA;
 
     public static APIName getAPIName(String apiName) {
         for (APIName name : values()) {
