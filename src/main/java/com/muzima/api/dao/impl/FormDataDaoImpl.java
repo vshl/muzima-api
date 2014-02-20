@@ -127,7 +127,7 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("dataSource", "Mobile Device");
-        jsonObject.put("payload", formData.getXmlPayload());
+        jsonObject.put("payload", getPayloadBasedOnDiscriminator(formData));
         jsonObject.put("discriminator", formData.getDiscriminator());
 
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
@@ -140,6 +140,12 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
             synced = true;
         }
         return synced;
+    }
+
+    private String getPayloadBasedOnDiscriminator(FormData formData) {
+        if("json-encounter".equals(formData.getDiscriminator()))
+            return formData.getJsonPayload();
+        return formData.getXmlPayload();
     }
 
     /**
