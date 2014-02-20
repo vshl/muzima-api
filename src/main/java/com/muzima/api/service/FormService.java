@@ -23,6 +23,7 @@ import com.muzima.api.service.impl.FormServiceImpl;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public interface FormService extends MuzimaInterface {
      * @should download all form with partially matched name.
      * @should download all form when name is empty.
      */
-    List<Form> downloadFormsByName(final String name) throws IOException;
+    List<Form> downloadFormsByName(final String name, final Date syncDate) throws IOException;
 
     /**
      * Save form object to the local lucene repository.
@@ -185,7 +186,7 @@ public interface FormService extends MuzimaInterface {
      * @throws IOException    when search api unable to process the resource.
      * @should download the form template by the name of the form.
      */
-    List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException;
+    List<FormTemplate> downloadFormTemplatesByName(final String name, final Date syncDate) throws IOException, ParseException;
 
     /**
      * Save a new form template to the repository.
