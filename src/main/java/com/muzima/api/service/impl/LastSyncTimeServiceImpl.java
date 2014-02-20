@@ -8,6 +8,7 @@ import com.muzima.api.service.LastSyncTimeService;
 import com.muzima.util.Constants;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class LastSyncTimeServiceImpl implements LastSyncTimeService {
 
@@ -15,17 +16,17 @@ public class LastSyncTimeServiceImpl implements LastSyncTimeService {
     private LastSyncTimeDao lastSyncTimeDao;
 
     @Override
-    public LastSyncTime getLastSyncTimeFor(APIName apiName) throws IOException {
+    public Date getLastSyncTimeFor(APIName apiName) throws IOException {
         return getLastSyncTimeFor(apiName, null);
     }
 
     @Override
-    public LastSyncTime getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException {
+    public Date getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException {
         LastSyncTime lastSyncTime = lastSyncTimeDao.getLastSyncTime(apiName.toString(), paramSignature);
         if(lastSyncTime == null){
-            return new LastSyncTime();
+            lastSyncTime =  new LastSyncTime();
         }
-        return lastSyncTime;
+        return lastSyncTime.getLastSyncDate();
     }
 
     @Override
