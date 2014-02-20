@@ -70,6 +70,16 @@ public class FormServiceImpl implements FormService {
     /**
      * {@inheritDoc}
      *
+     * @see FormService#downloadFormsByName(String)
+     */
+    @Override
+    public List<Form> downloadFormsByName(final String name) throws IOException {
+        return downloadFormsByName(name, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see FormService#downloadFormsByName(String, java.util.Date)
      */
     @Override
@@ -225,6 +235,16 @@ public class FormServiceImpl implements FormService {
             formTemplate = formTemplates.get(0);
         }
         return formTemplate;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#downloadFormTemplatesByName(String)
+     */
+    @Override
+    public List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException {
+        return downloadFormTemplatesByName(name, null);
     }
 
     /**

@@ -46,11 +46,22 @@ public interface FormService extends MuzimaInterface {
      * Download all forms with name similar to the partial name passed in the parameter.
      *
      * @param name the partial name of the form to be downloaded. When empty, will return all forms available.
+     * @param syncDate time the forms where last synched to the server.
      * @throws IOException when search api unable to process the resource.
      * @should download all form with partially matched name.
      * @should download all form when name is empty.
      */
     List<Form> downloadFormsByName(final String name, final Date syncDate) throws IOException;
+
+    /**
+     * Download all forms with name similar to the partial name passed in the parameter.
+     *
+     * @param name the partial name of the form to be downloaded. When empty, will return all forms available.
+     * @throws IOException when search api unable to process the resource.
+     * @should download all form with partially matched name.
+     * @should download all form when name is empty.
+     */
+    List<Form> downloadFormsByName(final String name) throws IOException;
 
     /**
      * Save form object to the local lucene repository.
@@ -181,6 +192,18 @@ public interface FormService extends MuzimaInterface {
      * Download form templates by the name of the form associated with the form template.
      *
      * @param name the name of the form.
+     * @return list of all matching form templates based on the name of the form.
+     * @throws ParseException when query parser from lucene unable to parse the query string.
+     * @throws IOException    when search api unable to process the resource.
+     * @should download the form template by the name of the form.
+     */
+    List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException;
+
+    /**
+     * Download form templates by the name of the form associated with the form template.
+     *
+     * @param name the name of the form.
+     * @param syncDate time the forms where last synched to the server.
      * @return list of all matching form templates based on the name of the form.
      * @throws ParseException when query parser from lucene unable to parse the query string.
      * @throws IOException    when search api unable to process the resource.
