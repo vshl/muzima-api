@@ -16,12 +16,16 @@ public class LastSyncTimeServiceImpl implements LastSyncTimeService {
 
     @Override
     public LastSyncTime getLastSyncTimeFor(APIName apiName) throws IOException {
-        return lastSyncTimeDao.getLastSyncTime(apiName.toString());
+        return getLastSyncTimeFor(apiName, null);
     }
 
     @Override
     public LastSyncTime getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException {
-        return lastSyncTimeDao.getLastSyncTime(apiName.toString(), paramSignature);
+        LastSyncTime lastSyncTime = lastSyncTimeDao.getLastSyncTime(apiName.toString(), paramSignature);
+        if(lastSyncTime == null){
+            return new LastSyncTime();
+        }
+        return lastSyncTime;
     }
 
     @Override
