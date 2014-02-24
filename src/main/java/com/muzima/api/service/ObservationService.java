@@ -44,12 +44,12 @@ public interface ObservationService extends MuzimaInterface {
     List<Observation> downloadObservationsByPatientAndConcept(final Patient patient,
                                                               final Concept concept) throws IOException;
 
-    List<Observation> downloadObs(Patient patient, Concept concept, Date syncDate) throws IOException;
+    List<Observation> downloadObservations(Patient patient, Concept concept, Date syncDate) throws IOException;
 
     List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
                                                               final String conceptUuid) throws IOException;
 
-    List<Observation> downloadObs(String patientUuid, String conceptUuid, Date syncDate) throws IOException;
+    List<Observation> downloadObservations(String patientUuid, String conceptUuid, Date syncDate) throws IOException;
 
     List<Observation> downloadObservationsByPatientsAndConcepts(final List<Patient> patients,
                                                                 final List<Concept> concepts) throws IOException;
@@ -60,8 +60,8 @@ public interface ObservationService extends MuzimaInterface {
     List<Observation> downloadObservationsByPatientUuidsAndConceptUuids(final List<String> patientUuids,
                                                                         final List<String> conceptUuids) throws IOException;
 
-    List<Observation> downloadObsByUuid(List<String> patientUuids, List<String> conceptUuids,
-                                        Date syncDate) throws IOException;
+    List<Observation> downloadObservations(List<String> patientUuids, List<String> conceptUuids,
+                                           Date syncDate) throws IOException;
 
     /**
      * Save the observation into the local lucene repository.
