@@ -15,6 +15,18 @@ public class LastSyncTime extends OpenmrsSearchable implements Comparable<LastSy
     public LastSyncTime(){
         this.setUuid(UUID.randomUUID().toString());
     }
+
+    public LastSyncTime(APIName apiName, Date utcTime){
+        this(apiName, utcTime, null);
+    }
+
+    public LastSyncTime(APIName apiName, Date utcTime, String paramSignature){
+        this();
+        this.apiName = apiName;
+        this.lastSyncDate = utcTime;
+        this.paramSignature = paramSignature;
+    }
+
     public APIName getApiName() {
         return apiName;
     }
