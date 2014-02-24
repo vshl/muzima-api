@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
@@ -15,27 +14,27 @@ import static org.junit.Assert.assertThat;
  */
 public class LastSyncTimeServiceTest {
     @Test
-    public void shouldAskToDownloadAllObservationHistoryWhenNoConceptIsProvided() throws Exception, LastSyncTimeService.IncorrectParamSignatureException {
+    public void shouldAskToDownloadAllObservationHistoryWhenNoConceptIsProvided() throws Exception {
         LastSyncTimeService lastSyncTimeService = new LastSyncTimeServiceImpl();
         Date lastSyncTime = lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, "patientUuid|");
         assertThat(lastSyncTime, nullValue());
     }
 
     @Test
-    public void shouldAskToDownloadAllObservationHistoryWhenNoPatientIsProvided() throws Exception, LastSyncTimeService.IncorrectParamSignatureException {
+    public void shouldAskToDownloadAllObservationHistoryWhenNoPatientIsProvided() throws Exception {
         LastSyncTimeService lastSyncTimeService = new LastSyncTimeServiceImpl();
         Date lastSyncTime = lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, "|conceptUuid");
         assertThat(lastSyncTime, nullValue());
     }
 
     @Test(expected = LastSyncTimeService.IncorrectParamSignatureException.class)
-    public void throwExceptionIfTooManySubPartsofParamSignatureForObservationIsPassed() throws Exception, LastSyncTimeService.IncorrectParamSignatureException {
+    public void throwExceptionIfTooManySubPartsofParamSignatureForObservationIsPassed() throws Exception {
         LastSyncTimeService lastSyncTimeService = new LastSyncTimeServiceImpl();
         lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, "uuid|uuid|conceptUuid");
     }
 
     @Test(expected = LastSyncTimeService.IncorrectParamSignatureException.class)
-    public void throwExceptionIfNotEnoughSubPartsofParamSignatureForObservationIsPassed() throws Exception, LastSyncTimeService.IncorrectParamSignatureException {
+    public void throwExceptionIfNotEnoughSubPartsofParamSignatureForObservationIsPassed() throws Exception {
         LastSyncTimeService lastSyncTimeService = new LastSyncTimeServiceImpl();
         lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, "uuid");
     }

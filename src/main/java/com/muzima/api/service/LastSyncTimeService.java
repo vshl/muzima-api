@@ -17,9 +17,9 @@ public interface LastSyncTimeService  extends MuzimaInterface{
 
     void saveLastSyncTime(LastSyncTime lastSyncTime) throws IOException;
 
-    public static class IncorrectParamSignatureException extends Throwable{
-        public IncorrectParamSignatureException(Throwable throwable){
-            super(throwable);
+    public static class IncorrectParamSignatureException extends IOException{
+        public IncorrectParamSignatureException(String message){
+            super(message);
         }
     }
 }

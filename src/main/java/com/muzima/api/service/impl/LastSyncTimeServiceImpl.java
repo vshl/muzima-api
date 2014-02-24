@@ -17,17 +17,16 @@ public class LastSyncTimeServiceImpl implements LastSyncTimeService {
     private LastSyncTimeDao lastSyncTimeDao;
 
     @Override
-    public Date getLastSyncTimeFor(APIName apiName) throws IOException, IncorrectParamSignatureException {
+    public Date getLastSyncTimeFor(APIName apiName) throws IOException {
         return getLastSyncTimeFor(apiName, null);
     }
 
     @Override
-    public Date getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException, IncorrectParamSignatureException {
+    public Date getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException {
         if(apiName == APIName.DOWNLOAD_OBSERVATIONS && paramSignature != null){
             String[] paramParts = paramSignature.split("\\|", -1);
             if(paramParts.length != 2){
-                Exception newException = new Exception("Incorrect parameter signature for Observation download");
-                throw new IncorrectParamSignatureException(newException);
+                throw new IncorrectParamSignatureException("Incorrect parameter signature for Observation download");
             }
             if(StringUtil.isEmpty(paramParts[1]) || StringUtil.isEmpty(paramParts[0])){
                 return null;
