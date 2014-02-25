@@ -22,11 +22,9 @@ import com.muzima.api.model.Concept;
 import com.muzima.api.model.Observation;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.ObservationService;
-import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,7 +53,7 @@ public class ObservationServiceImpl implements ObservationService {
     @Override
     public List<Observation> downloadObservationsByPatientAndConcept(final Patient patient,
                                                                      final Concept concept) throws IOException {
-        return downloadObs(patient, concept, null);
+        return downloadObservations(patient, concept, null);
     }
 
     /**
@@ -64,7 +62,7 @@ public class ObservationServiceImpl implements ObservationService {
      * @see ObservationService#downloadObservationsByPatientAndConcept(com.muzima.api.model.Patient, com.muzima.api.model.Concept)
      */
     @Override
-    public List<Observation> downloadObs(final Patient patient, final Concept concept, final Date syncDate) throws IOException {
+    public List<Observation> downloadObservations(final Patient patient, final Concept concept, final Date syncDate) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("person", patient.getUuid());
             put("concept", concept.getUuid());
@@ -89,7 +87,7 @@ public class ObservationServiceImpl implements ObservationService {
     @Override
     public List<Observation> downloadObservationsByPatientAndConcept(final String patientUuid,
                                                                      final String conceptUuid) throws IOException {
-        return downloadObs(patientUuid, conceptUuid, null);
+        return downloadObservations(patientUuid, conceptUuid, null);
     }
 
     /**
@@ -98,7 +96,7 @@ public class ObservationServiceImpl implements ObservationService {
      * @see ObservationService#downloadObservationsByPatientAndConcept(com.muzima.api.model.Patient, com.muzima.api.model.Concept)
      */
     @Override
-    public List<Observation> downloadObs(final String patientUuid, final String conceptUuid, final Date syncDate) throws IOException {
+    public List<Observation> downloadObservations(final String patientUuid, final String conceptUuid, final Date syncDate) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("person", patientUuid);
             put("concept", conceptUuid);
@@ -198,7 +196,7 @@ public class ObservationServiceImpl implements ObservationService {
      */
     public List<Observation> downloadObservationsByPatientUuidsAndConceptUuids(final List<String> patientUuids,
                                                                                final List<String> conceptUuids) throws IOException {
-        return downloadObsByUuid(patientUuids, conceptUuids, null);
+        return downloadObservations(patientUuids, conceptUuids, null);
     }
 
     /**
@@ -207,8 +205,8 @@ public class ObservationServiceImpl implements ObservationService {
      * @see ObservationService#downloadObservationsByPatientUuidsAndConceptUuids(java.util.List, java.util.List)
      */
     @Override
-    public List<Observation> downloadObsByUuid(final List<String> patientUuids, final List<String> conceptUuids,
-                                               final Date syncDate) throws IOException {
+    public List<Observation> downloadObservations(final List<String> patientUuids, final List<String> conceptUuids,
+                                                  final Date syncDate) throws IOException {
         final StringBuilder personBuilder = new StringBuilder();
         for (String patientUuid : patientUuids) {
             if (personBuilder.length() > 0) {
