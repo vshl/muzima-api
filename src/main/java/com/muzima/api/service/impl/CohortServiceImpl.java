@@ -29,12 +29,7 @@ import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.util.Constants;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CohortServiceImpl implements CohortService {
 
@@ -95,7 +90,7 @@ public class CohortServiceImpl implements CohortService {
             put("q", name);
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             calendar.setTime(syncDate);
             parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
         }
