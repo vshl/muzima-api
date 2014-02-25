@@ -24,6 +24,7 @@ import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.api.service.FormService;
 import com.muzima.search.api.util.CollectionUtil;
+import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
@@ -73,9 +74,24 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public List<Form> downloadFormsByName(final String name) throws IOException {
+        return downloadFormsByName(name, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#downloadFormsByName(String, java.util.Date)
+     */
+    @Override
+    public List<Form> downloadFormsByName(final String name, final Date syncDate) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
+        if (syncDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(syncDate);
+            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+        }
         return sortNameAscending(formDao.download(parameter, Constants.SEARCH_FORM_RESOURCE));
     }
 
@@ -228,9 +244,24 @@ public class FormServiceImpl implements FormService {
      */
     @Override
     public List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException {
+        return downloadFormTemplatesByName(name, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#downloadFormTemplatesByName(String, java.util.Date)
+     */
+    @Override
+    public List<FormTemplate> downloadFormTemplatesByName(final String name, final Date syncDate) throws IOException, ParseException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
+        if (syncDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(syncDate);
+            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+        }
         return formTemplateDao.download(parameter, Constants.SEARCH_FORM_TEMPLATE_RESOURCE);
     }
 

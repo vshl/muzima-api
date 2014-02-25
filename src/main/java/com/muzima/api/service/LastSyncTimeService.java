@@ -6,13 +6,20 @@ import com.muzima.api.model.LastSyncTime;
 import com.muzima.api.service.impl.LastSyncTimeServiceImpl;
 
 import java.io.IOException;
+import java.util.Date;
 
 @ImplementedBy(LastSyncTimeServiceImpl.class)
-public interface LastSyncTimeService {
+public interface LastSyncTimeService  extends MuzimaInterface{
 
-    LastSyncTime getLastSyncTimeFor(APIName apiName) throws IOException;
+    Date getLastSyncTimeFor(APIName apiName) throws IOException, IncorrectParamSignatureException;
 
-    LastSyncTime getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException;
+    Date getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException, IncorrectParamSignatureException;
 
     void saveLastSyncTime(LastSyncTime lastSyncTime) throws IOException;
+
+    public static class IncorrectParamSignatureException extends IOException{
+        public IncorrectParamSignatureException(String message){
+            super(message);
+        }
+    }
 }

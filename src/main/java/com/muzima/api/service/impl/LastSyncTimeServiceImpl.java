@@ -5,9 +5,11 @@ import com.muzima.api.dao.LastSyncTimeDao;
 import com.muzima.api.model.APIName;
 import com.muzima.api.model.LastSyncTime;
 import com.muzima.api.service.LastSyncTimeService;
+import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class LastSyncTimeServiceImpl implements LastSyncTimeService {
 
@@ -15,13 +17,27 @@ public class LastSyncTimeServiceImpl implements LastSyncTimeService {
     private LastSyncTimeDao lastSyncTimeDao;
 
     @Override
-    public LastSyncTime getLastSyncTimeFor(APIName apiName) throws IOException {
-        return lastSyncTimeDao.getLastSyncTime(apiName.toString());
+    public Date getLastSyncTimeFor(APIName apiName) throws IOException {
+        return getLastSyncTimeFor(apiName, null);
     }
 
     @Override
-    public LastSyncTime getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException {
-        return lastSyncTimeDao.getLastSyncTime(apiName.toString(), paramSignature);
+    public Date getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException {
+        if(apiName == APIName.DOWNLOAD_OBSERVATIONS && paramSignature != null){
+            String[] paramParts = paramSignature.split("\\|", -1);
+            if(paramParts.length != 2){
+                throw new IncorrectParamSignatureException("Incorrect parameter signature for Observation download");
+            }
+            if(StringUtil.isEmpty(paramParts[1]) || StringUtil.isEmpty(paramParts[0])){
+                return null;
+            }
+        }
+
+        LastSyncTime lastSyncTime = lastSyncTimeDao.getLastSyncTime(apiName.toString(), paramSignature);
+        if(lastSyncTime == null){
+            lastSyncTime =  new LastSyncTime();
+        }
+        return lastSyncTime.getLastSyncDate();
     }
 
     @Override

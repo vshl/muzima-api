@@ -19,12 +19,7 @@ import com.google.inject.Injector;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.config.Configuration;
 import com.muzima.api.model.User;
-import com.muzima.api.service.CohortService;
-import com.muzima.api.service.FormService;
-import com.muzima.api.service.MuzimaInterface;
-import com.muzima.api.service.ObservationService;
-import com.muzima.api.service.PatientService;
-import com.muzima.api.service.UserService;
+import com.muzima.api.service.*;
 import com.muzima.search.api.context.ServiceContext;
 import com.muzima.search.api.exception.ServiceException;
 import com.muzima.search.api.model.object.Searchable;
@@ -324,6 +319,16 @@ public class Context {
      */
     public PatientService getPatientService() throws IOException {
         return getService(PatientService.class);
+    }
+
+    /**
+     * Get the patient service to perform operation related to the patient object.
+     *
+     * @return the patient service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
+    public LastSyncTimeService getLastSyncTimeService() throws IOException {
+        return getService(LastSyncTimeService.class);
     }
 
     /**
