@@ -24,6 +24,7 @@ import com.muzima.api.service.EncounterService;
 import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.util.Constants;
+import com.muzima.util.DateUtils;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
@@ -194,9 +195,7 @@ public class EncounterServiceImpl implements EncounterService {
             put("patient", patientBuilder.toString());
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(syncDate);
-            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            parameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
         }
         return encounterDao.download(parameter, Constants.SEARCH_ENCOUNTER_RESOURCE);
     }
