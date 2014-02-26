@@ -27,6 +27,7 @@ import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
+import com.muzima.util.DateUtils;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
@@ -88,9 +89,7 @@ public class FormServiceImpl implements FormService {
             put("q", name);
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(syncDate);
-            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            parameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
         }
         return sortNameAscending(formDao.download(parameter, Constants.SEARCH_FORM_RESOURCE));
     }
