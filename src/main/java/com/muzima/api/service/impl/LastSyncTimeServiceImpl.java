@@ -22,6 +22,11 @@ public class LastSyncTimeServiceImpl implements LastSyncTimeService {
     }
 
     @Override
+    public LastSyncTime getFullLastSyncTimeInfoFor(APIName apiName) throws IOException {
+        return lastSyncTimeDao.getLastSyncTime(apiName.toString());
+    }
+
+    @Override
     public Date getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException {
         if(apiName == APIName.DOWNLOAD_OBSERVATIONS && paramSignature != null){
             String[] paramParts = paramSignature.split("\\|", -1);
