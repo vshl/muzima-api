@@ -25,6 +25,7 @@ import com.muzima.api.service.ObservationService;
 import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
+import com.muzima.util.DateUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -238,9 +239,7 @@ public class ObservationServiceImpl implements ObservationService {
                 put("concept", codedBuilder.toString());
             }};
             if (syncDate != null) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(syncDate);
-                codedParameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+                codedParameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
             }
             List<Observation> codedObservations = observationDao.download(codedParameter,
                     Constants.SEARCH_OBSERVATION_CODED_RESOURCE);

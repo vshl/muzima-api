@@ -25,16 +25,11 @@ import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.service.CohortService;
 import com.muzima.search.api.util.CollectionUtil;
-import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.util.Constants;
+import com.muzima.util.DateUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CohortServiceImpl implements CohortService {
 
@@ -95,9 +90,7 @@ public class CohortServiceImpl implements CohortService {
             put("q", name);
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(syncDate);
-            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            parameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
         }
         return cohortDao.download(parameter, Constants.SEARCH_STATIC_COHORT_RESOURCE);
     }
@@ -332,9 +325,7 @@ public class CohortServiceImpl implements CohortService {
             put("uuid", uuid);
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(syncDate);
-            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            parameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
         }
         List<CohortData> cohortDataList = cohortDataDao.download(parameter, resourceName);
         if (!CollectionUtil.isEmpty(cohortDataList)) {

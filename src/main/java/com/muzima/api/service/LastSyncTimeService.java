@@ -13,6 +13,8 @@ public interface LastSyncTimeService  extends MuzimaInterface{
 
     Date getLastSyncTimeFor(APIName apiName) throws IOException, IncorrectParamSignatureException;
 
+    LastSyncTime getFullLastSyncTimeInfoFor(APIName apiName) throws IOException;
+
     Date getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException, IncorrectParamSignatureException;
 
     void saveLastSyncTime(LastSyncTime lastSyncTime) throws IOException;

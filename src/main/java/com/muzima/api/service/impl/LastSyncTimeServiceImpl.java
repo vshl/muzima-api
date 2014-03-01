@@ -10,6 +10,7 @@ import com.muzima.util.Constants;
 
 import java.io.IOException;
 import java.util.Date;
+import static com.muzima.util.Constants.UUID_TYPE_SEPARATOR;
 
 public class LastSyncTimeServiceImpl implements LastSyncTimeService {
 
@@ -22,9 +23,14 @@ public class LastSyncTimeServiceImpl implements LastSyncTimeService {
     }
 
     @Override
+    public LastSyncTime getFullLastSyncTimeInfoFor(APIName apiName) throws IOException {
+        return lastSyncTimeDao.getLastSyncTime(apiName.toString());
+    }
+
+    @Override
     public Date getLastSyncTimeFor(APIName apiName, String paramSignature) throws IOException {
         if(apiName == APIName.DOWNLOAD_OBSERVATIONS && paramSignature != null){
-            String[] paramParts = paramSignature.split("\\|", -1);
+            String[] paramParts = paramSignature.split(UUID_TYPE_SEPARATOR, -1);
             if(paramParts.length != 2){
                 throw new IncorrectParamSignatureException("Incorrect parameter signature for Observation download");
             }

@@ -16,21 +16,21 @@ public class LastSyncTimeServiceTest {
     @Test
     public void shouldAskToDownloadAllObservationHistoryWhenNoConceptIsProvided() throws Exception {
         LastSyncTimeService lastSyncTimeService = new LastSyncTimeServiceImpl();
-        Date lastSyncTime = lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, "patientUuid|");
+        Date lastSyncTime = lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, "patientUuid;");
         assertThat(lastSyncTime, nullValue());
     }
 
     @Test
     public void shouldAskToDownloadAllObservationHistoryWhenNoPatientIsProvided() throws Exception {
         LastSyncTimeService lastSyncTimeService = new LastSyncTimeServiceImpl();
-        Date lastSyncTime = lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, "|conceptUuid");
+        Date lastSyncTime = lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, ";conceptUuid");
         assertThat(lastSyncTime, nullValue());
     }
 
     @Test(expected = LastSyncTimeService.IncorrectParamSignatureException.class)
     public void throwExceptionIfTooManySubPartsofParamSignatureForObservationIsPassed() throws Exception {
         LastSyncTimeService lastSyncTimeService = new LastSyncTimeServiceImpl();
-        lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, "uuid|uuid|conceptUuid");
+        lastSyncTimeService.getLastSyncTimeFor(APIName.DOWNLOAD_OBSERVATIONS, "uuid;uuid;conceptUuid");
     }
 
     @Test(expected = LastSyncTimeService.IncorrectParamSignatureException.class)
