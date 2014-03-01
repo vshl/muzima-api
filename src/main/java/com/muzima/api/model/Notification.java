@@ -15,6 +15,8 @@
  */
 package com.muzima.api.model;
 
+import java.util.Date;
+
 /**
  * A Notification class is a class to hold notification  properties in the server. A notification
  * will have a uuid, subject, sender, receiver, subject and payload.
@@ -23,6 +25,8 @@ package com.muzima.api.model;
 public class Notification extends OpenmrsSearchable {
 
     private String subject;
+    
+    private Date dateCreated;
 
     private String status;
 
@@ -50,6 +54,24 @@ public class Notification extends OpenmrsSearchable {
      */
     public void setSubject(final String subject) {
         this.subject = subject;
+    }
+    
+    /**
+     * Get the date the notification was created
+     *
+     * @return the subject.
+     */
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    /**
+     * Set the date the notification was created.
+     *
+     * @param dateCreated the name to set.
+     */
+    public void setDateCreated(final Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     /**
