@@ -161,4 +161,8 @@ public class NotificationServiceImpl implements NotificationService {
     public void deleteNotification(final Notification notification) throws IOException {
         notificationDao.delete(notification, Constants.UUID_NOTIFICATION_RESOURCE);
     }
+
+    @Override
+    public void deleteNotifications(List<Notification> notifications) throws IOException {
+        notificationDao.delete(notifications, Constants.UUID_NOTIFICATION_RESOURCE);    }
 }

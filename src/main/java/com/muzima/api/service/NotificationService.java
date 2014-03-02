@@ -135,4 +135,6 @@ public interface NotificationService extends MuzimaInterface {
      * @should delete the notification object from the local repository.
      */
     void deleteNotification(final Notification notification) throws IOException;
+
+    void deleteNotifications(final List<Notification> notifications)  throws IOException;
 }
