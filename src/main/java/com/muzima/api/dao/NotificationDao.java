@@ -41,6 +41,8 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
     List<Notification> getNotificationBySender(final String senderUuid, final Integer page,
                                                final Integer pageSize) throws IOException, ParseException;
 
+    List<Notification> getNotificationBySender(final String senderUuid, final String status) throws IOException;
+
     /**
      * Get all notifications for a particular receiver from the Lucene repository identified by the receiver uuid.
      *
@@ -53,6 +55,10 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
      */
     List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException;
 
+    List<Notification> getNotificationByReceiver(final String receiverUuid, final String status) throws IOException;
+
     List<Notification> getNotificationByReceiver(final String receiverUuid, final Integer page,
                                                  final Integer pageSize) throws IOException, ParseException;
+
+
 }

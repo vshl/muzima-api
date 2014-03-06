@@ -64,6 +64,19 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
         return service.getObjects(filters, daoClass, page, pageSize);
     }
 
+    @Override
+    public List<Notification> getNotificationBySender(final String senderUuid, final String status) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(senderUuid)) {
+            Filter filter = FilterFactory.createFilter("sender", senderUuid);
+            filters.add(filter);
+        }if (!StringUtil.isEmpty(senderUuid)) {
+            Filter filter = FilterFactory.createFilter("status", status);
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass);
+    }
+
     /**
      * Get all notifications for a particular receiver from the Lucene repository identified by the receiver uuid.
      *
@@ -79,6 +92,20 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(receiverUuid)) {
             Filter filter = FilterFactory.createFilter("receiver", receiverUuid);
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass);
+    }
+
+    @Override
+    public List<Notification> getNotificationByReceiver(final String receiverUuid, final String status) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(receiverUuid)) {
+            Filter filter = FilterFactory.createFilter("receiver", receiverUuid);
+            filters.add(filter);
+        }
+        if (!StringUtil.isEmpty(receiverUuid)) {
+            Filter filter = FilterFactory.createFilter("status", status);
             filters.add(filter);
         }
         return service.getObjects(filters, daoClass);

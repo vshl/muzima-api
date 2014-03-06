@@ -125,11 +125,31 @@ public class NotificationServiceImpl implements NotificationService {
     /**
      * {@inheritDoc}
      *
+     * @see NotificationService#getNotificationBySender(String, String)
+     */
+    @Override
+    public List<Notification> getNotificationBySender(String senderUuid, String status) throws IOException, ParseException {
+        return notificationDao.getNotificationBySender(senderUuid, status);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see NotificationService#getNotificationByReceiver(String)
      */
     @Override
     public List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException, ParseException {
         return notificationDao.getNotificationByReceiver(receiverUuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see NotificationService#getNotificationByReceiver(String,String)
+     */
+    @Override
+    public List<Notification> getNotificationByReceiver(String receiverUuid, String status) throws IOException, ParseException {
+        return notificationDao.getNotificationByReceiver(receiverUuid, status);
     }
 
     /**
@@ -141,4 +161,8 @@ public class NotificationServiceImpl implements NotificationService {
     public void deleteNotification(final Notification notification) throws IOException {
         notificationDao.delete(notification, Constants.UUID_NOTIFICATION_RESOURCE);
     }
+
+    @Override
+    public void deleteNotifications(List<Notification> notifications) throws IOException {
+        notificationDao.delete(notifications, Constants.UUID_NOTIFICATION_RESOURCE);    }
 }

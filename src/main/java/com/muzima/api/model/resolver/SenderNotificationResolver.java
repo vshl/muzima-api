@@ -23,7 +23,7 @@ import java.util.Map;
 public class SenderNotificationResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION =
-            "?v=custom:(uuid,subject,receiver.uuid,sender.uuid,payload)";
+            "?v=custom:(uuid,subject,dateCreated,receiver.uuid,sender.uuid,payload)";
 
     /**
      * Return the full REST resource based on the parameters passed to the method.

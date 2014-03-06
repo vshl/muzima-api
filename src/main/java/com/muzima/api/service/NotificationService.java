@@ -90,6 +90,19 @@ public interface NotificationService extends MuzimaInterface {
     List<Notification> getNotificationBySender(final String senderUuid) throws IOException, ParseException;
 
     /**
+     * Get list of notification for a particular sender from the local lucene repository.
+     *
+     * @param senderUuid the sender uuid.
+     * @param status  the status of notifications
+     * @return list of all notification with matching receiverUuid or empty list.
+     * @throws ParseException when query parser from lucene unable to parse the query string.
+     * @throws IOException    when search api unable to process the resource.
+     * @should return list of all notifications with matching receiver's uuid.
+     * @should return empty list when no notification match the receiver's uuid.
+     */
+    List<Notification> getNotificationBySender(final String senderUuid, final String status) throws IOException, ParseException;
+
+    /**
      * Get list of notification for a particular receiver from the local lucene repository.
      *
      * @param receiverUuid the receiver uuid.
@@ -102,6 +115,19 @@ public interface NotificationService extends MuzimaInterface {
     List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException, ParseException;
 
     /**
+     * Get list of notification for a particular receiver from the local lucene repository.
+     *
+     * @param receiverUuid the receiver uuid.
+     * @param status  the status of notifications
+     * @return list of all notification with matching receiverUuid or empty list.
+     * @throws ParseException when query parser from lucene unable to parse the query string.
+     * @throws IOException    when search api unable to process the resource.
+     * @should return list of all notifications with matching receiver's uuid.
+     * @should return empty list when no notification match the receiver's uuid.
+     */
+    List<Notification> getNotificationByReceiver(final String receiverUuid, final String status) throws IOException, ParseException;
+
+    /**
      * Delete a single notification object from the local repository.
      *
      * @param notification the notification object.
@@ -109,4 +135,6 @@ public interface NotificationService extends MuzimaInterface {
      * @should delete the notification object from the local repository.
      */
     void deleteNotification(final Notification notification) throws IOException;
+
+    void deleteNotifications(final List<Notification> notifications)  throws IOException;
 }
