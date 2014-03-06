@@ -126,4 +126,6 @@ public class Constants {
     public static final String UUID_SEPARATOR = ",";
 
     public static final String UUID_TYPE_SEPARATOR = ";";
+
+    public static final String OBSERVATION_CREATED_ON_PHONE = "observationFromPhoneUuid";
 }

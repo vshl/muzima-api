@@ -35,6 +35,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.muzima.util.Constants.OBSERVATION_CREATED_ON_PHONE;
+
 public class ObservationServiceImpl implements ObservationService {
 
     @Inject
@@ -261,6 +263,17 @@ public class ObservationServiceImpl implements ObservationService {
             observations.addAll(nonCodedObservations);
         }
         return observations;
+    }
+
+    @Override
+    public void deleteObservationsCreatedOnDevice() throws IOException {
+        List<Observation> observations = observationDao.getAll();
+        for (Observation observation : observations) {
+            String uuid = observation.getConcept().getUuid();
+            if(uuid.startsWith(OBSERVATION_CREATED_ON_PHONE)){
+                deleteObservation(observation);
+            }
+        }
     }
 
     /**
