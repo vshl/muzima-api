@@ -19,11 +19,7 @@ import java.util.List;
 
 public class User extends OpenmrsSearchable {
 
-    private String givenName;
-
-    private String middleName;
-
-    private String familyName;
+    private Person person;
 
     private String username;
 
@@ -31,22 +27,21 @@ public class User extends OpenmrsSearchable {
 
     private List<Role> roles;
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(final Person person) {
+        this.person = person;
+    }
+
     /**
      * Get the given name for the patient.
      *
      * @return the given name for the patient.
      */
     public String getGivenName() {
-        return givenName;
-    }
-
-    /**
-     * Set the given name for the patient.
-     *
-     * @param givenName the given name for the patient.
-     */
-    public void setGivenName(final String givenName) {
-        this.givenName = givenName;
+        return person.getGivenName();
     }
 
     /**
@@ -55,16 +50,7 @@ public class User extends OpenmrsSearchable {
      * @return the middle name for the patient.
      */
     public String getMiddleName() {
-        return middleName;
-    }
-
-    /**
-     * Set the middle name for the patient.
-     *
-     * @param middleName the middle name for the patient.
-     */
-    public void setMiddleName(final String middleName) {
-        this.middleName = middleName;
+        return person.getMiddleName();
     }
 
     /**
@@ -73,16 +59,7 @@ public class User extends OpenmrsSearchable {
      * @return the family name for the patient.
      */
     public String getFamilyName() {
-        return familyName;
-    }
-
-    /**
-     * Set the family name for the patient.
-     *
-     * @param familyName the family name for the patient.
-     */
-    public void setFamilyName(final String familyName) {
-        this.familyName = familyName;
+        return person.getFamilyName();
     }
 
     /**

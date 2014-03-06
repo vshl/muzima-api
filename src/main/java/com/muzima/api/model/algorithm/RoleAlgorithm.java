@@ -26,6 +26,8 @@ import java.util.List;
 
 public class RoleAlgorithm extends BaseOpenmrsAlgorithm {
 
+    public static final String ROLE_REPRESENTATION = "(uuid,name,privileges:(name,uuid))";
+
     private PrivilegeAlgorithm privilegeAlgorithm;
 
     public RoleAlgorithm() {

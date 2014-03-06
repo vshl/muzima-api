@@ -13,13 +13,15 @@
  */
 package com.muzima.api.model.resolver;
 
+import com.muzima.api.model.algorithm.PrivilegeAlgorithm;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Map;
 
 public class SearchPrivilegeResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION = "?v=custom:(uuid,name)";
+    private static final String REPRESENTATION = "?v=custom:" + PrivilegeAlgorithm.PRIVILEGE_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.

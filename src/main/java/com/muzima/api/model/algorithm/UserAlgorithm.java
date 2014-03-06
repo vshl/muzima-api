@@ -14,19 +14,37 @@
 package com.muzima.api.model.algorithm;
 
 import com.jayway.jsonpath.JsonPath;
+import com.muzima.api.model.Person;
 import com.muzima.api.model.Privilege;
 import com.muzima.api.model.Role;
 import com.muzima.api.model.User;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.util.StringUtil;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserAlgorithm extends BaseOpenmrsAlgorithm {
+
+    public static final String USER_REPRESENTATION =
+            "(uuid,person:" + PersonAlgorithm.PERSON_SIMPLE_REPRESENTATION + "," +
+                    "username,systemId,roles:(uuid,name),privileges:(uuid,name))";
+
+    private PersonAlgorithm personAlgorithm;
+    private RoleAlgorithm roleAlgorithm;
+    private PrivilegeAlgorithm privilegeAlgorithm;
+
+    public UserAlgorithm() {
+        this.personAlgorithm = new PersonAlgorithm();
+        this.roleAlgorithm = new RoleAlgorithm();
+        this.privilegeAlgorithm = new PrivilegeAlgorithm();
+    }
 
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
@@ -37,54 +55,28 @@ public class UserAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String json) throws IOException {
         User user = new User();
-
-        Object jsonObject = JsonPath.read(json, "$");
-
-        String uuid = JsonPath.read(jsonObject, "$['uuid']");
-        user.setUuid(uuid);
-
-        String givenName = JsonPath.read(jsonObject, "$['person.personName.givenName']");
-        user.setGivenName(givenName);
-
-        String middleName = JsonPath.read(jsonObject, "$['person.personName.middleName']");
-        user.setMiddleName(middleName);
-
-        String familyName = JsonPath.read(jsonObject, "$['person.personName.familyName']");
-        user.setFamilyName(familyName);
+        user.setUuid(JsonUtils.readAsString(json, "$['uuid']"));
+        // read the person object
+        Object personObject = JsonUtils.readAsObject(json, "$['person']");
+        user.setPerson((Person) personAlgorithm.deserialize(String.valueOf(personObject)));
 
         String username;
-        username = JsonPath.read(jsonObject, "$['username']");
+        username = JsonUtils.readAsString(json, "$['username']");
         if (StringUtil.isEmpty(username))
-            username = JsonPath.read(jsonObject, "$['systemId']");
+            username = JsonUtils.readAsString(json, "$['systemId']");
         user.setUsername(username);
 
-        List<Object> privilegeObjectArray = JsonPath.read(jsonObject, "$['privileges']");
+        List<Object> privilegeObjectArray = JsonUtils.readAsObjectList(json, "$['privileges']");
         List<Privilege> privileges = new ArrayList<Privilege>();
         for (Object privilegeObject : privilegeObjectArray) {
-            Privilege privilege = new Privilege();
-
-            String privilegeUuid = JsonPath.read(privilegeObject, "$['uuid']");
-            privilege.setUuid(privilegeUuid);
-
-            String privilegeName = JsonPath.read(privilegeObject, "$['name']");
-            privilege.setName(privilegeName);
-
-            privileges.add(privilege);
+            privileges.add((Privilege) privilegeAlgorithm.deserialize(String.valueOf(privilegeObject)));
         }
         user.setPrivileges(privileges);
 
-        List<Object> roleObjectArray = JsonPath.read(jsonObject, "$['roles']");
+        List<Object> roleObjectArray = JsonUtils.readAsObjectList(json, "$['roles']");
         List<Role> roles = new ArrayList<Role>();
         for (Object roleObject : roleObjectArray) {
-            Role role = new Role();
-
-            String privilegeUuid = JsonPath.read(roleObject, "$['uuid']");
-            role.setUuid(privilegeUuid);
-
-            String privilegeName = JsonPath.read(roleObject, "$['name']");
-            role.setName(privilegeName);
-
-            roles.add(role);
+            roles.add((Role) roleAlgorithm.deserialize(String.valueOf(roleObject)));
         }
         user.setRoles(roles);
 
@@ -108,23 +100,19 @@ public class UserAlgorithm extends BaseOpenmrsAlgorithm {
         jsonObject.put("username", user.getUsername());
         jsonObject.put("systemId", user.getUsername());
 
-        JSONArray privilegeObjectArray = new JSONArray();
+        JSONArray privilegeArray = new JSONArray();
         for (Privilege privilege : user.getPrivileges()) {
-            JSONObject privilegeObject = new JSONObject();
-            privilegeObject.put("uuid", privilege.getUuid());
-            privilegeObject.put("name", privilege.getName());
-            privilegeObjectArray.add(privilegeObject);
+            String privilegeString = privilegeAlgorithm.serialize(privilege);
+            privilegeArray.add(JsonPath.read(privilegeString, "$"));
         }
-        jsonObject.put("privileges", privilegeObjectArray);
+        jsonObject.put("privileges", privilegeArray);
 
-        JSONArray roleObjectArray = new JSONArray();
+        JSONArray roleArray = new JSONArray();
         for (Role role : user.getRoles()) {
-            JSONObject roleObject = new JSONObject();
-            roleObject.put("uuid", role.getUuid());
-            roleObject.put("name", role.getName());
-            roleObjectArray.add(roleObject);
+            String roleString = roleAlgorithm.serialize(role);
+            roleArray.add(JsonPath.read(roleString, "$"));
         }
-        jsonObject.put("roles", roleObjectArray);
+        jsonObject.put("roles", roleArray);
 
         return jsonObject.toJSONString();
     }

@@ -13,6 +13,7 @@
  */
 package com.muzima.api.model.resolver;
 
+import com.muzima.api.model.algorithm.UserAlgorithm;
 import com.muzima.search.api.util.StringUtil;
 
 import java.io.IOException;
@@ -20,9 +21,7 @@ import java.util.Map;
 
 public class UuidUserResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION =
-            "?v=custom:(uuid,person.personName.givenName,person.personName.middleName,person.personName.familyName," +
-                    "username,systemId,roles:(uuid,name),privileges:(uuid,name))";
+    private static final String REPRESENTATION = "?v=custom:" + UserAlgorithm.USER_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.

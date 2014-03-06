@@ -23,6 +23,8 @@ import java.io.IOException;
 
 public class PrivilegeAlgorithm extends BaseOpenmrsAlgorithm {
 
+    public static final String PRIVILEGE_REPRESENTATION = "(uuid,name)";
+
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
      *
