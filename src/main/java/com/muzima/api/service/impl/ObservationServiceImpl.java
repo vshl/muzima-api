@@ -356,6 +356,8 @@ public class ObservationServiceImpl implements ObservationService {
         return observationDao.get(patientUuid, conceptUuid);
     }
 
+
+
     /**
      * {@inheritDoc}
      *
@@ -364,6 +366,11 @@ public class ObservationServiceImpl implements ObservationService {
     @Override
     public List<Observation> getObservationsByPatientAndConcept(final Patient patient, final Concept concept) throws IOException {
         return getObservationsByPatientAndConcept(patient.getUuid(), concept.getUuid());
+    }
+
+    @Override
+    public List<Observation> getObservations(Concept concept) throws IOException {
+        return observationDao.get(concept);
     }
 
     /**

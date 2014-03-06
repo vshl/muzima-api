@@ -17,6 +17,7 @@ package com.muzima.api.dao;
 
 import com.google.inject.ImplementedBy;
 import com.muzima.api.dao.impl.ObservationDaoImpl;
+import com.muzima.api.model.Concept;
 import com.muzima.api.model.Observation;
 import org.apache.lucene.queryParser.ParseException;
 
@@ -39,4 +40,6 @@ public interface ObservationDao extends OpenmrsDao<Observation> {
 
     List<Observation> get(final String patientUuid, final String conceptUuid,
                           final Integer page, final Integer pageSize) throws IOException;
+
+    List<Observation> get(final Concept concept) throws IOException;
 }

@@ -16,6 +16,7 @@
 package com.muzima.api.dao.impl;
 
 import com.muzima.api.dao.ObservationDao;
+import com.muzima.api.model.Concept;
 import com.muzima.api.model.Observation;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
@@ -68,5 +69,15 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
             filters.add(conceptFilter);
         }
         return service.getObjects(filters, daoClass, page, pageSize);
+    }
+
+    @Override
+    public List<Observation> get(Concept concept) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if(concept != null){
+            Filter conceptFilter = FilterFactory.createFilter("conceptUuid", concept.getUuid());
+            filters.add(conceptFilter);
+        }
+        return service.getObjects(filters, daoClass);
     }
 }

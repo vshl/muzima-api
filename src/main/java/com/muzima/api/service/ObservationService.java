@@ -142,6 +142,14 @@ public interface ObservationService extends MuzimaInterface {
                                                          final Concept concept) throws IOException;
 
     /**
+     *
+     * @param concept
+     * @return List of Observations for the given Concept
+     * @throws IOException
+     */
+    List<Observation> getObservations(Concept concept) throws IOException;
+
+    /**
      * Search for all observations for the particular patient with matching search term.
      *
      * @param patientUuid the patient.
