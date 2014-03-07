@@ -48,7 +48,7 @@ public class ContextFactory {
         parameters.put(Constants.LUCENE_ENCRYPTION_KEY, "this-is-supposed-to-be-a-secure-key");
         parameters.put(Constants.LUCENE_DIRECTORY_PATH, lucenePath.toString());
         parameters.put(Constants.LUCENE_DEFAULT_FIELD, "uuid");
-        parameters.put(Constants.LUCENE_USE_ENCRYPTION, false);
+        parameters.put(Constants.LUCENE_USE_ENCRYPTION, true);
     }
 
     /**

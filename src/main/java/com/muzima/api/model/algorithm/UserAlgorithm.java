@@ -23,8 +23,6 @@ import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +31,7 @@ import java.util.List;
 public class UserAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String USER_REPRESENTATION =
-            "(uuid,person:" + PersonAlgorithm.PERSON_SIMPLE_REPRESENTATION + "," +
+            "(uuid,person:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + "," +
                     "username,systemId,roles:(uuid,name),privileges:(uuid,name))";
 
     private PersonAlgorithm personAlgorithm;
