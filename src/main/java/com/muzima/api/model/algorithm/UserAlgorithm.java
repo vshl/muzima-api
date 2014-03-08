@@ -112,6 +112,8 @@ public class UserAlgorithm extends BaseOpenmrsAlgorithm {
         }
         jsonObject.put("roles", roleArray);
 
+        jsonObject.put("person", personAlgorithm.serialize(user.getPerson()));
+
         return jsonObject.toJSONString();
     }
 }
