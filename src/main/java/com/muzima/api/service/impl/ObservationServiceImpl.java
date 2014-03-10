@@ -269,7 +269,7 @@ public class ObservationServiceImpl implements ObservationService {
     public void deleteObservationsCreatedOnDevice() throws IOException {
         List<Observation> observations = observationDao.getAll();
         for (Observation observation : observations) {
-            String uuid = observation.getConcept().getUuid();
+            String uuid = observation.getUuid();
             if(uuid.startsWith(OBSERVATION_CREATED_ON_PHONE)){
                 deleteObservation(observation);
             }
