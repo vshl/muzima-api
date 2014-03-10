@@ -47,7 +47,7 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
     public List<Notification> getNotificationBySender(final String senderUuid) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(senderUuid)) {
-            Filter filter = FilterFactory.createFilter("sender", senderUuid);
+            Filter filter = FilterFactory.createFilter("senderUuid", senderUuid);
             filters.add(filter);
         }
         return service.getObjects(filters, daoClass);
@@ -58,7 +58,7 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
                                                       final Integer pageSize) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(senderUuid)) {
-            Filter filter = FilterFactory.createFilter("sender", senderUuid);
+            Filter filter = FilterFactory.createFilter("senderUuid", senderUuid);
             filters.add(filter);
         }
         return service.getObjects(filters, daoClass, page, pageSize);
@@ -68,9 +68,11 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
     public List<Notification> getNotificationBySender(final String senderUuid, final String status) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(senderUuid)) {
-            Filter filter = FilterFactory.createFilter("sender", senderUuid);
+            Filter filter = FilterFactory.createFilter("senderUuid", senderUuid);
             filters.add(filter);
-        }if (!StringUtil.isEmpty(senderUuid)) {
+        }
+
+        if (!StringUtil.isEmpty(status)) {
             Filter filter = FilterFactory.createFilter("status", status);
             filters.add(filter);
         }
@@ -91,7 +93,7 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
     public List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(receiverUuid)) {
-            Filter filter = FilterFactory.createFilter("receiver", receiverUuid);
+            Filter filter = FilterFactory.createFilter("receiverUuid", receiverUuid);
             filters.add(filter);
         }
         return service.getObjects(filters, daoClass);
@@ -101,10 +103,11 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
     public List<Notification> getNotificationByReceiver(final String receiverUuid, final String status) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(receiverUuid)) {
-            Filter filter = FilterFactory.createFilter("receiver", receiverUuid);
+            Filter filter = FilterFactory.createFilter("receiverUuid", receiverUuid);
             filters.add(filter);
         }
-        if (!StringUtil.isEmpty(receiverUuid)) {
+
+        if (!StringUtil.isEmpty(status)) {
             Filter filter = FilterFactory.createFilter("status", status);
             filters.add(filter);
         }
@@ -116,7 +119,7 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
                                                         final Integer pageSize) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(receiverUuid)) {
-            Filter filter = FilterFactory.createFilter("receiver", receiverUuid);
+            Filter filter = FilterFactory.createFilter("receiverUuid", receiverUuid);
             filters.add(filter);
         }
         return service.getObjects(filters, daoClass, page, pageSize);

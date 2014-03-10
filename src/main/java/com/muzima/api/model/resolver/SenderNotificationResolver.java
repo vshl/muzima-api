@@ -16,14 +16,15 @@
 package com.muzima.api.model.resolver;
 
 
+import com.muzima.api.model.algorithm.NotificationAlgorithm;
+
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Map;
 
 public class SenderNotificationResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION =
-            "?v=custom:(uuid,subject,dateCreated,receiver.uuid,sender.uuid,payload)";
+    private static final String REPRESENTATION =  "?v=custom:" + NotificationAlgorithm.NOTIFICATION_STANDARD_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.
