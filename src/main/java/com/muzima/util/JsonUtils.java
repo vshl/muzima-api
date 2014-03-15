@@ -250,4 +250,13 @@ public class JsonUtils {
         }
         return null;
     }
+
+    public static void replaceAsString(final Object object, String holder, final String key, final String value) {
+        if (object instanceof JSONObject) {
+            JSONObject jsonObject = (JSONObject) object;
+            JSONObject jsonObjectc = (JSONObject) jsonObject.get(holder);
+            jsonObjectc.put(key, value);
+            jsonObject.put(holder, jsonObjectc);
+        }
+    }
 }
