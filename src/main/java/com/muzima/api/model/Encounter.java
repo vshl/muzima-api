@@ -32,7 +32,17 @@ public class Encounter extends OpenmrsSearchable {
 
     private Date encounterDatetime;
 
+    private String formDataUuid;
+
     private boolean voided;
+
+    public String getFormDataUuid() {
+        return formDataUuid;
+    }
+
+    public void setFormDataUuid(String formDataUuid) {
+        this.formDataUuid = formDataUuid;
+    }
 
     public Patient getPatient() {
         return patient;
