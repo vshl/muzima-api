@@ -63,7 +63,7 @@ public interface ObservationService extends MuzimaInterface {
     List<Observation> downloadObservations(List<String> patientUuids, List<String> conceptUuids,
                                            Date syncDate) throws IOException;
 
-    void deleteObservationsCreatedOnDevice() throws IOException;
+    void deleteObservationsByFormData(String formDataUuid) throws IOException;
 
     /**
      * Save the observation into the local lucene repository.
