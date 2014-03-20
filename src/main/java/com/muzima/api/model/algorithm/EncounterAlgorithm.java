@@ -65,6 +65,7 @@ public class EncounterAlgorithm extends BaseOpenmrsAlgorithm {
         encounter.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
         encounter.setVoided(JsonUtils.readAsBoolean(serialized, "$['voided']"));
         encounter.setEncounterDatetime(JsonUtils.readAsDateTime(serialized, "$['encounterDatetime']"));
+        encounter.setFormDataUuid(JsonUtils.readAsString(serialized, "$['formDataUuid']"));
         Object patientObject = JsonUtils.readAsObject(serialized, "$['patient']");
         encounter.setPatient((Patient) patientAlgorithm.deserialize(String.valueOf(patientObject)));
         Object providerObject = JsonUtils.readAsObject(serialized, "$['provider']");
@@ -87,6 +88,7 @@ public class EncounterAlgorithm extends BaseOpenmrsAlgorithm {
         Encounter encounter = (Encounter) object;
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", encounter.getUuid());
+        JsonUtils.writeAsString(jsonObject, "formDataUuid", encounter.getFormDataUuid());
         JsonUtils.writeAsBoolean(jsonObject, "voided", encounter.isVoided());
         JsonUtils.writeAsDateTime(jsonObject, "encounterDatetime", encounter.getEncounterDatetime());
         String patient = patientAlgorithm.serialize(encounter.getPatient());

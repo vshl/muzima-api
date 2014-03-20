@@ -42,4 +42,6 @@ public interface ObservationDao extends OpenmrsDao<Observation> {
                           final Integer page, final Integer pageSize) throws IOException;
 
     List<Observation> get(final Concept concept) throws IOException;
+
+    List<Observation> get(final String formDataUuid) throws IOException;
 }

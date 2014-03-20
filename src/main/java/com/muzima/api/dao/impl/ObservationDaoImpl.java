@@ -80,4 +80,14 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
         }
         return service.getObjects(filters, daoClass);
     }
+
+    @Override
+    public List<Observation> get(String formDataUuid) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if(formDataUuid != null){
+            Filter conceptFilter = FilterFactory.createFilter("formDataUuid", formDataUuid);
+            filters.add(conceptFilter);
+        }
+        return service.getObjects(filters, daoClass);
+    }
 }
