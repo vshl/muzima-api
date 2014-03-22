@@ -20,6 +20,7 @@ import com.muzima.api.dao.NotificationDao;
 import com.muzima.api.model.Notification;
 import com.muzima.api.service.NotificationService;
 import com.muzima.search.api.util.CollectionUtil;
+import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class NotificationServiceImpl implements NotificationService {
 
@@ -89,7 +91,13 @@ public class NotificationServiceImpl implements NotificationService {
      */
     @Override
     public void saveNotification(final Notification notification) throws IOException {
-        notificationDao.save(notification, Constants.UUID_NOTIFICATION_RESOURCE);
+
+        if (StringUtil.isEmpty(notification.getUuid())) {
+            String uuid = UUID.randomUUID().toString();
+            notification.setUuid(uuid);
+            notificationDao.save(notification, Constants.UUID_NOTIFICATION_RESOURCE);
+        } else
+            notificationDao.update(notification, Constants.UUID_NOTIFICATION_RESOURCE);
     }
 
     /**
@@ -110,6 +118,16 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public Notification getNotificationByUuid(final String notificationUuid) throws IOException {
         return notificationDao.getByUuid(notificationUuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see NotificationService#getNotificationBySource(String)
+     */
+    @Override
+    public Notification getNotificationBySource(final String source) throws IOException {
+        return notificationDao.getNotificationBySource(source);
     }
 
     /**

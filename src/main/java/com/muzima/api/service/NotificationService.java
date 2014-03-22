@@ -78,6 +78,17 @@ public interface NotificationService extends MuzimaInterface {
     public Notification getNotificationByUuid(final String notificationUuid) throws IOException;
 
     /**
+     * Get a single notification record from the local repository with matching uuid.
+     *
+     * @param source the notification uuid.
+     * @return notification with matching source or null when no notification match the source.
+     * @throws IOException when search api unable to process the resource.
+     * @should return notification with matching uuid.
+     * @should return null when no notification matching the source.
+     */
+    public Notification getNotificationBySource(final String source) throws IOException;
+
+    /**
      * Get list of notification from a particular sender from the local lucene repository.
      *
      * @param senderUuid the sender uuid.

@@ -19,6 +19,7 @@ import com.muzima.api.dao.NotificationDao;
 import com.muzima.api.model.Notification;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
+import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.StringUtil;
 
 import java.io.IOException;
@@ -123,6 +124,24 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
             filters.add(filter);
         }
         return service.getObjects(filters, daoClass, page, pageSize);
+    }
+
+    @Override
+    public Notification getNotificationBySource(final String source) throws IOException {
+        Notification notification = null;
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(source)) {
+            Filter filter = FilterFactory.createFilter("source", source);
+            filters.add(filter);
+        }
+
+        List<Notification> notifications = service.getObjects(filters, daoClass);
+        if (!CollectionUtil.isEmpty(notifications)) {
+            if (notifications.size() > 1)
+                throw new IOException("Unable to uniquely identify a notification using the source");
+            notification = notifications.get(0);
+        }
+        return notification;
     }
 }
 

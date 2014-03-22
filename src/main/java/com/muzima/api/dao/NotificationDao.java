@@ -60,5 +60,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
     List<Notification> getNotificationByReceiver(final String receiverUuid, final Integer page,
                                                  final Integer pageSize) throws IOException, ParseException;
 
+    Notification getNotificationBySource(final String source) throws IOException;
+
 
 }
