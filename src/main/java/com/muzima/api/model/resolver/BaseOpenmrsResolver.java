@@ -61,17 +61,22 @@ public abstract class BaseOpenmrsResolver implements Resolver {
                     HostnameVerifier hostnameVerifier = new HostnameVerifier() {
                         @Override
                         public boolean verify(String hostname, SSLSession session) {
-                            return (hostname.equals("192.168.5.201"));
+                            return (hostname.endsWith("ampath.or.ke"));
                         }
                     };
                     httpsURLConnection.setHostnameVerifier(hostnameVerifier);
                 }
             }
-        }
 
-        String userPassword = getConfiguration().getUsername() + ":" + getConfiguration().getPassword();
-        String basicAuth = "Basic " + new String(new Base64().encode(userPassword.getBytes()));
-        connection.setRequestProperty ("Authorization", basicAuth);
-        return connection;
+            String userPassword = getConfiguration().getUsername() + ":" + getConfiguration().getPassword();
+            String basicAuth = "Basic " + new String(new Base64().encode(userPassword.getBytes()));
+            httpsURLConnection.setRequestProperty ("Authorization", basicAuth);
+            return httpsURLConnection;
+        } else {
+            String userPassword = getConfiguration().getUsername() + ":" + getConfiguration().getPassword();
+            String basicAuth = "Basic " + new String(new Base64().encode(userPassword.getBytes()));
+            connection.setRequestProperty("Authorization", basicAuth);
+            return connection;
+        }
     }
 }

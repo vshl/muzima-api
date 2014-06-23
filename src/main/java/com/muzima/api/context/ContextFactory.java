@@ -19,6 +19,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.muzima.api.module.MuzimaModule;
+import com.muzima.api.module.SslModule;
 import com.muzima.search.api.module.SearchModule;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
@@ -111,8 +112,9 @@ public class ContextFactory {
         muzimaModule.setRepositoryPath(getProperty(Constants.LUCENE_DIRECTORY_PATH));
         muzimaModule.setEncryptionKey(getProperty(Constants.LUCENE_ENCRYPTION_KEY));
         muzimaModule.setUseEncryption(false);
+        SslModule sslModule = new SslModule();
         SearchModule searchModule = new SearchModule();
-        Injector injector = Guice.createInjector(muzimaModule, searchModule);
+        Injector injector = Guice.createInjector(muzimaModule, sslModule, searchModule);
         return new Context(injector);
     }
 }
