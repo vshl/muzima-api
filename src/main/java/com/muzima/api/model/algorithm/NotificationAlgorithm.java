@@ -53,8 +53,10 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
         notification.setSource(JsonUtils.readAsString(serialized, "$['source']"));
         notification.setStatus(JsonUtils.readAsString(serialized, "$['status']"));
         notification.setPayload(JsonUtils.readAsString(serialized, "$['payload']"));
+
         Object senderObject = JsonUtils.readAsObject(serialized, "$['sender']");
         notification.setSender((Person) personAlgorithm.deserialize(String.valueOf(senderObject)));
+
         Object receiverObject = JsonUtils.readAsObject(serialized, "$['receiver']");
         notification.setReceiver((Person) personAlgorithm.deserialize(String.valueOf(receiverObject)));
         return notification;
@@ -76,8 +78,10 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
         JsonUtils.writeAsString(jsonObject, "source", notification.getSource());
         JsonUtils.writeAsString(jsonObject, "status", notification.getStatus());
         JsonUtils.writeAsString(jsonObject, "payload", notification.getPayload());
+
         String sender = personAlgorithm.serialize(notification.getSender());
         jsonObject.put("sender", JsonPath.read(sender, "$"));
+
         String receiver = personAlgorithm.serialize(notification.getReceiver());
         jsonObject.put("receiver", JsonPath.read(receiver, "$"));
         return jsonObject.toJSONString();

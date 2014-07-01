@@ -145,6 +145,10 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
     private String getPayloadBasedOnDiscriminator(FormData formData) {
         if("json-encounter".equals(formData.getDiscriminator()))
             return formData.getJsonPayload();
+
+        if("json-consultation".equals(formData.getDiscriminator()))
+            return formData.getJsonPayload();
+
         return formData.getXmlPayload();
     }
 
