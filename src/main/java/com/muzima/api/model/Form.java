@@ -25,6 +25,8 @@ public class Form extends OpenmrsSearchable implements Comparable<Form>{
 
     private String description;
 
+    private String discriminator;
+
     private Tag[] tags;
 
     private String version;
@@ -63,6 +65,14 @@ public class Form extends OpenmrsSearchable implements Comparable<Form>{
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDiscriminator() {
+        return discriminator;
+    }
+
+    public void setDiscriminator(final String discriminator) {
+        this.discriminator = discriminator;
     }
 
     /**

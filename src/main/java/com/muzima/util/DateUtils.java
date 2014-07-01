@@ -16,7 +16,7 @@ public class DateUtils {
      * @return the equilavent UTC time in ISO8601 format
      */
     public static String getUtcTimeInIso8601(Date syncDate) {
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(syncDate);
         return ISO8601Util.fromCalendar(calendar);
     }

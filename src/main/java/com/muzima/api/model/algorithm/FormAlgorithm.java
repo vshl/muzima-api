@@ -26,7 +26,7 @@ import java.util.List;
 
 public class FormAlgorithm extends BaseOpenmrsAlgorithm {
 
-    public static final String STANDARD_FORM_REPRESENTATION = "(uuid,name,description,tags:(uuid,name,uuid))";
+    public static final String STANDARD_FORM_REPRESENTATION = "(uuid,name,discriminator,description,tags:(uuid,name,uuid))";
 
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
@@ -40,6 +40,7 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
         form.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
         form.setName(JsonUtils.readAsString(serialized, "$['name']"));
         form.setDescription(JsonUtils.readAsString(serialized, "$['description']"));
+        form.setDiscriminator(JsonUtils.readAsString(serialized, "$['discriminator']"));
         List<Object> objects = JsonUtils.readAsObjectList(serialized, "$['tags']");
         List<Tag> formTags = new ArrayList<Tag>();
         for (Object tagObject : objects) {
@@ -68,6 +69,7 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
         JsonUtils.writeAsString(jsonObject, "uuid", form.getUuid());
         JsonUtils.writeAsString(jsonObject, "name", form.getName());
         JsonUtils.writeAsString(jsonObject, "description", form.getDescription());
+        JsonUtils.writeAsString(jsonObject, "discriminator", form.getDiscriminator());
         JsonUtils.writeAsString(jsonObject, "version", form.getVersion());
         jsonObject.put("tags", readTagsToJsonArray(form));
         return jsonObject.toJSONString();
