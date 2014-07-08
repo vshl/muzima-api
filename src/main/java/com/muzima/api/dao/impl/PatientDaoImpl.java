@@ -41,8 +41,7 @@ public class PatientDaoImpl extends OpenmrsDaoImpl<Patient> implements PatientDa
      *
      * @param identifier the identifier of the patient.
      * @return the patient with matching identifier.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
     public Patient getByIdentifier(final String identifier) throws IOException {

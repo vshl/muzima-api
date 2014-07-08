@@ -40,8 +40,7 @@ public interface PatientDao extends OpenmrsDao<Patient> {
      *
      * @param name the partial name of the cohort or empty string.
      * @return the list of all matching cohort on the cohort name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     List<Patient> getPatientByName(final String name) throws IOException, ParseException;
 
@@ -53,22 +52,19 @@ public interface PatientDao extends OpenmrsDao<Patient> {
      *
      * @param term the term that should match.
      * @return all patients with matching name or identifier.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     List<Patient> search(final String term) throws ParseException, IOException;
 
     /**
      * Search for patients matching the term on name and identifier.
      *
-     * @param term the term that should match.
+     * @param term       the term that should match.
      * @param cohortUuid the cohort to search in
      * @return all patients with matching name or identifier within cohort.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     List<Patient> search(final String term, final String cohortUuid) throws ParseException, IOException;
-
 
 
     List<Patient> search(final String term, final Integer page,

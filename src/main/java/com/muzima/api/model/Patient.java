@@ -73,13 +73,14 @@ public class Patient extends Person implements Comparable<Patient> {
 
     /**
      * Removes the PatientIdentifier with the given identifier type name.
+     *
      * @param identifierTypeName the name of the identifier type
      */
-    public void removeIdentifier(String identifierTypeName){
+    public void removeIdentifier(String identifierTypeName) {
         Iterator<PatientIdentifier> iterator = getIdentifiers().iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             PatientIdentifier next = iterator.next();
-            if(identifierTypeName.equals(next.getIdentifierType().getName())){
+            if (identifierTypeName.equals(next.getIdentifierType().getName())) {
                 iterator.remove();
             }
         }

@@ -15,7 +15,6 @@
  */
 package com.muzima.api.model.algorithm;
 
-import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.PatientIdentifierType;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.util.JsonUtils;

@@ -18,7 +18,6 @@ package com.muzima.api.dao;
 import com.google.inject.ImplementedBy;
 import com.muzima.api.dao.impl.NotificationDaoImpl;
 import com.muzima.api.model.Notification;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.List;
@@ -31,7 +30,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
      *
      * @param senderUuid the sender's uuid.
      * @return list of all notification with matching sender uuid or empty list when no notification match the
-     *         sender's uuid.
+     * sender's uuid.
      * @throws IOException when search api unable to process the resource.
      * @should return list of all notifications  with matching sender's uuid..
      * @should return empty list when no notification match the sender's uuid..
@@ -39,7 +38,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
     List<Notification> getNotificationBySender(final String senderUuid) throws IOException;
 
     List<Notification> getNotificationBySender(final String senderUuid, final Integer page,
-                                               final Integer pageSize) throws IOException, ParseException;
+                                               final Integer pageSize) throws IOException;
 
     List<Notification> getNotificationBySender(final String senderUuid, final String status) throws IOException;
 
@@ -48,7 +47,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
      *
      * @param receiverUuid the receiver's uuid.
      * @return list of all notification with matching receiver uuid or empty list when no notification match the
-     *         receiver's uuid.
+     * receiver's uuid.
      * @throws IOException when search api unable to process the resource.
      * @should return list of all notifications with matching receiver's uuid..
      * @should return empty list when no notification match the receiver's uuid..
@@ -58,7 +57,7 @@ public interface NotificationDao extends OpenmrsDao<Notification> {
     List<Notification> getNotificationByReceiver(final String receiverUuid, final String status) throws IOException;
 
     List<Notification> getNotificationByReceiver(final String receiverUuid, final Integer page,
-                                                 final Integer pageSize) throws IOException, ParseException;
+                                                 final Integer pageSize) throws IOException;
 
     Notification getNotificationBySource(final String source) throws IOException;
 

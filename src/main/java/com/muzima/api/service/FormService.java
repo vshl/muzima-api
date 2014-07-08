@@ -20,7 +20,6 @@ import com.muzima.api.model.Form;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.api.service.impl.FormServiceImpl;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.Date;
@@ -36,8 +35,7 @@ public interface FormService extends MuzimaInterface {
      * Download a single form record from the form rest resource into the local lucene repository.
      *
      * @param uuid the uuid of the form.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download form with matching uuid.
      */
     Form downloadFormByUuid(final String uuid) throws IOException;
@@ -45,7 +43,7 @@ public interface FormService extends MuzimaInterface {
     /**
      * Download all forms with name similar to the partial name passed in the parameter.
      *
-     * @param name the partial name of the form to be downloaded. When empty, will return all forms available.
+     * @param name     the partial name of the form to be downloaded. When empty, will return all forms available.
      * @param syncDate time the forms where last synched to the server.
      * @throws IOException when search api unable to process the resource.
      * @should download all form with partially matched name.
@@ -193,23 +191,21 @@ public interface FormService extends MuzimaInterface {
      *
      * @param name the name of the form.
      * @return list of all matching form templates based on the name of the form.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download the form template by the name of the form.
      */
-    List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException;
+    List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException;
 
     /**
      * Download form templates by the name of the form associated with the form template.
      *
-     * @param name the name of the form.
+     * @param name     the name of the form.
      * @param syncDate time the forms where last synched to the server.
      * @return list of all matching form templates based on the name of the form.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download the form template by the name of the form.
      */
-    List<FormTemplate> downloadFormTemplatesByName(final String name, final Date syncDate) throws IOException, ParseException;
+    List<FormTemplate> downloadFormTemplatesByName(final String name, final Date syncDate) throws IOException;
 
     /**
      * Save a new form template to the repository.
@@ -382,8 +378,8 @@ public interface FormService extends MuzimaInterface {
     boolean syncFormData(final FormData formData) throws IOException;
 
     /**
-     *
      * Fetches FormData from DB which matches templateUUID.
+     *
      * @param templateUUID
      * @return List of FormData that matches templateUUID.
      */

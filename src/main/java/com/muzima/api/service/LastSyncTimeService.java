@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Date;
 
 @ImplementedBy(LastSyncTimeServiceImpl.class)
-public interface LastSyncTimeService  extends MuzimaInterface{
+public interface LastSyncTimeService extends MuzimaInterface {
 
     Date getLastSyncTimeFor(APIName apiName) throws IOException, IncorrectParamSignatureException;
 
@@ -19,8 +19,8 @@ public interface LastSyncTimeService  extends MuzimaInterface{
 
     void saveLastSyncTime(LastSyncTime lastSyncTime) throws IOException;
 
-    public static class IncorrectParamSignatureException extends IOException{
-        public IncorrectParamSignatureException(String message){
+    public static class IncorrectParamSignatureException extends IOException {
+        public IncorrectParamSignatureException(String message) {
             super(message);
         }
     }

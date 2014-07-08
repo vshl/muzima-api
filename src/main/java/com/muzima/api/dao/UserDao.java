@@ -31,8 +31,7 @@ public interface UserDao extends OpenmrsDao<User> {
      *
      * @param username the username
      * @return user with matching username.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     User getByUsername(final String username) throws ParseException, IOException;
 
@@ -41,8 +40,7 @@ public interface UserDao extends OpenmrsDao<User> {
      *
      * @param name the partial name of the user or empty string.
      * @return the list of all matching user on the user name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     List<User> getUserByName(final String name) throws ParseException, IOException;
 }

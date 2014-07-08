@@ -76,10 +76,10 @@ public abstract class OpenmrsSearchable implements Searchable, Serializable {
     /**
      * Object equality implementation will be based on the uuid of the object.
      *
-     * @param   obj   the reference object with which to compare.
-     * @return  {@code true} if this object is the same as the obj
-     *          argument; {@code false} otherwise.
-     * @see     #hashCode()
+     * @param obj the reference object with which to compare.
+     * @return {@code true} if this object is the same as the obj
+     * argument; {@code false} otherwise.
+     * @see #hashCode()
      */
     public boolean equals(Object obj) {
         if (this == obj)

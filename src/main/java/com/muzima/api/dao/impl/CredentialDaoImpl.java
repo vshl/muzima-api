@@ -21,7 +21,6 @@ import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.StringUtil;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,11 +49,10 @@ public class CredentialDaoImpl extends SearchableDaoImpl<Credential> implements 
      *
      * @param username the username of the user.
      * @return credential with matching username.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
     @Override
-    public Credential getByUsername(final String username) throws ParseException, IOException {
+    public Credential getByUsername(final String username) throws IOException {
         Credential credential = null;
         List<Filter> filters = new ArrayList<Filter>();
         if (!StringUtil.isEmpty(username)) {

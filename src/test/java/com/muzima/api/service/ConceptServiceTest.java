@@ -20,7 +20,6 @@ import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Concept;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

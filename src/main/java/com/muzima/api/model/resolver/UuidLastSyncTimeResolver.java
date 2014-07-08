@@ -13,7 +13,6 @@
  */
 package com.muzima.api.model.resolver;
 
-import com.muzima.api.model.algorithm.FormAlgorithm;
 import com.muzima.api.model.algorithm.LastSyncTimeAlgorithm;
 import com.muzima.search.api.util.StringUtil;
 

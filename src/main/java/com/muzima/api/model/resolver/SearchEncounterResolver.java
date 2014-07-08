@@ -28,6 +28,7 @@ public class SearchEncounterResolver extends BaseOpenmrsResolver {
 
     private static final String REPRESENTATION =
             "?v=custom:" + EncounterAlgorithm.ENCOUNTER_STANDARD_REPRESENTATION;
+
     /**
      * Return the full REST resource based on the parameters passed to the method.
      *

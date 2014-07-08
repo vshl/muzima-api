@@ -16,7 +16,6 @@
 package com.muzima.api.service;
 
 import com.google.inject.ImplementedBy;
-import com.muzima.api.annotation.Authorization;
 import com.muzima.api.model.Cohort;
 import com.muzima.api.model.CohortData;
 import com.muzima.api.model.CohortMember;
@@ -54,7 +53,7 @@ public interface CohortService extends MuzimaInterface {
     /**
      * Download all cohorts with name similar to the partial name and sync date passed in the parameter.
      *
-     * @param name the partial name of the cohort to be downloaded. When empty, will return all cohorts available.
+     * @param name     the partial name of the cohort to be downloaded. When empty, will return all cohorts available.
      * @param syncDate last sync date of the cohort.
      * @throws IOException when search api unable to process the resource.
      * @should download all cohorts with partially matched name.

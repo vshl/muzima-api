@@ -145,14 +145,14 @@ public class Concept extends OpenmrsSearchable implements Comparable<Concept> {
         int index = 0;
         ConceptName conceptName = conceptNames.get(index);
         boolean found = name.equalsIgnoreCase(conceptName.getName());
-        while (!found & index<conceptNames.size()){
+        while (!found & index < conceptNames.size()) {
             conceptName = conceptNames.get(index++);
             found = name.equalsIgnoreCase(conceptName.getName().trim());
         }
         return found;
     }
 
-    public boolean isCreatedOnDevice(){
+    public boolean isCreatedOnDevice() {
         return getUuid().startsWith(Constants.CONCEPT_CREATED_ON_PHONE);
     }
 }

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 
 public class PersonTest {
     @Test
-    public void shouldReturnCorrectDisplayName(){
+    public void shouldReturnCorrectDisplayName() {
         PersonName personName = new PersonName();
         String familyName = "Family";
         personName.setFamilyName(familyName);

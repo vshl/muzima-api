@@ -24,14 +24,18 @@ import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.api.service.FormService;
 import com.muzima.search.api.util.CollectionUtil;
-import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import com.muzima.util.DateUtils;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class FormServiceImpl implements FormService {
 
@@ -242,7 +246,7 @@ public class FormServiceImpl implements FormService {
      * @see FormService#downloadFormTemplatesByName(String)
      */
     @Override
-    public List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException, ParseException {
+    public List<FormTemplate> downloadFormTemplatesByName(final String name) throws IOException {
         return downloadFormTemplatesByName(name, null);
     }
 
@@ -252,14 +256,12 @@ public class FormServiceImpl implements FormService {
      * @see FormService#downloadFormTemplatesByName(String, java.util.Date)
      */
     @Override
-    public List<FormTemplate> downloadFormTemplatesByName(final String name, final Date syncDate) throws IOException, ParseException {
+    public List<FormTemplate> downloadFormTemplatesByName(final String name, final Date syncDate) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(syncDate);
-            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            parameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
         }
         return formTemplateDao.download(parameter, Constants.SEARCH_FORM_TEMPLATE_RESOURCE);
     }

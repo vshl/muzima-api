@@ -21,7 +21,6 @@ import com.muzima.api.model.Encounter;
 import com.muzima.api.model.Patient;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

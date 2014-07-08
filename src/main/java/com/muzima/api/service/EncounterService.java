@@ -68,6 +68,7 @@ public interface EncounterService extends MuzimaInterface {
 
     /**
      * Download list of encounters with matching patient.
+     *
      * @param patient the patient who own the encounter.
      * @return list of encounters for the patient.
      * @throws java.io.IOException when the search api unable to process the resource.

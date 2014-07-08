@@ -26,7 +26,11 @@ import com.muzima.util.Constants;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PatientServiceImpl implements PatientService {
 
@@ -121,7 +125,7 @@ public class PatientServiceImpl implements PatientService {
      * @see PatientService#savePatient(com.muzima.api.model.Patient)
      */
     @Override
-    public Patient savePatient(final Patient patient) throws IOException, ParseException {
+    public Patient savePatient(final Patient patient) throws IOException {
         if (!patientExists(patient)) {
             patientDao.save(patient, Constants.UUID_PATIENT_RESOURCE);
             return patient;
@@ -274,7 +278,7 @@ public class PatientServiceImpl implements PatientService {
         return memberDao.countByPatientUUID(patient.getUuid()) == 0;
     }
 
-    private boolean patientExists(Patient patient) throws IOException, ParseException {
+    private boolean patientExists(Patient patient) throws IOException {
         return patientDao.getByUuid(patient.getUuid()) != null;
     }
 

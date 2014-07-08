@@ -46,7 +46,7 @@ public interface PatientService extends MuzimaInterface {
      * @throws IOException when search api unable to process the resource.
      * @should save patient to local data repository.
      */
-    Patient savePatient(final Patient patient) throws IOException, ParseException;
+    Patient savePatient(final Patient patient) throws IOException;
 
     /**
      * Save patients to the local lucene repository.
@@ -110,7 +110,7 @@ public interface PatientService extends MuzimaInterface {
      * Get all saved patients in the local repository.
      *
      * @return all registered patients or empty list when no patient is registered.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return all registered patients.
      * @should return empty list when no patient is registered.
      */
@@ -143,7 +143,7 @@ public interface PatientService extends MuzimaInterface {
     /**
      * Search for patients with matching characteristic on the name or identifier with the search term, within the give cohort.
      *
-     * @param term the search term
+     * @param term       the search term
      * @param cohortUuid the Uuid of the cohort, only patients within the cohort will be searched
      * @return list of all patients in the cohort with matching search term on the searchable fields or empty list.
      * @throws ParseException when query parser from lucene unable to parse the query string.
@@ -172,7 +172,6 @@ public interface PatientService extends MuzimaInterface {
     void deletePatients(final List<Patient> patients) throws IOException;
 
     /**
-     *
      * @return List of patients that are not a part of any cohort.
      */
     List<Patient> getPatientsNotInCohorts() throws IOException;

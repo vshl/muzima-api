@@ -32,8 +32,7 @@ public interface UserService extends MuzimaInterface {
      * Download a single user record from the user rest resource into the local lucene repository.
      *
      * @param username the username of the user.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download user with matching uuid.
      */
     User downloadUserByUsername(final String username) throws IOException;
@@ -42,8 +41,7 @@ public interface UserService extends MuzimaInterface {
      * Download all users with name similar to the partial name passed in the parameter.
      *
      * @param name the partial name of the user to be downloaded. When empty, will return all users available.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download all user with partially matched name.
      * @should download all user when name is empty.
      */
@@ -82,12 +80,11 @@ public interface UserService extends MuzimaInterface {
      *
      * @param name the name of the user.
      * @return user with matching name or null when no user match the name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return user with matching username.
      * @should return null when no user match the username.
      */
-    List<User> getUserByName(final String name) throws IOException, ParseException;
+    List<User> getUserByName(final String name) throws IOException;
 
     /**
      * Get a single user using the user name.
@@ -105,12 +102,11 @@ public interface UserService extends MuzimaInterface {
      * Get all saved users in the local repository.
      *
      * @return all registered users or empty list when no user is registered.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return all registered users.
      * @should return empty list when no user is registered.
      */
-    List<User> getAllUsers() throws IOException, ParseException;
+    List<User> getAllUsers() throws IOException;
 
     /**
      * Delete a user record from the local repository.
@@ -154,21 +150,19 @@ public interface UserService extends MuzimaInterface {
      *
      * @param username the username.
      * @return the credential record for the username.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return credential for the username.
      */
-    Credential getCredentialByUsername(final String username) throws IOException, ParseException;
+    Credential getCredentialByUsername(final String username) throws IOException;
 
     /**
      * Get all credential records.
      *
      * @return all credential records from the local repository.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return all saved credential records from local repository.
      */
-    List<Credential> getAllCredentials() throws IOException, ParseException;
+    List<Credential> getAllCredentials() throws IOException;
 
     /**
      * Delete a credential record from the local repository.
@@ -192,11 +186,10 @@ public interface UserService extends MuzimaInterface {
      * Download all privilege records matching the privilege name.
      *
      * @param name the partial name of the privileges.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download all privileges with matching name.
      */
-    List<Privilege> downloadPrivileges(final String name) throws IOException, ParseException;
+    List<Privilege> downloadPrivileges(final String name) throws IOException;
 
     /**
      * Save privilege object to the local lucene repository.
@@ -230,12 +223,11 @@ public interface UserService extends MuzimaInterface {
      *
      * @param name the partial name of the privileges.
      * @return all privileges with matching name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return all privileges with matching name.
      * @should return empty list when no privilege record match the name.
      */
-    List<Privilege> getPrivilegesByName(final String name) throws IOException, ParseException;
+    List<Privilege> getPrivilegesByName(final String name) throws IOException;
 
     /**
      * Delete privilege from the local repository.
@@ -259,11 +251,10 @@ public interface UserService extends MuzimaInterface {
      * Download role with matching name.
      *
      * @param name the name of the role.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download roles with matching name.
      */
-    List<Role> downloadRoles(final String name) throws IOException, ParseException;
+    List<Role> downloadRoles(final String name) throws IOException;
 
     /**
      * Save the role object to the local lucene repository.
@@ -296,12 +287,11 @@ public interface UserService extends MuzimaInterface {
      *
      * @param name the partial name of the role.
      * @return all roles with matching name.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return role records with matching name.
      * @should return empty list when no record matching the name.
      */
-    List<Role> getRolesByName(final String name) throws IOException, ParseException;
+    List<Role> getRolesByName(final String name) throws IOException;
 
     /**
      * Delete role record from the local repository.

@@ -22,20 +22,16 @@ import com.muzima.api.model.Concept;
 import com.muzima.api.model.Observation;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.ObservationService;
-import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import com.muzima.util.DateUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.muzima.util.Constants.OBSERVATION_CREATED_ON_PHONE;
 
 public class ObservationServiceImpl implements ObservationService {
 
@@ -71,9 +67,7 @@ public class ObservationServiceImpl implements ObservationService {
             put("concept", concept.getUuid());
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(syncDate);
-            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            parameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
         }
         String resourceName = Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE;
         if (concept.isCoded()) {
@@ -105,9 +99,7 @@ public class ObservationServiceImpl implements ObservationService {
             put("concept", conceptUuid);
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(syncDate);
-            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            parameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
         }
         Concept concept = conceptDao.getByUuid(conceptUuid);
         String resourceName = Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE;
@@ -165,9 +157,7 @@ public class ObservationServiceImpl implements ObservationService {
                 put("concept", codedBuilder.toString());
             }};
             if (syncDate != null) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(syncDate);
-                codedParameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+                codedParameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
             }
             List<Observation> codedObservations = observationDao.download(codedParameter,
                     Constants.SEARCH_OBSERVATION_CODED_RESOURCE);
@@ -180,9 +170,7 @@ public class ObservationServiceImpl implements ObservationService {
                 put("concept", nonCodedBuilder.toString());
             }};
             if (syncDate != null) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(syncDate);
-                nonCodedParameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+                nonCodedParameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
             }
             List<Observation> nonCodedObservations = observationDao.download(nonCodedParameter,
                     Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE);
@@ -254,9 +242,7 @@ public class ObservationServiceImpl implements ObservationService {
                 put("concept", nonCodedBuilder.toString());
             }};
             if (syncDate != null) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(syncDate);
-                nonCodedParameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+                nonCodedParameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
             }
             List<Observation> nonCodedObservations = observationDao.download(nonCodedParameter,
                     Constants.SEARCH_OBSERVATION_NON_CODED_RESOURCE);
@@ -349,7 +335,6 @@ public class ObservationServiceImpl implements ObservationService {
     public List<Observation> getObservationsByPatientAndConcept(final String patientUuid, final String conceptUuid) throws IOException {
         return observationDao.get(patientUuid, conceptUuid);
     }
-
 
 
     /**

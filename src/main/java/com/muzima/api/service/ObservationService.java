@@ -20,7 +20,6 @@ import com.muzima.api.model.Concept;
 import com.muzima.api.model.Observation;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.impl.ObservationServiceImpl;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.Date;
@@ -142,7 +141,6 @@ public interface ObservationService extends MuzimaInterface {
                                                          final Concept concept) throws IOException;
 
     /**
-     *
      * @param concept
      * @return List of Observations for the given Concept
      * @throws IOException

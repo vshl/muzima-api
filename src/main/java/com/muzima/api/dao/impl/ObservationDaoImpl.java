@@ -74,7 +74,7 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
     @Override
     public List<Observation> get(Concept concept) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
-        if(concept != null){
+        if (concept != null) {
             Filter conceptFilter = FilterFactory.createFilter("conceptUuid", concept.getUuid());
             filters.add(conceptFilter);
         }
@@ -84,7 +84,7 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
     @Override
     public List<Observation> get(String formDataUuid) throws IOException {
         List<Filter> filters = new ArrayList<Filter>();
-        if(formDataUuid != null){
+        if (formDataUuid != null) {
             Filter conceptFilter = FilterFactory.createFilter("formDataUuid", formDataUuid);
             filters.add(conceptFilter);
         }

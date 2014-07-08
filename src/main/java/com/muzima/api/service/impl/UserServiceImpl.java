@@ -142,7 +142,7 @@ public class UserServiceImpl implements UserService {
      * @see UserService#getUserByName(String)
      */
     @Override
-    public List<User> getUserByName(final String name) throws IOException, ParseException {
+    public List<User> getUserByName(final String name) throws IOException {
         return userDao.getByName(name);
     }
 
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
      * @see com.muzima.api.service.UserService#getAllUsers()
      */
     @Override
-    public List<User> getAllUsers() throws IOException, ParseException {
+    public List<User> getAllUsers() throws IOException {
         return userDao.getAll();
     }
 
@@ -212,7 +212,7 @@ public class UserServiceImpl implements UserService {
      * @see UserService#getCredentialByUsername(String)
      */
     @Override
-    public Credential getCredentialByUsername(final String username) throws IOException, ParseException {
+    public Credential getCredentialByUsername(final String username) throws IOException {
         return credentialDao.getByUsername(username);
     }
 
@@ -222,7 +222,7 @@ public class UserServiceImpl implements UserService {
      * @see com.muzima.api.service.UserService#getAllCredentials()
      */
     @Override
-    public List<Credential> getAllCredentials() throws IOException, ParseException {
+    public List<Credential> getAllCredentials() throws IOException {
         return credentialDao.getAll();
     }
 
@@ -306,7 +306,7 @@ public class UserServiceImpl implements UserService {
      * @see UserService#getPrivilegesByName(String)
      */
     @Override
-    public List<Privilege> getPrivilegesByName(final String name) throws IOException, ParseException {
+    public List<Privilege> getPrivilegesByName(final String name) throws IOException {
         return privilegeDao.getByName(name);
     }
 
@@ -347,7 +347,7 @@ public class UserServiceImpl implements UserService {
      * @see UserService#downloadRoles(String)
      */
     @Override
-    public List<Role> downloadRoles(final String name) throws IOException, ParseException {
+    public List<Role> downloadRoles(final String name) throws IOException {
         Map<String, String> parameter = new HashMap<String, String>() {{
             put("q", name);
         }};
@@ -390,7 +390,7 @@ public class UserServiceImpl implements UserService {
      * @see UserService#getRolesByName(String)
      */
     @Override
-    public List<Role> getRolesByName(final String name) throws IOException, ParseException {
+    public List<Role> getRolesByName(final String name) throws IOException {
         return roleDao.getByName(name);
     }
 

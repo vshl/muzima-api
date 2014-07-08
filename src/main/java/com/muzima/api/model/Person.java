@@ -136,7 +136,7 @@ public class Person extends OpenmrsSearchable {
     }
 
     public String getDisplayName() {
-        if(getFamilyName()== null && getGivenName()==null && getMiddleName()==null)
+        if (getFamilyName() == null && getGivenName() == null && getMiddleName() == null)
             return DISPLAY_NAME_FOR_ENCOUNTER_FOR_OBSERVATIONS_WITH_NULL_UUID;
         return getFamilyName() + ", " + getGivenName() + " " + getMiddleName();
     }

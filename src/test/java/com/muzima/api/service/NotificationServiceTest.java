@@ -19,7 +19,11 @@ import com.muzima.api.context.Context;
 import com.muzima.api.context.ContextFactory;
 import com.muzima.api.model.Notification;
 import com.muzima.util.Constants;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -137,6 +141,7 @@ public class NotificationServiceTest {
 //        Assert.fail("Not yet implemented");
 //    }
 //
+
     /**
      * @verifies save notifications to local data repository.
      * @see NotificationService#saveNotifications(java.util.List)
@@ -146,12 +151,12 @@ public class NotificationServiceTest {
         List<Notification> notifications = notificationService.getNotificationByReceiver(receiverUuid);
         int notificationCounter = notifications.size();
         System.out.println("notificationCounter = " + notificationCounter);
-        dynamicNotifications = notificationService.downloadNotificationByReceiver(receiverUuid) ;
+        dynamicNotifications = notificationService.downloadNotificationByReceiver(receiverUuid);
         System.out.println("Downloaded notifications = " + dynamicNotifications.size());
         notificationService.saveNotifications(dynamicNotifications);
         assertThat(notificationCounter + dynamicNotifications.size(), equalTo(1));
 
-                //equalTo(notificationService.getNotificationByReceiver(receiverUuid).size()));
+        //equalTo(notificationService.getNotificationByReceiver(receiverUuid).size()));
     }
 //
 //    /**
@@ -220,7 +225,7 @@ public class NotificationServiceTest {
      */
 //    @Test
 //    public void deleteNotification_shouldDeleteTheNotificationObjectFromTheLocalRepository() throws Exception {
-        //TODO auto-generated
+    //TODO auto-generated
 //        assertThat(notificationService.getNotificationByReceiver("f8609d51-f8e5-4ecc-a105-5e987fc1b9ae"), hasSize(0));
 //        formService.saveForms(forms);
 //        List<Form> savedForms = formService.getAllForms();

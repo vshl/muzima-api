@@ -22,14 +22,12 @@ import com.muzima.api.model.Encounter;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.EncounterService;
 import com.muzima.search.api.util.CollectionUtil;
-import com.muzima.search.api.util.ISO8601Util;
 import com.muzima.util.Constants;
 import com.muzima.util.DateUtils;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -105,9 +103,7 @@ public class EncounterServiceImpl implements EncounterService {
             put("patient", patientUuid);
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(syncDate);
-            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            parameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
         }
         return encounterDao.download(parameter, Constants.SEARCH_ENCOUNTER_RESOURCE);
     }
@@ -160,9 +156,7 @@ public class EncounterServiceImpl implements EncounterService {
             put("patient", patientBuilder.toString());
         }};
         if (syncDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(syncDate);
-            parameter.put("syncDate", ISO8601Util.fromCalendar(calendar));
+            parameter.put("syncDate", DateUtils.getUtcTimeInIso8601(syncDate));
         }
         return encounterDao.download(parameter, Constants.SEARCH_ENCOUNTER_RESOURCE);
     }

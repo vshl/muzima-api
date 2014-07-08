@@ -30,10 +30,9 @@ import java.util.Map;
 
 public class CohortDataDaoImpl extends OpenmrsDaoImpl<CohortData> implements CohortDataDao {
 
+    private static final String TAG = CohortDataDaoImpl.class.getSimpleName();
     @Inject
     private ServiceContext serviceContext;
-
-    private static final String TAG = CohortDataDaoImpl.class.getSimpleName();
 
     protected CohortDataDaoImpl() {
         super(CohortData.class);

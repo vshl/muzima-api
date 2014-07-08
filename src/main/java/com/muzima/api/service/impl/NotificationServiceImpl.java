@@ -22,7 +22,6 @@ import com.muzima.api.service.NotificationService;
 import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -136,7 +135,7 @@ public class NotificationServiceImpl implements NotificationService {
      * @see NotificationService#getNotificationBySender(String)
      */
     @Override
-    public List<Notification> getNotificationBySender(final String senderUuid) throws IOException, ParseException {
+    public List<Notification> getNotificationBySender(final String senderUuid) throws IOException {
         return notificationDao.getNotificationBySender(senderUuid);
     }
 
@@ -146,7 +145,7 @@ public class NotificationServiceImpl implements NotificationService {
      * @see NotificationService#getNotificationBySender(String, String)
      */
     @Override
-    public List<Notification> getNotificationBySender(String senderUuid, String status) throws IOException, ParseException {
+    public List<Notification> getNotificationBySender(String senderUuid, String status) throws IOException {
         return notificationDao.getNotificationBySender(senderUuid, status);
     }
 
@@ -156,17 +155,17 @@ public class NotificationServiceImpl implements NotificationService {
      * @see NotificationService#getNotificationByReceiver(String)
      */
     @Override
-    public List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException, ParseException {
+    public List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException {
         return notificationDao.getNotificationByReceiver(receiverUuid);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @see NotificationService#getNotificationByReceiver(String,String)
+     * @see NotificationService#getNotificationByReceiver(String, String)
      */
     @Override
-    public List<Notification> getNotificationByReceiver(String receiverUuid, String status) throws IOException, ParseException {
+    public List<Notification> getNotificationByReceiver(String receiverUuid, String status) throws IOException {
         return notificationDao.getNotificationByReceiver(receiverUuid, status);
     }
 
@@ -182,5 +181,6 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void deleteNotifications(List<Notification> notifications) throws IOException {
-        notificationDao.delete(notifications, Constants.UUID_NOTIFICATION_RESOURCE);    }
+        notificationDao.delete(notifications, Constants.UUID_NOTIFICATION_RESOURCE);
+    }
 }

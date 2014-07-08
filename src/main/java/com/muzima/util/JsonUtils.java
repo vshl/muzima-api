@@ -62,7 +62,7 @@ public class JsonUtils {
     public static boolean readAsBoolean(final String jsonObject, final String path) {
         boolean returnedBoolean = false;
         try {
-            returnedBoolean = (Boolean)JsonPath.read(jsonObject, path);
+            returnedBoolean = (Boolean) JsonPath.read(jsonObject, path);
         } catch (Exception e) {
             logger.error("Unable to read boolean value with path: " + path + " from: " + String.valueOf(jsonObject));
         }
@@ -94,7 +94,7 @@ public class JsonUtils {
     public static double readAsNumeric(final String jsonObject, final String path) {
         double returnedString = 0;
         try {
-            returnedString = (Double)JsonPath.read(jsonObject, path);
+            returnedString = (Double) JsonPath.read(jsonObject, path);
         } catch (Exception e) {
             logger.error("Unable to read string value with path: " + path + " from: " + String.valueOf(jsonObject));
         }
@@ -221,7 +221,7 @@ public class JsonUtils {
      *
      * @param object the <code>{@link JSONObject}</code> object
      * @param path   the path in the object.
-     * @param date  the value to be assigned for the path.
+     * @param date   the value to be assigned for the path.
      */
     public static void writeAsDate(final Object object, final String path, final Date date) {
         if (object instanceof JSONObject && date != null) {
@@ -240,7 +240,7 @@ public class JsonUtils {
      */
     public static Date readAsDate(String serialized, String path) {
         String dateAsString = readAsString(serialized, path);
-        if(StringUtil.isEmpty(dateAsString)) {
+        if (StringUtil.isEmpty(dateAsString)) {
             return null;
         }
         try {

@@ -23,8 +23,6 @@ import com.muzima.api.model.Patient;
 import com.muzima.api.model.PersonName;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.lucene.queryParser.ParseException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,7 +36,15 @@ import java.util.UUID;
 
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isIn;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 /**
  * TODO: Write brief description about the class here.
@@ -361,7 +367,7 @@ public class PatientServiceTest {
     }
 
     @Test
-    public void shouldReturnPatientsThatAreNotInCohort() throws IOException, ParseException {
+    public void shouldReturnPatientsThatAreNotInCohort() throws IOException {
         Cohort cohort = new Cohort();
         cohort.setUuid("cohortUUID");
         cohortService.saveCohort(cohort);
@@ -420,7 +426,7 @@ public class PatientServiceTest {
 
     private Patient getPatientWith(String familyName, String givenName, String middle) {
         Patient patient1 = new Patient();
-        patient1.setUuid(RandomStringUtils.random(10));
+        patient1.setUuid(UUID.randomUUID().toString());
         PersonName personName = new PersonName();
         personName.setFamilyName(familyName);
         personName.setGivenName(givenName);

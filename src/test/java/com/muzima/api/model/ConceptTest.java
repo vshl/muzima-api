@@ -2,7 +2,6 @@ package com.muzima.api.model;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class ConceptTest {
         final String name = " PreferredName ";
         Concept aConcept = new Concept();
         aConcept.setConceptNames(Arrays.asList(conceptName(name)));
-        assertThat(aConcept.containsNameIgnoreLowerCase(name+"    "), is(true));
+        assertThat(aConcept.containsNameIgnoreLowerCase(name + "    "), is(true));
     }
 
     @Test

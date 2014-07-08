@@ -3,7 +3,6 @@ package com.muzima.api.dao;
 import com.google.inject.ImplementedBy;
 import com.muzima.api.dao.impl.CredentialDaoImpl;
 import com.muzima.api.model.Credential;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 
@@ -18,10 +17,9 @@ public interface CredentialDao extends SearchableDao<Credential> {
      *
      * @param username the username of the user.
      * @return credential with matching username.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      */
-    Credential getByUsername(final String username) throws ParseException, IOException;
+    Credential getByUsername(final String username) throws IOException;
 
     Credential getCredentialByUuid(String uuid) throws IOException;
 }

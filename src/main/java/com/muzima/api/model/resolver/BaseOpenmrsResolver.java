@@ -70,7 +70,7 @@ public abstract class BaseOpenmrsResolver implements Resolver {
 
             String userPassword = getConfiguration().getUsername() + ":" + getConfiguration().getPassword();
             String basicAuth = "Basic " + new String(new Base64().encode(userPassword.getBytes()));
-            httpsURLConnection.setRequestProperty ("Authorization", basicAuth);
+            httpsURLConnection.setRequestProperty("Authorization", basicAuth);
             return httpsURLConnection;
         } else {
             String userPassword = getConfiguration().getUsername() + ":" + getConfiguration().getPassword();

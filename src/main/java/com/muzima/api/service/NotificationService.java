@@ -3,7 +3,6 @@ package com.muzima.api.service;
 import com.google.inject.ImplementedBy;
 import com.muzima.api.model.Notification;
 import com.muzima.api.service.impl.NotificationServiceImpl;
-import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,23 +29,21 @@ public interface NotificationService extends MuzimaInterface {
      *
      * @param senderUuid the sender's uuid of the notification to be downloaded. When empty, will return all
      *                   notifications available.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download all notifications with matching sender's uuid.
      * @should download all notification when sender's uuid is empty.
      */
-    List<Notification> downloadNotificationBySender(final String senderUuid) throws IOException, ParseException;
+    List<Notification> downloadNotificationBySender(final String senderUuid) throws IOException;
 
     /**
      * Download all notifications for a particular receiver.
      *
      * @param receiverUuid the notification matching receiverUuid to be downloaded. When empty, will return all notifications available.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should download all notification with matching receiver's uuid.
      * @should download all notifications when receiver's uuid is empty.
      */
-    List<Notification> downloadNotificationByReceiver(final String receiverUuid) throws IOException, ParseException;
+    List<Notification> downloadNotificationByReceiver(final String receiverUuid) throws IOException;
 
     /**
      * Save notification to the local lucene repository.
@@ -93,50 +90,46 @@ public interface NotificationService extends MuzimaInterface {
      *
      * @param senderUuid the sender uuid.
      * @return list of all notification with matching sender's uuid or empty list .
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return list of all notifications  with matching sender's uuid.
      * @should return empty list when no notification match the sender's uuid.
      */
-    List<Notification> getNotificationBySender(final String senderUuid) throws IOException, ParseException;
+    List<Notification> getNotificationBySender(final String senderUuid) throws IOException;
 
     /**
      * Get list of notification for a particular sender from the local lucene repository.
      *
      * @param senderUuid the sender uuid.
-     * @param status  the status of notifications
+     * @param status     the status of notifications
      * @return list of all notification with matching receiverUuid or empty list.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return list of all notifications with matching receiver's uuid.
      * @should return empty list when no notification match the receiver's uuid.
      */
-    List<Notification> getNotificationBySender(final String senderUuid, final String status) throws IOException, ParseException;
+    List<Notification> getNotificationBySender(final String senderUuid, final String status) throws IOException;
 
     /**
      * Get list of notification for a particular receiver from the local lucene repository.
      *
      * @param receiverUuid the receiver uuid.
      * @return list of all notification with matching receiverUuid or empty list.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return list of all notifications with matching receiver's uuid.
      * @should return empty list when no notification match the receiver's uuid.
      */
-    List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException, ParseException;
+    List<Notification> getNotificationByReceiver(final String receiverUuid) throws IOException;
 
     /**
      * Get list of notification for a particular receiver from the local lucene repository.
      *
      * @param receiverUuid the receiver uuid.
-     * @param status  the status of notifications
+     * @param status       the status of notifications
      * @return list of all notification with matching receiverUuid or empty list.
-     * @throws ParseException when query parser from lucene unable to parse the query string.
-     * @throws IOException    when search api unable to process the resource.
+     * @throws IOException when search api unable to process the resource.
      * @should return list of all notifications with matching receiver's uuid.
      * @should return empty list when no notification match the receiver's uuid.
      */
-    List<Notification> getNotificationByReceiver(final String receiverUuid, final String status) throws IOException, ParseException;
+    List<Notification> getNotificationByReceiver(final String receiverUuid, final String status) throws IOException;
 
     /**
      * Delete a single notification object from the local repository.
@@ -147,5 +140,5 @@ public interface NotificationService extends MuzimaInterface {
      */
     void deleteNotification(final Notification notification) throws IOException;
 
-    void deleteNotifications(final List<Notification> notifications)  throws IOException;
+    void deleteNotifications(final List<Notification> notifications) throws IOException;
 }

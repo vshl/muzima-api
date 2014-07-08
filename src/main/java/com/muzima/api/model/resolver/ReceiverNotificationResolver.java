@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class ReceiverNotificationResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION =  "?v=custom:" + NotificationAlgorithm.NOTIFICATION_STANDARD_REPRESENTATION;
+    private static final String REPRESENTATION = "?v=custom:" + NotificationAlgorithm.NOTIFICATION_STANDARD_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.

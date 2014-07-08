@@ -16,7 +16,6 @@
 package com.muzima.api.dao.impl;
 
 import com.muzima.api.dao.EncounterDao;
-import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Encounter;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;

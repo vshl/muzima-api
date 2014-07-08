@@ -25,7 +25,7 @@ import java.util.Date;
 public class Notification extends OpenmrsSearchable {
 
     private String subject;
-    
+
     private Date dateCreated;
 
     private String status;
@@ -55,7 +55,7 @@ public class Notification extends OpenmrsSearchable {
     public void setSubject(final String subject) {
         this.subject = subject;
     }
-    
+
     /**
      * Get the date the notification was created
      *
@@ -79,28 +79,36 @@ public class Notification extends OpenmrsSearchable {
      *
      * @return the status of the notification information.
      */
-    public String getStatus() { return status; }
+    public String getStatus() {
+        return status;
+    }
 
     /**
      * Set the status of the notification information.
      *
      * @param status the status of the notification information.
      */
-    public void setStatus(final String status) { this.status = status; }
+    public void setStatus(final String status) {
+        this.status = status;
+    }
 
     /**
      * Get the source of the notification information.
      *
      * @return the source of the notification information.
      */
-    public String getSource() { return source; }
+    public String getSource() {
+        return source;
+    }
 
     /**
      * Set the source of the notification information.
      *
      * @param source the source of the notification information.
      */
-    public void setSource(final String source) { this.source = source; }
+    public void setSource(final String source) {
+        this.source = source;
+    }
 
     /**
      * Get the payload for the notification.

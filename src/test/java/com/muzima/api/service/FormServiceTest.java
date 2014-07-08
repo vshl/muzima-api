@@ -24,7 +24,6 @@ import com.muzima.api.model.Tag;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import net.minidev.json.JSONObject;
-import org.apache.commons.lang.RandomStringUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,7 +35,15 @@ import java.util.Random;
 import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isIn;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 
 /**
  * TODO: Write brief description about the class here.
@@ -650,15 +657,15 @@ public class FormServiceTest {
 
         List<FormData> formDataList = formService.getFormDataByTemplateUUID("template1");
 
-        assertThat(formDataList.size(),is(2));
-        assertThat(formDataList.get(0).getUuid(),is("Random1"));
-        assertThat(formDataList.get(1).getUuid(),is("Random2"));
+        assertThat(formDataList.size(), is(2));
+        assertThat(formDataList.get(0).getUuid(), is("Random1"));
+        assertThat(formDataList.get(1).getUuid(), is("Random2"));
     }
 
     @Test
     public void shouldReturnEmptyListIfNoFormDataExistForTemplateUUID() throws Exception {
         List<FormData> formDataList = formService.getFormDataByTemplateUUID("someTemplateId");
-        assertThat(formDataList.size(),is(0));
+        assertThat(formDataList.size(), is(0));
     }
 
     private FormData getFormData(String uuid, String templateUUID) {
@@ -671,7 +678,7 @@ public class FormServiceTest {
     private Form getFormWithName(String formName) {
         Form form = new Form();
         form.setTags(new Tag[]{});
-        form.setUuid(RandomStringUtils.random(10));
+        form.setUuid(UUID.randomUUID().toString());
         form.setName(formName);
         return form;
     }

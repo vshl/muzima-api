@@ -63,6 +63,7 @@ public interface ConceptService extends MuzimaInterface {
 
     /**
      * Get all concepts stored in the local data repository.
+     *
      * @return all concepts stored in the local data repository.
      * @throws IOException when the search api unable to process the resource.
      * @should return all concepts stored in the local data repository.
@@ -71,6 +72,7 @@ public interface ConceptService extends MuzimaInterface {
 
     /**
      * Count all concepts stored in the local data repository.
+     *
      * @return number of concepts stored in the local data repository.
      * @throws IOException when the search api unable to process the resource.
      * @should return number of concepts stored in the local data repository.

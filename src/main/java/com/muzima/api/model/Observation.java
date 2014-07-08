@@ -115,7 +115,7 @@ public class Observation extends OpenmrsSearchable {
     }
 
     public String getValueAsString() {
-        if(getConcept().getName().equals(StringUtil.EMPTY)) {
+        if (getConcept().getName().equals(StringUtil.EMPTY)) {
             throw new UnsupportedOperationException("The concept has not been loaded fully");
         }
         if (getConcept().isNumeric() && valueNumeric != null) {
@@ -132,7 +132,7 @@ public class Observation extends OpenmrsSearchable {
     }
 
     private String getStringOfNumeric() {
-        if(getConcept().isPrecise())
+        if (getConcept().isPrecise())
             return valueNumeric.toString();
         else
             return String.valueOf(valueNumeric.intValue());
