@@ -6,7 +6,6 @@
  * that uses this code in a for-profit venture, please contact the copyright holder.
  */
 
-
 package com.muzima.api.service;
 
 import com.muzima.api.model.APIName;
@@ -19,7 +18,6 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * Created by Thibaut on 2014/02/24.
  */
 public class LastSyncTimeServiceTest {
     @Test

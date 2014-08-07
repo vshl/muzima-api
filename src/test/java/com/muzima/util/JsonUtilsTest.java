@@ -6,7 +6,6 @@
  * that uses this code in a for-profit venture, please contact the copyright holder.
  */
 
-
 package com.muzima.util;
 
 import net.minidev.json.JSONObject;
