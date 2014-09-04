@@ -11,6 +11,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Patient;
 import com.muzima.api.model.PatientIdentifier;
+import com.muzima.api.model.PersonAttribute;
 import com.muzima.api.model.PersonName;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.util.JsonUtils;
@@ -24,11 +25,12 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String PATIENT_SIMPLE_REPRESENTATION = "(uuid)";
     public static final String PATIENT_STANDARD_REPRESENTATION =
-            "(uuid,voided,gender,birthdate," +
+            "(uuid,voided,gender,birthdate,attributes," +
                     "names:" + PersonNameAlgorithm.PERSON_NAME_REPRESENTATION + "," +
                     "identifiers:" + PatientIdentifierAlgorithm.PATIENT_IDENTIFIER_REPRESENTATION + ")";
     private PersonNameAlgorithm personNameAlgorithm;
     private PatientIdentifierAlgorithm patientIdentifierAlgorithm;
+    private PersonAttributeAlgorithm personAttributeAlgorithm;
 
     public PatientAlgorithm() {
         this.personNameAlgorithm = new PersonNameAlgorithm();
@@ -56,6 +58,11 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
         for (Object identifierObject : identifierObjects) {
             patient.addIdentifier(
                     (PatientIdentifier) patientIdentifierAlgorithm.deserialize(String.valueOf(identifierObject)));
+        }
+        List<Object> attributesObjects = JsonUtils.readAsObjectList(serialized, "$['attributes']");
+        for (Object attributeObject : attributesObjects) {
+            patient.addattribute(
+                    (PersonAttribute) personAttributeAlgorithm.deserialize(String.valueOf(attributeObject)));
         }
         return patient;
     }
@@ -86,6 +93,12 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
             identifierArray.add(JsonPath.read(name, "$"));
         }
         jsonObject.put("identifiers", identifierArray);
+        JSONArray attributeArray = new JSONArray();
+        for (PersonAttribute attribute : patient.getAtributes()) {
+            String name = personAttributeAlgorithm.serialize(attribute);
+            attributeArray.add(JsonPath.read(name, "$"));
+        }
+        jsonObject.put("attributes", attributeArray);
         return jsonObject.toJSONString();
     }
 }
