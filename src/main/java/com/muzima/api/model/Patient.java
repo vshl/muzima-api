@@ -26,12 +26,14 @@ public class Patient extends Person implements Comparable<Patient> {
     public void addattribute(final PersonAttribute attribute) {
         getAtributes().add(attribute);
     }
+
     public List<PersonAttribute> getAtributes() {
         if (attributes == null) {
             attributes = new ArrayList<PersonAttribute>();
         }
         return attributes;
     }
+
     public void setAttributes(final List<PersonAttribute> attributes) {
         this.attributes = attributes;
     }
@@ -118,6 +120,7 @@ public class Patient extends Person implements Comparable<Patient> {
         }
         return 0;
     }
+
     /**
      * Get the patient attribute
      *
@@ -130,8 +133,6 @@ public class Patient extends Person implements Comparable<Patient> {
         }
         return attribute;
     }
-
-
 
     /**
      * Gets the PersonAttribute with the given attribute type name.
@@ -147,6 +148,4 @@ public class Patient extends Person implements Comparable<Patient> {
         }
         return null;
     }
-
-
 }

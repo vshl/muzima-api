@@ -40,6 +40,8 @@ public class CohortDataAlgorithm extends BaseOpenmrsAlgorithm {
     public CohortDataAlgorithm() {
         this.cohortAlgorithm = new CohortAlgorithm();
         this.patientAlgorithm = new PatientAlgorithm();
+
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>"+STATIC_COHORT_DATA_REPRESENTATION);
     }
 
     /**

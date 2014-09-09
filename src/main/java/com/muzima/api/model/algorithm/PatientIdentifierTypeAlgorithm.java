@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 public class PatientIdentifierTypeAlgorithm extends BaseOpenmrsAlgorithm {
 
-    public static final String PATIENT_IDENTIFIER_TYPE_REPRESENTATION = "(uuid,name)";
+    public static final String PATIENT_IDENTIFIER_TYPE_REPRESENTATION = "(uuid,name,)";
 
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.

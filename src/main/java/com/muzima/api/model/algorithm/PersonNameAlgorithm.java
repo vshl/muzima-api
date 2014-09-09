@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 public class PersonNameAlgorithm extends BaseOpenmrsAlgorithm {
 
-    public static final String PERSON_NAME_REPRESENTATION = "(uuid,givenName,middleName,familyName,preferred)";
+    public static final String PERSON_NAME_REPRESENTATION = "(uuid,givenName,middleName,familyName,preferred,)";
 
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.

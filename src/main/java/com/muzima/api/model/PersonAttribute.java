@@ -40,5 +40,4 @@ public class PersonAttribute extends OpenmrsSearchable {
     public void setAttributeType(PersonAttributeType attributeType) {
         this.attributeType = attributeType;
     }
-
 }

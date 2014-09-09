@@ -28,5 +28,4 @@ public class PersonAttributeType extends OpenmrsSearchable {
     public void setName(final String name) {
         this.name = name;
     }
-
 }

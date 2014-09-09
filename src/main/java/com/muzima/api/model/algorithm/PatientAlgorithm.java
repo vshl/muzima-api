@@ -28,7 +28,7 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
             "(uuid,voided,gender,birthdate," +
                     "names:" + PersonNameAlgorithm.PERSON_NAME_REPRESENTATION + "," +
                     "identifiers:" + PatientIdentifierAlgorithm.PATIENT_IDENTIFIER_REPRESENTATION + "," +
-                    "attributes:" + PersonAttributeAlgorithm.PERSON_ATTRIBUTE_REPRESENTATION + ")";
+                    "attributes:" + PersonAttributeAlgorithm.PERSON_ATTRIBUTE_REPRESENTATION + ",)";
     private PersonNameAlgorithm personNameAlgorithm;
     private PatientIdentifierAlgorithm patientIdentifierAlgorithm;
     private PersonAttributeAlgorithm personAttributeAlgorithm;
