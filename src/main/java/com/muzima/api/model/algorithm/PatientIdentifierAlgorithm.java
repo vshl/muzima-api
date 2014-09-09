@@ -21,7 +21,7 @@ public class PatientIdentifierAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String PATIENT_IDENTIFIER_REPRESENTATION =
             "(uuid,identifier,preferred," +
-                    "identifierType:" + PatientIdentifierTypeAlgorithm.PATIENT_IDENTIFIER_TYPE_REPRESENTATION + ")";
+                    "identifierType:" + PatientIdentifierTypeAlgorithm.PATIENT_IDENTIFIER_TYPE_REPRESENTATION + ",)";
     private PatientIdentifierTypeAlgorithm patientIdentifierTypeAlgorithm;
 
     public PatientIdentifierAlgorithm() {

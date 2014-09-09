@@ -1,17 +1,9 @@
-/**
- * Copyright 2012 Muzima Team
+/*
+ * Copyright (c) 2014. The Trustees of Indiana University.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This version of the code is licensed under the MPL 2.0 Open Source license with additional
+ * healthcare disclaimer. If the user is an entity intending to commercialize any application
+ * that uses this code in a for-profit venture, please contact the copyright holder.
  */
 package com.muzima.api.model.algorithm;
 
@@ -22,12 +14,9 @@ import net.minidev.json.JSONObject;
 
 import java.io.IOException;
 
-/**
- * TODO: Write brief description about the class here.
- */
 public class PersonAttributeTypeAlgorithm extends BaseOpenmrsAlgorithm {
 
-    public static final String PERSON_ATTRIBUTE_TYPE_REPRESENTATION = "(uuid,display)";
+    public static final String PERSON_ATTRIBUTE_TYPE_REPRESENTATION = "(uuid,name)";
     private String uuid;
 
     /**
@@ -39,8 +28,8 @@ public class PersonAttributeTypeAlgorithm extends BaseOpenmrsAlgorithm {
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         PersonAttributeType attributeType = new PersonAttributeType();
-        attributeType.setUuid(uuid);
-        attributeType.setName(JsonUtils.readAsString(serialized, "$['display']"));
+        attributeType.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        attributeType.setName(JsonUtils.readAsString(serialized, "$['name']"));
         return attributeType;
     }
 
@@ -55,7 +44,7 @@ public class PersonAttributeTypeAlgorithm extends BaseOpenmrsAlgorithm {
         PersonAttributeType attributeType = (PersonAttributeType) object;
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", attributeType.getUuid());
-        JsonUtils.writeAsString(jsonObject, "display", attributeType.getName());
+        JsonUtils.writeAsString(jsonObject, "name", attributeType.getName());
         return jsonObject.toJSONString();
     }
 }

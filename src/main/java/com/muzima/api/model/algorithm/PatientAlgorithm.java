@@ -25,9 +25,10 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String PATIENT_SIMPLE_REPRESENTATION = "(uuid)";
     public static final String PATIENT_STANDARD_REPRESENTATION =
-            "(uuid,voided,gender,birthdate,attributes," +
+            "(uuid,voided,gender,birthdate," +
                     "names:" + PersonNameAlgorithm.PERSON_NAME_REPRESENTATION + "," +
-                    "identifiers:" + PatientIdentifierAlgorithm.PATIENT_IDENTIFIER_REPRESENTATION + ")";
+                    "identifiers:" + PatientIdentifierAlgorithm.PATIENT_IDENTIFIER_REPRESENTATION + "," +
+                    "attributes:" + PersonAttributeAlgorithm.PERSON_ATTRIBUTE_REPRESENTATION + ")";
     private PersonNameAlgorithm personNameAlgorithm;
     private PatientIdentifierAlgorithm patientIdentifierAlgorithm;
     private PersonAttributeAlgorithm personAttributeAlgorithm;
@@ -35,14 +36,15 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
     public PatientAlgorithm() {
         this.personNameAlgorithm = new PersonNameAlgorithm();
         this.patientIdentifierAlgorithm = new PatientIdentifierAlgorithm();
+        this.personAttributeAlgorithm = new PersonAttributeAlgorithm();
     }
 
-    /**
-     * Implementation of this method will define how the observation will be serialized from the JSON representation.
-     *
-     * @param serialized the json representation
-     * @return the concrete observation object
-     */
+    /*
+    * Implementation of this method will define how the observation will be serialized from the JSON representation.
+    *
+    * @param serialized the json representation
+    * @return the concrete observation object
+    */
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         Patient patient = new Patient();

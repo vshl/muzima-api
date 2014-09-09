@@ -1,17 +1,9 @@
-/**
- * Copyright 2012 Muzima Team
+/*
+ * Copyright (c) 2014. The Trustees of Indiana University.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This version of the code is licensed under the MPL 2.0 Open Source license with additional
+ * healthcare disclaimer. If the user is an entity intending to commercialize any application
+ * that uses this code in a for-profit venture, please contact the copyright holder.
  */
 package com.muzima.api.model.algorithm;
 
@@ -25,8 +17,8 @@ import net.minidev.json.JSONObject;
 import java.io.IOException;
 
 public class PersonAttributeAlgorithm extends BaseOpenmrsAlgorithm {
-    public static final String PERSON_ATTRIBUTE_REPRESENTATION = "(value," +
-                    "attributeType:" + PersonAttributeTypeAlgorithm.PERSON_ATTRIBUTE_TYPE_REPRESENTATION  + ")";
+    public static final String PERSON_ATTRIBUTE_REPRESENTATION = "(uuid,hydratedObject," +
+            "attributeType:" + PersonAttributeTypeAlgorithm.PERSON_ATTRIBUTE_TYPE_REPRESENTATION + ",)";
 
     private PersonAttributeTypeAlgorithm personAttributeTypeAlgorithm;
 
@@ -42,9 +34,9 @@ public class PersonAttributeAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
-
         PersonAttribute personAttribute = new PersonAttribute();
-        personAttribute.setValue(JsonUtils.readAsString(serialized, "$['value']"));
+        personAttribute.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
+        personAttribute.setAttribute(JsonUtils.readAsString(serialized, "$['hydratedObject']"));
         Object attributeTypeObject = JsonUtils.readAsObject(serialized, "$['attributeType']");
         PersonAttributeType attributeType =
                 (PersonAttributeType) personAttributeTypeAlgorithm.deserialize(String.valueOf(attributeTypeObject));
@@ -60,11 +52,10 @@ public class PersonAttributeAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public String serialize(final Searchable object) throws IOException {
-
-
         PersonAttribute personAttribute = (PersonAttribute) object;
         JSONObject jsonObject = new JSONObject();
-        JsonUtils.writeAsString(jsonObject, "value", personAttribute.getValue());
+        JsonUtils.writeAsString(jsonObject, "uuid", personAttribute.getUuid());
+        JsonUtils.writeAsString(jsonObject, "hydratedObject", personAttribute.getAttribute());
         String identifierType = personAttributeTypeAlgorithm.serialize(personAttribute.getAttributeType());
         jsonObject.put("attributeType", JsonPath.read(identifierType, "$"));
         return jsonObject.toJSONString();
