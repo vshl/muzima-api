@@ -33,6 +33,8 @@ public class FormData implements Searchable {
 
     private String templateUuid;
 
+    private String saveTime;
+
     /**
      * Get the form data uuid.
      *
@@ -175,5 +177,23 @@ public class FormData implements Searchable {
      */
     public void setXmlPayload(String xmlPayload) {
         this.xmlPayload = xmlPayload;
+    }
+
+    /**
+     * Get the save time form data.
+     *
+     * @return the save time of the form data.
+     */
+    public String getSaveTime() {
+        return saveTime;
+    }
+
+    /**
+     * Set the save time of the form data.
+     *
+     * @param saveTime the save time form data.
+     */
+    public void setSaveTime(String saveTime) {
+        this.saveTime = saveTime;
     }
 }

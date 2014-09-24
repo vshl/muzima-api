@@ -54,6 +54,9 @@ public class FormDataAlgorithm implements Algorithm {
         String userUuid = JsonPath.read(jsonObject, "$['user.uuid']");
         formData.setUserUuid(userUuid);
 
+        String saveTime = JsonPath.read(jsonObject,"$['formSaveTime']");
+        formData.setSaveTime(saveTime);
+
         return formData;
     }
 
@@ -75,6 +78,7 @@ public class FormDataAlgorithm implements Algorithm {
         jsonObject.put("template.uuid", formData.getTemplateUuid());
         jsonObject.put("patient.uuid", formData.getPatientUuid());
         jsonObject.put("user.uuid", formData.getUserUuid());
+        jsonObject.put("formSaveTime",formData.getSaveTime());
         return jsonObject.toJSONString();
     }
 }
