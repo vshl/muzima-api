@@ -55,9 +55,10 @@ public class UserAlgorithm extends BaseOpenmrsAlgorithm {
 
         String username;
         username = JsonUtils.readAsString(json, "$['username']");
-        if (StringUtil.isEmpty(username))
-            username = JsonUtils.readAsString(json, "$['systemId']");
         user.setUsername(username);
+
+        String systemId = JsonUtils.readAsString(json, "$['systemId']");
+        user.setSystemId(systemId);
 
         List<Object> privilegeObjectArray = JsonUtils.readAsObjectList(json, "$['privileges']");
         List<Privilege> privileges = new ArrayList<Privilege>();
@@ -91,7 +92,7 @@ public class UserAlgorithm extends BaseOpenmrsAlgorithm {
         jsonObject.put("person.personName.middleName", user.getMiddleName());
         jsonObject.put("person.personName.familyName", user.getFamilyName());
         jsonObject.put("username", user.getUsername());
-        jsonObject.put("systemId", user.getUsername());
+        jsonObject.put("systemId", user.getSystemId());
 
         JSONArray privilegeArray = new JSONArray();
         for (Privilege privilege : user.getPrivileges()) {

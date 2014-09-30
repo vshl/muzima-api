@@ -20,6 +20,8 @@ public class User extends OpenmrsSearchable {
 
     private List<Role> roles;
 
+    private String systemId;
+
     public Person getPerson() {
         return person;
     }
@@ -107,5 +109,13 @@ public class User extends OpenmrsSearchable {
      */
     public void setRoles(final List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
     }
 }
