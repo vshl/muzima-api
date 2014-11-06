@@ -10,6 +10,8 @@ package com.muzima.api.model;
 
 import com.muzima.search.api.model.object.Searchable;
 
+import java.util.Date;
+
 /**
  * FormData is a class to persist a single reference of filled form. The status of the filling could be complete,
  * incomplete or sent. The class also hold reference to the FormTemplate from which the FormData originate, User who
@@ -32,6 +34,8 @@ public class FormData implements Searchable {
     private String userUuid;
 
     private String templateUuid;
+
+    private Date saveTime;
 
     /**
      * Get the form data uuid.
@@ -175,5 +179,23 @@ public class FormData implements Searchable {
      */
     public void setXmlPayload(String xmlPayload) {
         this.xmlPayload = xmlPayload;
+    }
+
+    /**
+     * Get the save time form data.
+     *
+     * @return the save time of the form data.
+     */
+    public Date getSaveTime() {
+        return saveTime;
+    }
+
+    /**
+     * Set the save time of the form data.
+     *
+     * @param saveTime the save time form data.
+     */
+    public void setSaveTime(Date saveTime) {
+        this.saveTime = saveTime;
     }
 }

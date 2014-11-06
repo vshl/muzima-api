@@ -12,9 +12,11 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.FormData;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.search.api.model.serialization.Algorithm;
+import com.muzima.util.JsonUtils;
 import net.minidev.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class FormDataAlgorithm implements Algorithm {
 
@@ -54,6 +56,9 @@ public class FormDataAlgorithm implements Algorithm {
         String userUuid = JsonPath.read(jsonObject, "$['user.uuid']");
         formData.setUserUuid(userUuid);
 
+        Date saveTime = JsonUtils.readAsDateTime(json, "$['formSaveTime']");
+        formData.setSaveTime(saveTime);
+
         return formData;
     }
 
@@ -75,6 +80,7 @@ public class FormDataAlgorithm implements Algorithm {
         jsonObject.put("template.uuid", formData.getTemplateUuid());
         jsonObject.put("patient.uuid", formData.getPatientUuid());
         jsonObject.put("user.uuid", formData.getUserUuid());
+        JsonUtils.writeAsDateTime(jsonObject, "formSaveTime", formData.getSaveTime());
         return jsonObject.toJSONString();
     }
 }
