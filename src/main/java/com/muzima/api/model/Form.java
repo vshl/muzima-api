@@ -24,7 +24,7 @@ public class Form extends OpenmrsSearchable implements Comparable<Form> {
 
     private String version;
 
-    private boolean voided;
+    private boolean retired;
 
     /**
      * Get the name for the cohort.
@@ -106,12 +106,12 @@ public class Form extends OpenmrsSearchable implements Comparable<Form> {
         this.version = version;
     }
 
-    public boolean isVoided() {
-        return voided;
+    public boolean isRetired() {
+        return retired;
     }
 
-    public void setVoided(final boolean voided) {
-        this.voided = voided;
+    public void setRetired(final boolean retired) {
+        this.retired = retired;
     }
 
     @Override
