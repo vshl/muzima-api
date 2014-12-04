@@ -21,7 +21,7 @@ import java.util.List;
 
 public class FormAlgorithm extends BaseOpenmrsAlgorithm {
 
-    public static final String STANDARD_FORM_REPRESENTATION = "(uuid,name,discriminator,description,tags:(uuid,name),voided)";
+    public static final String STANDARD_FORM_REPRESENTATION = "(uuid,name,discriminator,description,tags:(uuid,name),retired)";
 
     /**
      * Implementation of this method will define how the observation will be serialized from the JSON representation.
@@ -31,10 +31,12 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
      */
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
+
+
         Form form = new Form();
         form.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
         form.setName(JsonUtils.readAsString(serialized, "$['name']"));
-        form.setVoided(JsonUtils.readAsBoolean(serialized, "$['voided']"));
+        form.setRetired(JsonUtils.readAsBoolean(serialized, "$['retired']"));
         form.setDescription(JsonUtils.readAsString(serialized, "$['description']"));
         form.setDiscriminator(JsonUtils.readAsString(serialized, "$['discriminator']"));
         List<Object> objects = JsonUtils.readAsObjectList(serialized, "$['tags']");
@@ -64,7 +66,7 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", form.getUuid());
         JsonUtils.writeAsString(jsonObject, "name", form.getName());
-        JsonUtils.writeAsBoolean(jsonObject, "voided", form.isVoided());
+        JsonUtils.writeAsBoolean(jsonObject, "voided", form.isRetired());
         JsonUtils.writeAsString(jsonObject, "description", form.getDescription());
         JsonUtils.writeAsString(jsonObject, "discriminator", form.getDiscriminator());
         JsonUtils.writeAsString(jsonObject, "version", form.getVersion());
