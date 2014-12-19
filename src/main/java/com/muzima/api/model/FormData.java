@@ -37,6 +37,8 @@ public class FormData implements Searchable {
 
     private Date saveTime;
 
+    private Date encounterDate;
+
     /**
      * Get the form data uuid.
      *
@@ -197,5 +199,23 @@ public class FormData implements Searchable {
      */
     public void setSaveTime(Date saveTime) {
         this.saveTime = saveTime;
+    }
+
+    /**
+     * Get the encounter date for the encounter form.
+     *
+     * @return the save time of the form data.
+     */
+    public Date getEncounterDate() {
+        return encounterDate;
+    }
+
+    /**
+     * Set the encounter date for the encounter form.
+     *
+     * @param saveTime the save time form data.
+     */
+    public void setEncounterDate(Date encounterDate) {
+        this.encounterDate = encounterDate;
     }
 }

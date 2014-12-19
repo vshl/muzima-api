@@ -59,6 +59,9 @@ public class FormDataAlgorithm implements Algorithm {
         Date saveTime = JsonUtils.readAsDateTime(json, "$['formSaveTime']");
         formData.setSaveTime(saveTime);
 
+        Date encounterDate = JsonUtils.readAsDate(json, "$['encounterDate']");
+        formData.setEncounterDate(encounterDate);
+
         return formData;
     }
 
@@ -81,6 +84,7 @@ public class FormDataAlgorithm implements Algorithm {
         jsonObject.put("patient.uuid", formData.getPatientUuid());
         jsonObject.put("user.uuid", formData.getUserUuid());
         JsonUtils.writeAsDateTime(jsonObject, "formSaveTime", formData.getSaveTime());
+        JsonUtils.writeAsDateTime(jsonObject,"encounterDate",formData.getEncounterDate());
         return jsonObject.toJSONString();
     }
 }
