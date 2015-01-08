@@ -10,14 +10,15 @@ package com.muzima.api.dao.impl;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.muzima.api.adapter.JsonWriterAdapter;
+import com.muzima.api.adapter.JsonWriterAdapterFactory;
 import com.muzima.api.dao.FormDataDao;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.resolver.SyncFormDataResolver;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.StringUtil;
-import net.minidev.json.JSONObject;
-
+import org.json.JSONException;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -103,7 +104,7 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
     }
 
     @Override
-    public boolean syncFormData(final FormData formData) throws IOException {
+    public boolean syncFormData(final FormData formData, JsonWriterAdapterFactory jsonWriterAdapterFactory) throws IOException, JSONException {
         boolean synced = false;
 
         String resourcePath = resolver.resolve(Collections.<String, String>emptyMap());
@@ -118,13 +119,15 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
         connection.setConnectTimeout(timeout);
         connection = resolver.authenticate(connection);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("dataSource", "Mobile Device");
-        jsonObject.put("payload", getPayloadBasedOnDiscriminator(formData));
-        jsonObject.put("discriminator", formData.getDiscriminator());
-
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
-        writer.write(jsonObject.toJSONString());
+        JsonWriterAdapter jsonWriterAdapter = jsonWriterAdapterFactory.jsonWriterAdapter(writer);
+
+        jsonWriterAdapter
+                .object()
+                .key("dataSource").value("Mobile Device")
+                .key("payload").value(getPayloadBasedOnDiscriminator(formData))
+                .key("discriminator").value(formData.getDiscriminator())
+                .endObject();
         writer.close();
 
         int responseCode = connection.getResponseCode();
