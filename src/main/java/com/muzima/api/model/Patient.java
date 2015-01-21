@@ -17,9 +17,25 @@ import java.util.List;
 public class Patient extends Person implements Comparable<Patient> {
 
     private List<PatientIdentifier> identifiers;
+    private List<PersonAttribute> attributes;
 
     public void addIdentifier(final PatientIdentifier identifier) {
         getIdentifiers().add(identifier);
+    }
+
+    public void addattribute(final PersonAttribute attribute) {
+        getAtributes().add(attribute);
+    }
+
+    public List<PersonAttribute> getAtributes() {
+        if (attributes == null) {
+            attributes = new ArrayList<PersonAttribute>();
+        }
+        return attributes;
+    }
+
+    public void setAttributes(final List<PersonAttribute> attributes) {
+        this.attributes = attributes;
     }
 
     public List<PatientIdentifier> getIdentifiers() {
@@ -103,5 +119,33 @@ public class Patient extends Person implements Comparable<Patient> {
             return this.getDisplayName().toLowerCase().compareTo(patient.getDisplayName().toLowerCase());
         }
         return 0;
+    }
+
+    /**
+     * Get the patient attribute
+     *
+     * @return the patient attribute
+     */
+    public String getAttribute() {
+        String attribute = StringUtil.EMPTY;
+        for (PersonAttribute personAttribute : getAtributes()) {
+            attribute = personAttribute.getAttribute();
+        }
+        return attribute;
+    }
+
+    /**
+     * Gets the PersonAttribute with the given attribute type name.
+     *
+     * @param attributeName the name of the identifier type
+     * @return the PersonAttribute with the given identifier type name
+     */
+    public PersonAttribute getAttribute(String attributeName) {
+        for (PersonAttribute attribute : getAtributes()) {
+            if (attribute.getAttributeType().getName().equals(attributeName)) {
+                return attribute;
+            }
+        }
+        return null;
     }
 }

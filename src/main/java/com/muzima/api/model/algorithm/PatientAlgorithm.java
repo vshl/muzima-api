@@ -11,6 +11,7 @@ package com.muzima.api.model.algorithm;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Patient;
 import com.muzima.api.model.PatientIdentifier;
+import com.muzima.api.model.PersonAttribute;
 import com.muzima.api.model.PersonName;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.util.JsonUtils;
@@ -26,21 +27,24 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
     public static final String PATIENT_STANDARD_REPRESENTATION =
             "(uuid,voided,gender,birthdate," +
                     "names:" + PersonNameAlgorithm.PERSON_NAME_REPRESENTATION + "," +
-                    "identifiers:" + PatientIdentifierAlgorithm.PATIENT_IDENTIFIER_REPRESENTATION + ")";
+                    "identifiers:" + PatientIdentifierAlgorithm.PATIENT_IDENTIFIER_REPRESENTATION + "," +
+                    "attributes:" + PersonAttributeAlgorithm.PERSON_ATTRIBUTE_REPRESENTATION + ",)";
     private PersonNameAlgorithm personNameAlgorithm;
     private PatientIdentifierAlgorithm patientIdentifierAlgorithm;
+    private PersonAttributeAlgorithm personAttributeAlgorithm;
 
     public PatientAlgorithm() {
         this.personNameAlgorithm = new PersonNameAlgorithm();
         this.patientIdentifierAlgorithm = new PatientIdentifierAlgorithm();
+        this.personAttributeAlgorithm = new PersonAttributeAlgorithm();
     }
 
-    /**
-     * Implementation of this method will define how the observation will be serialized from the JSON representation.
-     *
-     * @param serialized the json representation
-     * @return the concrete observation object
-     */
+    /*
+    * Implementation of this method will define how the observation will be serialized from the JSON representation.
+    *
+    * @param serialized the json representation
+    * @return the concrete observation object
+    */
     @Override
     public Searchable deserialize(final String serialized) throws IOException {
         Patient patient = new Patient();
@@ -56,6 +60,11 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
         for (Object identifierObject : identifierObjects) {
             patient.addIdentifier(
                     (PatientIdentifier) patientIdentifierAlgorithm.deserialize(String.valueOf(identifierObject)));
+        }
+        List<Object> attributesObjects = JsonUtils.readAsObjectList(serialized, "$['attributes']");
+        for (Object attributeObject : attributesObjects) {
+            patient.addattribute(
+                    (PersonAttribute) personAttributeAlgorithm.deserialize(String.valueOf(attributeObject)));
         }
         return patient;
     }
@@ -86,6 +95,12 @@ public class PatientAlgorithm extends BaseOpenmrsAlgorithm {
             identifierArray.add(JsonPath.read(name, "$"));
         }
         jsonObject.put("identifiers", identifierArray);
+        JSONArray attributeArray = new JSONArray();
+        for (PersonAttribute attribute : patient.getAtributes()) {
+            String name = personAttributeAlgorithm.serialize(attribute);
+            attributeArray.add(JsonPath.read(name, "$"));
+        }
+        jsonObject.put("attributes", attributeArray);
         return jsonObject.toJSONString();
     }
 }
