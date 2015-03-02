@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 public class LocationAlgorithm extends BaseOpenmrsAlgorithm {
 
-    public static final String LOCATION_STANDARD_REPRESENTATION = "(uuid,name)";
+    public static final String LOCATION_STANDARD_REPRESENTATION = "(uuid,name,id)";
 
     /**
      * Implementation of this method will define how the object will be serialized from the String representation.
@@ -33,6 +33,7 @@ public class LocationAlgorithm extends BaseOpenmrsAlgorithm {
         Location location = new Location();
         location.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
         location.setName(JsonUtils.readAsString(serialized, "$['name']"));
+        location.setId(JsonUtils.readAsInteger(serialized, "$['id']"));
         return location;
     }
 
@@ -48,6 +49,7 @@ public class LocationAlgorithm extends BaseOpenmrsAlgorithm {
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", location.getUuid());
         JsonUtils.writeAsString(jsonObject, "name", location.getName());
+        JsonUtils.writeAsInteger(jsonObject, "id", location.getId());
         return jsonObject.toJSONString();
     }
 }

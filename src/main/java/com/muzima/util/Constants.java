@@ -66,6 +66,8 @@ public class Constants {
 
     public static final String SEARCH_USER_RESOURCE = "Search User Resource";
 
+    public static final String SEARCH_LOCATION_RESOURCE = "Search Location Resource";
+
     public static final String UUID_DYNAMIC_COHORT_RESOURCE = "Uuid Dynamic Cohort Resource";
 
     public static final String UUID_STATIC_COHORT_RESOURCE = "Uuid Static Cohort Resource";
@@ -115,6 +117,8 @@ public class Constants {
     public static final String CONCEPT_CREATED_ON_PHONE = "ConceptCreatedOnPhone";
 
     public static final String UUID_LAST_SYNC_TIME = "Uuid Last Sync Time Resource";
+
+    public static final String UUID_LOCATION_RESOURCE = "Uuid Location Resource";
 
     public static final String UUID_SEPARATOR = ",";
 

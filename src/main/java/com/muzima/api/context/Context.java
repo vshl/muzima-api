@@ -15,6 +15,7 @@ import com.muzima.api.model.User;
 import com.muzima.api.service.CohortService;
 import com.muzima.api.service.FormService;
 import com.muzima.api.service.LastSyncTimeService;
+import com.muzima.api.service.LocationService;
 import com.muzima.api.service.MuzimaInterface;
 import com.muzima.api.service.ObservationService;
 import com.muzima.api.service.PatientService;
@@ -337,5 +338,15 @@ public class Context {
      */
     public UserService getUserService() throws IOException {
         return getService(UserService.class);
+    }
+
+    /**
+     * Get the location service to perform operation related to the location object.
+     *
+     * @return the location service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
+    public LocationService getLocationService() throws IOException {
+        return getService(LocationService.class);
     }
 }
