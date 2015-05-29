@@ -214,15 +214,20 @@ public class Context {
      * @param username the username to be authenticated.
      * @param password the password of the username to be authenticated.
      * @param server   the remote server where the authentication will be performed.
+     * @param isDeviceOnline if the device has internet connectivity
      * @throws IOException    when the system fail to authenticate the user.
      * @throws ParseException when the system unable to parse the lucene query.
      */
-    public void authenticate(final String username, final String password, final String server)
+    public void authenticate(final String username, final String password, final String server, boolean isDeviceOnline)
             throws IOException, ParseException {
+        setUpConfiguration(username, password, server);
+        getUserContext().authenticate(username, password, getUserService(), isDeviceOnline);
+    }
+
+    private void setUpConfiguration(String username, String password, String server) throws IOException {
         Configuration configuration = getInjector().getInstance(Configuration.class);
         configuration.configure(username, password, server);
         getUserContext().setConfiguration(configuration);
-        getUserContext().authenticate(username, password, getUserService());
     }
 
     /**

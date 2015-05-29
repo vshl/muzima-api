@@ -18,6 +18,7 @@ import com.muzima.search.api.util.StringUtil;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.util.UUID;
 
 /**
@@ -41,17 +42,34 @@ class UserContext {
      * @param password the password.
      */
     public void authenticate(final String username, final String password,
-                             final UserService userService)
+                             final UserService userService, final boolean isDeviceOnline)
             throws IOException, ParseException {
-        // TODO: Need to update this authentication method.
-        // Process:
-        // * Download the user by the username first.
-        // * If we get a user, we write the current user credential object. The context is now authenticated.
-        // * If we don't get a user record, we search the credential object from local repo.
-        // * Match the credential's password with this password (password is salted).
-        // * If we found a match, get the user with the username. The context is now authenticated.
+        // checking device's local repo for user, if user is  found proceed with offline authentication
+        // if user  does not exist in device's local repo, online authentication is the way to go
         user = userService.getUserByUsername(username);
-        if (user == null) {
+        if (user != null) {
+            authenticateOffline(username,password,userService);
+        } else {
+            authenticateOnline(username,password,userService,isDeviceOnline);
+        }
+    }
+
+    /**
+     * Authenticate user using the username and password on the url.
+     *
+     * @param username the username.
+     * @param password the password.
+     */
+    public void authenticateOnline(final String username, final String password,
+                             final UserService userService, final boolean isDeviceOnline)
+            throws IOException, ParseException {
+        // Process:
+        // * Check if this user and his credential already exist on the device's local repo, if yes proceed with offline authentication
+        // * If we are unable to find this user and his credential on then proceed with online authentication
+        // * Download the user from the server by the username first.
+        // * If we get a user, we write the current user credential object. The context is now authenticated.
+        user = userService.getUserByUsername(username);
+        if (user == null && isDeviceOnline) {
             user = userService.downloadUserByUsername(username);
             if (user != null) {
                 userService.saveUser(user);
@@ -71,6 +89,25 @@ class UserContext {
                 throw new AuthenticationException("Unable to authenticate user for username: " + username);
             }
         } else {
+                throw new ConnectException("Unable to connect to the server" + username);
+            }
+    }
+
+    /**
+     * Authenticate user using the username and password on the url.
+     *
+     * @param username the username.
+     * @param password the password.
+     */
+    public void authenticateOffline(final String username, final String password,
+                                    final UserService userService)
+            throws IOException, ParseException {
+        // TODO: Need to update this authentication method.
+        // Process:
+        // * Get the credentials for this user from the device's local repo
+        // * If we found a match, get the user with the username. The context is now authenticated.
+        user = userService.getUserByUsername(username);// checking local cache for user, if found proceed with offline authentication
+        if (user != null) {
             credential = userService.getCredentialByUsername(username);
             String salt = credential.getSalt();
             String hashedPassword = DigestUtil.getSHA1Checksum(salt + ":" + password);
@@ -79,6 +116,7 @@ class UserContext {
             }
         }
     }
+
 
     /**
      * Get currently authenticated user.
