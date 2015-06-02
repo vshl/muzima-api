@@ -34,4 +34,5 @@ public interface ProviderDao extends OpenmrsDao<Provider> {
      */
     List<Provider> getMatchingProvidersByName(final String name) throws ParseException, IOException;
 
+    Provider getBySystemId(String systemId) throws IOException;
 }

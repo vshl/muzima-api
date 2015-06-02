@@ -15,6 +15,9 @@ import java.util.List;
 @ImplementedBy(ProviderServiceImpl.class)
 public interface ProviderService extends MuzimaInterface {
 
+    Provider downloadProvidersBySystemId(final String systemId) throws IOException;
+
+    Provider getProviderBySystemId(final String systemId) throws IOException;
     /**
      * Download a single Provider record from the Provider rest resource into the local lucene repository.
      *

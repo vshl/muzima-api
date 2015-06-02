@@ -23,6 +23,27 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
+    public Provider downloadProvidersBySystemId(final String systemId) throws IOException {
+        Map<String, String> parameter = new HashMap<String, String>() {{
+            put("q", systemId);
+        }};
+        Provider provider = null;
+        List<Provider> providers = providerDao.download(parameter, Constants.SEARCH_PROVIDER_RESOURCE);
+        if (!CollectionUtil.isEmpty(providers)) {
+            if (providers.size() > 1) {
+                throw new IOException("Unable to uniquely identify a provider record.");
+            }
+            provider = providers.get(0);
+        }
+        return provider;
+    }
+
+    @Override
+    public Provider getProviderBySystemId(String systemId) throws IOException {
+        return providerDao.getBySystemId(systemId);
+    }
+
+    @Override
     public Provider downloadProviderByUuid(final String uuid) throws IOException {
 
         Provider provider = null;
