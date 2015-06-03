@@ -87,7 +87,8 @@ public class Context {
             throw new IOException(
                     "Unable to find suitable configuration document to setup the service layer!" +
                             "Please configure it using: Constants.RESOURCE_CONFIGURATION_STRING or" +
-                            "Constants.RESOURCE_CONFIGURATION_PATH property in the ContextFactory.");
+                            "Constants.RESOURCE_CONFIGURATION_PATH property in the ContextFactory."
+            );
         }
         registerResources(inputStream, serviceContext);
     }
@@ -211,9 +212,9 @@ public class Context {
      * Perform authentication of the username and password in to the server. When the user is offline, the
      * authentication process will be performed against the local lucene repository.
      *
-     * @param username the username to be authenticated.
-     * @param password the password of the username to be authenticated.
-     * @param server   the remote server where the authentication will be performed.
+     * @param username       the username to be authenticated.
+     * @param password       the password of the username to be authenticated.
+     * @param server         the remote server where the authentication will be performed.
      * @param isDeviceOnline if the device has internet connectivity
      * @throws IOException    when the system fail to authenticate the user.
      * @throws ParseException when the system unable to parse the lucene query.

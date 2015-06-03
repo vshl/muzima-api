@@ -48,9 +48,9 @@ class UserContext {
         // if user  does not exist in device's local repo, online authentication is the way to go
         user = userService.getUserByUsername(username);
         if (user != null) {
-            authenticateOffline(username,password,userService);
+            authenticateOffline(username, password, userService);
         } else {
-            authenticateOnline(username,password,userService,isDeviceOnline);
+            authenticateOnline(username, password, userService, isDeviceOnline);
         }
     }
 
@@ -61,7 +61,7 @@ class UserContext {
      * @param password the password.
      */
     public void authenticateOnline(final String username, final String password,
-                             final UserService userService, final boolean isDeviceOnline)
+                                   final UserService userService, final boolean isDeviceOnline)
             throws IOException, ParseException {
         // Process:
         // * Check if this user and his credential already exist on the device's local repo, if yes proceed with offline authentication
@@ -88,8 +88,8 @@ class UserContext {
                 throw new AuthenticationException("Unable to authenticate user for username: " + username);
             }
         } else {
-                throw new ConnectException("Unable to connect to the server" + username);
-            }
+            throw new ConnectException("Unable to connect to the server" + username);
+        }
     }
 
     /**
