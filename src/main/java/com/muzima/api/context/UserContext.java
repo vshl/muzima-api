@@ -68,7 +68,6 @@ class UserContext {
         // * If we are unable to find this user and his credential on then proceed with online authentication
         // * Download the user from the server by the username first.
         // * If we get a user, we write the current user credential object. The context is now authenticated.
-        user = userService.getUserByUsername(username);
         if (user == null && isDeviceOnline) {
             user = userService.downloadUserByUsername(username);
             if (user != null) {
