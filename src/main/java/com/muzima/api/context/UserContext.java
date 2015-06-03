@@ -88,7 +88,7 @@ class UserContext {
                 throw new AuthenticationException("Unable to authenticate user for username: " + username);
             }
         } else {
-            throw new ConnectException("Unable to connect to the server" + username);
+            throw new ConnectException("Unable to connect to the server to authenticate user. Please connect to the internet and try again." + username);
         }
     }
 
@@ -105,15 +105,12 @@ class UserContext {
         // Process:
         // * Get the credentials for this user from the device's local repo
         // * If we found a match, get the user with the username. The context is now authenticated.
-        user = userService.getUserByUsername(username);// checking local cache for user, if found proceed with offline authentication
-        if (user != null) {
             credential = userService.getCredentialByUsername(username);
             String salt = credential.getSalt();
             String hashedPassword = DigestUtil.getSHA1Checksum(salt + ":" + password);
             if (!StringUtil.equals(hashedPassword, credential.getPassword())) {
                 throw new IOException("Unable to authenticate user for username: " + username);
             }
-        }
     }
 
 
