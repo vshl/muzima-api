@@ -219,10 +219,10 @@ public class Context {
      * @throws IOException    when the system fail to authenticate the user.
      * @throws ParseException when the system unable to parse the lucene query.
      */
-    public void authenticate(final String username, final String password, final String server, boolean isDeviceOnline)
+    public void authenticate(final String username, final String password, final String server, boolean isDeviceOnline, boolean isUpdatePasswordRequired)
             throws IOException, ParseException {
         setUpConfiguration(username, password, server);
-        getUserContext().authenticate(username, password, getUserService(), isDeviceOnline);
+        getUserContext().authenticate(username, password, getUserService(), isDeviceOnline, isUpdatePasswordRequired);
     }
 
     private void setUpConfiguration(String username, String password, String server) throws IOException {

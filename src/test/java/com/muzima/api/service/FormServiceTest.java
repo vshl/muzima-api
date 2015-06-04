@@ -61,7 +61,7 @@ public class FormServiceTest {
         context = ContextFactory.createContext();
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone", true);
+            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone", true, false);
         }
         formService = context.getFormService();
         forms = formService.downloadFormsByName(StringUtil.EMPTY);
