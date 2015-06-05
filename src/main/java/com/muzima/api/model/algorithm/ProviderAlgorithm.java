@@ -18,7 +18,7 @@ public class ProviderAlgorithm extends BaseOpenmrsAlgorithm {
         provider.setUuid(JsonUtils.readAsString(serialized, "$['uuid']"));
         provider.setName(JsonUtils.readAsString(serialized, "$['name']"));
         provider.setId(JsonUtils.readAsInteger(serialized, "$['id']"));
-        provider.setSystemId(JsonUtils.readAsString(serialized, "$['identifier']"));
+        provider.setIdentifier(JsonUtils.readAsString(serialized, "$['identifier']"));
         return provider;
     }
 
@@ -29,7 +29,7 @@ public class ProviderAlgorithm extends BaseOpenmrsAlgorithm {
         JsonUtils.writeAsString(jsonObject, "uuid", provider.getUuid());
         JsonUtils.writeAsString(jsonObject, "name", provider.getName());
         JsonUtils.writeAsInteger(jsonObject, "id", provider.getId());
-        JsonUtils.writeAsString(jsonObject, "identifier", provider.getSystemId());
+        JsonUtils.writeAsString(jsonObject, "identifier", provider.getIdentifier());
         return jsonObject.toString();
     }
 }

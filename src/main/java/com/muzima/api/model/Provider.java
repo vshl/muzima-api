@@ -6,7 +6,7 @@ public class Provider extends OpenmrsSearchable implements Comparable<Provider> 
 
     private String name;
 
-    private String systemId;
+    private String identifier;
 
     public int getId() {
         return id;
@@ -29,14 +29,18 @@ public class Provider extends OpenmrsSearchable implements Comparable<Provider> 
         if (this.getName() != null && provider.getName() != null) {
             return this.getName().toLowerCase().compareTo(provider.getName().toLowerCase());
         }
+        if (this.getIdentifier() != null && provider.getIdentifier() != null) {
+            return this.getIdentifier().toLowerCase().compareTo(provider.getIdentifier().toLowerCase());
+        }
         return 0;
     }
 
-    public String getSystemId() {
-        return systemId;
+
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setSystemId(String systemId) {
-        this.systemId = systemId;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }
