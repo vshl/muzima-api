@@ -87,7 +87,8 @@ public class Context {
             throw new IOException(
                     "Unable to find suitable configuration document to setup the service layer!" +
                             "Please configure it using: Constants.RESOURCE_CONFIGURATION_STRING or" +
-                            "Constants.RESOURCE_CONFIGURATION_PATH property in the ContextFactory.");
+                            "Constants.RESOURCE_CONFIGURATION_PATH property in the ContextFactory."
+            );
         }
         registerResources(inputStream, serviceContext);
     }
@@ -211,18 +212,23 @@ public class Context {
      * Perform authentication of the username and password in to the server. When the user is offline, the
      * authentication process will be performed against the local lucene repository.
      *
-     * @param username the username to be authenticated.
-     * @param password the password of the username to be authenticated.
-     * @param server   the remote server where the authentication will be performed.
+     * @param username       the username to be authenticated.
+     * @param password       the password of the username to be authenticated.
+     * @param server         the remote server where the authentication will be performed.
+     * @param isDeviceOnline if the device has internet connectivity
      * @throws IOException    when the system fail to authenticate the user.
      * @throws ParseException when the system unable to parse the lucene query.
      */
-    public void authenticate(final String username, final String password, final String server)
+    public void authenticate(final String username, final String password, final String server, boolean isDeviceOnline, boolean isUpdatePasswordRequired)
             throws IOException, ParseException {
+        setUpConfiguration(username, password, server);
+        getUserContext().authenticate(username, password, getUserService(), isDeviceOnline, isUpdatePasswordRequired);
+    }
+
+    private void setUpConfiguration(String username, String password, String server) throws IOException {
         Configuration configuration = getInjector().getInstance(Configuration.class);
         configuration.configure(username, password, server);
         getUserContext().setConfiguration(configuration);
-        getUserContext().authenticate(username, password, getUserService());
     }
 
     /**
