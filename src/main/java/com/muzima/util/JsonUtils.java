@@ -95,6 +95,38 @@ public class JsonUtils {
     }
 
     /**
+     * Write numeric value into the json object. The method will only write the numeric value if the object passed
+     * as the first argument is an instance of <code>{@link JSONObject}</code>.
+     *
+     * @param object the <code>{@link JSONObject}</code> object
+     * @param path   the path in the object.
+     * @param value  the value to be assigned for the path.
+     */
+    public static void writeAsInteger(final Object object, final String path, final Integer value) {
+        if (object instanceof JSONObject) {
+            JSONObject jsonObject = (JSONObject) object;
+            jsonObject.put(path, value);
+        }
+    }
+
+    /**
+     * Read numeric value from the json object.
+     *
+     * @param jsonObject the json object.
+     * @param path       the path inside the json object.
+     * @return the numeric value in the json object. When the path is invalid, by default will return 0.
+     */
+    public static int readAsInteger(final String jsonObject, final String path) {
+        int returnedString = 0;
+        try {
+            returnedString = (Integer) JsonPath.read(jsonObject, path);
+        } catch (Exception e) {
+            logger.error("Unable to read string value with path: " + path + " from: " + String.valueOf(jsonObject));
+        }
+        return returnedString;
+    }
+
+    /**
      * Write string value into the json object. The method will only write the string value if the object passed
      * as the first argument is an instance of <code>{@link JSONObject}</code>.
      *
