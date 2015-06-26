@@ -10,6 +10,8 @@ package com.muzima.api.service;
 
 import com.muzima.api.context.Context;
 import com.muzima.api.context.ContextFactory;
+import com.muzima.api.adapter.impl.DefaultJsonWriterAdapterFactory;
+import com.muzima.api.adapter.JsonWriterAdapterFactory;
 import com.muzima.api.model.Form;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
@@ -616,7 +618,7 @@ public class FormServiceTest {
 
     /**
      * @verifies sync the form data to the server.
-     * @see FormService#syncFormData(com.muzima.api.model.FormData)
+     * @see FormService#syncFormData(com.muzima.api.model.FormData, JsonWriterAdapterFactory)
      */
     @Test
     public void syncFormData_shouldSyncTheFormDataToTheServer() throws Exception {
@@ -625,7 +627,8 @@ public class FormServiceTest {
         formData.setJsonPayload(jsonObject.toJSONString());
         // for form with observation data, we use encounter as the discriminator.
         formData.setDiscriminator("encounter");
-        boolean synced = formService.syncFormData(formData);
+        JsonWriterAdapterFactory jsonWriterAdapterFactory = new DefaultJsonWriterAdapterFactory();
+        boolean synced = formService.syncFormData(formData, jsonWriterAdapterFactory);
         assertThat(synced, is(true));
     }
 

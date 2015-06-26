@@ -9,7 +9,9 @@ package com.muzima.api.dao;
 
 import com.google.inject.ImplementedBy;
 import com.muzima.api.dao.impl.FormDataDaoImpl;
+import com.muzima.api.adapter.JsonWriterAdapterFactory;
 import com.muzima.api.model.FormData;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,7 +46,7 @@ public interface FormDataDao extends SearchableDao<FormData> {
      */
     FormData getFormDataByUuid(final String uuid) throws IOException;
 
-    boolean syncFormData(final FormData formData) throws IOException;
+    boolean syncFormData(final FormData formData, JsonWriterAdapterFactory jsonWriterAdapterFactory) throws IOException, JSONException;
 
     /**
      * Get the FormData based on templateUUID.
