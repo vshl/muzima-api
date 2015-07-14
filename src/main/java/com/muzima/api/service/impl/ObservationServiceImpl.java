@@ -389,4 +389,14 @@ public class ObservationServiceImpl implements ObservationService {
     public void deleteObservations(final List<Observation> observations) throws IOException {
         observationDao.delete(observations, Constants.UUID_OBSERVATION_RESOURCE);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#deleteAll()
+     */
+    @Override
+    public void deleteAll() throws IOException {
+        observationDao.delete(observationDao.getAll(), Constants.UUID_OBSERVATION_RESOURCE);
+    }
 }

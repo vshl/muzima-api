@@ -311,4 +311,14 @@ public class EncounterServiceImpl implements EncounterService {
     public void deleteEncounters(final List<Encounter> encounters) throws IOException {
         encounterDao.delete(encounters, Constants.UUID_ENCOUNTER_RESOURCE);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.EncounterService#deleteAll
+     */
+    @Override
+    public void deleteAll() throws IOException {
+        encounterDao.delete(encounterDao.getAll(), Constants.UUID_ENCOUNTER_RESOURCE);
+    }
 }

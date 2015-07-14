@@ -195,4 +195,12 @@ public interface EncounterService extends MuzimaInterface {
      * @should delete list of encounters from local data repository.
      */
     void deleteEncounters(final List<Encounter> encounters) throws IOException;
+
+    /**
+     * Delete all encounters from the local data repository.
+     *
+     * @throws java.io.IOException when the search api unable to process the resource.
+     * @should delete all the encounters from local data repository.
+     */
+    void deleteAll() throws IOException;
 }

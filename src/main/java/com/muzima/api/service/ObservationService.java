@@ -173,4 +173,13 @@ public interface ObservationService extends MuzimaInterface {
      * @should delete observations from the local repository.
      */
     void deleteObservations(final List<Observation> observations) throws IOException;
+
+    /**
+     * Delete all observations from the local repository.
+     *
+     * @throws IOException when search api unable to process the resource.
+     * @should delete all observations from the local repository.
+     */
+    void deleteAll() throws IOException;
+
 }
