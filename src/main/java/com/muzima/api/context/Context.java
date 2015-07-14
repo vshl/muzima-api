@@ -13,6 +13,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.config.Configuration;
 import com.muzima.api.model.User;
 import com.muzima.api.service.CohortService;
+import com.muzima.api.service.EncounterService;
 import com.muzima.api.service.FormService;
 import com.muzima.api.service.LastSyncTimeService;
 import com.muzima.api.service.LocationService;
@@ -314,6 +315,16 @@ public class Context {
      */
     public ObservationService getObservationService() throws IOException {
         return getService(ObservationService.class);
+    }
+
+    /**
+     * Get the encounter service to perform operation related to the encounter object.
+     *
+     * @return the encounter service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
+    public EncounterService getEncounterService() throws IOException {
+        return getService(EncounterService.class);
     }
 
     /**
