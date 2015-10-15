@@ -10,6 +10,7 @@ package com.muzima.api.model.algorithm;
 
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.model.Notification;
+import com.muzima.api.model.Patient;
 import com.muzima.api.model.Person;
 import com.muzima.search.api.model.object.Searchable;
 import com.muzima.util.JsonUtils;
@@ -26,9 +27,11 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
                     "receiver:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + ")";
 
     private PersonAlgorithm personAlgorithm;
+    private PatientAlgorithm patientAlgorithm;
 
     public NotificationAlgorithm() {
         this.personAlgorithm = new PersonAlgorithm();
+        this.patientAlgorithm = new PatientAlgorithm();
     }
 
     /**
@@ -46,6 +49,9 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
         notification.setSource(JsonUtils.readAsString(serialized, "$['source']"));
         notification.setStatus(JsonUtils.readAsString(serialized, "$['status']"));
         notification.setPayload(JsonUtils.readAsString(serialized, "$['payload']"));
+
+        Object patientObject = JsonUtils.readAsObject(serialized, "$['patient']");
+        notification.setPatient((Patient) patientAlgorithm.deserialize(String.valueOf(patientObject)));
 
         Object senderObject = JsonUtils.readAsObject(serialized, "$['sender']");
         notification.setSender((Person) personAlgorithm.deserialize(String.valueOf(senderObject)));
@@ -71,6 +77,9 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
         JsonUtils.writeAsString(jsonObject, "source", notification.getSource());
         JsonUtils.writeAsString(jsonObject, "status", notification.getStatus());
         JsonUtils.writeAsString(jsonObject, "payload", notification.getPayload());
+
+        String patient = patientAlgorithm.serialize(notification.getPatient());
+        jsonObject.put("patient", JsonPath.read(patient, "$"));
 
         String sender = personAlgorithm.serialize(notification.getSender());
         jsonObject.put("sender", JsonPath.read(sender, "$"));

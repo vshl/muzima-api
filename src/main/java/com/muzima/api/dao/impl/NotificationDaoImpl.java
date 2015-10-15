@@ -108,6 +108,27 @@ public class NotificationDaoImpl extends OpenmrsDaoImpl<Notification> implements
         return service.getObjects(filters, daoClass);
     }
 
+    public List<Notification> getNotificationByPatient(final String patientUuid, final String receiverUuid, final String status) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter filter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(filter);
+        } else
+            return null;
+
+        if (!StringUtil.isEmpty(receiverUuid)) {
+            Filter filter = FilterFactory.createFilter("receiverUuid", receiverUuid);
+            filters.add(filter);
+        } else
+            return null;
+
+        if (!StringUtil.isEmpty(status)) {
+            Filter filter = FilterFactory.createFilter("status", status);
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass);
+    }
+
     @Override
     public List<Notification> getNotificationByReceiver(final String receiverUuid, final Integer page,
                                                         final Integer pageSize) throws IOException {

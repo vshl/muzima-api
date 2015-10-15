@@ -165,6 +165,16 @@ public class NotificationServiceImpl implements NotificationService {
     /**
      * {@inheritDoc}
      *
+     * @see NotificationService#getNotificationByPatient(String, String, String)
+     */
+    @Override
+    public List<Notification> getNotificationByPatient(String patientUuid, String receiverUuid, String status) throws IOException {
+        return notificationDao.getNotificationByPatient(patientUuid, receiverUuid, status);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see NotificationService#deleteNotification(com.muzima.api.model.Notification)
      */
     @Override
