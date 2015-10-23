@@ -23,6 +23,7 @@ public class NotificationAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String NOTIFICATION_STANDARD_REPRESENTATION =
             "(uuid,subject,dateCreated,source,status,payload," +
+                    "patient:" + PatientAlgorithm.PATIENT_STANDARD_REPRESENTATION + "," +
                     "sender:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + "," +
                     "receiver:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + ")";
 

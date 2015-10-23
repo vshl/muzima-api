@@ -107,6 +107,7 @@
                 "payload": "$['payload']",
                 "source": "$['source']",
                 "status": "$['status']",
+                "patientUuid": "$['patient']['uuid']",
                 "receiverUuid": "$['receiver']['uuid']",
                 "senderUuid": "$['sender']['uuid']"
             }
@@ -124,6 +125,7 @@
                 "payload": "$['payload']",
                 "source": "$['source']",
                 "status": "$['status']",
+                "patientUuid": "$['patient']['uuid']",
                 "receiverUuid": "$['receiver']['uuid']",
                 "senderUuid": "$['sender']['uuid']"
             }
@@ -242,6 +244,7 @@
                 "subject": "$['subject']",
                 "source": "$['source']",
                 "status": "$['status']",
+                "patientUuid": "$['patient']['uuid']",
                 "receiverUuid": "$['receiver']['uuid']",
                 "senderUuid": "$['sender']['uuid']"
             }
