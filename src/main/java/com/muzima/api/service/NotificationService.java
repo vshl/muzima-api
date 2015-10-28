@@ -138,6 +138,19 @@ public interface NotificationService extends MuzimaInterface {
      */
     List<Notification> getNotificationByReceiver(final String receiverUuid, final String status) throws IOException;
 
+   /**
+     * Get list of notifications based on a particular patient and receiver from the local lucene repository.
+     *
+     * @param patientUuid the patient uuid.
+     * @param receiverUuid the receiver uuid.
+     * @param status       the status of notifications
+     * @return list of all notification with matching patientUuid and receiverUuid or empty list.
+     * @throws IOException when search api unable to process the resource.
+     * @should return list of all notifications with matching patientUuid and receiver's uuid.
+     * @should return empty list when no notification match the patientUuid and receiver's uuid.
+     */
+    List<Notification> getNotificationByPatient(final String patientUuid, final String receiverUuid, final String status) throws IOException;
+
     /**
      * Delete a single notification object from the local repository.
      *
