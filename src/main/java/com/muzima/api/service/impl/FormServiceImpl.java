@@ -12,7 +12,6 @@ import com.google.inject.Inject;
 import com.muzima.api.dao.FormDao;
 import com.muzima.api.dao.FormDataDao;
 import com.muzima.api.dao.FormTemplateDao;
-import com.muzima.api.adapter.JsonWriterAdapterFactory;
 import com.muzima.api.model.Form;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
@@ -448,8 +447,8 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public boolean syncFormData(final FormData formData, JsonWriterAdapterFactory jsonWriterAdapterFactory) throws IOException, JSONException {
-        return formDataDao.syncFormData(formData,jsonWriterAdapterFactory );
+    public boolean syncFormData(final FormData formData) throws IOException, JSONException {
+        return formDataDao.syncFormData(formData );
     }
 
     @Override
