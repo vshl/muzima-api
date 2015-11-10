@@ -13,7 +13,6 @@ import com.muzima.api.model.Form;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.api.service.impl.FormServiceImpl;
-import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.Date;
@@ -369,7 +368,7 @@ public interface FormService extends MuzimaInterface {
      * @throws IOException when search api unable to process the resource.
      * @should sync the form data to the server.
      */
-    boolean syncFormData(final FormData formData) throws IOException, JSONException;
+    boolean syncFormData(final FormData formData) throws IOException;
 
     /**
      * Fetches FormData from DB which matches templateUUID.

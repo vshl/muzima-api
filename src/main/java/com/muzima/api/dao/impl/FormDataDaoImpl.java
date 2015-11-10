@@ -8,6 +8,9 @@
 
 package com.muzima.api.dao.impl;
 
+import com.fasterxml.jackson.core.JsonEncoding;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.muzima.api.dao.FormDataDao;
@@ -16,12 +19,8 @@ import com.muzima.api.model.resolver.SyncFormDataResolver;
 import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.filter.FilterFactory;
 import com.muzima.search.api.util.StringUtil;
-import org.json.JSONException;
-import org.json.JSONWriter;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URL;
@@ -104,7 +103,7 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
     }
 
     @Override
-    public boolean syncFormData(final FormData formData) throws IOException, JSONException {
+    public boolean syncFormData(final FormData formData) throws IOException {
         boolean synced = false;
 
         String resourcePath = resolver.resolve(Collections.<String, String>emptyMap());
@@ -119,15 +118,14 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
         connection.setConnectTimeout(timeout);
         connection = resolver.authenticate(connection);
 
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
-        JSONWriter jsonWriter = new JSONWriter(writer);
-        jsonWriter
-                .object()
-                .key("dataSource").value("Mobile Device")
-                .key("payload").value(getPayloadBasedOnDiscriminator(formData))
-                .key("discriminator").value(formData.getDiscriminator())
-                .endObject();
-        writer.close();
+        JsonFactory jsonFactory = new JsonFactory();
+        JsonGenerator jsonGenerator = jsonFactory.createGenerator(connection.getOutputStream(), JsonEncoding.UTF8);
+        jsonGenerator.writeStartObject();
+        jsonGenerator.writeObjectField("dataSource", "Mobile Device");
+        jsonGenerator.writeObjectField("payload", getPayloadBasedOnDiscriminator(formData));
+        jsonGenerator.writeObjectField("discriminator", formData.getDiscriminator());
+        jsonGenerator.writeEndObject();
+        jsonGenerator.close();
 
         int responseCode = connection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_OK

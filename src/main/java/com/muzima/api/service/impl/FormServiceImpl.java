@@ -20,7 +20,6 @@ import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
 import com.muzima.util.DateUtils;
-import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -447,7 +446,7 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public boolean syncFormData(final FormData formData) throws IOException, JSONException {
+    public boolean syncFormData(final FormData formData) throws IOException {
         return formDataDao.syncFormData(formData );
     }
 
