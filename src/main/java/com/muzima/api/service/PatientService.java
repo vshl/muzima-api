@@ -122,7 +122,8 @@ public interface PatientService extends MuzimaInterface {
      * @should return empty list when no patient is registered.
      */
     List<Patient> getAllPatients() throws IOException;
-
+    List<Patient> getAllPatients(final Integer page,
+                                 final Integer pageSize) throws IOException;
     /**
      * Get list of patients with name similar to the search term.
      *
@@ -146,6 +147,8 @@ public interface PatientService extends MuzimaInterface {
      * @should return empty list when no patient match the search term.
      */
     List<Patient> searchPatients(final String term) throws IOException, ParseException;
+    List<Patient> searchPatients(final String term, final Integer page,
+                                 final Integer pageSize) throws IOException, ParseException;
 
     /**
      * Search for patients with matching characteristic on the name or identifier with the search term, within the give cohort.

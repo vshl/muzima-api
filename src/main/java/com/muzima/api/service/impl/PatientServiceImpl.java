@@ -196,6 +196,12 @@ public class PatientServiceImpl implements PatientService {
         return sortDisplayNameAscending(patientDao.getAll());
     }
 
+    @Override
+    public List<Patient> getAllPatients(final Integer page,
+                                        final Integer pageSize) throws IOException {
+        return sortDisplayNameAscending(patientDao.getAll(page, pageSize));
+    }
+
 
     /**
      * {@inheritDoc}
@@ -215,6 +221,12 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<Patient> searchPatients(final String term) throws IOException, ParseException {
         return sortDisplayNameAscending(patientDao.search(term));
+    }
+
+    @Override
+    public List<Patient> searchPatients(final String term, final Integer page,
+                                        final Integer pageSize) throws IOException, ParseException {
+        return sortDisplayNameAscending(patientDao.search(term, page, pageSize));
     }
 
     /**
