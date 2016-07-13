@@ -225,6 +225,16 @@ public class EncounterServiceImpl implements EncounterService {
     /**
      * {@inheritDoc}
      *
+     * @see com.muzima.api.service.EncounterService#getEncountersByPatientUuid(String)
+     */
+    @Override
+    public Integer countEncountersByPatientUuid(final String patientUuid) throws IOException {
+        return encounterDao.countEncountersByPatientUuid(patientUuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see EncounterService#getEncountersByPatient(com.muzima.api.model.Patient)
      */
     @Override

@@ -315,6 +315,16 @@ public class ObservationServiceImpl implements ObservationService {
      * @see ObservationService#getObservationsByPatient(String)
      */
     @Override
+    public List<Observation> getObservationsByPatient(final String patientUuid,final Integer page, final Integer pageSize) throws IOException {
+        return observationDao.get(patientUuid, StringUtil.EMPTY, page, pageSize);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#getObservationsByPatient(String)
+     */
+    @Override
     public List<Observation> getObservationsByPatient(final Patient patient) throws IOException {
         return getObservationsByPatient(patient.getUuid());
     }
@@ -368,6 +378,16 @@ public class ObservationServiceImpl implements ObservationService {
     @Override
     public List<Observation> searchObservations(final Patient patient, final String term) throws IOException {
         return searchObservations(patient.getUuid(), term);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#countObservationsByPatient(String)
+     */
+    @Override
+    public int countObservationsByPatient(final String patientUuid) throws IOException {
+        return observationDao.count(patientUuid, StringUtil.EMPTY);
     }
 
     /**

@@ -46,7 +46,23 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
             Filter conceptFilter = FilterFactory.createFilter("conceptUuid", conceptUuid);
             filters.add(conceptFilter);
         }
-        return service.getObjects(filters, daoClass);
+        List<Observation> obs = service.getObjects(filters, daoClass);
+        return obs;
+    }
+
+    @Override
+    public int count(final String patientUuid, final String conceptUuid) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter patientFilter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(patientFilter);
+        }
+        if (!StringUtil.isEmpty(conceptUuid)) {
+            Filter conceptFilter = FilterFactory.createFilter("conceptUuid", conceptUuid);
+            filters.add(conceptFilter);
+        }
+
+        return service.countObjects(filters, daoClass);
     }
 
     @Override

@@ -29,6 +29,8 @@ public interface ObservationDao extends OpenmrsDao<Observation> {
      */
     List<Observation> get(final String patientUuid, final String conceptUuid) throws IOException;
 
+    int count(final String patientUuid, final String conceptUuid) throws IOException;
+
     List<Observation> get(final String patientUuid, final String conceptUuid,
                           final Integer page, final Integer pageSize) throws IOException;
 
