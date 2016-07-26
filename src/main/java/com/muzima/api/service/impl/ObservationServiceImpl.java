@@ -338,6 +338,15 @@ public class ObservationServiceImpl implements ObservationService {
     public List<Observation> getObservationsByPatientAndConcept(final String patientUuid, final String conceptUuid) throws IOException {
         return observationDao.get(patientUuid, conceptUuid);
     }
+    /**
+     * {@inheritDoc}
+     *
+     * @see ObservationService#getObservationsByPatientAndEncounter(String, String)
+     */
+    @Override
+    public List<Observation> getObservationsByPatientAndEncounter(final String patientUuid, final String encounterUuid) throws IOException {
+        return observationDao.get(patientUuid, null ,encounterUuid);
+    }
 
 
     /**

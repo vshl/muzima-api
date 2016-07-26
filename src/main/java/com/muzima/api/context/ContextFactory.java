@@ -31,10 +31,11 @@ public class ContextFactory {
 
     private static final List<Module> modules = new ArrayList<Module>();
 
+    // override this property to match the location of your resource configurations.
+    private static final String RESOURCE_PATH = "service/j2l/config.json";
+
     static {
-        // override this property to match the location of your resource configurations.
-        String resourcePath = "../service/j2l/config.json";
-        parameters.put(Constants.RESOURCE_CONFIGURATION_PATH, resourcePath);
+        parameters.put(Constants.RESOURCE_CONFIGURATION_PATH, RESOURCE_PATH);
         // override this property if using custom folder.
         StringBuilder lucenePath = new StringBuilder();
         lucenePath.append(System.getProperty("java.io.tmpdir"));
