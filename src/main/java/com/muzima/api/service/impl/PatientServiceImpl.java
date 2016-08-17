@@ -13,6 +13,7 @@ import com.muzima.api.dao.MemberDao;
 import com.muzima.api.dao.PatientDao;
 import com.muzima.api.model.CohortMember;
 import com.muzima.api.model.Patient;
+import com.muzima.api.service.CohortService;
 import com.muzima.api.service.PatientService;
 import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.util.Constants;
@@ -32,6 +33,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Inject
     private MemberDao memberDao;
+
+    @Inject
+    private CohortService cohortService;
 
     protected PatientServiceImpl() {
     }
@@ -189,6 +193,16 @@ public class PatientServiceImpl implements PatientService {
     /**
      * {@inheritDoc}
      *
+     * @see com.muzima.api.service.PatientService#countAllPatients(String)
+     */
+    @Override
+    public Integer countPatients(final String cohortUuid) throws IOException {
+        return cohortService.countCohortMembers(cohortUuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see com.muzima.api.service.PatientService#getAllPatients()
      */
     @Override
@@ -196,10 +210,28 @@ public class PatientServiceImpl implements PatientService {
         return sortDisplayNameAscending(patientDao.getAll());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.PatientService#getAllPatients(Integer, Integer)
+     */
     @Override
-    public List<Patient> getAllPatients(final Integer page,
+    public List<Patient> getPatients(final Integer page,
                                         final Integer pageSize) throws IOException {
         return sortDisplayNameAscending(patientDao.getAll(page, pageSize));
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.PatientService#getAllPatients(String, Integer, Integer)
+     */
+    @Override
+    public List<Patient> getPatients(final String cohortUuid,
+                                        final Integer page,
+                                        final Integer pageSize) throws IOException {
+        List<CohortMember> cohortMembers = cohortService.getCohortMembers(cohortUuid, page, pageSize);
+        return getPatientsFromCohortMembers(cohortMembers);
     }
 
 
@@ -276,7 +308,7 @@ public class PatientServiceImpl implements PatientService {
         for (CohortMember member : cohortMembers) {
             patients.add(member.getPatient());
         }
-        return patients;
+        return sortDisplayNameAscending(patients);
     }
 
     private boolean isNotAPartOfAnyCohort(Patient patient) throws IOException {
