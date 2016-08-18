@@ -27,7 +27,7 @@ public class UserAlgorithm extends BaseOpenmrsAlgorithm {
 
     public static final String USER_REPRESENTATION =
             "(uuid,person:" + PersonAlgorithm.PERSON_STANDARD_REPRESENTATION + "," +
-                    "username,systemId,roles:(uuid,name),privileges:(uuid,name))";
+                    "username,systemId,roles:(uuid,name,privileges:(uuid,name)),privileges:(uuid,name))";
 
     private PersonAlgorithm personAlgorithm;
     private RoleAlgorithm roleAlgorithm;

@@ -1,10 +1,3 @@
-/*
- * Copyright (c) 2014. The Trustees of Indiana University.
- *
- * This version of the code is licensed under the MPL 2.0 Open Source license with additional
- * healthcare disclaimer. If the user is an entity intending to commercialize any application
- * that uses this code in a for-profit venture, please contact the copyright holder.
- */
 {
     "configurations": [
         {
@@ -508,7 +501,7 @@
          {
              "resource.name": "Uuid Provider Resource",
              "node.root": "$",
-             "resource.object": "com.muzima.api.model.provider",
+             "resource.object": "com.muzima.api.model.Provider",
              "algorithm.class": "com.muzima.api.model.algorithm.ProviderAlgorithm",
              "resolver.class": "com.muzima.api.model.resolver.UuidProviderResolver",
              "field.unique": "uuid",

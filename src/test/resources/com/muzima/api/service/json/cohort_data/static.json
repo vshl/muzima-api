@@ -1553,7 +1553,7 @@
     ],
     "links": [
         {
-            "uri": "http://localhost:8081/openmrs-standalone/ws/rest/v1/cohort/0ca78602-737f-408d-8ced-386ad12367db/member?v=custom%3A%28cohort%3A%28uuid%2Cname%29%2Cpatient%3A%28uuid%2Cgender%2Cbirthdate%2Cnames%3A%28uuid%2CgivenName%2CmiddleName%2CfamilyName%2Cpreferred%29%2Cidentifiers%3A%28uuid%2Cidentifier%2Cpreferred%2CidentifierType%3A%28uuid%2Cname%29%29%29%29&startIndex=50",
+            "uri": "http://demo1.muzima.org/ws/rest/v1/cohort/0ca78602-737f-408d-8ced-386ad12367db/member?v=custom%3A%28cohort%3A%28uuid%2Cname%29%2Cpatient%3A%28uuid%2Cgender%2Cbirthdate%2Cnames%3A%28uuid%2CgivenName%2CmiddleName%2CfamilyName%2Cpreferred%29%2Cidentifiers%3A%28uuid%2Cidentifier%2Cpreferred%2CidentifierType%3A%28uuid%2Cname%29%29%29%29&startIndex=50",
             "rel": "next"
         }
     ]

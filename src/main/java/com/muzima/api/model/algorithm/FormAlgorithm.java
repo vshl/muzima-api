@@ -66,7 +66,7 @@ public class FormAlgorithm extends BaseOpenmrsAlgorithm {
         JSONObject jsonObject = new JSONObject();
         JsonUtils.writeAsString(jsonObject, "uuid", form.getUuid());
         JsonUtils.writeAsString(jsonObject, "name", form.getName());
-        JsonUtils.writeAsBoolean(jsonObject, "voided", form.isRetired());
+        JsonUtils.writeAsBoolean(jsonObject, "retired", form.isRetired());
         JsonUtils.writeAsString(jsonObject, "description", form.getDescription());
         JsonUtils.writeAsString(jsonObject, "discriminator", form.getDiscriminator());
         JsonUtils.writeAsString(jsonObject, "version", form.getVersion());

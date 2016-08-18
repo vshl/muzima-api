@@ -8,11 +8,13 @@
     "roles": [
         {
             "uuid": "8d94f280-c2cc-11de-8d13-0010c6dffd0f",
-            "name": "Provider"
+            "name": "Provider",
+            "privileges": []
         },
         {
             "uuid": "b3a01b5e-fbff-11df-b97d-005056a916f7",
-            "name": "System Developer"
+            "name": "System Developer",
+            "privileges": []
         }
     ],
     "privileges": []
