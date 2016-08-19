@@ -504,7 +504,7 @@
          {
              "resource.name": "Uuid Provider Resource",
              "node.root": "$",
-             "resource.object": "com.muzima.api.model.provider",
+             "resource.object": "com.muzima.api.model.Provider",
              "algorithm.class": "com.muzima.api.model.algorithm.ProviderAlgorithm",
              "resolver.class": "com.muzima.api.model.resolver.UuidProviderResolver",
              "field.unique": "uuid",

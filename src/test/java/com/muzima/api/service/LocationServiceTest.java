@@ -51,7 +51,7 @@ public class LocationServiceTest {
         context = ContextFactory.createContext();
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://localhost:8081/openmrs-standalone", false, false);
+            context.authenticate("admin", "test", "http://demo1.muzima.org", false, false);
         }
 
         locationService = context.getLocationService();
