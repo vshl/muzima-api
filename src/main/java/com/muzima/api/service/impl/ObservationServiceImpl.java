@@ -341,11 +341,15 @@ public class ObservationServiceImpl implements ObservationService {
     /**
      * {@inheritDoc}
      *
-     * @see ObservationService#getObservationsByPatientAndEncounter(String, String)
+     * @see ObservationService#getObservationsByEncounter(String)
      */
     @Override
-    public List<Observation> getObservationsByPatientAndEncounter(final String patientUuid, final String encounterUuid) throws IOException {
-        return observationDao.get(patientUuid, null ,encounterUuid);
+    public List<Observation> getObservationsByEncounter(final String encounterUuid) throws IOException {
+        System.out.println("Encounter: "+ encounterUuid);
+
+        List<Observation> obs = observationDao.get(null, null ,encounterUuid);
+        System.out.println(obs.size());
+        return obs;
     }
 
 
