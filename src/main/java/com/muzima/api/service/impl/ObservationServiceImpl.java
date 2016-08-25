@@ -345,10 +345,7 @@ public class ObservationServiceImpl implements ObservationService {
      */
     @Override
     public List<Observation> getObservationsByEncounter(final String encounterUuid) throws IOException {
-        System.out.println("Encounter: "+ encounterUuid);
-
         List<Observation> obs = observationDao.get(null, null ,encounterUuid);
-        System.out.println(obs.size());
         return obs;
     }
 
