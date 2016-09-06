@@ -46,8 +46,7 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
             Filter conceptFilter = FilterFactory.createFilter("conceptUuid", conceptUuid);
             filters.add(conceptFilter);
         }
-        List<Observation> obs = service.getObjects(filters, daoClass);
-        return obs;
+        return service.getObjects(filters, daoClass);
     }
 
     @Override
@@ -65,8 +64,7 @@ public class ObservationDaoImpl extends OpenmrsDaoImpl<Observation> implements O
             Filter conceptFilter = FilterFactory.createFilter("encounterUuid", encounterUuid);
             filters.add(conceptFilter);
         }
-        List<Observation> obs = service.getObjects(filters, daoClass);
-        return obs;
+        return service.getObjects(filters, daoClass);
     }
 
     @Override
