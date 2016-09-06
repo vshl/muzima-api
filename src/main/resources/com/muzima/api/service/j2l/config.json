@@ -400,7 +400,8 @@
                 "uuid": "$['uuid']",
                 "patientUuid": "$['person.uuid']",
                 "conceptUuid": "$['concept.uuid']",
-                "conceptName": "$['concept.name.name']"
+                "conceptName": "$['concept.name.name']",
+                "encounterUuid": "$['encounter']['uuid']"
             }
         },
         {
@@ -414,7 +415,8 @@
                 "uuid": "$['uuid']",
                 "patientUuid": "$['person.uuid']",
                 "conceptUuid": "$['concept.uuid']",
-                "conceptName": "$['concept.name.name']"
+                "conceptName": "$['concept.name.name']",
+                "encounterUuid": "$['encounter']['uuid']"
             }
         },
         {
@@ -427,7 +429,8 @@
             "field.searchable": {
                 "uuid": "$['uuid']",
                 "patientUuid": "$['person']['uuid']",
-                "conceptUuid": "$['concept']['uuid']"
+                "conceptUuid": "$['concept']['uuid']",
+                "encounterUuid": "$['encounter']['uuid']"
             }
         },
         {

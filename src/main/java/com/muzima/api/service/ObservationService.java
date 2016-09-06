@@ -115,6 +115,8 @@ public interface ObservationService extends MuzimaInterface {
      */
     List<Observation> getObservationsByPatient(final String patientUuid) throws IOException;
 
+    List<Observation> getObservationsByPatient(final String patientUuid,final Integer page, final Integer pageSize) throws IOException;
+
     List<Observation> getObservationsByPatient(final Patient patient) throws IOException;
 
     /**
@@ -132,6 +134,7 @@ public interface ObservationService extends MuzimaInterface {
 
     List<Observation> getObservationsByPatientAndConcept(final Patient patient,
                                                          final Concept concept) throws IOException;
+    List<Observation> getObservationsByEncounter(final String encounterUuid) throws IOException;
 
     /**
      * @param concept
@@ -155,6 +158,7 @@ public interface ObservationService extends MuzimaInterface {
 
     List<Observation> searchObservations(final Patient patient,
                                          final String term) throws IOException;
+    int countObservationsByPatient(final String patientUuid) throws IOException;
 
     /**
      * Delete a single observation from the local repository.

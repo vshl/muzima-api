@@ -28,6 +28,18 @@ public interface ObservationDao extends OpenmrsDao<Observation> {
      * @throws IOException when search api unable to process the resource.
      */
     List<Observation> get(final String patientUuid, final String conceptUuid) throws IOException;
+    /**
+     * Search observations for patient with matching uuid of the question.
+     *
+     * @param patientUuid the uuid of the patient.
+     * @param conceptUuid the uuid of the question of the observations.
+     * @param encounterUuid the uuid of the encounter of the observations.
+     * @return all observations for the patient with question and encounter matching the search term.
+     * @throws IOException when search api unable to process the resource.
+     */
+    List<Observation> get(final String patientUuid, final String conceptUuid, String encounterUuid) throws IOException;
+
+    int count(final String patientUuid, final String conceptUuid) throws IOException;
 
     List<Observation> get(final String patientUuid, final String conceptUuid,
                           final Integer page, final Integer pageSize) throws IOException;

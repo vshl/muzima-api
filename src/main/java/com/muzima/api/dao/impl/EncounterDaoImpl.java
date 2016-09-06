@@ -41,4 +41,19 @@ public class EncounterDaoImpl extends OpenmrsDaoImpl<Encounter> implements Encou
         }
         return service.getObjects(filters, daoClass);
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see EncounterDao#countEncountersByPatientUuid(String)
+     */
+    @Override
+    public int countEncountersByPatientUuid(final String patientUuid) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter filter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(filter);
+        }
+        return service.countObjects(filters, daoClass);
+    }
 }
