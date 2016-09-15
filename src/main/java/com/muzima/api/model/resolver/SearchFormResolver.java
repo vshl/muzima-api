@@ -29,7 +29,7 @@ public class SearchFormResolver extends BaseOpenmrsResolver {
         for (String key : resourceParams.keySet()) {
             paramBuilder.append("&").append(key).append("=").append(URLEncoder.encode(resourceParams.get(key), "UTF-8"));
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/muzimaforms/form" + REPRESENTATION + paramBuilder.toString();
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/form" + REPRESENTATION + paramBuilder.toString();
 
     }
 }
