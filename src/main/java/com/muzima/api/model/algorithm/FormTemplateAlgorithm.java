@@ -29,17 +29,20 @@ public class FormTemplateAlgorithm extends BaseOpenmrsAlgorithm {
 
         Object jsonObject = JsonPath.read(json, "$");
 
-        String uuid = JsonPath.read(jsonObject, "$['uuid']");
-        formTemplate.setUuid(uuid);
+        String html = JsonPath.read(jsonObject, "$['html']");
+        formTemplate.setHtml(html);
 
-        String model = JsonPath.read(jsonObject, "$['model']");
-        formTemplate.setModel(model);
+        String metaJson = JsonPath.read(jsonObject, "$['metaJson']");
+        formTemplate.setMetaJson(metaJson);
+
+        String modelXml = JsonPath.read(jsonObject, "$['modelXml']");
+        formTemplate.setModelXml(modelXml);
 
         String modelJson = JsonPath.read(jsonObject, "$['modelJson']");
         formTemplate.setModelJson(modelJson);
 
-        String html = JsonPath.read(jsonObject, "$['html']");
-        formTemplate.setHtml(html);
+        String uuid = JsonPath.read(jsonObject, "$['uuid']");
+        formTemplate.setUuid(uuid);
 
         return formTemplate;
     }
@@ -54,10 +57,11 @@ public class FormTemplateAlgorithm extends BaseOpenmrsAlgorithm {
     public String serialize(final Searchable object) throws IOException {
         FormTemplate formTemplate = (FormTemplate) object;
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("uuid", formTemplate.getUuid());
-        jsonObject.put("model", formTemplate.getModel());
-        jsonObject.put("modelJson", formTemplate.getModelJson());
         jsonObject.put("html", formTemplate.getHtml());
+        jsonObject.put("metaJson", formTemplate.getMetaJson());
+        jsonObject.put("modelXml", formTemplate.getModelXml());
+        jsonObject.put("modelJson", formTemplate.getModelJson());
+        jsonObject.put("uuid", formTemplate.getUuid());
         return jsonObject.toJSONString();
     }
 }
