@@ -59,6 +59,26 @@ public class ConceptServiceImpl implements ConceptService {
         return concept;
     }
 
+    @Override
+    public Concept downloadConceptByUuid(final String uuid) throws IOException {
+        Concept concept = null;
+        Map<String, String> parameter = new HashMap<String, String>() {{
+            put("uuid", uuid);
+        }};
+        String resourceName = Constants.UUID_CONCEPT_RESOURCE;
+        List<Concept> concepts = conceptDao.download(parameter, resourceName);
+        if (!CollectionUtil.isEmpty(concepts)) {
+            if (concepts.size() > 1) {
+                throw new IOException("Unable to uniquely identify a concept record.");
+            }
+            concept = concepts.get(0);
+        }
+        if(concept.isNumeric()){
+            return downloadConceptByUuid(uuid,true);
+        }
+        return concept;
+    }
+
     /**
      * Internal implementation of downloading concept by the uuid of the concept. This will be used
      * primarily to download numeric concept because only numeric concepts will have the units field

@@ -14,28 +14,66 @@ package com.muzima.api.model;
  */
 public class FormTemplate extends OpenmrsSearchable {
 
-    private String model;
+    private String html;
+
+    private String metaJson;
+
+    private String modelXml;
 
     private String modelJson;
 
-    private String html;
+    /**
+     * Get the form html.
+     *
+     * @return the form html.
+     */
+    public String getHtml() {
+        return html;
+    }
 
     /**
-     * Get the form model.
+     * Set the form html.
      *
-     * @return the form model.
+     * @param html the form html.
      */
-    public String getModel() {
-        return model;
+    public void setHtml(String html) {
+        this.html = html;
+    }
+
+    /**
+     * Get the form metaJson.
+     *
+     * @return the form metaJson.
+     */
+    public String getMetaJson() {
+        return metaJson;
+    }
+
+    /**
+     * Set the form metaJson.
+     *
+     * @param metaJson the form metaJson.
+     */
+    public void setMetaJson(String metaJson) {
+        this.metaJson = metaJson;
+    }
+
+    /**
+     * Get the form modelXml.
+     *
+     * @return the form modelXml.
+     */
+    public String getModelXml() {
+        return modelXml;
     }
 
     /**
      * Set the form model.
      *
-     * @param model the form model.
+     * @param modelXml the form modelXml.
      */
-    public void setModel(String model) {
-        this.model = model;
+    public void setModelXml(String modelXml) {
+        this.modelXml = modelXml;
     }
 
     /**
@@ -56,25 +94,7 @@ public class FormTemplate extends OpenmrsSearchable {
         this.modelJson = modelJson;
     }
 
-    /**
-     * Get the form html.
-     *
-     * @return the form html.
-     */
-    public String getHtml() {
-        return html;
-    }
-
-    /**
-     * Set the form html.
-     *
-     * @param html the form html.
-     */
-    public void setHtml(String html) {
-        this.html = html;
-    }
-
     public boolean isHTMLForm() {
-        return getModel() == null || getModelJson() == null;
+        return getModelXml() == null || getModelJson() == null;
     }
 }
