@@ -8,12 +8,24 @@
 
 package com.muzima.api.model;
 
+import java.util.List;
+
 /**
  * TODO: Write brief description about the class here.
  */
-public class Location extends OpenmrsSearchable {
+public class Location extends OpenmrsSearchable implements Comparable<Location> {
+
+    private int id;
 
     private String name;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -22,4 +34,14 @@ public class Location extends OpenmrsSearchable {
     public void setName(final String name) {
         this.name = name;
     }
+
+
+    @Override
+    public int compareTo(Location location) {
+        if (this.getName() != null && location.getName() != null) {
+            return this.getName().toLowerCase().compareTo(location.getName().toLowerCase());
+        }
+        return 0;
+    }
+
 }

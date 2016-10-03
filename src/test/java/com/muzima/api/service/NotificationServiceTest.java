@@ -58,7 +58,7 @@ public class NotificationServiceTest {
         context = ContextFactory.createContext();
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://localhost:8080/openmrs");
+            context.authenticate("admin", "test", "http://localhost:8080/openmrs", true, false);
         }
         notificationService = context.getService(NotificationService.class);
     }

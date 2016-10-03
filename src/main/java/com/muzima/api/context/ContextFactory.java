@@ -33,7 +33,7 @@ public class ContextFactory {
 
     static {
         // override this property to match the location of your resource configurations.
-        String resourcePath = "../service/j2l/config.json";
+        String resourcePath = "/com/muzima/api/service/j2l/config.json";
         parameters.put(Constants.RESOURCE_CONFIGURATION_PATH, resourcePath);
         // override this property if using custom folder.
         StringBuilder lucenePath = new StringBuilder();

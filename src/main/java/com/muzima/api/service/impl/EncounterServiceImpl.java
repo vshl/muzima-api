@@ -225,6 +225,16 @@ public class EncounterServiceImpl implements EncounterService {
     /**
      * {@inheritDoc}
      *
+     * @see com.muzima.api.service.EncounterService#getEncountersByPatientUuid(String)
+     */
+    @Override
+    public Integer countEncountersByPatientUuid(final String patientUuid) throws IOException {
+        return encounterDao.countEncountersByPatientUuid(patientUuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see EncounterService#getEncountersByPatient(com.muzima.api.model.Patient)
      */
     @Override
@@ -310,5 +320,15 @@ public class EncounterServiceImpl implements EncounterService {
     @Override
     public void deleteEncounters(final List<Encounter> encounters) throws IOException {
         encounterDao.delete(encounters, Constants.UUID_ENCOUNTER_RESOURCE);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see com.muzima.api.service.EncounterService#deleteAll
+     */
+    @Override
+    public void deleteAll() throws IOException {
+        encounterDao.delete(encounterDao.getAll(), Constants.UUID_ENCOUNTER_RESOURCE);
     }
 }

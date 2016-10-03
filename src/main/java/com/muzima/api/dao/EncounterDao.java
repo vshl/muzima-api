@@ -29,4 +29,13 @@ public interface EncounterDao extends OpenmrsDao<Encounter> {
      * @throws java.io.IOException when the search api unable to process the resource.
      */
     List<Encounter> getEncountersByPatientUuid(final String patientUuid) throws IOException;
+
+    /**
+     * Count list of encounters for particular patient.
+     *
+     * @param patientUuid the patient uuid.
+     * @return number of encounters for the patient.
+     * @throws java.io.IOException when the search api unable to process the resource.
+     */
+    int countEncountersByPatientUuid(final String patientUuid) throws IOException;
 }

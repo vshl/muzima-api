@@ -58,4 +58,9 @@ public class LastSyncTimeServiceImpl implements LastSyncTimeService {
     public void saveLastSyncTime(LastSyncTime lastSyncTime) throws IOException {
         lastSyncTimeDao.save(lastSyncTime, Constants.UUID_LAST_SYNC_TIME);
     }
+
+    @Override
+    public void deleteAll() throws IOException {
+        lastSyncTimeDao.delete(lastSyncTimeDao.getAll(), Constants.UUID_LAST_SYNC_TIME);
+    }
 }

@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class UuidFormTemplateResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION = "?v=custom:(uuid,model,modelJson,html)";
+    private static final String REPRESENTATION = "?v=custom:(uuid,metaJson,modelXml,modelJson,html)";
 
     /**
      * Return the full REST resource based on the parameters passed to the method.
@@ -28,6 +28,7 @@ public class UuidFormTemplateResolver extends BaseOpenmrsResolver {
         if (StringUtil.isEmpty(uuid)) {
             throw new IOException("Resolver unable to find required parameter uuid!");
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/muzimaforms/form/" + uuid + REPRESENTATION;
+
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/form/" + uuid + REPRESENTATION;
     }
 }

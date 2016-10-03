@@ -33,6 +33,16 @@ public interface ConceptService extends MuzimaInterface {
     List<Concept> downloadConceptsByName(final String name) throws IOException;
 
     /**
+     * Download list of concepts with matching name.
+     *
+     * @param uuid the uuid of the concept.
+     * @return Concept with matching uuid.
+     * @throws IOException when the search api unable to process the resource.
+     * @should download concept with matching uuid.
+     */
+    Concept downloadConceptByUuid(final String uuid) throws IOException;
+
+    /**
      * Get a single concept from local data repository with matching uuid.
      *
      * @param uuid the uuid of the concept.

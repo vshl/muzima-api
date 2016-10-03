@@ -447,7 +447,7 @@ public class FormServiceImpl implements FormService {
 
     @Override
     public boolean syncFormData(final FormData formData) throws IOException {
-        return formDataDao.syncFormData(formData);
+        return formDataDao.syncFormData(formData );
     }
 
     @Override

@@ -6,17 +6,19 @@
  * that uses this code in a for-profit venture, please contact the copyright holder.
  */
 
+
 package com.muzima.api.model.resolver;
 
-import com.muzima.api.model.algorithm.LastSyncTimeAlgorithm;
-import com.muzima.search.api.util.StringUtil;
+import com.muzima.api.model.algorithm.LocationAlgorithm;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Map;
 
-public class UuidLastSyncTimeResolver extends BaseOpenmrsResolver {
 
-    private static final String REPRESENTATION = "?v=custom:" + LastSyncTimeAlgorithm.STANDARD_LAST_SYNC_TIME_REPRESENTATION;
+public class SearchLocationResolver extends BaseOpenmrsResolver{
+    private static final String REPRESENTATION =
+            "?v=custom:" + LocationAlgorithm.LOCATION_STANDARD_REPRESENTATION;
 
     /**
      * Return the full REST resource based on the parameters passed to the method.
@@ -24,14 +26,12 @@ public class UuidLastSyncTimeResolver extends BaseOpenmrsResolver {
      * @param resourceParams the parameters of the resource to resolved.
      * @return full uri to the REST resource.
      */
+    @Override
     public String resolve(final Map<String, String> resourceParams) throws IOException {
-        String uuid = resourceParams.get("uuid");
-        if (StringUtil.isEmpty(uuid)) {
-            throw new IOException("Resolver unable to find required parameter uuid!");
+        StringBuilder paramBuilder = new StringBuilder();
+        for (String key : resourceParams.keySet()) {
+            paramBuilder.append("&").append(key).append("=").append(URLEncoder.encode(resourceParams.get(key), "UTF-8"));
         }
-
-
-
-        return getConfiguration().getServer() + "/ws/rest/v1/muzima/form/" + uuid + REPRESENTATION;
+        return getConfiguration().getServer() + "/ws/rest/v1/location" + REPRESENTATION + paramBuilder.toString();
     }
 }

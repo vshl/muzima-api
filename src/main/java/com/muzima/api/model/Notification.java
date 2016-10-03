@@ -27,6 +27,8 @@ public class Notification extends OpenmrsSearchable {
 
     private String payload;
 
+    private Patient patient;
+
     private Person sender;
 
     private Person receiver;
@@ -43,7 +45,7 @@ public class Notification extends OpenmrsSearchable {
     /**
      * Set the subject for the notification.
      *
-     * @param subject the name to set.
+     * @param subject the subject to set.
      */
     public void setSubject(final String subject) {
         this.subject = subject;
@@ -61,7 +63,7 @@ public class Notification extends OpenmrsSearchable {
     /**
      * Set the date the notification was created.
      *
-     * @param dateCreated the name to set.
+     * @param dateCreated the date to set.
      */
     public void setDateCreated(final Date dateCreated) {
         this.dateCreated = dateCreated;
@@ -115,10 +117,28 @@ public class Notification extends OpenmrsSearchable {
     /**
      * Set the payload for the Notification.
      *
-     * @param payload the name to set
+     * @param payload the payload to set
      */
     public void setPayload(final String payload) {
         this.payload = payload;
+    }
+
+    /**
+     * Get the patient for the notification.
+     *
+     * @return the patient.
+     */
+    public Patient getPatient() {
+        return patient;
+    }
+
+    /**
+     * Set the patient for the notification.
+     *
+     * @param patient the patient to set.
+     */
+    public void setPatient(final Patient patient) {
+        this.patient = patient;
     }
 
     /**
@@ -133,7 +153,7 @@ public class Notification extends OpenmrsSearchable {
     /**
      * Set the subject for the notification.
      *
-     * @param sender the name to set.
+     * @param sender the sender to set.
      */
     public void setSender(final Person sender) {
         this.sender = sender;
@@ -151,7 +171,7 @@ public class Notification extends OpenmrsSearchable {
     /**
      * Set the receiver for the Notification.
      *
-     * @param receiver the name to set.
+     * @param receiver the receiver to set.
      */
     public void setReceiver(final Person receiver) {
         this.receiver = receiver;

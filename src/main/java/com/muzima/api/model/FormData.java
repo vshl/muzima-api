@@ -213,7 +213,7 @@ public class FormData implements Searchable {
     /**
      * Set the encounter date for the encounter form.
      *
-     * @param saveTime the save time form data.
+     * @param encounterDate the save time form data.
      */
     public void setEncounterDate(Date encounterDate) {
         this.encounterDate = encounterDate;
