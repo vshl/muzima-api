@@ -71,7 +71,7 @@ public class ObservationServiceTest {
         context = ContextFactory.createContext();
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://demo1.muzima.org", true, false);
+            context.authenticate("admin", "test", "http://demo2.muzima.org", true, false);
         }
         patientService = context.getPatientService();
         conceptService = context.getService(ConceptService.class);
@@ -82,7 +82,7 @@ public class ObservationServiceTest {
         observations = new ArrayList<Observation>();
         for (Patient patient : patients) {
             for (Concept concept : concepts) {
-                logger.info("Downloading observations on '{}' for: '{}'", concept.getName(), patient.getFamilyName());
+                logger.info("Downloading observations on '{}' for: '{}'", concept.getName(), patient.getGivenName());
                 List<Observation> downloadedObservations =
                         observationService.downloadObservationsByPatientAndConcept(patient, concept);
                 logger.info("Number of observations downloaded: {}", downloadedObservations.size());

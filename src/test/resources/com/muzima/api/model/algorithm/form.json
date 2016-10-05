@@ -1,6 +1,7 @@
 {
     "description": "Form for PMTCT registration",
     "name": "PMTCT Form",
+    "discriminator": "json-registration",
     "id": 19,
     "uuid": "6eea818d-749b-4d66-a99c-db5ee3f1a15c",
     "tags": [
@@ -19,5 +20,6 @@
             "id": 1,
             "uuid": "d07d84ca-ec2e-4c11-b392-02aa408c6004"
         }
-    ]
+    ],
+    "retired": false
 }

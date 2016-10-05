@@ -18,6 +18,11 @@ import org.junit.Test;
 import java.util.List;
 import java.util.UUID;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 /**
  * TODO: Write brief description about the class here.
  */
@@ -42,7 +47,7 @@ public class UserServiceTest {
             userService.deleteCredential(credential);
 
         credential = userService.getCredentialByUsername(username);
-        Assert.assertNull(credential);
+        assertThat(credential, nullValue());
 
         String uuid = UUID.randomUUID().toString();
         String salt = DigestUtil.getSHA1Checksum(uuid);
@@ -57,9 +62,9 @@ public class UserServiceTest {
         userService.saveCredential(credential);
 
         Credential savedCredential = userService.getCredentialByUsername("admin");
-        Assert.assertNotNull(savedCredential);
-        Assert.assertEquals(salt, credential.getSalt());
-        Assert.assertEquals(username, credential.getUsername());
-        Assert.assertEquals(hashedPassword, credential.getPassword());
+        assertThat(savedCredential, notNullValue());
+        assertThat(salt, equalTo(credential.getSalt()));
+        assertThat(username, equalTo(credential.getUsername()));
+        assertThat(hashedPassword, equalTo(credential.getPassword()));
     }
 }
