@@ -72,4 +72,10 @@ public abstract class BaseOpenmrsResolver implements Resolver {
             return connection;
         }
     }
+
+    @Override
+    public HttpURLConnection setCustomRequestProperties(final HttpURLConnection connection){
+        connection.setRequestProperty("Accept-Language", configuration.getPreferredLocale());
+        return connection;
+    }
 }

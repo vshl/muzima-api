@@ -38,4 +38,9 @@ public class LocalResolver implements Resolver {
     public HttpURLConnection authenticate(final HttpURLConnection connection) throws IOException {
         return connection;
     }
+
+    @Override
+    public HttpURLConnection setCustomRequestProperties(final HttpURLConnection connection){
+        return connection;
+    }
 }
