@@ -92,16 +92,16 @@ public class Configuration {
     }
 
     /**
-     * Set the password of the openmrs server.
+     * Set the preferred locale of the user.
      *
-     * @return the password of the openmrs server.
+     * @return the preferred locale of the user.
      */
     public String getPreferredLocale() {
         return registry.get(Constants.PREFERRED_LOCALE);
     }
 
     /**
-     * Set the password of the openmrs server.
+     * Set the preferred locale of the user.
      *
      * @param preferredLocale the preferred locale of the user.
      */
