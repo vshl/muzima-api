@@ -30,6 +30,6 @@ public class UuidConceptNumericResolver extends BaseOpenmrsResolver {
         if (StringUtil.isEmpty(uuid)) {
             throw new IOException("Resolver unable to find required parameter uuid!");
         }
-        return getConfiguration().getServer() + "/ws/rest/v1/concept/" + uuid + REPRESENTATION;
+        return getConfiguration().getServer() + "/ws/rest/v1/muzima/concept/" + uuid + REPRESENTATION;
     }
 }

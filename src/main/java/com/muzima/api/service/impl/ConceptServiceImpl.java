@@ -72,9 +72,10 @@ public class ConceptServiceImpl implements ConceptService {
                 throw new IOException("Unable to uniquely identify a concept record.");
             }
             concept = concepts.get(0);
-        }
-        if(concept.isNumeric()){
-            return downloadConceptByUuid(uuid,true);
+
+            if(concept.isNumeric()){
+                return downloadConceptByUuid(uuid,true);
+            }
         }
         return concept;
     }
