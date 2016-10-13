@@ -41,6 +41,8 @@ public class Constants {
     public static final String CONNECTION_USERNAME = "connection.openmrs.username";
 
     public static final String CONNECTION_PASSWORD = "connection.openmrs.password";
+
+    public static final String PREFERRED_LOCALE = "configuration.preferred.locale";
     /*
      * Resource configuration.
      */

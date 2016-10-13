@@ -90,4 +90,22 @@ public class Configuration {
     public void setPassword(final String password) {
         registry.put(Constants.CONNECTION_PASSWORD, password);
     }
+
+    /**
+     * Set the password of the openmrs server.
+     *
+     * @return the password of the openmrs server.
+     */
+    public String getPreferredLocale() {
+        return registry.get(Constants.PREFERRED_LOCALE);
+    }
+
+    /**
+     * Set the password of the openmrs server.
+     *
+     * @param preferredLocale the preferred locale of the user.
+     */
+    public void setPreferredLocale(final String preferredLocale) {
+        registry.put(Constants.PREFERRED_LOCALE, preferredLocale);
+    }
 }

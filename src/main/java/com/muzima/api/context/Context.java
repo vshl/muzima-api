@@ -227,6 +227,11 @@ public class Context {
         getUserContext().authenticate(username, password, getUserService(), isDeviceOnline, isUpdatePasswordRequired);
     }
 
+    public void setPreferredLocale(String preferredLocale) throws IOException {
+        Configuration configuration = getInjector().getInstance(Configuration.class);
+        configuration.setPreferredLocale(preferredLocale);
+    }
+
     private void setUpConfiguration(String username, String password, String server) throws IOException {
         Configuration configuration = getInjector().getInstance(Configuration.class);
         configuration.configure(username, password, server);

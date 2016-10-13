@@ -978,7 +978,7 @@
     ],
     "links": [
         {
-            "uri": "http://demo1.muzima.org/ws/rest/v1/concept?v=custom%3A%28uuid%2Cdatatype%3A%28uuid%2Cname%29%2Cnames%3A%28uuid%2Cname%2ClocalePreferred%29%29&startIndex=50",
+            "uri": "http://demo2.muzima.org/ws/rest/v1/muzima/concept?v=custom%3A%28uuid%2Cdatatype%3A%28uuid%2Cname%29%2Cnames%3A%28uuid%2Cname%2ClocalePreferred%29%29&startIndex=50",
             "rel": "next"
         }
     ]
