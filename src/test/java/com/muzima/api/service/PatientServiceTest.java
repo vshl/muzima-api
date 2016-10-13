@@ -23,6 +23,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -44,7 +45,7 @@ import static org.hamcrest.Matchers.samePropertyValuesAs;
  */
 public class PatientServiceTest {
     private static final String GIVEN_NAME = "Test";
-    private static final String FAMILY_NAME = "Indakasi";
+    private static final String FAMILY_NAME = "Patient";
     // baseline patient
     private Patient patient;
     private List<Patient> patients;
@@ -65,7 +66,7 @@ public class PatientServiceTest {
         context = ContextFactory.createContext();
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://demo1.muzima.org", true, false);
+            context.authenticate("admin", "test", "http://demo2.muzima.org", true, false);
         }
         patientService = context.getPatientService();
         cohortService = context.getCohortService();
@@ -92,7 +93,7 @@ public class PatientServiceTest {
     @Test
     public void downloadPatientByUuid_shouldDownloadPatientWithMatchingUuid() throws Exception {
         Patient downloadedPatient = patientService.downloadPatientByUuid(patient.getUuid());
-        assertThat(downloadedPatient, samePropertyValuesAs(patient));
+        assertThat(downloadedPatient.getUuid(), equalTo(patient.getUuid()));
     }
 
     /**
@@ -146,12 +147,12 @@ public class PatientServiceTest {
         patientService.savePatient(patient);
         Patient savedPatient = patientService.getPatientByUuid(patient.getUuid());
         assertThat(savedPatient, notNullValue());
-        assertThat(savedPatient, samePropertyValuesAs(patient));
+        assertThat(savedPatient.getUuid(), equalTo(patient.getUuid()));
         String cohortName = "New Patient Gender";
         savedPatient.setGender(cohortName);
         patientService.updatePatient(savedPatient);
         Patient updatedPatient = patientService.getPatientByUuid(savedPatient.getUuid());
-        assertThat(updatedPatient, not(samePropertyValuesAs(patient)));
+        assertThat(updatedPatient.getGender(), not(equalTo(patient.getGender())));
         assertThat(updatedPatient.getGender(), equalTo(cohortName));
     }
 
@@ -171,7 +172,7 @@ public class PatientServiceTest {
         List<Patient> updatedPatients = patientService.getAllPatients();
         for (Patient updatedPatient : updatedPatients) {
             for (Patient cohort : patients) {
-                assertThat(updatedPatient, not(samePropertyValuesAs(cohort)));
+                assertThat(updatedPatient.getUuid(), equalTo(cohort.getUuid()));
             }
             assertThat(updatedPatient.getGender(), containsString("New Gender For Patient"));
         }
@@ -188,7 +189,7 @@ public class PatientServiceTest {
         patientService.savePatient(patient);
         Patient savedPatient = patientService.getPatientByUuid(patient.getUuid());
         assertThat(savedPatient, notNullValue());
-        assertThat(savedPatient, samePropertyValuesAs(patient));
+        assertThat(savedPatient.getUuid(), equalTo(patient.getUuid()));
     }
 
     /**
@@ -214,7 +215,7 @@ public class PatientServiceTest {
         assertThat(patientService.countAllPatients(), equalTo(0));
         patientService.savePatient(patient);
         Patient savedPatient = patientService.getPatientByIdentifier(patient.getIdentifier());
-        assertThat(savedPatient, samePropertyValuesAs(patient));
+        assertThat(savedPatient.getUuid(), equalTo(patient.getUuid()));
     }
 
     /**
@@ -425,6 +426,7 @@ public class PatientServiceTest {
         personName.setGivenName(givenName);
         personName.setMiddleName(middle);
         patient1.setNames(asList(personName));
+        patient1.setBirthdate(new Date());
         return patient1;
     }
 }

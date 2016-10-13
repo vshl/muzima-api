@@ -61,7 +61,7 @@ public class EncounterServiceTest {
         context = ContextFactory.createContext();
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://demo1.muzima.org", true, false);
+            context.authenticate("admin", "test", "http://demo2.muzima.org", true, false);
         }
         patientService = context.getPatientService();
         encounterService = context.getService(EncounterService.class);

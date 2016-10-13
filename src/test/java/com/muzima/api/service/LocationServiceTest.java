@@ -51,11 +51,11 @@ public class LocationServiceTest {
         context = ContextFactory.createContext();
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://demo1.muzima.org", false, false);
+            context.authenticate("admin", "test", "http://demo2.muzima.org", true, false);
         }
 
         locationService = context.getLocationService();
-        locations = locationService.downloadLocationsByName("Chulaimbo");
+        locations = locationService.downloadLocationsByName("Unknown Location");
         location = locations.get(nextInt(locations.size()));
     }
 
