@@ -64,6 +64,7 @@ public class PatientServiceTest {
         String path = System.getProperty("java.io.tmpdir") + "/muzima/" + UUID.randomUUID().toString();
         ContextFactory.setProperty(Constants.LUCENE_DIRECTORY_PATH, path);
         context = ContextFactory.createContext();
+        context.setPreferredLocale("en");
         context.openSession();
         if (!context.isAuthenticated()) {
             context.authenticate("admin", "test", "http://demo2.muzima.org", true, false);
