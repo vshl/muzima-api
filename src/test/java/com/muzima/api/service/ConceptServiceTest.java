@@ -57,7 +57,7 @@ public class ConceptServiceTest {
         context.setPreferredLocale("en");
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://demo2.muzima.org", true, false);
+            context.authenticate("admin", "test", "http://demo2.muzima.org", false);
         }
         conceptService = context.getService(ConceptService.class);
         concepts = conceptService.downloadConceptsByName("HEIGHT (CM)");

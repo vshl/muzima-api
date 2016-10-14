@@ -15,6 +15,8 @@ import com.muzima.api.model.User;
 import com.muzima.api.service.UserService;
 import com.muzima.search.api.util.DigestUtil;
 import com.muzima.search.api.util.StringUtil;
+import com.muzima.util.Constants;
+import com.muzima.util.NetworkUtils;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.IOException;
@@ -42,12 +44,12 @@ class UserContext {
      * @param password the password.
      */
     public void authenticate(final String username, final String password,
-                             final UserService userService, final boolean isDeviceOnline, final boolean isUpdatePasswordRequired)
+                             final UserService userService, final boolean isUpdatePasswordRequired)
             throws IOException, ParseException {
         if (isUpdatePasswordRequired) {
             //if the user has forgotten his password and has asked for a reset/change in password on the server
             //then we force online authentication to authenticate against latest password.
-            authenticateOnlineAndUpdateCredentialsWithNewPassword(username, password, userService, isDeviceOnline);
+            authenticateOnlineAndUpdateCredentialsWithNewPassword(username, password, userService);
         } else {
             // check device's local repo for user, if user is found proceed with offline authentication
             // if user  does not exist in device's local repo, online authentication is the way to go
@@ -55,15 +57,16 @@ class UserContext {
             if (user != null) {
                 authenticateOffline(username, password, userService);
             } else {
-                authenticateOnline(username, password, userService, isDeviceOnline);
+                authenticateOnline(username, password, userService);
             }
         }
 
     }
 
-    private void authenticateOnlineAndUpdateCredentialsWithNewPassword(String username, String password, UserService userService, boolean isDeviceOnline) throws IOException, ParseException {
+    private void authenticateOnlineAndUpdateCredentialsWithNewPassword(String username, String password, UserService userService) throws IOException, ParseException {
 
         user = userService.getUserByUsername(username);
+        boolean isDeviceOnline = NetworkUtils.checkServiceAvailability(getConfiguration().getServer(), Constants.CONNECTION_TIMEOUT);
 
         if (user != null) { //check if user record exists on device
             if (isDeviceOnline) {
@@ -92,14 +95,17 @@ class UserContext {
      * @param password the password.
      */
     public void authenticateOnline(final String username, final String password,
-                                   final UserService userService, final boolean isDeviceOnline)
+                                   final UserService userService)
             throws IOException, ParseException {
         // Process:
         // * Check if this user and his credential already exist on the device's local repo, if yes proceed with offline authentication
         // * If we are unable to find this user and his credential on then proceed with online authentication
         // * Download the user from the server by the username first.
         // * If we get a user, we write the current user credential object. The context is now authenticated.
-        if (user == null && isDeviceOnline) {
+        boolean isDeviceOnline = NetworkUtils.checkServiceAvailability(getConfiguration().getServer(), Constants.CONNECTION_TIMEOUT);
+        if (user != null && StringUtil.equals(user.getUsername(),username)){
+            authenticateOffline(username,password,userService);
+        } else if(isDeviceOnline) {
             user = userService.downloadUserByUsername(username);
             if (user != null) {
                 userService.saveUser(user);
@@ -119,7 +125,7 @@ class UserContext {
                 throw new AuthenticationException("Unable to authenticate user for username: " + username);
             }
         } else {
-            throw new ConnectException("Unable to connect to the server to authenticate user. Please connect to the internet and try again." + username);
+            throw new ConnectException("Unable to connect to the server to authenticate user. Server cannot be reached." + username);
         }
     }
 

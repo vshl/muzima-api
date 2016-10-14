@@ -64,7 +64,7 @@ public class FormServiceTest {
         context.setPreferredLocale("en");
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://demo2.muzima.org", true, false);
+            context.authenticate("admin", "test", "http://demo2.muzima.org", false);
         }
         formService = context.getFormService();
         forms = formService.downloadFormsByName(StringUtil.EMPTY);

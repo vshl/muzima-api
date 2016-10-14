@@ -18,6 +18,11 @@ public class Constants {
 
     public static final int TYPE_STRING = 3;
     /*
+    Network service constants
+
+     */
+    public static final int CONNECTION_TIMEOUT = 3000;
+    /*
      * Context configuration.
      */
     public static final String LUCENE_DIRECTORY_PATH = "configuration.lucene.directory";

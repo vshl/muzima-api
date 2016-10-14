@@ -72,7 +72,7 @@ public class ObservationServiceTest {
         context.setPreferredLocale("en");
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://demo2.muzima.org", true, false);
+            context.authenticate("admin", "test", "http://demo2.muzima.org", false);
         }
         patientService = context.getPatientService();
         conceptService = context.getService(ConceptService.class);
