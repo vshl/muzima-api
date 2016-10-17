@@ -11,14 +11,14 @@ import java.net.URL;
 public class NetworkUtils {
     private static final Logger logger = LoggerFactory.getLogger(NetworkUtils.class.getCanonicalName());
 
-    public static boolean checkServiceAvailability(String IP_address, Proxy proxy, int timeout) {
+    public static boolean isAddressReachable(String address, Proxy proxy, int timeout) {
         boolean serverAvailable = false;
         try {
             HttpURLConnection connection = null;
             if(proxy != null ){
-                connection = openConnection(IP_address, proxy);
+                connection = openConnection(address, proxy);
             } else {
-                connection = openConnection(IP_address);
+                connection = openConnection(address);
             }
             connection.setConnectTimeout(timeout);
             connection.connect();
@@ -28,15 +28,20 @@ public class NetworkUtils {
             }
         } catch (IOException e) {
             if(proxy == null ){
-                logger.error("Unable to create connection to address" + IP_address );
+                logger.error("Unable to create connection to address" + address );
             } else {
-                logger.error("Unable to create connection to address : " + IP_address + " Proxy : " + proxy );
+                logger.error("Unable to create connection to address : " + address + " Proxy : " + proxy );
             }
         }
         return serverAvailable;
     }
-    public static boolean checkServiceAvailability(String server_address, int timeout){
-        return checkServiceAvailability(server_address,null, timeout);
+
+    public static boolean isAddressReachable(String address, int timeout){
+        return isAddressReachable(address,null, timeout);
+    }
+
+    public static boolean isAddressReachable(final String address){
+        return NetworkUtils.isAddressReachable(address, Constants.CONNECTION_TIMEOUT);
     }
 
     public static HttpURLConnection openConnection(String address)  throws IOException {
@@ -48,6 +53,5 @@ public class NetworkUtils {
     public static HttpURLConnection openConnection(String address, Proxy proxy)  throws IOException {
         URL url = new URL(address);
         return (HttpURLConnection)url.openConnection(proxy);
-
     }
 }

@@ -31,7 +31,6 @@ import com.muzima.search.api.resource.Resource;
 import com.muzima.search.api.resource.ResourceConstants;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
-import com.muzima.util.NetworkUtils;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.ByteArrayInputStream;
@@ -225,10 +224,6 @@ public class Context {
             throws IOException, ParseException {
         setUpConfiguration(username, password, server);
         getUserContext().authenticate(username, password, getUserService(), isUpdatePasswordRequired);
-    }
-
-    public boolean isServerOnline(final String server){
-        return NetworkUtils.checkServiceAvailability(server, Constants.CONNECTION_TIMEOUT);
     }
 
     public void setPreferredLocale(String preferredLocale) throws IOException {

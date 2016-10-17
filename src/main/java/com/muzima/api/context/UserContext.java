@@ -66,7 +66,7 @@ class UserContext {
     private void authenticateOnlineAndUpdateCredentialsWithNewPassword(String username, String password, UserService userService) throws IOException, ParseException {
 
         user = userService.getUserByUsername(username);
-        boolean isDeviceOnline = NetworkUtils.checkServiceAvailability(getConfiguration().getServer(), Constants.CONNECTION_TIMEOUT);
+        boolean isDeviceOnline = NetworkUtils.isAddressReachable(getConfiguration().getServer(), Constants.CONNECTION_TIMEOUT);
 
         if (user != null) { //check if user record exists on device
             if (isDeviceOnline) {
@@ -102,7 +102,7 @@ class UserContext {
         // * If we are unable to find this user and his credential on then proceed with online authentication
         // * Download the user from the server by the username first.
         // * If we get a user, we write the current user credential object. The context is now authenticated.
-        boolean isDeviceOnline = NetworkUtils.checkServiceAvailability(getConfiguration().getServer(), Constants.CONNECTION_TIMEOUT);
+        boolean isDeviceOnline = NetworkUtils.isAddressReachable(getConfiguration().getServer(), Constants.CONNECTION_TIMEOUT);
         if (user != null && StringUtil.equals(user.getUsername(),username)){
             authenticateOffline(username,password,userService);
         } else if(isDeviceOnline) {
