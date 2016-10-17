@@ -69,7 +69,7 @@ public class CohortServiceTest {
         context.setPreferredLocale("en");
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://demo2.muzima.org", true, false);
+            context.authenticate("admin", "test", "http://demo2.muzima.org", false);
         }
         cohortService = context.getCohortService();
         staticCohorts = cohortService.downloadCohortsByName(StringUtil.EMPTY);

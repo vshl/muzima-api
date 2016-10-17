@@ -59,7 +59,7 @@ public class NotificationServiceTest {
         context.setPreferredLocale("en");
         context.openSession();
         if (!context.isAuthenticated()) {
-            context.authenticate("admin", "test", "http://localhost:8080/openmrs", true, false);
+            context.authenticate("admin", "test", "http://localhost:8080/openmrs", false);
         }
         notificationService = context.getService(NotificationService.class);
     }

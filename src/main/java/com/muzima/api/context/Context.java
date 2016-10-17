@@ -31,6 +31,7 @@ import com.muzima.search.api.resource.Resource;
 import com.muzima.search.api.resource.ResourceConstants;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
+import com.muzima.util.NetworkUtils;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.ByteArrayInputStream;
@@ -217,14 +218,17 @@ public class Context {
      * @param username       the username to be authenticated.
      * @param password       the password of the username to be authenticated.
      * @param server         the remote server where the authentication will be performed.
-     * @param isDeviceOnline if the device has internet connectivity
      * @throws IOException    when the system fail to authenticate the user.
      * @throws ParseException when the system unable to parse the lucene query.
      */
-    public void authenticate(final String username, final String password, final String server, boolean isDeviceOnline, boolean isUpdatePasswordRequired)
+    public void authenticate(final String username, final String password, final String server, boolean isUpdatePasswordRequired)
             throws IOException, ParseException {
         setUpConfiguration(username, password, server);
-        getUserContext().authenticate(username, password, getUserService(), isDeviceOnline, isUpdatePasswordRequired);
+        getUserContext().authenticate(username, password, getUserService(), isUpdatePasswordRequired);
+    }
+
+    public boolean isServerOnline(final String server){
+        return NetworkUtils.checkServiceAvailability(server, Constants.CONNECTION_TIMEOUT);
     }
 
     public void setPreferredLocale(String preferredLocale) throws IOException {
