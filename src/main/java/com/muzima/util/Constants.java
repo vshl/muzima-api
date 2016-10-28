@@ -136,4 +136,12 @@ public class Constants {
     public static final String UUID_PROVIDER_RESOURCE = "Uuid Provider Resource";
 
     public static final String SEARCH_PROVIDER_RESOURCE = "Search Provider Resource";
+
+    public static final String UUID_SETUP_CONFIGURATION_RESOURCE = "Uuid Setup Configuration Resource";
+
+    public static final String SEARCH_SETUP_CONFIGURATION_RESOURCE = "Search Setup Configuration Resource";
+
+    public static final String UUID_SETUP_CONFIGURATION_TEMPLATE_RESOURCE = "Uuid Setup Configuration Template Resource";
+
+    public static final String SEARCH_SETUP_CONFIGURATION_TEMPLATE_RESOURCE = "Search Setup Configuration Template Resource";
 }

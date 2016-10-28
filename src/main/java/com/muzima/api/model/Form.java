@@ -27,7 +27,7 @@ public class Form extends OpenmrsSearchable implements Comparable<Form> {
     private boolean retired;
 
     /**
-     * Get the name for the cohort.
+     * Get the name for the form.
      *
      * @return the name.
      */
@@ -36,7 +36,7 @@ public class Form extends OpenmrsSearchable implements Comparable<Form> {
     }
 
     /**
-     * Set the name for the cohort.
+     * Set the name for the form.
      *
      * @param name the name to set.
      */

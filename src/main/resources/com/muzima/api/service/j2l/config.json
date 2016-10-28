@@ -487,33 +487,79 @@
                 "id": "$['id']"
             }
         },
-         {
-             "resource.name": "Search Provider Resource",
-             "node.root": "$['results']",
-             "resource.object": "com.muzima.api.model.Provider",
-             "algorithm.class": "com.muzima.api.model.algorithm.ProviderAlgorithm",
-             "resolver.class": "com.muzima.api.model.resolver.SearchProviderResolver",
-             "field.unique": "uuid",
-             "field.searchable": {
-                 "uuid": "$['uuid']",
-                 "name": "$['name']",
-                 "id": "$['id']",
-                 "identifier": "$['identifier']"
-             }
-         },
-         {
-             "resource.name": "Uuid Provider Resource",
-             "node.root": "$",
-             "resource.object": "com.muzima.api.model.Provider",
-             "algorithm.class": "com.muzima.api.model.algorithm.ProviderAlgorithm",
-             "resolver.class": "com.muzima.api.model.resolver.UuidProviderResolver",
-             "field.unique": "uuid",
-             "field.searchable": {
-                 "uuid": "$['uuid']",
-                 "name": "$['name']",
-                 "id": "$['id']",
-                 "identifier": "$['identifier']"
-             }
-         }
+        {
+            "resource.name": "Search Provider Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.Provider",
+            "algorithm.class": "com.muzima.api.model.algorithm.ProviderAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchProviderResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']",
+                "id": "$['id']",
+                "identifier": "$['identifier']"
+            }
+        },
+        {
+            "resource.name": "Uuid Provider Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.Provider",
+            "algorithm.class": "com.muzima.api.model.algorithm.ProviderAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidProviderResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']",
+                "id": "$['id']",
+                "identifier": "$['identifier']"
+            }
+        },
+        {
+            "resource.name": "Search Setup Configuration Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.SetupConfiguration",
+            "algorithm.class": "com.muzima.api.model.algorithm.SetupConfigurationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchSetupConfigurationResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Uuid Setup Configuration Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.SetupConfiguration",
+            "algorithm.class": "com.muzima.api.model.algorithm.SetupConfigurationAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidSetupConfigurationResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']",
+                "name": "$['name']"
+            }
+        },
+        {
+            "resource.name": "Search Setup Configuration Template Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.SetupConfigurationTemplate",
+            "algorithm.class": "com.muzima.api.model.algorithm.SetupConfigurationTemplateAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.SearchSetupConfigurationTemplateResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']"
+            }
+        },
+        {
+            "resource.name": "Uuid Setup Configuration Template Resource",
+            "node.root": "$",
+            "resource.object": "com.muzima.api.model.SetupConfigurationTemplate",
+            "algorithm.class": "com.muzima.api.model.algorithm.SetupConfigurationTemplateAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.UuidSetupConfigurationTemplateResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "uuid": "$['uuid']"
+            }
+        }
     ]
 }

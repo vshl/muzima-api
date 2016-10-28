@@ -224,7 +224,6 @@ public class FormServiceImpl implements FormService {
         }};
         List<FormTemplate> formTemplates = formTemplateDao.download(parameter, Constants.UUID_FORM_TEMPLATE_RESOURCE);
         if (!CollectionUtil.isEmpty(formTemplates)) {
-
             if (formTemplates.size() > 1) {
                 throw new IOException("Unable to uniquely identify a form template record.");
             }
