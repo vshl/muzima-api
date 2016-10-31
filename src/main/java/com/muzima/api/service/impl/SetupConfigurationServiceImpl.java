@@ -16,14 +16,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by savai on 10/21/16.
- */
 public class SetupConfigurationServiceImpl implements SetupConfigurationService {
     @Inject
     private SetupConfigurationDao setupConfigurationDao;
     @Inject
     private SetupConfigurationTemplateDao setupConfigurationTemplateDao;
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see SetupConfigurationService#countAllSetupConfigurations()
+     */
+    @Override
+    public Integer countAllSetupConfigurations() throws IOException {
+        return setupConfigurationDao.countAll();
+    }
 
     /**
      * {@inheritDoc}
@@ -51,14 +58,29 @@ public class SetupConfigurationServiceImpl implements SetupConfigurationService 
         return setupConfigurationDao.download(parameter, Constants.SEARCH_SETUP_CONFIGURATION_RESOURCE);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @see SetupConfigurationService#getAllSetupConfigurations()
+     */
     public List<SetupConfiguration> getAllSetupConfigurations() throws IOException{
         return setupConfigurationDao.getAll();
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @see SetupConfigurationService#saveSetupConfigurations(List<SetupConfiguration>)
+     */
     public void saveSetupConfigurations(List<SetupConfiguration> setupConfigurations) throws IOException{
         setupConfigurationDao.save(setupConfigurations,Constants.UUID_SETUP_CONFIGURATION_RESOURCE);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @see SetupConfigurationService#downloadSetupConfigurationTemplateByUuid(String)
+     */
     public SetupConfigurationTemplate downloadSetupConfigurationTemplateByUuid(final String uuid) throws IOException{
         SetupConfigurationTemplate setupConfigurationTemplate = null;
         Map<String, String> parameter = new HashMap<String, String>() {{
@@ -76,10 +98,21 @@ public class SetupConfigurationServiceImpl implements SetupConfigurationService 
 
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @see SetupConfigurationService#saveSetupConfigurationTemplate(SetupConfigurationTemplate)
+     */
     public void saveSetupConfigurationTemplate(final SetupConfigurationTemplate setupConfigurationTemplate) throws IOException{
         setupConfigurationTemplateDao.save(setupConfigurationTemplate,Constants.UUID_SETUP_CONFIGURATION_TEMPLATE_RESOURCE);
     }
 
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see SetupConfigurationService#getSetupConfigurationTemplate(String)
+     */
     public SetupConfigurationTemplate getSetupConfigurationTemplate(final String uuid) throws IOException{
         return setupConfigurationTemplateDao.getByUuid(uuid);
     }

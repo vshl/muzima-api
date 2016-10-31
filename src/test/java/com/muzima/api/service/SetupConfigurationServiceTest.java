@@ -21,11 +21,10 @@ import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
-/**
- * Created by savai on 10/21/16.
- */
+
 public class SetupConfigurationServiceTest {
     private static final Logger logger = LoggerFactory.getLogger(SetupConfigurationServiceTest.class.getSimpleName());
 
@@ -51,7 +50,7 @@ public class SetupConfigurationServiceTest {
         }
         setupConfigurationService = context.getSetupConfigurationService();
         setupConfigurations = setupConfigurationService.downloadSetupConfigurationsByName(StringUtil.EMPTY);
-        logger.info("Number of downloaded setup Configurations: {}", setupConfigurations.size());
+        logger.debug("Number of downloaded setup Configurations: {}", setupConfigurations.size());
         setupConfiguration = setupConfigurations.get(nextInt(setupConfigurations.size()));
     }
 
@@ -68,7 +67,7 @@ public class SetupConfigurationServiceTest {
     }
 
     /**
-     * @verifies download all cohorts with partially matched name.
+     * @verifies download all setup configurations with partially matched name.
      * @see SetupConfigurationService#downloadSetupConfigurationsByName(String)
      */
     @Test
@@ -79,24 +78,58 @@ public class SetupConfigurationServiceTest {
         for (SetupConfiguration downloadedSetupConfiguration : downloadedSetupConfigurations) {
             assertThat(downloadedSetupConfiguration.getName(), containsString(partialName));
         }
-        List<SetupConfiguration> emptyCohortWithSyncDate = setupConfigurationService.downloadSetupConfigurationsByName(partialName, new Date());
-        assertThat(emptyCohortWithSyncDate, hasSize(0));
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, 2012);
-        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
-        calendar.set(Calendar.DATE, 1);
-        List<SetupConfiguration> nonEmptyCohortWithSyncDate = setupConfigurationService.downloadSetupConfigurationsByName(partialName, calendar.getTime());
-        assertThat(nonEmptyCohortWithSyncDate, hasSize(1));
     }
 
     /**
-     * @verifies download all cohorts when name is empty.
+     * @verifies download all setup configurations when name is empty.
      * @see SetupConfigurationService#downloadSetupConfigurationsByName(String)
      */
     @Test
     public void downloadSetupConfigurationsByName_shouldDownloadAllSetupConfigurationsWhenNameIsEmpty() throws Exception {
         List<SetupConfiguration> downloadedSetupConfigurations = setupConfigurationService.downloadSetupConfigurationsByName(StringUtil.EMPTY);
         assertThat(downloadedSetupConfigurations, hasSize(setupConfigurations.size()));
+    }
+
+    /**
+     * @verifies count setup configurations.
+     * @see SetupConfigurationService#countAllSetupConfigurations()
+     */
+    @Test
+    public void countSetupConfigurations_shouldReturnCorrectSetupConfigurationsCount() throws Exception{
+        assertThat(0, equalTo(setupConfigurationService.countAllSetupConfigurations()));
+        setupConfigurationService.saveSetupConfigurations(setupConfigurations);
+        assertThat(setupConfigurationService.countAllSetupConfigurations(), equalTo(setupConfigurations.size()));
+    }
+
+    /**
+     * @verifies get all setup configurations when no setup configuration is registered.
+     * @see SetupConfigurationService#getAllSetupConfigurations()
+     */
+    @Test
+    public void getAllSetupConfigurations_shouldReturnEmptyListWhenNoSetupConfigurationIsRegistered() throws Exception{
+        List<SetupConfiguration> setupConfigurations = setupConfigurationService.getAllSetupConfigurations();
+        assertThat(setupConfigurations, hasSize(0));
+    }
+
+    /**
+     * @verifies get all setup configurations when setup configurations exist.
+     * @see SetupConfigurationService#getAllSetupConfigurations()
+     */
+    @Test
+    public void getAllSetupConfigurations_shouldReturnAllSetupConfigurationsWhenSetupConfigurationsExist() throws Exception{
+        setupConfigurationService.saveSetupConfigurations(setupConfigurations);
+        List<SetupConfiguration> savedSetupConfigurations = setupConfigurationService.getAllSetupConfigurations();
+        assertThat(savedSetupConfigurations, hasSize(setupConfigurations.size()));
+    }
+
+    /**
+     * @verifies get all setup configurations when setup configurations exist.
+     * @see SetupConfigurationService#getAllSetupConfigurations()
+     */
+    @Test
+    public void saveSetupConfigurations_shouldReturnAllSetupConfigurationsWhenSetupConfigurationsExist() throws Exception{
+        setupConfigurationService.saveSetupConfigurations(setupConfigurations);
+        List<SetupConfiguration> savedSetupConfigurations = setupConfigurationService.getAllSetupConfigurations();
+        assertThat(savedSetupConfigurations, hasSize(setupConfigurations.size()));
     }
 }
