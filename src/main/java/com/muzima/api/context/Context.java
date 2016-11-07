@@ -373,9 +373,9 @@ public class Context {
     }
 
     /**
-     * Get the location service to perform operation related to the location object.
+     * Get the setup configuration service to perform operation related to the location object.
      *
-     * @return the location service class.
+     * @return the setup configuration service class.
      * @throws IOException when the system unable to find the correct service object.
      */
     public SetupConfigurationService getSetupConfigurationService() throws IOException {
