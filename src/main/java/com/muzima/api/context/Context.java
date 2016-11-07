@@ -20,6 +20,7 @@ import com.muzima.api.service.LocationService;
 import com.muzima.api.service.MuzimaInterface;
 import com.muzima.api.service.ObservationService;
 import com.muzima.api.service.PatientService;
+import com.muzima.api.service.SetupConfigurationService;
 import com.muzima.api.service.UserService;
 import com.muzima.search.api.context.ServiceContext;
 import com.muzima.search.api.exception.ServiceException;
@@ -369,5 +370,15 @@ public class Context {
      */
     public LocationService getLocationService() throws IOException {
         return getService(LocationService.class);
+    }
+
+    /**
+     * Get the setup configuration service to perform operation related to the location object.
+     *
+     * @return the setup configuration service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
+    public SetupConfigurationService getSetupConfigurationService() throws IOException {
+        return getService(SetupConfigurationService.class);
     }
 }
