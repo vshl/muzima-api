@@ -568,6 +568,29 @@ public class FormServiceTest {
     }
 
     /**
+     * @verifies return total count of forms matching the patient Uuid and status.
+     * @see FormService#countFormDataByPatient(String, String)
+     */
+    @Test
+    public void countFormDataByPatient_shouldReturnCountOfAllFormDataWithMatchingPatientAndStatus() throws Exception {
+        String patientUuid = UUID.randomUUID().toString();
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData firstFormData = new FormData();
+        firstFormData.setUuid(UUID.randomUUID().toString());
+        firstFormData.setStatus("Some random status");
+        firstFormData.setPatientUuid(patientUuid);
+        formService.saveFormData(firstFormData);
+        FormData secondFormData = new FormData();
+        secondFormData.setUuid(UUID.randomUUID().toString());
+        secondFormData.setStatus("Some other random status");
+        secondFormData.setPatientUuid(patientUuid);
+        formService.saveFormData(secondFormData);
+        assertThat(formService.countAllFormData(), equalTo(2));
+        List<FormData> savedFormData = formService.getFormDataByPatient(patientUuid, "Some random status");
+        assertThat(formService.countFormDataByPatient(patientUuid, "Some random status"), equalTo(1));
+    }
+
+    /**
      * @verifies delete form data from local data repository.
      * @see FormService#deleteFormData(com.muzima.api.model.FormData)
      */

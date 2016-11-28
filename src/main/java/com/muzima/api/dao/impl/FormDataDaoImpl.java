@@ -49,6 +49,30 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
         super(FormData.class);
     }
 
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormDataDao#countAllFormData(String, String, String)
+     */
+    @Override
+    public int countAllFormData(final String patientUuid, final String userUuid,
+                                final String status) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(patientUuid)) {
+            Filter patientFilter = FilterFactory.createFilter("patientUuid", patientUuid);
+            filters.add(patientFilter);
+        }
+        if (!StringUtil.isEmpty(userUuid)) {
+            Filter userFilter = FilterFactory.createFilter("userUuid", userUuid);
+            filters.add(userFilter);
+        }
+        if (!StringUtil.isEmpty(status)) {
+            Filter statusFilter = FilterFactory.createFilter("status", status);
+            filters.add(statusFilter);
+        }
+        return service.countObjects(filters, daoClass);
+    }
     /**
      * {@inheritDoc}
      *

@@ -413,6 +413,16 @@ public class FormServiceImpl implements FormService {
     /**
      * {@inheritDoc}
      *
+     * @see FormService#countFormDataByPatient(String, String)
+     */
+    @Override
+    public int countFormDataByPatient(final String patientUuid, final String status) throws IOException {
+        return formDataDao.countAllFormData(patientUuid, StringUtil.EMPTY, status);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * @see FormService#deleteFormData(com.muzima.api.model.FormData)
      */
     @Override

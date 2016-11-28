@@ -21,6 +21,17 @@ import java.util.List;
 public interface FormDataDao extends SearchableDao<FormData> {
 
     /**
+     * Count all searchable form data with a particular status.
+     *
+     * @param patientUuid the patient uuid associated to this form data.
+     * @param userUuid    user's uuid associated to this form data.
+     * @param status      the status of this form data.
+     * @return total count of all searchable objects or zero.
+     * @throws IOException when search api unable to process the resource.
+     */
+    int countAllFormData(final String patientUuid, final String userUuid,
+                         final String status) throws IOException;
+    /**
      * Get all searchable form data with a particular status.
      *
      * @param patientUuid the patient uuid associated to this form data.
@@ -34,7 +45,6 @@ public interface FormDataDao extends SearchableDao<FormData> {
 
     List<FormData> getAllFormData(final String patientUuid, final String userUuid, final String status,
                                   final Integer page, final Integer pageSize) throws IOException;
-
     /**
      * Get the form data object using the uuid.
      *

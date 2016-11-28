@@ -334,6 +334,17 @@ public interface FormService extends MuzimaInterface {
     List<FormData> getFormDataByPatient(final String patientUuid, final String status) throws IOException;
 
     /**
+     * Get form data associated with certain user with filtering on the status of the form data.
+     *
+     * @param patientUuid the uuid of the patient
+     * @param status      the status of the form data (optional).
+     * @return total count of forms matching the patient Uuid and status.
+     * @throws IOException when search api unable to process the resource.
+     * @should return total count of forms matching the patient Uuid and status.
+     */
+    int countFormDataByPatient(final String patientUuid, final String status) throws IOException;
+
+    /**
      * Delete an instance of form data.
      *
      * @param formData the form data
