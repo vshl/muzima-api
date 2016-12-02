@@ -16,6 +16,7 @@ import com.muzima.api.model.Form;
 import com.muzima.api.model.FormData;
 import com.muzima.api.model.FormTemplate;
 import com.muzima.api.service.FormService;
+import com.muzima.search.api.filter.Filter;
 import com.muzima.search.api.util.CollectionUtil;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
@@ -368,6 +369,17 @@ public class FormServiceImpl implements FormService {
     @Override
     public FormData getFormDataByUuid(final String uuid) throws IOException {
         return formDataDao.getFormDataByUuid(uuid);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @see FormService#getFormDataByUuids(java.util.List)
+     */
+    @Override
+    public List<FormData> getFormDataByUuids(final List<String> uuids) throws IOException {
+        List<Filter> filters = new ArrayList<Filter>();
+        return formDataDao.getFormDataByUuid(uuids);
     }
 
     /**

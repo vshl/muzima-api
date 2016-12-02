@@ -293,6 +293,16 @@ public interface FormService extends MuzimaInterface {
     FormData getFormDataByUuid(final String uuid) throws IOException;
 
     /**
+     * Get all form data matching a list of form data uuids.
+     *
+     * @param uuids the list of uuids.
+     * @return all form data whose Ids are included in the list.
+     * @throws IOException when search api unable to process the resource.
+     * @should return all form data with matching uuids.
+     */
+    List<FormData> getFormDataByUuids(final List<String> uuids) throws IOException;
+
+    /**
      * Count total number of form data.
      *
      * @return total number of form data.

@@ -53,6 +53,14 @@ public interface FormDataDao extends SearchableDao<FormData> {
      * @throws IOException when search api unable to process the resource.
      */
     FormData getFormDataByUuid(final String uuid) throws IOException;
+    /**
+     * Get all form data objects matching given uuids
+     *
+     * @param uuids the list of uuids of the form data objects.
+     * @return the list of matched form data objects.
+     * @throws IOException when search api unable to process the resource.
+     */
+    List<FormData> getFormDataByUuid(final List<String> uuids) throws IOException;
 
     boolean syncFormData(final FormData formData) throws IOException;
 

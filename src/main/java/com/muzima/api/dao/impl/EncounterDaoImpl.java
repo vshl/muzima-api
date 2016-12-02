@@ -42,6 +42,15 @@ public class EncounterDaoImpl extends OpenmrsDaoImpl<Encounter> implements Encou
         return service.getObjects(filters, daoClass);
     }
 
+    public List<Encounter> getEncountersByFormDataUuid(final String formDataUuid) throws IOException{
+        List<Filter> filters = new ArrayList<Filter>();
+        if (!StringUtil.isEmpty(formDataUuid)) {
+            Filter filter = FilterFactory.createFilter("formDataUuid", formDataUuid);
+            filters.add(filter);
+        }
+        return service.getObjects(filters, daoClass);
+    }
+
     /**
      * {@inheritDoc}
      *

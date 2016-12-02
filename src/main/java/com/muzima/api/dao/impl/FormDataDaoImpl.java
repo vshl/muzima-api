@@ -82,6 +82,17 @@ public class FormDataDaoImpl extends SearchableDaoImpl<FormData> implements Form
     public FormData getFormDataByUuid(final String uuid) throws IOException {
         return service.getObject(uuid, daoClass);
     }
+    @Override
+    public List<FormData> getFormDataByUuid(final List<String> uuids) throws IOException {
+        List<FormData> formDataList = new ArrayList<FormData>();
+        for(String uuid:uuids){
+            FormData f = getFormDataByUuid(uuid);
+            if(f!=null){
+                formDataList.add(f);
+            }
+        }
+        return formDataList;
+    }
 
     /**
      * {@inheritDoc}
