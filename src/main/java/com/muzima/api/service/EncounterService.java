@@ -113,6 +113,18 @@ public interface EncounterService extends MuzimaInterface {
      */
     List<Encounter> getEncountersByPatientUuid(final String patientUuid) throws IOException;
 
+    /**
+     * Get Encounter from local data repository with matching form data uuid.
+     *
+     * @param formDataUuid the form data uuid.
+     * @return Encounter with matching form data uuid.
+     * @throws java.io.IOException when the search api unable to process the resource.
+     * @should return an encounter with matching form data uuid.
+     * @should return null when no encounter matches the form data uuid.
+     */
+    Encounter getEncounterByFormDataUuid(final String formDataUuid) throws IOException;
+
+
     Integer countEncountersByPatientUuid(final String patientUuid) throws IOException;
 
     /**
@@ -188,7 +200,6 @@ public interface EncounterService extends MuzimaInterface {
      * @should delete encounter from local data repository.
      */
     void deleteEncounter(final Encounter encounter) throws IOException;
-
     /**
      * Delete list of encounters from the local data repository.
      *

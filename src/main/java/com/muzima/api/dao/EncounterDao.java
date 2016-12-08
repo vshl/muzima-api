@@ -30,6 +30,16 @@ public interface EncounterDao extends OpenmrsDao<Encounter> {
      */
     List<Encounter> getEncountersByPatientUuid(final String patientUuid) throws IOException;
 
+
+    /**
+     * Get Encounter from local data repository with matching form data uuid.
+     *
+     * @param formDataUuid the form data uuid.
+     * @return Encounter with matching form data uuid.
+     * @throws java.io.IOException when the search api unable to process the resource.
+     */
+    List<Encounter> getEncountersByFormDataUuid(final String formDataUuid) throws IOException;
+
     /**
      * Count list of encounters for particular patient.
      *

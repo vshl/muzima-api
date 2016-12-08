@@ -391,6 +391,21 @@ public class EncounterServiceTest {
     }
 
     /**
+     * @verifies return encounter that matches form data Uuid.
+     * @see EncounterService#getEncounterByFormDataUuid(String)
+     */
+    @Test
+    public void getEncounterByFormDataUuid_shouldReturnEncounterThatMatchesFormDataUuid() throws Exception {
+        String randomFormDataUuid = UUID.randomUUID().toString();
+        assertThat(encounterService.getEncounterByFormDataUuid(randomFormDataUuid),equalTo(null));
+
+        encounter.setFormDataUuid(randomFormDataUuid);
+        assertThat(encounter.getFormDataUuid(),equalTo(randomFormDataUuid));
+        encounterService.saveEncounter(encounter);
+        assertThat(encounterService.getEncounterByFormDataUuid(randomFormDataUuid).getFormDataUuid(),equalTo(randomFormDataUuid));
+    }
+
+    /**
      * @verifies return downloaded list of encounters with matching uuid.
      * @see EncounterService#downloadEncountersByPatient(com.muzima.api.model.Patient)
      */

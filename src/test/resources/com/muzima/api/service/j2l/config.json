@@ -366,7 +366,8 @@
             "field.unique": "uuid",
             "field.searchable": {
                 "uuid": "$['uuid']",
-                "patientUuid": "$['patient']['uuid']"
+                "patientUuid": "$['patient']['uuid']",
+                "formDataUuid": "$['formDataUuid']"
             }
         },
         {
@@ -378,7 +379,8 @@
             "field.unique": "uuid",
             "field.searchable": {
                 "uuid": "$['uuid']",
-                "patientUuid": "$['patient']['uuid']"
+                "patientUuid": "$['patient']['uuid']",
+                "formDataUuid": "$['formDataUuid']"
             }
         },
         {

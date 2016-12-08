@@ -312,6 +312,19 @@ public class EncounterServiceImpl implements EncounterService {
         encounterDao.delete(encounter, Constants.UUID_ENCOUNTER_RESOURCE);
     }
 
+    @Override
+    public Encounter getEncounterByFormDataUuid(String formDataUuid) throws IOException {
+        Encounter encounter = null;
+        List<Encounter> encounters =  encounterDao.getEncountersByFormDataUuid(formDataUuid);
+        if (!CollectionUtil.isEmpty(encounters)) {
+            if (encounters.size() > 1) {
+                throw new IOException("Unable to uniquely identify an encounter record.");
+            }
+            encounter = encounters.get(0);
+        }
+        return encounter;
+    }
+
     /**
      * {@inheritDoc}
      *

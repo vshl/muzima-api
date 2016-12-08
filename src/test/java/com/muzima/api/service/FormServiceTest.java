@@ -24,6 +24,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -481,6 +482,43 @@ public class FormServiceTest {
     }
 
     /**
+     * @verifies return form data by the uuid.
+     * @see FormService#getFormDataByUuids(java.util.List>)
+     */
+    @Test
+    public void getFormDataByUuids_shouldReturnAllFormDataWithMatchingUuids() throws Exception {
+        List<String> formDataList = new ArrayList<String>();
+        String userUuid = UUID.randomUUID().toString();
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData firstFormData = new FormData();
+        firstFormData.setUuid(UUID.randomUUID().toString());
+        firstFormData.setStatus("Some random status");
+        firstFormData.setUserUuid(userUuid);
+        formService.saveFormData(firstFormData);
+        formDataList.add(firstFormData.getUuid());
+
+        FormData secondFormData = new FormData();
+        secondFormData.setUuid(UUID.randomUUID().toString());
+        secondFormData.setStatus("Some other random status");
+        secondFormData.setUserUuid(userUuid);
+        formService.saveFormData(secondFormData);
+        formDataList.add(secondFormData.getUuid());
+
+        assertThat(formService.getFormDataByUuids(formDataList), hasSize(2));
+
+        FormData thirdFormData = new FormData();
+        thirdFormData.setUuid(UUID.randomUUID().toString());
+        thirdFormData.setStatus("Some other random status");
+        thirdFormData.setUserUuid(userUuid);
+        formService.saveFormData(thirdFormData);
+
+        assertThat(formService.getFormDataByUuids(formDataList), hasSize(2));
+
+        formDataList.add(thirdFormData.getUuid());
+        assertThat(formService.getFormDataByUuids(formDataList), hasSize(3));
+    }
+
+    /**
      * @verifies count all form data in local data repository.
      * @see FormService#countAllFormData()
      */
@@ -565,6 +603,29 @@ public class FormServiceTest {
         for (FormData formData : savedFormData) {
             assertThat(formData.getStatus(), equalTo("Some random status"));
         }
+    }
+
+    /**
+     * @verifies return total count of forms matching the patient Uuid and status.
+     * @see FormService#countFormDataByPatient(String, String)
+     */
+    @Test
+    public void countFormDataByPatient_shouldReturnCountOfAllFormDataWithMatchingPatientAndStatus() throws Exception {
+        String patientUuid = UUID.randomUUID().toString();
+        assertThat(formService.countAllFormData(), equalTo(0));
+        FormData firstFormData = new FormData();
+        firstFormData.setUuid(UUID.randomUUID().toString());
+        firstFormData.setStatus("Some random status");
+        firstFormData.setPatientUuid(patientUuid);
+        formService.saveFormData(firstFormData);
+        FormData secondFormData = new FormData();
+        secondFormData.setUuid(UUID.randomUUID().toString());
+        secondFormData.setStatus("Some other random status");
+        secondFormData.setPatientUuid(patientUuid);
+        formService.saveFormData(secondFormData);
+        assertThat(formService.countAllFormData(), equalTo(2));
+        List<FormData> savedFormData = formService.getFormDataByPatient(patientUuid, "Some random status");
+        assertThat(formService.countFormDataByPatient(patientUuid, "Some random status"), equalTo(1));
     }
 
     /**
