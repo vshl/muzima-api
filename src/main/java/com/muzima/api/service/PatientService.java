@@ -9,6 +9,7 @@ package com.muzima.api.service;
 
 import com.google.inject.ImplementedBy;
 import com.muzima.api.model.CohortMember;
+import com.muzima.api.model.CohortMembership;
 import com.muzima.api.model.Patient;
 import com.muzima.api.service.impl.PatientServiceImpl;
 import org.apache.lucene.queryParser.ParseException;
@@ -223,4 +224,6 @@ public interface PatientService extends MuzimaInterface {
     List<Patient> getPatientsNotInCohorts() throws IOException;
 
     List<Patient> getPatientsFromCohortMembers(List<CohortMember> cohortMembers);
+
+    List<Patient> getPatientsFromCohortMemberships(List<CohortMembership> memberships);
 }

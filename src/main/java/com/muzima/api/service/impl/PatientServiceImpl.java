@@ -12,7 +12,9 @@ import com.google.inject.Inject;
 import com.muzima.api.dao.MemberDao;
 import com.muzima.api.dao.PatientDao;
 import com.muzima.api.model.CohortMember;
+import com.muzima.api.model.CohortMembership;
 import com.muzima.api.model.Patient;
+import com.muzima.api.service.CohortMembershipService;
 import com.muzima.api.service.CohortService;
 import com.muzima.api.service.PatientService;
 import com.muzima.search.api.util.CollectionUtil;
@@ -36,6 +38,9 @@ public class PatientServiceImpl implements PatientService {
 
     @Inject
     private CohortService cohortService;
+
+    @Inject
+    private CohortMembershipService membershipService;
 
     protected PatientServiceImpl() {
     }
@@ -230,8 +235,8 @@ public class PatientServiceImpl implements PatientService {
     public List<Patient> getPatients(final String cohortUuid,
                                         final Integer page,
                                         final Integer pageSize) throws IOException {
-        List<CohortMember> cohortMembers = cohortService.getCohortMembers(cohortUuid, page, pageSize);
-        return getPatientsFromCohortMembers(cohortMembers);
+        List<CohortMembership> memberships = membershipService.getCohortMemberships(cohortUuid, page, pageSize);
+        return getPatientsFromCohortMemberships(memberships);
     }
 
 
@@ -311,7 +316,16 @@ public class PatientServiceImpl implements PatientService {
         return sortDisplayNameAscending(patients);
     }
 
-    private boolean isNotAPartOfAnyCohort(Patient patient) throws IOException {
+	@Override
+	public List<Patient> getPatientsFromCohortMemberships(List<CohortMembership> memberships) {
+    	List<Patient> patients = new ArrayList<Patient>();
+    	for (CohortMembership membership : memberships) {
+    	    patients.add(membership.getPatient());
+        }
+        return sortDisplayNameAscending(patients);
+	}
+
+	private boolean isNotAPartOfAnyCohort(Patient patient) throws IOException {
         return memberDao.countByPatientUUID(patient.getUuid()) == 0;
     }
 
