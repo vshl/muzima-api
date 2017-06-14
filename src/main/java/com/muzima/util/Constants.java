@@ -144,4 +144,6 @@ public class Constants {
     public static final String UUID_SETUP_CONFIGURATION_TEMPLATE_RESOURCE = "Uuid Setup Configuration Template Resource";
 
     public static final String SEARCH_SETUP_CONFIGURATION_TEMPLATE_RESOURCE = "Search Setup Configuration Template Resource";
+
+    public static final String COHORT_MEMBERSHIP_DATA_RESOURCE = "Cohort Membership Resource";
 }

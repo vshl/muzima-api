@@ -12,6 +12,7 @@ import com.google.inject.Injector;
 import com.jayway.jsonpath.JsonPath;
 import com.muzima.api.config.Configuration;
 import com.muzima.api.model.User;
+import com.muzima.api.service.CohortMembershipService;
 import com.muzima.api.service.CohortService;
 import com.muzima.api.service.EncounterService;
 import com.muzima.api.service.FormService;
@@ -32,6 +33,7 @@ import com.muzima.search.api.resource.Resource;
 import com.muzima.search.api.resource.ResourceConstants;
 import com.muzima.search.api.util.StringUtil;
 import com.muzima.util.Constants;
+import com.muzima.util.handler.impl.CohortMembershipDeltaHandler;
 import org.apache.lucene.queryParser.ParseException;
 
 import java.io.ByteArrayInputStream;
@@ -380,5 +382,23 @@ public class Context {
      */
     public SetupConfigurationService getSetupConfigurationService() throws IOException {
         return getService(SetupConfigurationService.class);
+    }
+
+    /**
+     * Get the cohort handler service to perform operation related to the location object.
+     *
+     * @return the setup cohort handler service class.
+     * @throws IOException when the system unable to find the correct service object.
+     */
+    public CohortMembershipService getCohortMembershipService() throws IOException {
+        return getService(CohortMembershipService.class);
+    }
+
+    /**
+     * Get the cohort handler delta handler to perform the delta operation
+     * @return the cohort handler delta handler
+     */
+    public CohortMembershipDeltaHandler getCohortMembershipDeltaHandler() throws IOException {
+        return getService(CohortMembershipDeltaHandler.class);
     }
 }

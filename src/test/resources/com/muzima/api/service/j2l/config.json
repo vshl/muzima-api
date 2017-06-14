@@ -524,6 +524,23 @@
             "field.searchable": {
                 "uuid": "$['uuid']"
             }
+        },
+        {
+            "resource.name": "Cohort Membership Resource",
+            "node.root": "$['results']",
+            "resource.object": "com.muzima.api.model.CohortMembership",
+            "algorithm.class": "com.muzima.api.model.algorithm.CohortMembershipAlgorithm",
+            "resolver.class": "com.muzima.api.model.resolver.CohortMembershipResolver",
+            "field.unique": "uuid",
+            "field.searchable": {
+                "cohortUuid": "$['cohort']['uuid']",
+                "patientUuid": "$['patient']['uuid']",
+                "givenName": "$['patient']['names'][*]['givenName']",
+                "middleName": "$['patient']['names'][*]['middleName']",
+                "familyName": "$['patient']['names'][*]['familyName']",
+                "identifier": "$['patient']['identifiers'][*]['identifier']",
+                "uuid": "$['uuid']"
+            }
         }
     ]
 }
